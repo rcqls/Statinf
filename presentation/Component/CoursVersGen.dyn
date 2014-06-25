@@ -1,0 +1,353 @@
+
+\newcommand{\Rep}{\underline{\tiny Réponse : } }
+\section[Exemples]{Vers la généralité au travers d'exemples}
+
+\begin{frame}
+
+\frametitle{Paramètre d'intérêt et assertion d'intérêt}
+
+\begin{exampleblock}{Qu'est-ce qu'on fait cette année~?}
+Une problématique générale (type celle de l'industriel) qui sera traitée dans ce cours est une problématique qui sera \textbf{principalement} caractérisée par\pause
+\begin{enumerate}
+\item un {\color[rgb]{1,0,0} paramètre d'intérêt}~: \pause c'est le paramètre {\color[rgb]{0,0,1} \bf inconnu} qui résume la problématique.\pause  
+\item  une {\color[rgb]{1,0,0} assertion d'intérêt}~: \pause ce que l'instigateur de la problématique {\color[rgb]{0,0,1}souhaiterait montrer}. Elle peut être décrite à partir du paramètre d'intérêt.
+\end{enumerate}
+
+\end{exampleblock}
+
+\begin{alertblock}<6->{Petit exercice}
+Dans les exemples ci-après, définir littéralement (puis en proposant une notation) le paramètre d'intérêt et l'assertion d'intérêt~?
+\end{alertblock}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problématique de la dictée}
+
+\begin{exampleblock}{Enoncé}
+\begin{itemize}
+\pause \item En 2000, une \alt<2>{dictaie}{{\large \bf dictée}} (de niveau 3ème) a été \alt<2>{proposer}{{\bf proposé}} à un très très grand nombre de futurs candidats au baccalauréat. A l'époque la note moyenne (calculée à \alt<2>{partire}{{\bf partir}} de l'ensemble des candidats \alt<2>{présent}{{\bf présents}}) obtenue était de {\color[rgb]{1,0,0}\fbox{$6.3$}}. 
+\pause \pause\item Un professeur de français \textbf{\color{blue}pense} (et voudrait le vérifier {\color{blue} rapidement} en soumettant 25 lycéens choisis au hasard à cette dictée) que les nouvelles méthodes d'enseignement, les nouveaux programmes, les nouvelles préoccupations  des lycéens,\ldots ont un {\color{red}\fbox{effet}} sur le niveau en orthographe des bacheliers actuels.    
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problématique du technicien}
+
+\begin{exampleblock}{Enoncé}
+\begin{itemize}
+\item Un service de contrôle d'une entreprise de métallurgie s'intéresse à savoir si un technicien est {\color{blue} suffisamment précis} au niveau des mesures quotidiennes qu'il effectue sur des minerais de fer (mesures du diamètre). Une compétence suffisante sera récompensée par une prime.
+\pause \item Le technicien sera d'autant plus précis que l'{\color{blue}écart entre deux mesures} d'un même minerai de fer est {\color{red} faible}.
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{Mesure de la compétence par le service}<3>
+Le service impose: ``Le technicien est compétent si la {\color{red} variance d'une infinité d'écarts} de mesures est inférieure à {\color{blue}0.1}''
+\end{alertblock}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Paramètres d'intérêt}
+
+\begin{exampleblock}{Synthèse des énoncés en questions}
+\begin{enumerate}
+\item {\small \textit{Comment définir littéralement les paramètres d'intérêt des problématiques~? Comment les noter~?}} \\ \pause
+\Rep 
+\begin{itemize}
+\item[ProdA]{\color{red}\fbox{$p^A=\mu^A$}} = prop. d'acheteurs potentiels du produit A.  \\
+\item[ProdB]{\color{red}\fbox{$\mu^B$}} = nbre moy. de produits B achetés par individu  \\ 
+\item[Dict] {\color{red}\fbox{$\mu^D$}} = note moy. à la dictée des futurs cand. au bac \\ 
+\item[Tech] {\color{red}\fbox{$\sigma_C^2$}} = variance d'une inf. d'écarts de mesures du technicien\\ 
+\end{itemize}
+
+\pause \item {\small\textit{Sont-ils raisonnablement évaluables~? Autrement dit, comment peut-on les qualifier~?}}\pause \\ 
+\Rep Non c'est soit trop cher, soit pas assez rapide soit vraiment inévaluable. Autrement dit, ils sont considérés comme {\color{blue} inconnus}.
+
+\end{enumerate}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Assertions d'intérêt}
+
+\begin{exampleblock}{Synthèse des énoncés en questions (suite)}
+\begin{enumerate}
+\pause\item {\small\textit{Quelle est l'assertion d'intérêt~?}} \\ \pause
+\Rep 
+\begin{itemize}
+\item[ProdA] Le produit A est rentable $\Longleftrightarrow$  {\color{red}\fbox{$p^A >15\%$}}
+\item[ProdB]Le produit B est rentable $\Longleftrightarrow$  {\color{red}\fbox{$\mu^B >0.15$}}
+\item[Dict] Il y a un effet sur le niveau actuel $\Longleftrightarrow$  {\color{red}\fbox{$\mu^D \neq 6.3$}}
+\item[Tech] Le technicien est suffisamment compétent $\Longleftrightarrow$  {\color{red}\fbox{$\sigma^2_C<0.1$}}
+\end{itemize}
+
+\pause\item {\small\textit{A partir de quelle information la décision sera-t-elle basée~?}} \\ \pause
+\Rep 
+\begin{itemize}
+\item[Prod$\bullet$] à partir de {\color{red}\fbox{$\Vect{y}$}} = vecteur des réponses des 1000 individus.
+\item[Dict] à partir de {\color{red}\fbox{$\Vect{y}$}} = vecteur des notes de ses 25 élèves.
+\item[Tech] à partir de {\color{red}\fbox{$\Vect{y}$}} = vecteur de $n=20$ écarts de mesures.
+\end{itemize}
+\end{enumerate}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Synthèse des différents exemples}
+
+\begin{block}{Tableau récapitulatif}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline &&&\\
+{\small Problématique} & {\small Paramètre d'intérêt} &{\small Réf.} &{\small Assertion d'intérêt} \\ 
+ & ${\color<2>{red}\theta}$&${\color<3>{blue}\theta_0}$&\\ \hline  
+Produit A & ${\color<2>{red}p^A}$ & {\color<3>{blue}15\%} &${\color<2>{red} p^A} {\color<4>{red}>} {\color<3>{blue}15\% }$ \\ \hline 
+Produit B & ${\color<2>{red}\mu^B}$ & {\color<3>{blue}0.15} &${\color<2>{red}\mu^B}{\color<4>{red}>} {\color<3>{blue}0.15}$ \\   \hline
+ Dictée& ${\color<2>{red}\mu^D}$ & {\color<3>{blue}6.3} &${\color<2>{red}\mu^D} {\color<4>{red} \neq} {\color<3>{blue}6.3}$ \\  \hline 
+Technicien &${\color<2>{red}\sigma^2_C}$ & {\color<3>{blue}0.1} &${\color<2>{red}\sigma^2_C} {\color<4>{red}<}{\color<3>{blue}0.1}$ \\ \hline 
+\end{tabular}
+\end{center}
+\end{block}
+
+
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Hypothèses de test pour les trois problématiques}
+{\small
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Problématique et cadre}} \\
+\hline
+\textbf{Produit $\bullet$} ($n$ grand) & \textbf{Dictée} ($n$ faible) & \textbf{Technicien} ($n$ faible) \\
+Pas d'hyp. & Hyp: $Y_i^D\leadsto \mathcal{N}(\mu^D,\sigma_D)$ & Hyp: $Y_i^C\leadsto \mathcal{N}(\mu^C,\sigma_C)$ \pause\\
+\hline \hline 
+\multicolumn{3}{|c|}{\textbf{\color{blue}Paramètre d'écart}} \\
+\hline \pause
+$\delta_{\mu^\bullet,0.15}$ & $\delta_{\mu^D,6.3}=\frac{\mu^D-6.3}{\sqrt{\frac{\sigma_D^2}n}}$ & $\delta_{\sigma_C^2,0.1}=(n-1)\frac{\sigma_C^2}{0.1}$\pause\\
+\hline \hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Assertion d'intérêt}} \\
+\hline \pause
+$\mathbf{H_1}: \mu^\bullet>0.15$ & $\mathbf{H_1}: \mu^D\neq 6.3$ & $\mathbf{H_1}: \sigma_C^2<0.1$ \\
+$\Leftrightarrow \delta_{\mu^\bullet,0.15}>0$& $\Leftrightarrow \delta_{\mu^D,6.3}\neq 0$ &$\Leftrightarrow \delta_{\sigma_C^2,0.1}<(n-1)$ \pause\\
+\hline \hline 
+\multicolumn{3}{|c|}{\textbf{\color{blue}Pire des mauvaises situations}} \\
+\hline \pause
+$\mathbf{H_0}: \mu^\bullet=0.15$ & $\mathbf{H_0}: \mu^D= 6.3$ & $\mathbf{H_0}: \sigma_C^2=0.1$ \\
+$\Leftrightarrow \delta_{\mu^\bullet,0.15}=0$& $\Leftrightarrow \delta_{\mu^D,6.3}= 0$ &$\Leftrightarrow \delta_{\sigma_C^2,0.1}=(n-1)$ \\
+\hline
+\end{tabular}
+
+\end{center}
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Statistique de test (sous $\mathbf{H_0}$)}
+
+{\small
+\hspace*{-.3cm}\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue} Assertion d'intérêt}} \\
+\hline
+Produit $\bullet$ & Dictée & Technicien\\
+$\mathbf{H_1}: \mu^\bullet>0.15$ & $\mathbf{H_1}: \mu^D\neq 6.3$ & $\mathbf{H_1}: \sigma_C^2<0.1$ \\
+\hline \hline 
+\multicolumn{3}{|c|}{\textbf{\color{blue}Statistique de test}} \\
+\hline \pause
+$\Est{\delta_{\mu^\bullet,0.15}}{Y^\bullet}$ & {\scriptsize$\Est{\delta_{\mu^D,6.3}}{Y^D}=\frac{\Est{\mu^D}{Y^D}-6.3}{\sqrt{\frac{\Est{\sigma_D^2}{Y^D}}n}}$}& $\Est{\delta_{\sigma^2_C,0.1}}{Y^C}=(n-1)\frac{\Est{\sigma_C^2}{Y^C}}{0.1}$ \pause\\
+\hline \hline 
+\multicolumn{3}{|c|}{\textbf{\color{blue}Comportement aléatoire sous $\mathbf{H_0}$}} \\
+\hline \pause
+%$\Est{\delta_{\mu^\bullet,0.15}}{Y^\bullet}$
+$\SuitApprox \mathcal{N}(0,1)$ &  $\Est{\delta_{\mu^D,6.3}}{Y^D} \leadsto \mathcal{S}t(n-1)$ & $\Est{\delta_{\sigma^2_C,0.1}}{Y^C}\leadsto \chi^2(n-1)$\pause\\
+\hline\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Règles de décision : accepter $\mathbf{H_1}$ si}} \\ \hline \pause
+$\Est{\delta_{\mu^\bullet,0.15}}{y^\bullet}>\delta_{lim,\alpha}^+$& $\Est{\delta_{\mu^D,6.3}}{y^D}<\delta_{lim,\alpha/2}^-$ 
+& $\Est{\delta_{\sigma_C^2,0.1}}{y^\bullet}<\delta_{lim,\alpha}^-$ \\
+& $\Est{\delta_{\mu^D,6.3}}{y^D}>\delta_{lim,\alpha/2}^+$ &\\
+\hline
+
+\end{tabular}
+
+}
+\end{frame}
+
+{#hide]
+\begin{frame}
+\frametitle{Règles de décision en images}
+
+
+[@FigureSimple]
+  :img => img/N01droite.png 
+  :include => false  
+  :rcode =>
+require(CqlsRandom)
+plot(Norm(),lwd=3,xlab="",ylab="",col='red',main="N(0,1)")
+area(Norm(),prob=c(0.95,1),col='red3',angle=-40,dens=10)
+abline(v=qnorm(.95),col='green',lwd=2)
+abline(h=0,v=0)
+[@FigureSimple]
+  :img => img/St29bi.png 
+  :include => false  
+  :rcode =>
+plot(St(29),lwd=3,xlab="",ylab="",col='red',main="St(29)")
+area(St(29),prob=c(0,0.025),col='red3',angle=-40,dens=10)
+area(St(29),prob=c(0.975,1),col='red3',angle=-40,dens=10)
+abline(v=qt(c(.025,.975),29),col='green',lwd=2)
+abline(h=0,v=0)
+[@FigureSimple]
+  :img => img/Chisq19gauche.png 
+  :include => false  
+  :rcode =>
+plot(Chi2(19),lwd=3,xlab="",ylab="",col='red',main="Chi2(19)")
+area(Chi2(19),prob=c(0,0.05),col='red3',angle=-40,dens=10)
+abline(v=qchisq(.05,19),col='green',lwd=3)
+abline(h=0,v=0)
+[#end]
+
+{\small
+\hspace*{-.9cm}\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue} Assertion d'intérêt}} \\
+\hline
+$\mathbf{H_1}: \mu^\bullet>0.15$ & $\mathbf{H_1}: \mu^D\neq 6.3$ & $\mathbf{H_1}: \sigma_C^2<0.1$ \\
+\hline \hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Règles de décision : accepter $\mathbf{H_1}$ si}} \\ \hline
+$\Est{\delta_{\mu^\bullet,0.15}}{y^\bullet}>\delta_{lim,\alpha}^+$& $\Est{\delta_{\mu^D,6.3}}{y^D}<\delta_{lim,\alpha/2}^-$ 
+& $\Est{\delta_{\sigma_C^2,0.1}}{y^\bullet}<\delta_{lim,\alpha}^-$ \\
+& $\Est{\delta_{\mu^D,6.3}}{y^D}>\delta_{lim,\alpha/2}^+$ & \\
+ \hline 
+\includegraphics[scale=.22]{img/N01droite} & \includegraphics[scale=.22]{img/St29bi} &\includegraphics[scale=.22]{img/Chisq19gauche} \pause \\ 
+$\delta_{lim,\alpha^+}\!\stackrel{R}{=}$\texttt{qnorm(0.95)} & $\delta_{lim,\alpha/2}^-\!\stackrel{R}{=}$\texttt{qt(0.025,29)}& 
+$\delta_{lim,\alpha^-}\!\stackrel{R}{=}$\texttt{qchisq(0.05,19)} \\
+& $\delta_{lim,\alpha/2}^+\!\stackrel{R}{=}$\texttt{qt(0.975,29)}& \\
+\hline
+\end{tabular}
+
+}
+\end{frame}
+[#hide}
+{#hide]
+\begin{frame}
+\frametitle{Le jour J}
+[@FigureSimple]
+  :img => img/N01droiteProdB.png 
+  :include => false  
+  :rcode =>
+require(CqlsRandom)
+plot(Norm(),lwd=3,xlab="",ylab="",col='red',main="N(0,1)")
+area(Norm(),prob=c(0.95,1),col='red3',angle=-40,dens=10)
+abline(v=qnorm(.95),col='green',lwd=2)
+abline(h=0,v=0)
+attach('~/cqls/data/industriel.RData')
+attach(industriel)
+deltaProdB <- (mean(yB)-0.15)/sqrt(var(yB)/length(yB)) 
+abline(v=deltaProdB,lty=2,lwd=2,col="blue")
+[@FigureSimple]
+  :img => img/St29biDict.png 
+  :include => false  
+  :rcode =>
+plot(St(29),lwd=3,xlab="",ylab="",col='red',main="St(29)")
+area(St(29),prob=c(0,0.025),col='red3',angle=-40,dens=10)
+area(St(29),prob=c(0.975,1),col='red3',angle=-40,dens=10)
+abline(v=qt(c(.025,.975),29),col='green',lwd=2)
+abline(h=0,v=0)
+attach('~/cqls/data/dictee.RData')
+deltaDict<-(mean(y)-6.3)/sqrt(var(y)/length(y))
+abline(v=deltaDict,lty=2,lwd=2,col="blue")
+[@FigureSimple]
+  :img => img/Chisq19gaucheTechA.png 
+  :include => false  
+  :rcode =>
+plot(Chi2(19),lwd=3,xlab="",ylab="",col='red',main="Chi2(19)")
+area(Chi2(19),prob=c(0,0.05),col='red3',angle=-40,dens=10)
+abline(v=qchisq(.05,19),col='green',lwd=3)
+abline(h=0,v=0)
+attach('~/cqls/data/techniciens.RData')
+deltaTechA<-19*var(yA[1:20])/0.1
+abline(v=deltaTechA,lty=2,lwd=2,col="blue")
+[#end]
+
+
+{\small
+\hspace*{.0cm}\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue} Assertion d'intérêt}} \\
+\hline
+$\mathbf{H_1}: \mu^\bullet>0.15$ & $\mathbf{H_1}: \mu^D\neq 6.3$ & $\mathbf{H_1}: \sigma_C^2<0.1$ \\
+\hline \hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Règles de décision : accepter $\mathbf{H_1}$ si}} \\ \hline
+$\Est{\delta_{\mu^\bullet,0.15}}{y^\bullet}>\delta_{lim,\alpha}^+$& $\Est{\delta_{\mu^D,6.3}}{y^D}<\delta_{lim,\alpha/2}^-$ 
+& $\Est{\delta_{\sigma_C^2,0.1}}{y^\bullet}<\delta_{lim,\alpha}^-$ \\
+& $\Est{\delta_{\mu^D,6.3}}{y^D}>\delta_{lim,\alpha/2}^+$ &\\
+\hline
+\includegraphics[scale=.22]{img/N01droiteProdB} & \includegraphics[scale=.22]{img/St29biDict} &\includegraphics[scale=.22]{img/Chisq19gaucheTechA} \pause\\
+$\widehat{\delta}\!\stackrel{R}{=}$\texttt{(mean(yB)-0.15)/} & $\widehat{\delta}\!\stackrel{R}{=}$\texttt{(mean(yD)-6.3)/} & $\widehat{\delta}\!\stackrel{R}{=}$\texttt{19*var(yC)/0.1} \\
+\texttt{sqrt(var(yB)/1000)}&\texttt{sqrt(var(yD)/25)}&  \\
+\hline
+\end{tabular}
+
+}
+\end{frame}
+[#hide}
+
+\begin{frame}
+\frametitle{Le jour J}
+[#r<] 
+attach('~/cqls/data/dictee.RData')
+deltaDict<-(mean(y[1:25])-6.3)/sqrt(var(y[1:25])/25)
+attach('~/cqls/data/industriel.RData')
+attach(industriel)
+deltaProdB <- (mean(yB)-0.15)/sqrt(var(yB)/length(yB)) 
+attach('~/cqls/data/techniciens.RData')
+deltaTechA<-19*var(yA[1:20])/0.1
+[#>]
+
+
+{\small
+\hspace*{-.0cm}\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue} Assertion d'intérêt}} \\
+\hline
+$\mathbf{H_1}: \mu^B>0.15$ & $\mathbf{H_1}: \mu^D\neq 6.3$ & $\mathbf{H_1}: \sigma_C^2<0.1$ \\
+\hline \hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Règles de décision : accepter $\mathbf{H_1}$ si}} \\ \hline
+$\Est{\delta_{\mu^B,0.15}}{y^B}>\delta_{lim,\alpha}^+$& $\Est{\delta_{\mu^D,6.3}}{y^D}<\delta_{lim,\alpha/2}^-$ 
+& $\Est{\delta_{\sigma_C^2,0.1}}{y^B}<\delta_{lim,\alpha}^-$ \\
+& $\Est{\delta_{\mu^D,6.3}}{y^D}>\delta_{lim,\alpha/2}^+$ &\pause\\
+\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Instructions~\texttt{R} utiles pour la décision}} \\ \hline
+$\widehat{\delta}\!\stackrel{R}{=}$\texttt{(mean(yB)-0.15)/} & $\widehat{\delta}\!\stackrel{R}{=}$\texttt{(mean(yD)-6.3)/} & $\widehat{\delta}\!\stackrel{R}{=}$\texttt{19*var(yC)/0.1} \\
+\texttt{sqrt(var(yB)/1000)}&\texttt{sqrt(var(yD)/25)}& \pause\\
+\hline
+$\delta_{lim,\alpha}^+\!\stackrel{R}{=}$\texttt{qnorm(0.95)} & $\delta_{lim,\alpha/2}^-\!\stackrel{R}{=}$\texttt{qt(0.025,29)}& 
+$\delta_{lim,\alpha}^-\!\stackrel{R}{=}$\texttt{qchisq(0.05,19)} \\
+& $\delta_{lim,\alpha/2}^+\!\stackrel{R}{=}$\texttt{qt(0.975,29)}& \pause\\
+\hline
+\multicolumn{3}{|c|}{\textbf{\color{blue}Application numérique le jour~J}} \\ \hline
+&&\\
+$\widehat{\delta}\!=\mathtt{#r{deltaProdB}}$&$\widehat{\delta}\!=\mathtt{#r{deltaDict}}$& $\widehat{\delta}\!=\mathtt{#r{deltaTechA}}$ \\
+$\delta_{lim,\alpha}^+\!=\mathtt{#r{qnorm(0.95)}}$ & $\delta_{lim,\alpha/2}^-\!=\mathtt{#r{qt(0.025,29)}}$& $\delta_{lim,\alpha}^-\!=\mathtt{#r{qchisq(0.05,19)}}$\\
+& $\delta_{lim,\alpha/2}^+\!=\mathtt{#r{qt(0.975,29)}}$& \\\hline
+\end{tabular}
+
+}
+\end{frame}

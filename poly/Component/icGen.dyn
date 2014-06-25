@@ -1,0 +1,8 @@
+
+Le concept d'intervalle de confiance d'un param{\`e}tre quelconque $\theta$ consiste {\`a} proposer un encadrement (ou une ``fourchette'') repr{\'e}sent{\'e} par un intervalle de variables al{\'e}atoires $\left[\Int{\theta}{\inf}{Y},\Int{\theta}{\sup}{Y}\right]$ de sorte que le param{\`e}tre d'int{\'e}r{\^e}t $\theta$ inconnu ait un niveau de confiance $1-\alpha$ (plut{\^o}t élev{\'e} si $\alpha$ raisonnablement petit) d'{\^e}tre {\`a} l'int{\'e}rieur de cet intervalle. Math{\'e}matiquement cela s'exprime par~:
+$$\mbox{\fbox{$\Prob{ \theta\in \left[\Int{\theta}{\inf}{Y},\Int{\theta}{\sup}{Y}\right] } = 1-\alpha$}}$$
+
+Par l'approche exp{\'e}rimentale, si nous pouvions imaginer r{\'e}p{\'e}ter autant de fois que possible la conception d'intervalles de confiance 
+$\left[\Int{\theta}{\inf}{y_{[1]}},\Int{\theta}{\sup}{y_{[1]}}\right],\ldots,\left[\Int{\theta}{\inf}{y_{[m]}},\Int{\theta}{\sup}{y_{[m]}}\right],\ldots$ obtenus respectivement sur une infinit{\'e} de jeux de donn{\'e}es virtuels $\mathbf{y_{[1]}},\ldots,\mathbf{y_{[m]}},\ldots$, nous constaterions alors qu'il n'y en aurait qu'une proportion $1-\alpha$ qui contiendraient le param{\`e}tre d'int{\'e}r{\^e}t $\theta$ inconnu. La construction de ces intervalles d{\'e}pend en g{\'e}n{\'e}ral de la caract{\'e}risation du comportement al{\'e}atoire 
+de la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat\theta,\theta}(\mathbf{Y})$ propos{\'e}e dans toutes les probl{\'e}matiques dans le tableau suivant~:
+[#<<]tabIC

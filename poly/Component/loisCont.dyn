@@ -1,0 +1,143 @@
+\begin{landscape}
+\pagestyle{empty}
+\nopagebreak
+%\begin{minipage}{15cm} 
+\hspace*{-2cm}
+\begin{tabular}{|l|l|l|l|l|} \hline
+\multicolumn{5}{|c|}{\normalsize {\bf Tables de lois usuelles de variables al{\'e}atoires continues (pour la statistique) }}\\\hline
+%1ere ligne
+\parbox[ct]{3.5cm}{\centerline {\normalsize Nom}}  & 
+\parbox[ct]{5cm}{\centerline {\normalsize Graphe}} &
+\parbox[ct]{5cm}{\centerline {\normalsize Densit{\'e} de probabilit{\'e}}} &
+\parbox[ct]{4cm}{\centerline {\normalsize Esp{\'e}rance et Variance}} & 
+\parbox[ct]{6cm}{\centerline {\normalsize Remarques}} \\ \hline
+%2eme ligne
+\parbox[ct]{3.5cm}{Uniforme\\ 
+$$ \begin{array}{l} X\leadsto \QTR{cal}{U}\left( \left[ a,b\right] \right)  \\
+a<b \end{array} $$}
+& \begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{{#prjpath]statinf-cours/poly[#,]img[#}/uniforme} \\ $\QTR{cal}{U}\left( \left[ 0,1\right] \right)$ et $\QTR{cal}{U} \left( \left[ 2,4\right] \right)$.\\ \end{tabular} &
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\left\{ 
+\begin{array}{lc}
+\dfrac 1{b-a} & \text{si }x\in \left[ a,b\right]  \\ 0 & \text{sinon}
+\end{array}
+\right.  
+$$} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =
+\dfrac{a+b}2 \\ \text{et} \\ Var\left( X\right) =\dfrac{\left( b-a\right) ^2%
+}{12}
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{La densit{\'e} de probabilit{\'e} d'une loi uniforme est un histogramme {\`a} $1$ classe.} \\ \hline
+%3eme ligne
+\parbox[ct]{3.5cm}{Normale\\ 
+$$\begin{array}{l} X\leadsto \QTR{cal}{N}\left( \mu,\sigma\right)\\
+\mu \text{ r{\'e}el et } \sigma \text{ r{\'e}el}>0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{{#prjpath]statinf-cours/poly[#,]img[#}/normal}\\ $\QTR{cal}{N}\left( -2,0.5\right)$, $\QTR{cal}{N}\left( 0,1\right)$ puis $\QTR{cal}{N}\left( 4,2\right)$.\\ \end{tabular} &
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\frac 1{\sigma \sqrt{2\pi }}e^{-\dfrac 12\left( \dfrac{%
+x-\mu }\sigma \right) ^2} 
+$$} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =\mu  \\ 
+\text{et} \\ Var\left( X\right) =\sigma ^2
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{1) Si $X\leadsto \QTR{cal}{N}\left( \mu,\sigma\right)$ alors
+$ \dfrac{X-\mu}{\sigma}\leadsto \QTR{cal}{N}\left( 0,1\right)$\\\\
+ 2) Si $X\leadsto \QTR{cal}{N}\left( \mu_X,\sigma_X\right)$ et $Y\leadsto \QTR{cal}{N}\left( \mu_Y,\sigma_Y\right)$ sont des v.a. ind{\'e}pendantes alors
+$$
+X+Y \leadsto \QTR{cal}{N}\left( \mu_X+\mu_Y,\sqrt{\sigma_X^2+\sigma_Y^2}\right).
+$$} \\ \hline
+%4eme ligne
+\parbox[ct]{3.5cm}{Chisquare\\ 
+$$\begin{array}{l} X\leadsto \chi^2\left( \nu \right)\\
+\nu  \text{ entier} >0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{{#prjpath]statinf-cours/poly[#,]img[#}/chi2}\\
+ $\nu =3$, $\nu =6$ puis $\nu =9$. \\ \end{tabular}&
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\left\{ 
+\begin{array}{lc}
+\dfrac{e^{-\frac{x}{2}}x^{\frac{\left( \nu -2\right)}{2}}}{2^{\frac{\nu} {2}}\Gamma \left( \frac{\nu}
+{2}\right) } & \text{si }x>0 \\ 0 & \text{sinon}
+\end{array}
+\right.  
+$$
+} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =\nu  \\ 
+\text{et} \\ Var\left( X\right) =2\nu 
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{Si $X_1,\cdots,X_n$ sont $n$ lois $\QTR{cal}{N}\left( 0,1\right)$ ind{\'e}pendantes alors
+$$ Y=\displaystyle\sum\limits_{i=1}^n{X_i}^2 \leadsto \chi^2\left( n\right)$$}  \\ \hline
+%5eme ligne
+\parbox[ct]{3.5cm}{Student\\ 
+$$\begin{array}{l} X\leadsto \QTR{cal}{S}t\left( \nu \right)\\
+\nu  \text{ entier} >0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{{#prjpath]statinf-cours/poly[#,]img[#}/student}\\
+ $\nu =2$ et $\nu =30$. \\ \end{tabular}&
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\dfrac{\left( 1+\frac{x^2}{\nu} \right) ^{-\frac{1}{2}\left( \nu +1\right)
+}}{\beta \left( \frac{1}{2},\frac{\nu} {2}\right)\sqrt{\nu } } 
+$$
+} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =0
+\text{ si }\nu \geq 2 \\ \text{et} \\ Var\left( X\right) =\dfrac \nu {\nu -2}%
+\text{ si }\nu \geq 3
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{Si $X\leadsto \QTR{cal}{N}\left( 0,1\right)$ et $Y\leadsto \chi^2\left( \nu \right)$ sont ind{\'e}pendantes alors
+$$
+Z=\dfrac{X}{\sqrt{\dfrac{Y}{\nu}}}\leadsto \QTR{cal}{S}t\left( \nu \right)
+$$}  \\ \hline
+%6eme ligne
+\parbox[ct]{3.5cm}{Fisher\\ 
+$$\begin{array}{l} X\leadsto \QTR{cal}{F}\left( \nu_1,\nu_2\right)\\
+\nu_1,\nu_2 \text{ entiers}>0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{{#prjpath]statinf-cours/poly[#,]img[#}/fisher} \\ $\QTR{cal}{F}\left( 5,200\right)$, $\QTR{cal}{F}\left( 200,5\right)$ puis $\QTR{cal}{F}\left( 30,30\right)$.\\ \end{tabular} &
+\parbox[ct]{5cm}{$$\begin{array}{c} \left\{
+\begin{array}{l}
+f\left( x\right) \! =
+\! \dfrac{\nu _1^{\frac{1}{2} \! \nu _1} \! \nu _2^{\frac{1}{2} \! \nu _2} \! x^{\frac{\nu _1}{2} \!- \!1}}{\left( \! \nu
+_1 \! x \! + \! \nu _2 \! \right) ^{\frac{1}{2} \!\left( \! \nu _1 \!+\!\nu _2 \! \right) \!} \! \beta \!\left( \frac{\nu
+_1}{2},\frac{\nu _2}{2} \!\right) } \\ \text{si }x>0 
+\end{array} \right.\\ \\ f\left( x\right) \! =0  \text{ sinon}
+\end{array}  
+$$} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+\left\{ \begin{array}{l}
+E\left( X\right) =\dfrac {\nu_2} {\nu_2 -2} \\
+\text{si }\nu_2 \geq 3 
+\end{array} \right. \\ \text{et} \\
+\left\{ \begin{array}{l} 
+Var\left( X\right)\! = \!\dfrac{2\nu
+_2^2 \! \left( \! \nu _1\! + \!\nu _2 \!-\! 2\! \right) }{\! \nu _1 \! \left( \! \nu _2 \! - \! 2 \! \right) ^2 \!\left(
+ \! \nu _2 \! - \! 4 \! \right) } \\ \text{si }\nu_2 \geq 5 
+\end{array} \right.
+\end{array}
+$$}  & 
+\parbox[ct]{6cm}{Si $X_1 \leadsto \chi^2\left( \nu_1 \right)$ et $X_2\leadsto \chi^2\left( \nu_2 \right)$ sont ind{\'e}pendantes alors
+$$
+Y=\dfrac{X_1/\nu_1}{X_2/\nu_2} \leadsto \QTR{cal}{F}\left( \nu_1,\nu_2\right)
+$$} \\ \hline
+\end{tabular}
+%\end{minipage}
+
+\end{landscape}

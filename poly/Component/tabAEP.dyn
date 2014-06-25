@@ -1,0 +1,82 @@
+[#<]{#def]ySim[#,]i[]
+[#>] \begin{minipage}[c]{2cm}
+$\left\{
+\begin{array}{c}
+y_{{#case]#{i}[#when]1[#>][[1]][#when]2[#>][[n+1]][#when]m[#>][[(m-1)\times n+1]][#when]y[#>]1[#case}}\\
+\phantom{\hspace*{1cm}}\vdots\phantom{\hspace*{1cm}}\\
+y_{{#case]#{i}[#when]1[#>][[n]][#when]2[#>][[2n]][#when]m[#>][[m\times n]][#when]y[#>]n[#case}}
+\end{array}
+\right.$
+\end{minipage}
+[#def}
+[#>]
+Dans le tableau suivant, le \textbf{jour J} désigne le jour où les données sont réellement récoltées (\textit{Indic}~: voir fin de document pour les différentes notations).
+
+\hspace*{-.5cm}\scalebox{0.9}{\begin{tabular}{|c|cc|c|c|}\hline
+\multicolumn{5}{|c|}{\textbf{Avant le jour J}}\\
+\multicolumn{5}{|c|}{\textit{($\theta$ fixé éventuellement à une valeur arbitraire pour l'expérimentation)}}\\\hline
+Mathématique & ${\bm Y}$ & $Y$ &  $\widehat{\theta}(\bm Y)$ ou $\widehat\Theta$ & $t(\bm Y)$ ou $T$ \\\hline
+ & $\bm{y}_{[1]}$ & {#ySim]1[#}  & $\widehat{\theta}(\bm{y}_{[1]})$ ou $\widehat\theta_{[1]}$& $t( \bm{y}_{[1]})$ ou $t_{[1]}$\\
+ Expérimental & $\bm{y}_{[2]}$ & {#ySim]2[#}  & $\widehat{\theta}(\bm{y}_{[2]})$ ou $\widehat\theta_{[2]}$ & $t( \bm{y}_{[2]})$ ou $t_{[2]}$\\
+ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\
+ & $\bm{y}_{[m]}$  &{#ySim]m[#} &   $\widehat{\theta}(\bm{y}_{[m]})$ ou $\widehat\theta_{[m]}$ & $t( \bm{y}_{[m]})$ ou $t_{[m]}$\\
+ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\\hline
+\multicolumn{2}{|r|}{Moyenne =} & 
+$\mu:=\meanEmp[\infty]{y_{[\cdot]}}=\EEE{Y}$ & 
+$\meanEmp[\infty]{\Est{\theta}{y_{[\cdot]}}}=\EEE{\Est{\theta}{Y}}$ & $\meanEmp[\infty]{t(\Vect{y}_{[\cdot]})}=\EEE{t(\bm Y)}$ \\\hline
+\multicolumn{2}{|r|}{Ecart-Type =} & 
+\begin{minipage}[c]{2.5cm} 
+\begin{eqnarray*}
+\!\!\!\!\sigma &\!\!\!:=\!\!\!&\sdEmp[\infty]{y_{[\cdot]}}\!\!\\
+&\!\!\!=\!\!\!&\sigma(Y)\!\! \\
+&\!\!\!=\!\!\!& \sqrt{\VVV{Y}}\!\! 
+\end{eqnarray*} 
+\end{minipage}&
+\begin{minipage}[c]{2.5cm} 
+\begin{eqnarray*}
+\!\!\!\!\sigma_{\widehat{\theta}}&\!\!\!:=\!\!\!& \sdEmp[\infty]{\Est{\theta}{y_{[\cdot]}}}\!\! \\
+&\!\!\!=\!\!\!& \sigma(\Est{\theta}{Y})\!\!\\
+&\!\!\!=\!\!\!&\sqrt{\VVV{\Est{\theta}{Y}}}\!\!
+\end{eqnarray*} 
+\end{minipage} &
+\begin{minipage}[c]{3.5cm} 
+\begin{eqnarray*}
+\!\!\!\!\!\sdEmp[\infty]{t(\Vect{y}_{[\cdot]})}&\!\!\!=\!\!\!&\!\!\sigma(t(\Vect{Y})) \\ 
+&\!\!\!=\!\!\!&\!\!\sqrt{\VVV{t(\Vect{Y})}}\!
+\end{eqnarray*} 
+\end{minipage}
+\\\hline
+\multicolumn{2}{|r|}{Proportion dans $[a,b[$ =} & 
+\begin{minipage}[c]{3cm} 
+\begin{eqnarray*}
+\meanEmp[\infty]{y_{[\cdot]}\in [a,b[}\\
+=\PP(Y\in[a,b[)
+\end{eqnarray*} 
+\end{minipage}  
+& \begin{minipage}[c]{3cm} 
+\begin{eqnarray*}
+\meanEmp[\infty]{\Est{\theta}{y_{[\cdot]}}\in [a,b[}\\
+=\PP(\Est{\theta}{Y}\in[a,b[)
+\end{eqnarray*} 
+\end{minipage} 
+& 
+\begin{minipage}[c]{4cm} 
+\begin{eqnarray*}
+\meanEmp[\infty]{t(\Vect{y}_{[\cdot]})\in [a,b[}\\
+=\PP(t(\bm Y)\in[a,b[)
+\end{eqnarray*} 
+\end{minipage}
+\\\hline
+\multicolumn{2}{|r|}{Histogramme à pas ``zéro'' =} & $f_Y$ & $f_{\Est{\theta}{Y}}$ ou $f_{\widehat\Theta}$ &$f_{g(\bm Y)}$ ou $f_T$\\\hline
+\multicolumn{2}{|r|}{Surface brique ($m$ fini) =} & $\frac1{mn}$ & $\frac1m$  &$\frac1m$\\\hline\hline
+\multicolumn{5}{|c|}{\textbf{Après le jour J}}\\
+\multicolumn{5}{|c|}{\textit{($\theta$ est égal à $\theta^\bullet$ qui est toujours inconnu)}}\\\hline
+Pratique &  $\bm{y}$ & {#ySim]y[#} & $\widehat{\theta}(\bm{y})$ ou $\widehat\theta$ & $t( \bm{y})$ ou $t$\\\hline
+\end{tabular}
+}\\
+Le \textbf{jour J} ($\theta=\theta^\bullet$), si on essaye d'associer des temps de conjugaison aux différents concepts, nous pouvons dire~:
+\begin{list}{$\to$}{}
+\item le \textbf{jeu de données réel} ${\bm y}$ représente le \textit{présent}.
+\item le \textbf{jeu de données aléatoire} ${\bm Y}$ représente le \textit{futur} (on pourra alors aussi l'appeler \textit{futur jeu de données})
+\item les \textbf{jeux de données virtuels} ${\bm y}_{[j]}$ représentent le \textit{conditionnel} (ils représentent une infinité de jeux de données que l'on aurait pu avoir à la place de $\bm y$) 
+\end{list}

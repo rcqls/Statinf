@@ -1,0 +1,25 @@
+Lorsque l'on se retrouve face {\`a} une probl{\'e}matique de test, il faut pour pouvoir compl{\'e}ter la r{\'e}daction standard, d{\'e}crite ci-dessus, se poser simultan{\'e}ment les deux questions suivantes~: \\
+\begin{list}{$\bullet$}{}
+\item Y a-t-il une ou deux variables d'int{\'e}r{\^e}t~? 
+\item Se situe-t-on dans un cadre asymptotique ou dans un cadre gaussien~?
+\end{list}
+
+Ensuite, il ``suffit'' de d{\'e}finir correctement le param{\`e}tre d'int{\'e}r{\^e}t et de compl{\'e}ter le sch{\'e}ma g{\'e}n{\'e}ral de la r{\'e}daction standard du test en utilisant les informations du tableau r{\'e}capitulatif que vous aurez s{\'e}lectionn{\'e} gr{\^a}ce au tableau suivant~:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\cline{2-3}
+\multicolumn{1}{c|}{} & & \\
+\multicolumn{1}{c|}{} & 1 variable d'int{\'e}r{\^e}t &2 variables d'int{\'e}r{\^e}t \\
+\multicolumn{1}{c|}{}&&\\
+\hline
+&&\\
+Cadre Asymptotique & Tableau Tab.~\ref{UnEchAsympt} ($p$, $\mu$ ou $\sigma^2$)& Tableaux Tab.~\ref{DeuxEchDiffAsympt} ($d_\mu$ ou $d_{\sigma^2}$) et \ref{DeuxEchRappAsympt} ($r_\mu$ ou $r_{\sigma^2}$) \\
+&&\\
+\hline
+&&\\ 
+Cadre Gaussien & Tableau Tab.~\ref{UnEchGaussien} ( $\mu$ ou $\sigma^2$)& Tableau Tab.~\ref{DeuxEchGaussien} ($d_\mu$ ou $r_{\sigma^2}$) \\
+&&\\ 
+\hline
+\end{tabular}
+\end{center}

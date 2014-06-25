@@ -1,0 +1,124 @@
+[#r<]
+require(CqlsRandom)
+load('~/cqls/data/industriel.RData')
+attach(industriel)
+[#>]
+
+
+\begin{frame}
+\frametitle{Application de la règle de décision pour le produit~A}
+
+\begin{columns}
+\begin{column}{7cm}
+
+\only<1>{
+{\small \hspace*{0.5cm}\textbf{1) Hypothèses de test~:}\\
+
+\hspace*{1.5cm}$\mathbf{H_0}:p^A=15\%$ vs. $\mathbf{H_1}:p^A>15\%$\\
+
+\bigskip \bigskip
+
+\hspace*{0.5cm}\textbf{2) Statistique de test sous $\mathbf{H_0}$~:\\}
+
+
+\hspace*{0.5cm} $\Est{\delta_{p^A,15\%}}{Y^A}=\frac{\Est{p^A}{Y^A}-15\%}{\sqrt{\frac{15\%\times 85\%}n}} \SuitApprox \mathcal{N}(0,1)$}
+}\only<2>{{\small
+\hspace*{0.5cm}\textbf{3) Règle de décision~:}  (au vu des données) \\
+
+\hspace*{0.5cm} Accepter $\mathbf{H_1}$ si $\Est{\delta_{p^A,15\%}}{y^A}>\delta_{lim,\alpha}$
+
+\bigskip \bigskip
+
+\textbf{\hspace*{0.5cm} 4) Application le jour~J~:} \\
+
+\hspace*{0.5cm} $\Est{\delta_{p^A,15\%}}{y^A} \stackrel{R}{=}\mathtt{(mean(yA)-0.15)/}$ \\ \hspace*{1.5cm} $\mathtt{sqrt(0.15*0.85/1000)} 
+\simeq#R{round((mean(yA)-0.15)/sqrt(0.15*0.85/1000),2)}$ \\
+\hspace*{0.5cm} $\delta_{lim,5\%}\stackrel{R}{=} \mathtt{qnorm(0.95)} \simeq #R{round(qnorm(0.95),4)}$ \\
+
+\bigskip
+
+\hspace*{0.5cm} Puisque $\Est{\delta_{p^A,15\%}}{y^A}>\delta_{lim,5\%}$, on peut plutôt penser (avec un risque de mal décider $\mathbf{H_1}$ qui n'excède pas 5\%) que le produit~A est rentable.
+}}
+\end{column}
+\begin{column}{6cm}
+{#FigureSimple]img[img/jourJProdA.png][#include]false[#rcode]
+ST<-Norm()
+plot(ST,xlab="",ylab="",main="",col="blue",xlim=c(-5,5))
+area(ST,QQ(ST,c(0.95,0.9999)),col="blue")
+abline(h=0)
+abline(v=QQ(ST,0.95),lwd=2,col="brown")[#}
+{#FigureSimple]img[img/jourJProdAccl.png][#include]false[#rcode]
+ST<-Norm()
+plot(ST,xlab="",ylab="",main="",col="blue",xlim=c(-5,5))
+area(ST,QQ(ST,c(0.95,0.9999)),col="blue")
+abline(h=0)
+abline(v=QQ(ST,0.95),lwd=2,col="brown")
+abline(v=(mean(yA)-0.15)/sqrt(0.15*0.85/1000),col="darkgreen",lty=2,lwd=2)[#}
+\only<1>{\includegraphics[scale=.33]{img/jourJProdA}}\only<2>{\includegraphics[scale=.33]{img/jourJProdAccl}}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Application de la règle de décision pour le produit~B}
+
+\begin{columns}
+\begin{column}{7cm}
+
+\only<1>{
+{\small \hspace*{0.5cm}\textbf{1) Hypothèses de test~:}\\
+
+\hspace*{1.5cm}$\mathbf{H_0}:\mu^B=0.15$ vs. $\mathbf{H_1}:\mu^B>0.15$\\
+
+\bigskip \bigskip
+
+\hspace*{0.5cm}\textbf{2) Statistique de test sous $\mathbf{H_0}$~:\\}
+
+
+\hspace*{0.5cm} $\Est{\delta_{\mu^B,0.15}}{Y^B}=\frac{\Est{\mu^B}{Y^B}-0.15}{\sqrt{\frac{\Est{\sigma_B^2}{Y^B}}n}} \SuitApprox \mathcal{N}(0,1)$}
+}\only<2>{{\small
+\hspace*{0.5cm}\textbf{3) Règle de décision~:}  (au vu des données) \\
+
+\hspace*{0.5cm} Accepter $\mathbf{H_1}$ si $\Est{\delta_{\mu^B,0.15}}{y^B}>\delta_{lim,\alpha}$
+
+\bigskip \bigskip
+
+\textbf{\hspace*{0.5cm} 4) Application le jour~J~:} \\
+
+\hspace*{0.5cm} $\Est{\delta_{\mu^B,0.15}}{y^B} \stackrel{R}{=}\mathtt{(mean(yB)-0.15)/}$ \\ \hspace*{1.5cm} $\mathtt{sqrt(var(yB)/1000)} 
+\simeq#R{round((mean(yB)-0.15)/sqrt(var(yB)/1000),2)}$ \\
+\hspace*{0.5cm} $\delta_{lim,5\%}\stackrel{R}{=} \mathtt{qnorm(0.95)} \simeq #R{round(qnorm(0.95),4)}$ \\
+
+\bigskip
+
+\hspace*{0.5cm} Puisque $\Est{\delta_{\mu^B,0.15}}{y^B}\ngtr\delta_{lim,5\%}$, on \textbf{ne} peut \textbf{pas} plutôt penser (avec un risque de mal décider $\mathbf{H_1}$ qui n'excède pas 5\%) que le produit~B est rentable.
+}}
+\end{column}
+\begin{column}{6cm}
+{#FigureSimple]img[img/jourJProdB.png][#include]false[#rcode]
+ST<-Norm()
+plot(ST,xlab="",ylab="",main="",col="blue")
+area(ST,QQ(ST,c(0.95,0.9999)),col="blue")
+abline(h=0)
+abline(v=QQ(ST,0.95),lwd=2,col="brown")[#}
+{#FigureSimple]img[img/jourJProdBccl.png][#include]false[#rcode]
+ST<-Norm()
+plot(ST,xlab="",ylab="",main="",col="blue")
+area(ST,QQ(ST,c(0.95,0.9999)),col="blue")
+abline(h=0)
+abline(v=QQ(ST,0.95),lwd=2,col="brown")
+abline(v=(mean(yB)-0.15)/sqrt(var(yB)/1000),col="darkgreen",lty=2,lwd=2)
+[#}
+\only<1>{\includegraphics[scale=.33]{img/jourJProdB}}\only<2>{\includegraphics[scale=.33]{img/jourJProdBccl}}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+

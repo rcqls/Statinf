@@ -1,0 +1,14 @@
+
+Tous les intervalles de confiance relatifs {\`a} toutes les probl{\'e}matiques du cours s'obtiennent \textbf{dans le cadre de grands {\'e}chantillons} par la m{\^e}me m{\'e}thode. 
+Apr{\`e}s substitution du param{\`e}tre d'int{\'e}r{\^e}t de votre probl{\'e}matique (au choix parmi $p$, $\mu$, $\sigma^2$, $d_\mu$, $d_{\sigma^2}$, $r_{\mu}$ et $r_{\sigma^2}$)
+ not{\'e}e ici de mani{\`e}re g{\'e}n{\'e}rale $\theta$, nous allons naturellement utiliser la caract{\'e}risation du comportement al{\'e}atoire de l'{\'e}cart entre $\Est{\theta}{Y}$ 
+et $\theta$ exprim{\'e}e via la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ suivant approximativement une loi Normale  $\mathcal{N}(0,1)$. 
+Tr{\`e}s facilement, nous pouvons affirmer que~:
+\[
+1-\alpha\simeq\Prob{\left|\delta_{\widehat{\theta},\theta}(\Vect{Y}) \right|<\delta^+_{lim,\frac{\alpha}2}}=\mathbb{P} \Big( 
+\underbrace{\Est{\theta}{Y}-\delta^+_{lim,\frac{\alpha}2}\times 
+\Est{\sigma_{\widehat{\theta}}}{Y}}_{\Int{\theta}{\inf}{Y}}<\theta<\underbrace{\Est{\theta}{Y}+\delta_{lim,\frac{\alpha}2}^+\times 
+\Est{\sigma_{\widehat{\theta}}}{Y}}_{\Int{\theta}{\sup}{Y}} \Big)
+\]
+o{\`u} $\delta^+_{lim,\frac{\alpha}2}$ est le quantile d'ordre 
+$1-\frac{\alpha}2$ de la loi $\mathcal{N}(0,1)$ 

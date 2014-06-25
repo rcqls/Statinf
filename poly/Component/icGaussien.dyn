@@ -1,0 +1,32 @@
+Pour construire un intervalle de confiance dans un cadre gaussien du param{\`e}tre $\theta$ (au choix $\mu$, $\sigma^2$, $d_{\mu}$ ou $r_{\sigma^2}$), nous allons naturellement utiliser la caract{\'e}risation du comportement al{\'e}atoire de l'{\'e}cart entre $\Est{\theta}{Y}$ et $\theta$ exprim{\'e}e via la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$. Il s'agit alors de trouver $\Int{\theta}{\inf}{Y}$ et  $\Int{\theta}{\sup}{Y}$ tels que 
+\[
+1-\alpha=\Prob{ \Int{\theta}{\inf}{Y} < \theta < \Int{\theta}{\sup}{Y}}
+\qquad 
+\mbox{ en utilisant le fait que }
+\qquad
+1-\alpha=\Prob{ q_{\frac\alpha2} < \delta_{\widehat{\theta},\theta}(\Vect{Y}) < q_{1-{\frac{\alpha}2}}}
+\]
+o{\`u} $q_{1-\frac{\alpha}2}$ est le quantile d'ordre $1-\frac{\alpha}2$ de la loi de la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$. L'exercice est plus difficile que dans le cadre asymptotique d'une part parce que la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ ($\theta$ {\'e}tant au choix $\mu$, $\sigma^2$, $d_{\mu}$ ou $r_{\sigma^2}$) ne se d{\'e}cline pas toujours sur le m{\^e}me sch{\'e}ma de construction et d'autre part parce que la loi de  $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ n'est plus une loi Normale standard. Sans trop nous attarder, voici les diff{\'e}rents intervalles de confiance pour les diff{\'e}rents choix de $\theta$~: 
+\begin{list}{$\bullet$}{}
+\item $\theta=\mu$~:
+\[ \Int{\mu}{\inf}{Y} = \Est{\mu}{Y} - q_{1-\frac{\alpha}{2}} \times \sqrt{ \frac{\Est{\sigma^2}{Y}}{n}} \quad \mbox{ et } \quad  \Int{\mu}{\sup}{Y} = \Est{\mu}{Y} + q_{1-\frac{\alpha}{2}} \times \sqrt{ \frac{\Est{\sigma^2}{Y}}{n}} 
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ est le quantile d'ordre $1-\frac{\alpha}{2}$ de la loi $\mathcal{S}t(n-1)$.
+\item $\theta=\sigma^2$~:
+\[ \Int{\sigma^2}{\inf}{Y} =  \Est{\sigma^2}{Y} \times \frac{n-1}{q_{1-\frac{\alpha}2}}  \quad \mbox{ et } \quad 
+\Int{\sigma^2}{\sup}{Y} = \Est{\sigma^2}{Y} \times \frac{n-1}{q_{\frac{\alpha}2}} 
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ (resp. $q_{\frac\alpha2}$) est le quantile d'ordre $1-\frac\alpha2$ (resp. $\frac\alpha2$) de la loi $\chi^2(n-1)$.
+\item $\theta=d_\mu$~:
+\[ \Int{d_\mu}{\inf}{Y} =  \Est{d_\mu}{Y} - q_{1-\frac{\alpha}{2}} \times \sqrt{\Est{\sigma^2}{Y} \left( \frac1{n^{(1)}}+ \frac1{n^{(2)}}\right)} \]
+et 
+\[ 
+\Int{d_\mu}{\sup}{Y} =  \Est{d_\mu}{Y} + q_{1-\frac{\alpha}{2}} \times \sqrt{\Est{\sigma^2}{Y} \left( \frac1{n^{(1)}}+ \frac1{n^{(2)}}\right)}
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ est le quantile d'ordre $1-\frac{\alpha}{2}$ de la loi $\mathcal{S}t(n^{(1)}+n^{(2)}-2)$. La quantit{\'e} $\Est{\sigma^2}{Y}$ est d{\'e}finie comme dans le tableau récapitulatif des tests d'hypothèses (partie cadre gaussien).
+\item $\theta=r_{\sigma^2}$~:
+\[ \Int{r_{\sigma^2}}{\inf}{Y} = \Est{r_{\sigma^2}}{Y} \times \frac{1}{q_{1-\frac{\alpha}{2}}} \quad \mbox{ et } \quad 
+\Int{r_{\sigma^2}}{\sup}{Y} = \Est{r_{\sigma^2}}{Y} \times \frac{1}{q_{\frac{\alpha}{2}}} 
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ (resp. $q_{\frac\alpha2}$) est le quantile d'ordre $1-\frac\alpha2$ (resp. $\frac\alpha2$) de la loi $\mathcal{F}\left(n^{(1)}-1 ,n^{(2)}-1 \right)$.
+\end{list}

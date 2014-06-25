@@ -1,0 +1,450 @@
+
+\documentclass[11pt]{beamer}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{xkeyval,calc,listings,tikz}
+\usepackage{color}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\mode<article>{\usepackage{fullpage}}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+\usetheme{Antibes}
+%\usecolortheme{lily}
+
+\definecolor{VertFonce}{rgb}{0,.4,.0}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  % or ...
+\usetheme{Boadilla}
+
+  \setbeamercovered{transparent=5}
+  % or whatever (possibly just delete it)
+}
+%\setbeamercovered{dynamic}
+
+
+\subject{Talks}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+\setbeamercovered{invisible}
+\newcommand{\Sim}{{\star}}
+\newcommand{\ok}{ \textcolor{green}{\large$\surd$}}
+\newcommand{\nok}{ \textcolor{red}{\large X}}
+
+
+\usetikzlibrary{arrows,%
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+\tikzset{
+  every plot/.style={prefix=plots/pgf-},
+  shape example/.style={
+    color=black!30,
+    draw,
+    fill=yellow!30,
+    line width=.5cm,
+    inner xsep=2.5cm,
+    inner ysep=0.5cm}
+}
+
+%Styles
+
+%Title
+
+\beamertemplateshadingbackground{green!50}{yellow!50}
+\title[Problématiques Produits A et B]
+{Cours de Statistiques Inférentielles}
+\author{CQLS~: cqls@upmf-grenoble.fr}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+%\begin{frame}
+%  \titlepage
+%\end{frame}
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-1>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Anniversaires}}}}
+\only<2-3>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Jeu des Gobelets}}}}
+\only<4-5>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Lancer d'un dé}}}}
+\only<6-8>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Election}}}}
+\only<9-12>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Schéma de Formalisation}}}}
+\only<13-17>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Anniversaires (SFE)}}}}
+\only<18-22>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Jeu des Gobelets (SFE)}}}}
+\only<23-27>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Dé avant lancer (SFE)}}}}
+\only<28-32>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Dé après lancer (SFE)}}}}
+\only<33-35,36-48>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Loi de probabilité (SFV)}}}}
+\only<49-52>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large A.E.P. pour le lancer de dé}}}}
+\only<53-56>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large A.E.P. pour Election}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1-1>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Quelles sont les chances qu'au moins 2 individus d'un groupe de 20 ou 30 ou 50 ou 100 personnes ($N$ en général) soient nés le même jour~?
+\end{minipage}}}}
+\only<2-3>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Une personne organise le jeu des gobelets (décrit ci-dessous) et invite un joueur à participer à ce jeu. A la fin du jeu, il lui demande quelle stratégie il désire adopter~? Qu'en pensez-vous~?
+\end{minipage}}}}
+\only<4-5>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Cet exemple (pas le plus intéressant) va nous servir à appréhender la notion de mesures de chance de réalisation d'une prédiction avant et après le lancer du dé (équivalent à à choisir une boule au hasard dans une urne contenant 6 boules numérotées de 1 à 6).
+\end{minipage}}}}
+\only<6-8>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Une candidate Amélie Poulain veut savoir 7 jours avant le 1er tour d'une élection l'intention de vote pour elle.
+\end{minipage}}}}
+\only<9-12>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}L'objectif est de formaliser un problème (ou, plus généralement, un phénomène) donné, de décrire sa nature aléatoire ou non et ainsi de mieux appréhender comment mesurer les chances de réalisation de certaines prédictions.
+\end{minipage}}}}
+\only<13-17>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Décrivons le Schéma de Formalisation pour l'exemple des anniversaires.\\
+\centerline{\only<14-15>{\textbf{Expérience et Variable d'intérêt ?}}
+\only<16-17>{\textbf{Evénement d'intérêt et ses chances de réalisations~?}}}
+\end{minipage}}}}
+\only<18-22>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Décrivons le Schéma de Formalisation pour le jeu des gobelets.\\
+\centerline{\only<19-20>{\textbf{Expérience et Variable d'intérêt ?}}
+\only<21-22>{\textbf{Evénement d'intérêt et ses chances de réalisations~?}}}
+\end{minipage}}}}
+\only<23-27>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Décrivons le Schéma de Formalisation pour l'exemple du dé avant le lancer.\\
+\centerline{\only<24-25>{\textbf{Expérience et Variable d'intérêt ?}}
+\only<26-27>{\textbf{Evénement d'intérêt et ses chances de réalisations~?}}}
+\end{minipage}}}}
+\only<28-32>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}Décrivons le Schéma de Formalisation pour l'exemple du dé après le lancer (objectif pédagogique).\\
+\centerline{\only<29-30>{\textbf{Expérience et Variable d'intérêt ?}}
+\only<31-32>{\textbf{Evénement d'intérêt et ses chances de réalisations~?}}}
+\end{minipage}}}}
+\only<33-35,36-48>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+Le comportement aléatoire d'une variable $Y$ est caractérisé par la connaissance de toutes les probabilités $P(Y\in E)$ (avec $E$ sous-ensemble quelconque, $E=]a,b]$ ou $E=]-\infty,b]$) mesurant les chances de réalisation des événements de la forme ``$Y \in E$".\end{minipage}}}}
+\only<49-52>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}\only<49>{$Y=$Numéro face d'un dé.\\}
+$P(Y\leq 2)\only<49>{=\mbox{ ???}}
+\only<52>{=\meanEmp[\infty]{y_{[\cdot]}\leq 2}={\color{red}\frac26}}
+\only<50>{\simeq\meanEmp[250]{y_{[\cdot]}\leq 2}
+={\color<50>{blue} \frac{89}{250}}}
+\only<51-52>{\simeq\meanEmp[10000]{y_{[\cdot]}\leq 2}
+={\color<51-52>{blue} \frac{3367}{10000}}\simeq 0.3367}$\\
+$\Esp(Y)\only<49>{=\mbox{ ???}}\only<52>{=\meanEmp[\infty]{y_{[\cdot]}}={\color{red}3.5}}\only<50>{\simeq\meanEmp[250]{y_{[\cdot]}}
+=3.444}
+\only<51-52>{\simeq\meanEmp[10000]{y_{[\cdot]}}
+=3.4877}$\\
+$\sigma(Y)\only<49>{=\mbox{ ???}}\only<52>{=\sdEmp[\infty]{y_{[\cdot]}}={\color{red}\sqrt{\frac{105}{36}}=1.707825}}\only<50>{\simeq\sdEmp[250]{y_{[\cdot]}}
+=1.708468}
+\only<51-52>{\simeq\sdEmp[10000]{y_{[\cdot]}}
+=1.710511}$
+\end{minipage}}}}
+\only<53-56>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\only<53>{$\Est{p^A}{Y^A}=$estimation de $p^A$ (fixé artificiellement à $15\%$).\\}$P(\Est{p^A}{Y^A}> 16\%)\only<53>{=\mbox{ ???}}
+\only<56>{=\meanEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}>16\% }={\color{red}17.5823\%}}
+\only<54>{\simeq\meanEmp[100]{\Est{p^A}{y^A_{[\cdot]}}>16\%}
+={\color<54>{blue}\frac{19}{100}}}
+\only<55>{\simeq\meanEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}>16\%}
+={\color<55>{blue}\frac{1751}{10000}}\simeq 0.1751}$\\
+$\quant{ \Est{p^A}{Y^A}}{95\%}\only<53>{=\mbox{ ???}}\only<56>{=\quantEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}}{95\%}={\color{red}\frac{169}{1000}=16.9\%}}\only<54>{\simeq\quantEmp[100]{\Est{p^A}{y^A_{[\cdot]}}}{95\%}
+=0.168}
+\only<55>{\simeq\quantEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}}{95\%}
+=0.169}$
+\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<1-1>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\noindent \textbf{Simplification} Pour pouvoir éventuellement réaliser cette expérience assistée par ordinateur, on convient ici de supposer (même si cela est peu abusif) que tout individu a la même chance d'être né à n'importe quel jour de l'année (excepté peut-être le 29 février qui ne sera pas considéré comme possible).\\
+\textbf{Votre intuition~:} Sauriez-vous dire à partir de quelles valeurs de $N$ les chances sont à peu près de 50\% ou 75\% ou 95\%~?\\
+\textbf{On joue~!} Executer plusieurs fois la fonction~\texttt{R}:\\
+\texttt{anniv(n)} avec n=20, 30, 50 et 100.
+\end{minipage}}}}
+\only<2-3>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\only<2>{\textbf{Règle du Jeu~:} L'organisateur prépare l'expérience en proposant 3 (ou $N\geq3$ en général) gobelets dont un seul (choisi au hasard) contient une balle.
+Dans un premier temps, l'organisateur demande au joueur de choisir le gobelet sensé contenir la balle.\\ 
+(Quelles sont les chances que son choix soit le bon~?)\\
+Dans un deuxième temps, sachant où se trouve la balle, l'organisateur retourne 1 (ou N-2) gobelet(s) autre(s) que le premier choix du joueur (c'est toujours possible!) ne contenant pas la balle de sorte que le joueur n'a plus que maintenant 2 choix possibles.\\
+\textbf{Votre intuition~:} Quelle stratégie adopter: changer ou pas de choix~?}\only<3>{\textbf{On joue !} Executer les instructions~\texttt{R} ci-dessous~:\\
+\texttt{gobelet(change=T,nb=3)}\\
+\texttt{gobelet(change=F,nb=3)}\\
+\texttt{gobelet(change=T,nb=5)}\\
+\texttt{gobelet(change=F,nb=5)}
+}
+\end{minipage}}}}
+\only<4-5>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\noindent \textbf{Votre intuition~:} \underline{Avant le lancer du dé}, sauriez-vous
+\begin{itemize}
+\item si la face supérieure du dé est aléatoire ou non~? 
+\item évaluer les chances que la face du dé soit 2 (resp. $\leq2$).
+\end{itemize}
+\underline{Après le lancer du dé} (i.e. \textit{Alea jacta est})
+ sauriez-vous répondre aux mêmes questions précédentes. Comment formuler plus directement les réponses à la dernière question~?\\
+\only<5>{\textbf{Remarque~:} La probabilité comme une extension de la logique!\\
+\underline{Assertion certaine} (vraie ou fausse) = proba 1 ou 0. \\
+\underline{Assertion incertaine} (peut-être vraie ou fausse) = proba dans $]0,1[$.} 
+\end{minipage}}}}
+\only<6-8>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Paramètre d'intérêt~:} $p^A$ la proportion d'électeurs potentiels qui ont l'intention de voter pour elle (7 jours avant).\\
+\textbf{Echantillonnage~:} Quel est le procédé d'échantillonnage le plus équitable si l'on a aucune connaissance sur la population des électeurs.\\
+\only<7-8>{\textbf{Solution}: Elle sait alors qu'il lui faudra demander de l'aide à un institut de sondage pour construire {\color<7>{blue} aléatoirement} son échantillon de sorte que {\color<7>{blue} tous les électeurs ont les mêmes chances d'être choisi}.\\}
+\only<8>{\textbf{Estimation~:} Comment obtiendra-t'elle l'estimation de $p^A$ à partir de ce ``futur" échantillon~?}
+\end{minipage}}}}
+\only<9-12>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\centerline{\textbf{Schéma de Formalisation \only<9>{pour Evénement (SFE)}\only<10>{pour Variable (SFV)}\only<11-12>{SFE et SFV}}}
+
+\only<9>{Identifier et décrire (si nécessaire) littéralement ou mathématiquement:
+\begin{itemize}
+\item l'expérience~$\mathcal{E}$
+\item la (les) variable(s) (a priori) aléatoire(s) d'intérêt $Y$ (, ...)
+\item l'événement d'intérêt exprimé en fonction de la (des) variable(s) $Y$ (, ...)
+\item les mesures de chances (i.e. probabilités) de réalisations de l'événement d'intérêt
+\end{itemize}
+}
+\only<10>{Identifier et décrire (si nécessaire) littéralement ou mathématiquement:
+\begin{itemize}
+\item l'expérience~$\mathcal{E}$
+\item la variable (a priori) aléatoire d'intérêt $Y$
+\item la loi de probabilité de $Y$ permettant d'évaluer toutes les mesures de chances (i.e. probabilités) de réalisations de tous les événements relatifs à $Y$.
+\end{itemize}
+}
+\only<11-12>{\textbf{Expérience~:} Identifier et décrire (si nécessaire) l'expérience~$\mathcal{E}$ (aléatoire ou non) correspondant au problème (ou phénomène) d'intérêt.\\
+\textbf{Variable d'intérêt~:} Variable (aléatoire ou non) mesurant une caractéristique (ou plusieurs dans le cas de vecteur) relative(s) à l'expérience~$\mathcal{E}$.\\
+\underline{\textit{Convention notation~:}} Une variable \underline{{\color<12>{red} aléatoire}} (ou supposée aléatoire) est notée en \textbf{{\color<12>{red} majuscule}} et une variable \underline{{\color<12>{blue} déterministe}} (i.e. dont on sait qu'elle est non aléatoire) est notée en \textbf{{\color<12>{blue} minuscule}}.}
+\end{minipage}}}}
+\only<13-17>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<14-15>{\begin{itemize}
+\visible<14-15>{\item\textbf{Expérience $\mathcal{E}$~:}}
+\visible<15>{Elle consiste à choisir $n$ personnes au hasard dans la population ou, de part la  simplication, choisir $n$ jours au hasard parmi l'ensemble des 365 jours.}
+\visible<14-15>{\item\textbf{Variable d'intérêt~:}}
+\visible<15>{$Y$=Maximum des effectifs de la répartition des dates d'anniversaire pour les $n$ personnes.}
+\end{itemize}}
+\only<16-17>{\begin{itemize}
+\visible<16-17>{\item\textbf{Evénement d'intérêt~:} }
+\visible<17>{``$Y\geq 2$" i.e. au moins 2 personnes sont nés le même jour.}
+\visible<16-17>{\item\textbf{Probabilité de réalisation~:} }
+\visible<17>{$\PP(Y\geq 2)$ i.e. probabilité qu'au moins 2 individus parmi les $n$ soient nés le même jour.}
+\end{itemize}}
+
+\end{minipage}}}}
+\only<18-22>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<19-20>{\begin{itemize}
+\visible<19-20>{\item\textbf{Expérience $\mathcal{E}$~:}}
+\visible<20>{Elle consiste à choisir un gobelet parmi les deux proposés à la fin du jeu.}
+\visible<19-20>{\item\textbf{Variable d'intérêt~:}}
+\visible<20>{$Y$=1 si le gobelet choisi est le même que celui choisi par l'organisateur et 0 sinon.\\
+\underline{2ème option~:} $Y^J$ et $Y^O$ sont les numéros des gobelets choisis par le Joueur et l'Organisateur.}
+\end{itemize}}
+\only<21-22>{\begin{itemize}
+\visible<21-22>{\item\textbf{Evénement d'intérêt~:} }
+\visible<22>{``$Y=1$" équivalent à ``$Y^J=Y^O$" (\underline{2ème option}).}
+\visible<21-22>{\item\textbf{Probabilité de réalisation~:} }
+\visible<22>{$\PP(Y=1)=\PP(Y^J=Y^O)$.}
+\end{itemize}}
+
+\end{minipage}}}}
+\only<23-27>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<24-25>{\begin{itemize}
+\visible<24-25>{\item\textbf{Expérience $\mathcal{E}$~:}}
+\visible<25>{Elle consiste à lancer le dé et observer le numéro de la face supérieure.}
+\visible<24-25>{\item\textbf{Variable d'intérêt~:}}
+\visible<25>{$Y$=numéro de la face supérieure du dé.}
+\end{itemize}}
+\only<26-27>{\begin{itemize}
+\visible<26-27>{\item\textbf{Evénement d'intérêt~:} }
+\visible<27>{$Y=2$ (resp. $Y\leq 2$).}
+\visible<26-27>{\item\textbf{Probabilité de réalisation~:} }
+\visible<27>{$\PP(Y=2)=\frac16$ (resp. $\PP(Y\leq 2)=\frac26=\frac13$).}
+\end{itemize}}
+
+\end{minipage}}}}
+\only<28-32>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<29-30>{\begin{itemize}
+\visible<29-30>{\item\textbf{Expérience $\mathcal{E}$~:}}
+\visible<30>{Elle consiste une fois le dé lancé à observer le numéro de la face supérieure.}
+\visible<29-30>{\item\textbf{Variable d'intérêt~:}}
+\visible<30>{$y$=numéro de la face supérieure du dé qui est en fait la réalisation de $Y$.}
+\end{itemize}}
+\only<31-32>{\begin{itemize}
+\visible<31-32>{\item\textbf{Evénement d'intérêt~:} }
+\visible<32>{$y=2$ (resp. $y\leq2$).}
+\visible<31-32>{\item\textbf{Probabilité de réalisation~:} }
+\visible<32>{$\PP(y=2)=$1 si $y=2$ est vrai et 0 sinon
+(resp. $\PP(y\leq 2)=$1 si $y\leq 2$ est vrai et 0 sinon).}
+\end{itemize}}
+
+\end{minipage}}}}
+\only<34-35>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{\color<35>{blue}Expérimentateur}~:\\
+il propose une {\color<35>{blue}interprétation des probabilités} en se basant sur son aptitude à réaliser l'expérience aléatoire $\mathcal{E}$.\\
+\textbf{\color<35>{red}Mathématicien}~:\\
+il propose une {\color<35>{red}évaluation des probabilités} via le développement et l'application de techniques mathématiques.\end{minipage}}}}
+\only<36-48>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{{\color{blue}A}pproche {\color{blue}E}xpérimentale des {\color{blue}P}robabilités~:} Répétitions de l'expérience aléatoire $\mathcal{E}$, un grand nombre de fois $m$ (éventuellement infini) et obtention des réalisations de la v.a. $Y$~: \fbox{$y_{[1]},y_{[2]},\ldots,y_{[m]},\ldots$}\\
+\only<37-39>{\textbf{Probabilité de l'événement $Y\in E$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\meanEmp[m]{y_{[\cdot]}\in E}}
+&:=&\mbox{Proportion des } y_{[1]},\ldots,y_{[m]}\in E \\
+\only<38-39>{&\simeq& \meanEmp[\infty]{y_{[\cdot]}\in E} \\}
+\only<39>{&=& {\color{red}P(Y\in E)} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}
+\only<40-42>{\textbf{Moyenne de $Y$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\meanEmp[m]{y_{[\cdot]}}}
+&:=&\mbox{Moyenne des } y_{[1]},\ldots,y_{[m]} \\
+\only<41-42>{&\simeq& \meanEmp[\infty]{y_{[\cdot]}} \\}
+\only<42>{&=& {\color{red}\Esp(Y)} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}
+\only<43-45>{\textbf{Ecart-type de $Y$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\sdEmp[m]{y_{[\cdot]}}}
+&:=&\mbox{Ecart-type des } y_{[1]},\ldots,y_{[m]} \\
+\only<44-45>{&\simeq& \sdEmp[\infty]{y_{[\cdot]}} \\}
+\only<45>{&=& {\color{red}\sigma(Y)=\sqrt{\Var(Y)}} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}
+\only<46-48>{\textbf{Quantile de $Y$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\quantEmp[m]{y_{[\cdot]}}{95\%}}
+&:=&\mbox{Quantile d'ordre 95\%  des } y_{[1]},\ldots,y_{[m]} \\
+\only<47-48>{&\simeq& \quantEmp[\infty]{y_{[\cdot]}}{95\%} \\}
+\only<48>{&=& {\color{red}\quant{Y}{95\%}} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}\end{minipage}}}}
+\only<49-52>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{\only<49-50>{$m=250$}\only<51>{$m=10000$}\only<52>{$m=\infty$} réalisations}~:\\
+\only<49>{
+{\scriptsize 4, 3, 3, 2, 3, 4, 4, 6, 6, 4, 1, 5, 1, 4, 2, 1, 2, 3, 6, 6, 3, 5, 5, 2, 5, 6, 5, 3, 4, 4, 4, 6, 1, 5, 2, 3, 5, 2, 1, 5, 3, 6, 2, 2, 6, 1, 6, 5, 4, 2, 2, 6, 6, 1, 1, 1, 5, 6, 4, 5, 4, 2, 4, 4, 5, 5, 2, 5, 4, 6, 1, 4, 5, 1, 1, 2, 2, 4, 1, 6, 4, 3, 3, 5, 3, 5, 2, 4, 2, 3, 3, 4, 1, 3, 6, 6, 2, 3, 2, 5, 2, 3, 5, 2, 1, 3, 3, 3, 3, 1, 5, 5, 1, 3, 4, 2, 2, 6, 2, 6, 6, 4, 4, 5, 4, 6, 4, 2, 1, 1, 6, 2, 5, 1, 6, 1, 4, 2, 2, 6, 1, 5, 2, 4, 6, 3, 2, 5, 6, 1, 1, 6, 5, 3, 2, 3, 3, 2, 3, 4, 5, 1, 4, 3, 6, 6, 4, 1, 2, 3, 6, 2, 5, 6, 4, 1, 6, 4, 4, 5, 1, 6, 1, 1, 1, 2, 5, 5, 2, 5, 1, 2, 4, 6, 3, 5, 3, 5, 6, 1, 1, 4, 3, 3, 1, 5, 1, 1, 1, 3, 4, 2, 2, 2, 6, 2, 3, 3, 5, 4, 6, 1, 2, 4, 6, 5, 5, 4, 2, 2, 3, 1, 6, 3, 4, 5, 2, 1, 4, 2, 3, 5, 4, 1, 4, 1, 2, 6, 5, 5 }}
+\only<50-52>{
+{\scriptsize 4, 3, 3, \textcolor{blue}{\underline{2}}, 3, 4, 4, 6, 6, 4, \textcolor{blue}{\underline{1}}, 5, \textcolor{blue}{\underline{1}}, 4, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{2}}, 3, 6, 6, 3, 5, 5, \textcolor{blue}{\underline{2}}, 5, 6, 5, 3, 4, 4, 4, 6, \textcolor{blue}{\underline{1}}, 5, \textcolor{blue}{\underline{2}}, 3, 5, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{1}}, 5, 3, 6, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, 6, \textcolor{blue}{\underline{1}}, 6, 5, 4, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, 6, 6, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, 5, 6, 4, 5, 4, \textcolor{blue}{\underline{2}}, 4, 4, 5, 5, \textcolor{blue}{\underline{2}}, 5, 4, 6, \textcolor{blue}{\underline{1}}, 4, 5, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, 4, \textcolor{blue}{\underline{1}}, 6, 4, 3, 3, 5, 3, 5, \textcolor{blue}{\underline{2}}, 4, \textcolor{blue}{\underline{2}}, 3, 3, 4, \textcolor{blue}{\underline{1}}, 3, 6, 6, \textcolor{blue}{\underline{2}}, 3, \textcolor{blue}{\underline{2}}, 5, \textcolor{blue}{\underline{2}}, 3, 5, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{1}}, 3, 3, 3, 3, \textcolor{blue}{\underline{1}}, 5, 5, \textcolor{blue}{\underline{1}}, 3, 4, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, 6, \textcolor{blue}{\underline{2}}, 6, 6, 4, 4, 5, 4, 6, 4, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, 6, \textcolor{blue}{\underline{2}}, 5, \textcolor{blue}{\underline{1}}, 6, \textcolor{blue}{\underline{1}}, 4, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, 6, \textcolor{blue}{\underline{1}}, 5, \textcolor{blue}{\underline{2}}, 4, 6, 3, \textcolor{blue}{\underline{2}}, 5, 6, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, 6, 5, 3, \textcolor{blue}{\underline{2}}, 3, 3, \textcolor{blue}{\underline{2}}, 3, 4, 5, \textcolor{blue}{\underline{1}}, 4, 3, 6, 6, 4, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{2}}, 3, 6, \textcolor{blue}{\underline{2}}, 5, 6, 4, \textcolor{blue}{\underline{1}}, 6, 4, 4, 5, \textcolor{blue}{\underline{1}}, 6, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{2}}, 5, 5, \textcolor{blue}{\underline{2}}, 5, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{2}}, 4, 6, 3, 5, 3, 5, 6, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, 4, 3, 3, \textcolor{blue}{\underline{1}}, 5, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, 3, 4, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, 6, \textcolor{blue}{\underline{2}}, 3, 3, 5, 4, 6, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{2}}, 4, 6, 5, 5, 4, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{2}}, 3, \textcolor{blue}{\underline{1}}, 6, 3, 4, 5, \textcolor{blue}{\underline{2}}, \textcolor{blue}{\underline{1}}, 4, \textcolor{blue}{\underline{2}}, 3, 5, 4, \textcolor{blue}{\underline{1}}, 4, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{2}}, 6, 5, 5}}
+\only<51-52>{
+{\scriptsize, \ldots, 6, \textcolor{blue}{\underline{1}}, 6, 4, \textcolor{blue}{\underline{2}}, 5, 6, 4, \textcolor{blue}{\underline{1}}, \textcolor{blue}{\underline{1}}, 5, 6, 3, \textcolor{blue}{\underline{2}}, 5, \textcolor{blue}{\underline{1}}, 6, 4, 5, \textcolor{blue}{\underline{1}}, 4, 6, 5, 5, 3, 4, 4, 5, 6, \textcolor{blue}{\underline{2}}, 4, 3, 4, \textcolor{blue}{\underline{1}}, 4, 6, 4, \textcolor{blue}{\underline{1}}, 3, 3, 6, 6, 3, 4, 3, 5, 5, \textcolor{blue}{\underline{2}}, 6, 3}}
+\only<52>{, \ldots}
+\end{minipage}}}}
+\only<53-56>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{\only<53-54>{$m=100$}\only<55>{$m=10000$}\only<56>{$m=\infty$} réalisations}~:\\
+\only<53>{
+{\scriptsize 0.156, 0.149, 0.164, 0.149, 0.143, 0.14, 0.157, 0.152, 0.138, 0.158, 0.162, 0.155, 0.145, 0.169, 0.147, 0.163, 0.145, 0.158, 0.148, 0.159, 0.165, 0.134, 0.145, 0.153, 0.133, 0.152, 0.157, 0.162, 0.154, 0.123, 0.155, 0.15, 0.154, 0.134, 0.156, 0.152, 0.168, 0.155, 0.149, 0.152, 0.163, 0.165, 0.162, 0.132, 0.167, 0.166, 0.142, 0.141, 0.146, 0.149, 0.13, 0.169, 0.144, 0.144, 0.154, 0.133, 0.142, 0.156, 0.129, 0.151, 0.168, 0.15, 0.148, 0.158, 0.157, 0.144, 0.15, 0.165, 0.15, 0.163, 0.152, 0.14, 0.133, 0.156, 0.154, 0.145, 0.152, 0.157, 0.153, 0.157, 0.128, 0.168, 0.123, 0.17, 0.149, 0.148, 0.167, 0.159, 0.13, 0.144, 0.158, 0.142, 0.144, 0.154, 0.154, 0.136, 0.138, 0.151, 0.143, 0.156}}
+\only<54-56>{
+{\scriptsize 0.156, 0.149, \textcolor{blue}{\underline{0.164}}, 0.149, 0.143, 0.14, 0.157, 0.152, 0.138, 0.158, \textcolor{blue}{\underline{0.162}}, 0.155, 0.145, \textcolor{blue}{\underline{0.169}}, 0.147, \textcolor{blue}{\underline{0.163}}, 0.145, 0.158, 0.148, 0.159, \textcolor{blue}{\underline{0.165}}, 0.134, 0.145, 0.153, 0.133, 0.152, 0.157, \textcolor{blue}{\underline{0.162}}, 0.154, 0.123, 0.155, 0.15, 0.154, 0.134, 0.156, 0.152, \textcolor{blue}{\underline{0.168}}, 0.155, 0.149, 0.152, \textcolor{blue}{\underline{0.163}}, \textcolor{blue}{\underline{0.165}}, \textcolor{blue}{\underline{0.162}}, 0.132, \textcolor{blue}{\underline{0.167}}, \textcolor{blue}{\underline{0.166}}, 0.142, 0.141, 0.146, 0.149, 0.13, \textcolor{blue}{\underline{0.169}}, 0.144, 0.144, 0.154, 0.133, 0.142, 0.156, 0.129, 0.151, \textcolor{blue}{\underline{0.168}}, 0.15, 0.148, 0.158, 0.157, 0.144, 0.15, \textcolor{blue}{\underline{0.165}}, 0.15, \textcolor{blue}{\underline{0.163}}, 0.152, 0.14, 0.133, 0.156, 0.154, 0.145, 0.152, 0.157, 0.153, 0.157, 0.128, \textcolor{blue}{\underline{0.168}}, 0.123, \textcolor{blue}{\underline{0.17}}, 0.149, 0.148, \textcolor{blue}{\underline{0.167}}, 0.159, 0.13, 0.144, 0.158, 0.142, 0.144, 0.154, 0.154, 0.136, 0.138, 0.151, 0.143, 0.156}}
+\only<55-56>{
+{\scriptsize, \ldots, \textcolor{blue}{\underline{0.173}}, 0.158, 0.155, 0.157, 0.133, 0.155, \textcolor{blue}{\underline{0.169}}, 0.159, 0.133, 0.153, 0.147, \textcolor{blue}{\underline{0.163}}, 0.133, 0.158, 0.153}}
+\only<56>{, \ldots}
+\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+
+\end{document}
+
+

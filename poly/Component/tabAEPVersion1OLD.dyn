@@ -1,0 +1,27 @@
+
+Dans le tableau suivant, le \textbf{jour J} désigne le jour où les données sont réellement récoltées (\textit{Indic}~: voir fin de document pour les différentes notations).
+
+\hspace*{-1.5cm}\scalebox{0.9}{\begin{tabular}{|c|c|c|c|c|}\hline
+\multicolumn{5}{|c|}{\textbf{Avant le jour J}}\\
+\multicolumn{5}{|c|}{\textit{($\theta$ fixé éventuellement à une valeur arbitraire pour l'expérimentation)}}\\\hline
+Mathématique & $\bm{\mathcal{E}}=(\mathcal{E}_1,\mathcal{E}_2,...,\mathcal{E}_n)$ & ${\bm Y}$ & $\widehat{\theta}(\bm Y)$ ou $\widehat\Theta$ & $t(\bm Y)$ ou $T$ \\\hline
+Expérimental & $1^{\grave ere}$ expérience $\bm{e}_{[1]}$ & $\bm{y}_{[1]}$ & $\widehat{\theta}(\bm{y}_{[1]})$ ou $\widehat\theta_{[1]}$& $t( \bm{y}_{[1]})$ ou $t_{[1]}$\\
+ & $2^{\grave eme}$ expérience $\bm{e}_{[2]}$ & $\bm{y}_{[2]}$ & $\widehat{\theta}(\bm{y}_{[2]})$ ou $\widehat\theta_{[2]}$ & $t( \bm{y}_{[2]})$ ou $t_{[2]}$\\
+ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\
+ &$m^{\grave eme}$ expérience $\bm{e}_{[m]}$ & $\bm{y}_{[m]}$ & $\widehat{\theta}(\bm{y}_{[m]})$ ou $\widehat\theta_{[m]}$ & $t( \bm{y}_{[m]})$ ou $t_{[m]}$\\
+ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\\hline
+\multicolumn{3}{|r|}{Moyenne =} & $\meanEmp[\infty]{\Est{\theta}{y_{[\cdot]}}}=\EEE{\Est{\theta}{Y}}$ & $\meanEmp[\infty]{t(\Vect{y}_{[\cdot]})}=\EEE{t(\bm Y)}$ \\\hline
+\multicolumn{3}{|r|}{Ecart-Type =} & $\!\sdEmp[\infty]{\Est{\theta}{y_{[\cdot]}}}\!=\! \sigma(\Est{\theta}{Y})\!=\!\sqrt{\VVV{\Est{\theta}{Y}}}\!$ &$\!\sdEmp[\infty]{t(\Vect{y}_{[\cdot]})}\!=\!\sigma(t(\Vect{Y}))\!=\!\sqrt{\VVV{t(\Vect{Y})}}\!$\\\hline
+\multicolumn{3}{|r|}{Proportion dans $[a,b[$ =} & $\meanEmp[\infty]{\Est{\theta}{y_{[\cdot]}}\in [a,b[}=\PP(\Est{\theta}{Y}\in[a,b[)$ & $\meanEmp[\infty]{t(\Vect{y}_{[\cdot]})\in [a,b[}=\PP(t(\bm Y)\in[a,b[)$\\\hline
+\multicolumn{3}{|r|}{Répartition (histogramme à pas ``zéro'') =} & $f_{\Est{\theta}{Y}}$ ou $f_{\widehat\Theta}$ &$f_{g(\bm Y)}$ ou $f_T$\\\hline\hline
+\multicolumn{5}{|c|}{\textbf{Après le jour J}}\\
+\multicolumn{5}{|c|}{\textit{($\theta$ est égal à $\theta^\bullet$ qui est toujours inconnu)}}\\\hline
+Pratique & l'expérience réelle $\bm{e}$ & $\bm{y}$ & $\widehat{\theta}(\bm{y})$ ou $\widehat\theta$ & $t( \bm{y})$ ou $t$\\\hline
+\end{tabular}
+}
+Le \textbf{jour J} ($\theta=\theta^\bullet$), si on essaye d'associer des temps de conjugaison aux différents concepts, nous pouvons dire~:
+\begin{list}{$\to$}{}
+\item le \textbf{jeu de données réel} ${\bm y}$ représente le \textit{présent}.
+\item le \textbf{jeu de données aléatoire} ${\bm Y}$ représente le \textit{futur} (on pourra alors aussi l'appeler \textit{futur jeu de données})
+\item les \textbf{jeux de données virtuels} ${\bm y}_{[j]}$ représentent le \textit{conditionnel} (ils représentent une infinité de jeux de données que l'on aurait pu avoir à la place de $\bm y$) 
+\end{list}

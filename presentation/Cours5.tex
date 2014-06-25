@@ -1,0 +1,781 @@
+
+\documentclass[11pt]{beamer}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{xkeyval,calc,listings,tikz}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\mode<article>{\usepackage{fullpage}}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+\usetheme{Antibes}
+%\usecolortheme{lily}
+
+\definecolor{VertFonce}{rgb}{0,.4,.0}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  % or ...
+\usetheme{Boadilla}
+
+  \setbeamercovered{transparent=5}
+  % or whatever (possibly just delete it)
+}
+%\setbeamercovered{dynamic}
+
+
+\subject{Talks}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+\setbeamercovered{invisible}
+\newcommand{\Sim}{{\star}}
+\newcommand{\ok}{ \textcolor{green}{\large$\surd$}}
+\newcommand{\nok}{ \textcolor{red}{\large X}}
+
+
+\usetikzlibrary{arrows,%
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+\tikzset{
+  every plot/.style={prefix=plots/pgf-},
+  shape example/.style={
+    color=black!30,
+    draw,
+    fill=yellow!30,
+    line width=.5cm,
+    inner xsep=2.5cm,
+    inner ysep=0.5cm}
+}
+
+
+\definecolor{darkgreen}{rgb}{0,.4,.0}
+
+%Styles
+
+%Title
+
+\beamertemplateshadingbackground{green!50}{yellow!50}
+\title[Problématiques Produits A et B]
+{Cours de Statistiques Inférentielles}
+\author{CQLS~: cqls@upmf-grenoble.fr}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+%\begin{frame}
+%  \titlepage
+%\end{frame}
+
+\section[A.E.P.]{Approche Expérimentale des Probabilités}
+
+\begin{frame}<1->[label=aep]
+\frametitle<1->{\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités : l'Expérimentateur versus le Matheux}
+\begin{columns}
+\begin{column}{5cm}
+      \begin{enumerate}
+     \item[] \textbf{L'Expérimentateur ~:} 
+        \item<1-10| alert@1-4>
+         Réaliser $m$ expériences
+        \item<5-10| alert@5-8>
+          Répartition des $\Est{\mu^\bullet}{y^\bullet_{[j]}}$ {\small représentées par $m$ briques de surface $1/m$ et de largeur $1/n$ empilées l'une après l'autre en les centrant en abscisse en leur valeur.}
+          )
+  \item<9-10>[] \textbf{Le Matheux :}      
+  \item<9-10| alert@9>
+          Je le savais \textbf{à l'avance} pour $m\to+\infty$
+           \item<10| alert@10>
+           $\Est{\mu^\bullet}{Y^\bullet}\SuitApprox \mathcal{N}(\mu^\bullet,\frac{\sigma_\bullet}{\sqrt{n}})$
+      \end{enumerate}
+     
+\end{column}    
+\begin{column}{6.5cm}
+
+
+
+
+
+
+
+\begin{pgfpicture}{-0.5cm}{0cm}{6cm}{6cm}
+      \only<2-10>{\pgfputat{\pgfxy(0,4.4)}{\pgfbox[center,center]{$14.6\%$}}}
+       \only<3-10>{\pgfputat{\pgfxy(2,4.4)}{\pgfbox[center,center]{$16.3\%$}}}
+       \only<4-5>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$14.1\%$}}}
+      \only<6>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$15.1\%$}}}
+      \only<7>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$14.7\%$}}}
+      \only<8>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$16.3\%$}}}
+      \only<9-10>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$\cdots$}}}
+     \pgfnodebox{EstY}[stroke]{\pgfxy(3,6.3)}{Future $\Est{\mu^\bullet}{Y^\bullet}$}{2pt}{2pt}
+      \only<2-10>{\pgfnodebox{esty1}[stroke]{\pgfxy(0,5)}{$\Est{\mu^\bullet}{y^\bullet_{[1]}}$}{2pt}{2pt}}
+       \only<3-10>{\pgfnodebox{esty2}[stroke]{\pgfxy(2,5)}{$\Est{\mu^\bullet}{y^\bullet_{[2]}}$}{2pt}{2pt}}
+     \only<4-10>{\pgfputat{\pgfxy(3.75,5)}{\pgfbox[center,center]{$\cdots\cdots$}}
+        \pgfnodebox{estym}[stroke]{\pgfxy(5.5,5)}{$\Est{\mu^\bullet}{y^\bullet_{[m]}}$}{2pt}{2pt}}
+  \pgfsetendarrow{\pgfarrowto}
+\only<2,5-10>{\pgfnodeconncurve{EstY}{esty1}{-90}{90}{0.5cm}{0.5cm}}
+\only<2>{\pgfnodelabel{EstY}{esty1}[0.5][-3pt]{\pgfbox[right,base]{$1^{\grave eme}$ réalisation}}
+}
+\only<3,5-10>{\pgfnodeconncurve{EstY}{esty2}{-90}{90}{0.5cm}{0.5cm}}
+\only<3>{\pgfnodelabel{EstY}{esty2}[0.5][-3pt]{\pgfbox[center,base]{$2^{\grave eme}$ réalisation}}
+}
+\only<4-10>{\pgfnodeconncurve{EstY}{estym}{-90}{90}{0.5cm}{0.5cm}}
+\only<4>{\pgfnodelabel{EstY}{estym}[0.5][-3pt]{\pgfbox[center,base]{$m^{\grave eme}$ réalisation}}
+}
+\only<5>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image1}{img/hist100A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image1}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=100$}}
+}
+\only<6>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image2}{img/hist1000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image2}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=1000$}}
+}
+\only<7>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image3}{img/hist5000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image3}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=5000$}}
+}
+\only<8>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image4}{img/hist10000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image4}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=10000$}}
+}
+\only<9>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image5}{img/hist10000A15Norm}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image5}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=+\infty$}}
+}
+\only<10>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image6}{img/hist10000A15NormContour}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image6}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=10000$ vs $m=+\infty$}}
+}
+\end{pgfpicture}
+\end{column}
+    
+\end{columns} 
+\end{frame}
+
+\begin{frame}[label=recap]
+\frametitle<1-3>{Réalisation d'une future estimation par l'\textbf{Expérimentateur}}
+\frametitle<4-6>{Réalisation d'une future estimation par le \textbf{Matheux}}
+
+\begin{columns}
+\begin{column}{5cm}
+\begin{center}
+\only<1,4>{
+
+\begin{tabular}{|c|c|}\hline
+\multicolumn{2}{|c|}{ 
+ 
+} \\\hline
+j & $\Est{\mu^\bullet}{y^\bullet_{[j]}}$\\\hline
+$\vdots$ & $\vdots$\\
+
+
+
+4150
+
+& 
+
+14.4\%
+
+\\
+
+
+
+4151
+
+& 
+
+17.2\%
+
+\\
+
+
+
+4152
+
+& 
+
+15\%
+
+\\
+
+
+{\color[rgb]{1,0,0}
+4153
+}
+& 
+{\color[rgb]{1,0,0}
+14.9\%
+}
+\\
+
+
+
+4154
+
+& 
+
+13.7\%
+
+\\
+
+
+
+4155
+
+& 
+
+15.8\%
+
+\\
+
+
+
+4156
+
+& 
+
+14.6\%
+
+\\
+
+$\vdots$ & $\vdots$\\
+\hline
+\end{tabular}
+
+}\only<2,5>{
+
+\begin{tabular}{|c|c|}\hline
+\multicolumn{2}{|c|}{ 
+ 
+} \\\hline
+j & $\Est{\mu^\bullet}{y^\bullet_{[j]}}$\\\hline
+$\vdots$ & $\vdots$\\
+
+
+
+2105
+
+& 
+
+15.3\%
+
+\\
+
+
+
+2106
+
+& 
+
+14.1\%
+
+\\
+
+
+
+2107
+
+& 
+
+13.2\%
+
+\\
+
+
+{\color[rgb]{1,0,0}
+2108
+}
+& 
+{\color[rgb]{1,0,0}
+15.5\%
+}
+\\
+
+
+
+2109
+
+& 
+
+16.7\%
+
+\\
+
+
+
+2110
+
+& 
+
+15.5\%
+
+\\
+
+
+
+2111
+
+& 
+
+14.5\%
+
+\\
+
+$\vdots$ & $\vdots$\\
+\hline
+\end{tabular}
+
+}\only<3,6>{
+
+\begin{tabular}{|c|c|}\hline
+\multicolumn{2}{|c|}{ 
+ 
+} \\\hline
+j & $\Est{\mu^\bullet}{y^\bullet_{[j]}}$\\\hline
+$\vdots$ & $\vdots$\\
+
+
+
+3728
+
+& 
+
+14.9\%
+
+\\
+
+
+
+3729
+
+& 
+
+14.4\%
+
+\\
+
+
+
+3730
+
+& 
+
+14.8\%
+
+\\
+
+
+{\color[rgb]{1,0,0}
+3731
+}
+& 
+{\color[rgb]{1,0,0}
+13.4\%
+}
+\\
+
+
+
+3732
+
+& 
+
+14.9\%
+
+\\
+
+
+
+3733
+
+& 
+
+14.4\%
+
+\\
+
+
+
+3734
+
+& 
+
+16.4\%
+
+\\
+
+$\vdots$ & $\vdots$\\
+\hline
+\end{tabular}
+
+}
+\end{center}
+\end{column}
+\begin{column}{5cm}
+
+
+
+
+
+
+\begin{pgfpicture}{0cm}{0cm}{6cm}{6cm}
+\only<1>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique1}{img/brique1}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique1}}}
+}
+\only<2>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique2}{img/brique2}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique2}}}
+}
+\only<3>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique3}{img/brique3}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique3}}}
+}
+\only<4>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point1}{img/point1}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point1}}}
+}
+\only<5>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point2}{img/point2}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point2}}}
+}
+\only<6>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point3}{img/point3}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point3}}}
+}
+\end{pgfpicture}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment l'industriel doit-il utiliser ces informations~?}
+\begin{exampleblock}{Réalisation d'une future estimation}
+\begin{itemize}[<+-| alert@+>]
+\item[$\to$] L'industriel s'imagine être le \textbf{jour~J} dans la situation où $\mu^\bullet=0.15$ (juste pas le marché)
+\item[$\to$] Il prend alors conscience que ce qui peut lui arriver \textbf{le jour~J}, c'est équivalent (ou presque) à~:
+\begin{enumerate}
+\item Choisir au hasard une brique (i.e un $\Est{\mu^\bullet}{y_{[j]}}$ parmi les $m$)
+\item Choisir au hasard un point sous la ``courbe $\mathcal{N}(\mu^\bullet,\frac{\sigma_\bullet}{\sqrt{n}})$'' associé à son abscisse représentant une réalisation au hasard de $\Est{\mu^\bullet}{Y}$ choisie parmi une infinité. 
+\end{enumerate}
+\item[$\Rightarrow$] Il voit clairement  la ``courbe $\mathcal{N}(\mu^\bullet,\frac{\sigma_\bullet}{\sqrt{n}})$'' comme un empilement d'une infinité de briques (``devenues des points'') associées à une infinité de réalisations possibles  de $\Est{\mu^\bullet}{Y}$.
+\end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+
+
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{quant}{img/quant}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{quantNorm}{img/quantNorm}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{quantExpNorm}{img/quantExpNorm}
+
+
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-3>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{
+\textbf{\large Produit~A~: Risque 1ère espèce}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1-3>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+$\begin{array}{l}
+\only<2-3>{{\color{red}P(\Est{p^A}{Y^A}> 16.9\%)}}\only<2>{=}\only<3>{\simeq}{\color{blue}\meanEmp[\only<1,3>{m}\only<2>{\infty}]{\Est{p^A}{y^A_{[\cdot]} } >16.9\%}}\only<1>{=\mbox{Prop. des $\Big(\Est{p^A}{y^A_{[\cdot]} }\Big)_{\only<1,3>{10000}\only<2>{\infty} } $ supérieurs à 16.9\%}}\\
+=\only<2>{\displaystyle\lim_{m\to\infty}}\frac1m\times\Big(\mbox{Nbre des $\Big(\Est{p^A}{y^A_{[\cdot]}}\Big)_{\only<1,3>{m}\only<2>{\infty}}$ supérieurs à 16.9\%}\Big)\\
+\only<1,3>{=}\only<2>{\simeq} \mbox{Surface des \only<1,3>{\textbf{briques} associées}\only<2>{\textbf{points} associés}  aux $\Big(\Est{p^A}{y^A_{[\cdot]}}\Big)_{\only<1,3>{m}\only<2>{\infty}}$ supérieurs à 16.9\%}
+\end{array}$}\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<1>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{quant}}}}
+\only<2>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{quantNorm}}}}
+\only<3>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{quantExpNorm}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+\section{P-valeur}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{diet}{img/diet}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{diet2}{img/diet2}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{diet3}{img/diet3}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{diet4}{img/diet4}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{diet5}{img/diet5}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{diet6}{img/diet6}
+
+
+
+
+
+
+
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{diet7}{img/diet7}
+
+
+
+
+
+
+
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-5,6>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{
+\textbf{\large Exemple diététicien}}}}
+\only<7>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Exemple diététicien (fin)}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1-5>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\visible<1-5>{\textbf{Assertion d'intérêt}~: Le régime permet une perte de poids de 2 kilos par semaine $\Leftrightarrow$ $\mathbf{H_1}:\mu^D>4$ (en 2 semaines)}\\
+\only<2-4>{\textbf{Décision} ({\small au vu des $\!n\!=\!50\!$ données})~: Accepter $\mathbf{H_1}$  si $\!{\color<2-4>{orange}\Est{\delta_{\mu^D,4}}{y^D}}\!>\!{\color<2-4>{darkgreen}\delta_{lim,\alpha}^+}\!$\\}
+\only<2-4>{\textbf{Question}~: Conclure pour $\alpha=\only<2>{5}\only<3>{10}\only<4>{1}\%$~?}
+\only<5>{\textbf{Question}~: Quel est le plus petit $\alpha$ (i.e. risque maximal de décider 
+à tort $\mathbf{H_1}$) à encourir pour accepter $\mathbf{H_1}$ (i.e. l'assertion d'intérêt) au vu des $n=50$ données~?}\end{minipage}}}}
+\only<6>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Assertion d'intérêt}~: Le régime permet une perte de poids de 2 kilos par semaine $\Leftrightarrow$ $\mathbf{H_1}:\mu^D>4$ (en 2 semaines)\\
+\textbf{Réponse}~: \textbf{\color{orange}p$-$valeur}= \textbf{\color{orange}le} plus petit \textbf{\color{orange}risque} maximal de décider 
+à tort $\mathbf{H_1}$ à encourir \textbf{\color{orange}pour accepter $\mathbf{H_1}$} (i.e. l'assertion d'intérêt).\end{minipage}}}}
+\only<7>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Assertion d'intérêt}~: Le régime permet une perte de poids de 2 kilos par semaine $\Leftrightarrow$ $\mathbf{H_1}:\mu^D>4$ (en 2 semaines)\\
+\textbf{Décision} (au vu des $\!n\!=\!50\!$ données)~: Accepter $\mathbf{H_1}$  si $\!{\color<7>{orange}\bf p-valeur}\!<\!{\color<7>{darkgreen}\alpha}\!$\\
+i.e. si {\color{orange}\bf le risque pour accepter $\mathbf{H_1}$} est {\color{darkgreen}\bf raisonnablement petit}\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<1>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet}}}}
+\only<2>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet2}}}}
+\only<3>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet3}}}}
+\only<4-5>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet4}}}}
+\only<1-5>{
+\pgfputat{\pgfxy(0.5636363636363637,0.9536580194337094)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} }}}
+\only<2-3>{
+ 
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.8105041432386135,0.24189559741557892)}}
+\only<4-5>{
+ 
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.9065082797505997,0.18258206224740137)}}
+\only<2>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{$\alpha=5\%$}}}
+\only<3>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{$\alpha=10\%$}}}
+\only<4-5>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{$\alpha=1\%$}}}
+\only<2>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=2.045}}$>${\color{darkgreen}$\delta_{lim,5\%}^+\stackrel{R}{=}$\texttt{qnorm(.95)=1.645}}}}}}
+\only<3>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=2.045}}$>${\color{darkgreen}$\delta_{lim,10\%}^+\stackrel{R}{=}$\texttt{qnorm(.9)=1.282}}}}}}
+\only<4>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=2.045}}$\ngtr${\color{darkgreen}$\delta_{lim,1\%}^+\stackrel{R}{=}$\texttt{qnorm(.99)=2.326}}}}}}
+\only<6>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet5}}}}
+\only<6>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet6}}}}
+\only<6>{
+\pgfputat{\pgfxy(0.5636363636363637,0.9536580194337094)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} }}}
+\only<6>{
+ 
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.8653636498168914,0.19105542441428391)}}
+\only<6>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{p$-$valeur}}}
+\only<6>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}p$-$valeur(droite)$\stackrel{R}{=}$ \texttt{1-pnorm((mean(yD)-4)/seMean(yD))=2.04\%}  }}}}}
+\only<7>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet7}}}}
+\only<7>{
+\pgfputat{\pgfxy(0.5636363636363637,0.9536580194337094)}{\pgfbox[center,center]{\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} }}}
+\only<7>{
+ 
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.8653636498168914,0.19105542441428391)}
+\pgfline{\pgfxy(0.8242190198831831,0.6825104300934691)}{\pgfxy(0.803646704916329,0.28426240824999144)}}
+\only<7>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{p$-$valeur}}}
+\only<7>{
+\pgfputat{\pgfxy(0.8105041432386135,0.6825104300934691)}{\pgfbox[center,bottom]{$\alpha=5\%$}}}
+\only<7>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}p$-$valeur(droite)$\stackrel{R}{=}$ \texttt{1-pnorm((mean(yD)-4)/seMean(yD))=2.04\%}  $<${\color{darkgreen}$\alpha=5\%$}  }}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+
+\end{document}
+
+

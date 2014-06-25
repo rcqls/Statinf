@@ -1,0 +1,163 @@
+\begin{landscape}
+%\begin{minipage}{20cm}
+\vspace*{-1.5cm}
+\hspace*{-1cm}
+\scalebox{0.85}{
+\begin{tabular}{|>{\columncolor[gray]{.9}}c|c|c||c|c|c|}
+\hline
+\rowcolor[gray]{.8} $\theta$ & $\Est{\theta}{Y}$ & $\Est{\theta}{y}$ en \texttt{R}& $\sigma_{\widehat{\theta}}$ & $\Est{\sigma_{\widehat{\theta}}}{Y}$ & $\Est{\sigma_{\widehat{\theta}}}{y}$ en \texttt{R}   \\
+
+\hline
+
+$p$ &
+$\Est{p}{Y}=\overline{Y}= \displaystyle{\frac 1n \sum_{i=1}^nY_i}$ & 
+\texttt{mean(y)}&
+$\sigma_{\widehat{{p}} } = \displaystyle{ \sqrt{\frac{ p(1-p)}{n}}}$ &
+$\displaystyle{ \sqrt{\frac{ \Est{p}{Y}(1-\Est{p}{Y})}{n}}}$ & 
+\texttt{seMean(y)}\\
+
+\hline
+
+$\mu$ & 
+$\Est{\mu}{Y}=\overline{Y}=\displaystyle{\frac1n \sum_{i=1}^nY_i}$ &
+\texttt{mean(y)}&
+$\sigma_{\widehat{{\mu}} }=\displaystyle{\sqrt{ \frac{\sigma^2 }{n}}}$ & 
+$\displaystyle{\sqrt{ \frac{\Est{\sigma^2}{Y} }{n}}}$ &
+\texttt{seMean(y)}\\
+
+\hline
+
+$\sigma^2$ &
+$\displaystyle{\Est{\sigma^2}{Y}=\frac{1}{n-1} \sum_{i=1}^n{(Y_i-\overline{Y})^2}}$&
+\texttt{var(y)}&
+$\sigma_{\widehat{\sigma^2}}=\displaystyle{\sqrt{ \frac{\sigma^2_{\ddot{Y}}}{n}}}$ &
+$\displaystyle{\sqrt{ \frac{\Est{\sigma^2_{\ddot{Y}}}{\ddot{Y}}}{n}}}$ &
+\texttt{seVar(y)} \\
+
+\hline
+
+\multirow{2}{*}{$d_{\mu}\!=\! \mu^{(1)}\!-\! \mu^{(2)}$} &
+\multirow{2}{*}{$\displaystyle{\Est{d_{\mu}}{Y}= \Est{\mu^{(1)}}{Y^{(1)}}-\Est{\mu^{(2)}}{Y^{(2)}}}$} &
+\multirow{2}{*}{\texttt{mean(y1)-mean(y2) }}&
+$\sigma_{\widehat{d_{\mu}   }}= \displaystyle{ \sqrt{ \frac{\sigma^2_{(1)}}{n^{(1)}} + \frac{\sigma^2_{(2)}}{n^{(2)}} }}$ & 
+$\displaystyle{ \sqrt{ \frac{\Est{\sigma^2_{(1)}}{Y^{(1)}}}{n^{(1)}} + \frac{\Est{\sigma^2_{(2)}}{Y^{(2)}}}{n^{(2)}}}}$ &
+\texttt{seDMean(y1,y2)}  \\\cline{4-6}
+&&&\multicolumn{2}{c|}{\textit{Cas Gaussien et $\sigma^2_{(1)}=\sigma^2_{(1)}=\sigma^2$}~: $\Est{\sigma^2}{Y}=\frac{(n^{(1)}-1) \Est{\sigma^2_{(1)}}{Y^{(1)}} + (n^{(2)}-1) \Est{\sigma^2_{(2)}}{Y^{(2)}} }{n^{(1)}+n^{(2)}-2} $} & \texttt{seDMeanG(y1,y2)} \\
+\hline
+
+$d_{\sigma^2} \!=\! \sigma^2_{(1)}\!-\! \sigma^2_{(2)}$ &
+$\Est{d_{\sigma^2}}{Y}= \Est{\sigma_{(1)}^2}{Y^{(1)}}-\Est{\sigma_{(2)}^2}{Y^{(2)}}$ &
+\texttt{var(y1)-var(y2)}  &
+$\sigma_{\widehat{d_{\sigma^2}   }}=\displaystyle{ \sqrt{ \frac{\sigma^2_{\ddot{Y}^{(1)}}}{n^{(1)}} +\frac{\sigma^2_{\ddot{Y}^{(2)}}}{n^{(2)}}}}$ &
+$\displaystyle{ \sqrt{ \frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}} +\frac{\Est{\sigma^2_{\ddot{Y}^{(2)}}}{\ddot{Y}^{(2)}}}{n^{(2)}}}}$&
+\texttt{seDVar(y1,y2)} \\
+\hline
+
+$\displaystyle{r_{\mu}= \frac{\mu^{(1)}}{\mu^{(2)}}}$ &
+$\displaystyle{\Est{r_{\mu}}{Y}= \frac{\Est{\mu^{(1)}}{Y^{(1)}}}{ \Est{\mu^{(2)}}{Y^{(2)}}}}$ &
+\texttt{mean(y1)/mean(y2)}& 
+$\sigma_{\widehat{r_\mu}}=\displaystyle{\frac1{\mu^{(2)}} \sqrt{\frac{\sigma_{(1)}^2}{n^{(1)}}+r_{\mu}^2\times\frac{\sigma_{(2)}^2}{n^{(2)}}}}$ &
+${\frac1{\Est{\mu^{(2)}}{Y^{(2)}}} \sqrt{\frac{\Est{\sigma_{(1)}^2}{Y^{(1)}}}{n^{(1)}}+\Est{r_{\mu}}{Y}^2\times\frac{\Est{\sigma_{(2)}^2}{Y^{(2)}}}{n^{(2)}}}}$&
+\texttt{seRMean(y1,y2)} \\
+
+
+
+
+
+\hline 
+
+$\displaystyle{r_{\sigma^2} = \frac{\sigma^2_{(1)} }{\sigma^2_{(2)}}}$&
+$\displaystyle{\Est{r_{\sigma^2}}{Y}= \frac{\Est{\sigma_{(1)}^2}{Y^{(1)}}}{ \Est{\sigma_{(2)}^2}{Y^{(2)}}}}$&
+\texttt{var(y1)/var(y2)} &
+$\sigma_{\widehat{r_{\sigma^2}   }}=\displaystyle{\frac1{\sigma^2_{(2)}} \sqrt{\frac{\sigma^2_{\ddot{Y}^{(1)}}}{n^{(1)}}\!+\!r_{\sigma^2}^2 \frac{\sigma^2_{\ddot{Y}^{(2)}}}{n^{(2)}}}}$&
+${\frac1{\Est{\sigma^2_{(2)}}{Y^{(2)}}} \sqrt{\frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}}\!+\!\Est{r_{\sigma^2}}{Y}^2   \frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}}}}$ &
+\texttt{seRVar(y1,y2)}\\
+\hline
+
+\end{tabular}
+}
+
+
+\vspace*{.5cm}
+%\thispagestyle{empty}
+\hspace*{-0.3cm}
+\scalebox{0.91}{
+\noindent\begin{tabular}{|>{\columncolor[gray]{.9}}c|c|c|c|c||c|c|}
+\cline{4-7}
+
+\multicolumn{3}{c|}{} & \multicolumn{2}{>{\columncolor[gray]{.8}}c||}{Cadre Asymptotique} &  \multicolumn{2}{>{\columncolor[gray]{.8}}c|}{Cadre Gaussien}\\
+\hline
+
+\rowcolor[gray]{.8} $\theta$ &  
+$\theta_0$ &  
+$\sigma_{\widehat{\theta}}$ sous $\mathbf{H_0}$& 
+$\delta_{\theta,\theta_0}= (\theta-\theta_0)/ \sigma_{\widehat{\theta}}$& 
+$\Est{\delta_{\theta,\theta_0}}{Y}$ et sa loi sous $\mathbf{H_0}$ & 
+$\delta_{\theta,\theta_0}$&
+$\Est{\delta_{\theta,\theta_0}}{Y}$ et sa loi sous $\mathbf{H_0}$ \\
+
+\hline
+
+$p$ &$p_0$& 
+$\displaystyle{ \sqrt{\frac{ p_0(1-p_0)}{n}}}$&
+$\displaystyle{ \delta_{p,p_0}= \frac{p-p_0}  { \sqrt{\frac{ p_0(1-p_0)}{n}}}}    $& 
+$\displaystyle{ \Est{\delta_{p,p_0}}{Y}= \frac{\Est{p}{Y}-p_0}  { \sqrt{\frac{ p_0(1-p_0)}{n}}}}    \SuitApprox \mathcal{N}(0,1)$ & 
+ \multicolumn{2}{>{\columncolor[gray]{.1}}c}{}
+\\
+\hline
+
+$\mu$&$\mu_0$&
+$\sigma_{\widehat{{\mu}} }$ &
+$\displaystyle{ \delta_{\mu,\mu_0} = \frac{\mu-\mu_0}{\sigma_{\widehat{{\mu}} }}}$&
+$\displaystyle{ \Est{\delta_{\mu,\mu_0}}{Y} = \frac{\Est{\mu}{Y}-\mu_0}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}}\SuitApprox  \mathcal{N}(0,1)$ &
+ $\displaystyle{ \delta_{\mu,\mu_0} = \frac{\mu-\mu_0}{\sigma_{\widehat{{\mu}} }}}$&
+$\displaystyle{ \Est{\delta_{\mu,\mu_0}}{Y} = \frac{\Est{\mu}{Y}-\mu_0}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}}\leadsto  \mathcal{S}t(n-1)$ \\
+
+\hline
+
+$\sigma^2$ &$\sigma_0^2$&
+$\sigma_{\widehat{\sigma^2}}$&
+$\displaystyle{ \delta_{\sigma^2,\sigma^2_0}= \frac{\sigma^2-\sigma^2_0}{\sigma_{\widehat{\sigma^2}}}}$&
+$\displaystyle{ \Est{\delta_{\sigma^2,\sigma^2_0}}{Y}= \frac{\Est{\sigma^2}{Y}-\sigma_0^2}{\Est{    \sigma_{\widehat{\sigma^2}}       }{Y}}}\SuitApprox  \mathcal{N}(0,1)$ &
+ $\displaystyle{ \delta_{\sigma^2,\sigma^2_0}= (n-1) \frac{\sigma^2}{\sigma_0^2}}$&
+$\displaystyle{ \Est{\delta_{\sigma^2,\sigma^2_0}}{Y}= (n-1) \frac{\Est{\sigma^2}{Y}}{\sigma_0^2} \leadsto \chi^2(n-1)}$\\
+
+
+
+\hline
+
+$d_{\mu}\!=\! \mu^{(1)}\!-\! \mu^{(2)}$ &$d_0$&
+$\sigma_{\widehat{d_\mu}}$&  
+$\displaystyle{ \delta_{d_\mu,d_0}= \frac{d_\mu-d_0}{\sigma_{\widehat{d_\mu}}}}$&
+$\displaystyle{ \Est{\delta_{d_\mu,d_0}}{Y}= \frac{\Est{d_\mu}{Y}-d_0}{\Est{\sigma_{\widehat{d_\mu}}  }{Y}    }}\SuitApprox  \mathcal{N}(0,1)$ &
+$\displaystyle{ \delta_{d_\mu,d_0}= \frac{d_\mu-d_0}{\sigma_{\widehat{d_\mu}}}}$&
+$ \Est{\delta_{d_\mu,d_0}}{Y} =  {\frac{\Est{d_\mu}{Y}-d_0}{\Est{\sigma_{\widehat{d_\mu}}  }{Y} }} \leadsto\mathcal{S}t(\!n^{(1)}\!+\!n^{(2)}\!-\!2\!) $\\
+
+\hline
+
+$d_{\sigma^2} \!=\! \sigma^2_{(1)}\!-\! \sigma^2_{(2)}$&$d_0$&
+$\sigma_{\widehat{d_{\sigma^2}   }}$&
+$\displaystyle{ \delta_{d_{\sigma^2},d_0}= \frac{d_{\sigma^2}-d_0}{\sigma_{\widehat{d_{\sigma^2}}}}}$&
+$\displaystyle{ \Est{\delta_{d_{\sigma^2},d_0}}{Y}= \frac{\Est{d_{\sigma^2}}{Y}-d_0}{\Est{\sigma_{\widehat{d_{\sigma^2}}}  }{Y}   }} \SuitApprox  \mathcal{N}(0,1)$ &
+ \multicolumn{2}{>{\columncolor[gray]{.1}}c}{} \\
+
+
+\hline
+
+$   \displaystyle{r_{\mu}= \frac{\mu^{(1)}}{\mu^{(2)}}}        $ &$r_0$&
+$\sigma_{\widehat{r_\mu}}$&  
+$\displaystyle{ \delta_{r_\mu,r_0}= \frac{r_\mu-r_0}{\sigma_{\widehat{r_\mu}}}}$&
+$\displaystyle{ \Est{\delta_{r_\mu,r_0}}{Y}= \frac{\Est{r_\mu}{Y}-r_0}{\Est{\sigma_{\widehat{r_\mu}}  }{Y}    }}\SuitApprox  \mathcal{N}(0,1)$ &
+\multicolumn{2}{>{\columncolor[gray]{.1}}c}{}
+ \\
+\hline
+$   \displaystyle{r_{\sigma^2} = \frac{\sigma^2_{(1)} }{\sigma^2_{(2)}}}           $&$r_0$&
+$\sigma_{\widehat{r_{\sigma^2}   }}$&
+$\displaystyle{ \delta_{r_{\sigma^2},r_0}= \frac{r_{\sigma^2}-r_0}{\sigma_{\widehat{r_{\sigma^2}}}}}$&
+$\displaystyle{ \Est{\delta_{r_{\sigma^2},r_0}}{Y}= \frac{\Est{r_{\sigma^2}}{Y}-r_0}{\Est{\sigma_{\widehat{r_{\sigma^2}}}  }{Y}   }}\SuitApprox  \mathcal{N}(0,1)$ &
+$\displaystyle{ \delta_{r_{\sigma^2},r_0}= \frac{r_{\sigma^2}}{r_0}}$&
+$\displaystyle{ \Est{\delta_{r_{\sigma^2},r_0}}{Y}= \frac{\Est{r_{\sigma^2}}{Y}}{r_0}\leadsto \mathcal{F}(n^{(1)}-1,n^{(2)}-1)} $    \\
+\hline
+\end{tabular}}
+%\end{minipage}
+\end{landscape}

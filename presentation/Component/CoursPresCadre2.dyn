@@ -1,0 +1,28 @@
+[#require]Import/StatDevel/BeamerRedStdCours
+[#main]
+
+\begin{frame}
+\frametitle{Synthèse sur la valeur d'une p$-$valeur(gauche)}
+{\small \begin{block}{}
+On cherche à comparer un paramètre $\theta$ ($=p,\mu,\sigma^2,d_\mu,r_\mu,d_{\sigma^2},r_{\sigma^2},\ldots$) à une valeur de référence $\theta_0$. A la {\large\bf seule} vue de la valeur de la p$-$valeur(gauche), quel type d'assertion d'intérêt peut-on accepter avec un risque d'erreur de première espèce n'excédant pas $\alpha$~? 
+\end{block}}
+\pause
+{\small
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+& $\mathbf{H_1}: \theta<\theta_0$ & $\mathbf{H_1}: \theta>\theta_0$&$\mathbf{H_1}: \theta\neq\theta_0$ \\
+&&&\\ \hline
+p$-$val(g)$<\frac{\alpha}2$ \pause& \ok & \nok & \ok \\
+&&&\\ \hline \pause
+$\frac{\alpha}2<$p$-$val(g)$<\alpha$\pause & \ok & \nok & \nok \\
+&&&\\ \hline\pause
+$\alpha<$p$-$val(g)$<1-\alpha$ \pause& \nok & \nok & \nok \\
+&&&\\ \hline\pause
+$1-\alpha<$p$-$val(g)$<1-\frac{\alpha}2$ \pause& \nok & \ok & \nok \\
+&&&\\ \hline\pause
+p$-$val(g)$>1-\frac{\alpha}2$ \pause& \nok & \ok & \ok \\
+&&&\\ \hline
+\end{tabular}
+\end{center}}
+\end{frame}

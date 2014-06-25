@@ -1,0 +1,19 @@
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}\hline
+\multicolumn{3}{|c|}{}\\\multicolumn{3}{|c|}{\textbf{Param{\`e}tre d'int{\'e}r{\^e}t et estimation}}\\\hline
+Param{\`e}tre d'int{\'e}r{\^e}t $\theta$ & $\mu$ & $\sigma^2$ \\\hline
+Future estimation $\Est{\theta}{Y}$ & $\Est{\mu}{Y}=\displaystyle{\frac1n \sum_{i=1}^nY_i}$ & $\displaystyle{\Est{\sigma^2}{Y}=\frac{1}{n-1} \sum_{i=1}^n{(Y_i-\overline{Y})^2}}$ \\\hline
+$\Est{\theta}{y}$ exprim{\'e} en \verb+R+ & \verb+mean(y)+ & \verb+var(y)+  \\
+\hline \hline \multicolumn{3}{c}{}\\ \hline
+\multicolumn{3}{|c|}{}\\ \multicolumn{3}{|c|}{\textbf{Mesure d'{\'e}cart standardis{\'e}e}}\\\hline
+ $\delta_\theta(\Vect{Y})$ & $\delta_\mu(\Vect{Y})=\displaystyle{\frac{\Est{\mu}{Y}-\mu}{\sqrt{ \frac{\Est{\sigma^2}{Y}}{n}  }}\leadsto \mathcal{S}t(n-1)  }$ & $\delta_{\sigma^2}(\Vect{Y})= \displaystyle{ (n-1) \frac{ \Est{\sigma^2}{Y} }{\sigma^2} \leadsto \chi^2(n-1)}$ \\
+\hline\hline \multicolumn{3}{c}{}\\ \hline
+\multicolumn{3}{|c|}{}\\\multicolumn{3}{|c|}{\textbf{Statistique de test ou Mesure d'{\'e}cart standardis{\'e}e de test}}\\\hline
+Valeur de r{\'e}f{\'e}rence $\theta_0$ & $\mu_0$ & $\sigma_0^2$ \\\hline
+ $\delta_{\theta_0}(\Vect{Y})$ & $\delta_{\mu_0}(\Vect{Y})=\displaystyle{\frac{\Est{\mu}{Y}-\mu_0}{ \sqrt{ \frac{\Est{\sigma^2}{Y}}{n}}   }\leadsto \mathcal{S}t(n-1)  }$ & $\delta_{\sigma_0^2}(\Vect{Y})= \displaystyle{ (n-1) \frac{ \Est{\sigma^2}{Y} }{\sigma_0^2} \leadsto \chi^2(n-1)}$ \\\hline
+\end{tabular}
+\end{center}
+\caption{Tableau r{\'e}capitulatif au cas d'un seul {\'e}chantillon (dans un cadre gaussien).}
+\label{UnEchGaussien}
+\end{table}

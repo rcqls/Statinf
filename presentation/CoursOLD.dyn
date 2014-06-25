@@ -1,0 +1,129 @@
+[#require][#>]beamertheme[Boadilla]
+[#>]Tex/Cqls
+Tex/Beamer
+Tex/Fr
+Tex/11pt
+Import/Tools/Beamer
+Import/Tools/RFigure
+Import/Tex/FilterR
+Import/Tools/BeamerSlide
+[#package]
+\usepackage{float}
+[#preamble]
+\setbeamercovered{invisible}
+\newcommand{\Sim}{{\star}}
+\newcommand{\ok}{ \textcolor{green}{\large$\surd$}}
+\newcommand{\nok}{ \textcolor{red}{\large X}}
+[#title]
+[#tag]style:cqls[#>]\beamertemplateshadingbackground{green!50}{yellow!50}[#tag]end[#>]
+\title[Problématiques Produits A et B]
+{Cours de Statistiques Inférentielles}
+\author{CQLS~: cqls@upmf-grenoble.fr}
+\date{\today}
+[#main]
+%\begin{frame}
+%  \titlepage
+%\end{frame}
+[#%]Initialisation de scene utilisables[#<]
+{#InitStyle#}
+{#initCpt#}
+
+{#Scene]head[#,]0,0,6,0.5[#cpt]ok[#}
+{#Scene]def[#,]0,0,11,2.1[#cpt]ok[#}
+{#Scene]ex[#,]0,0,11,5[#cpt]ok[#}
+[#tag]cours0[#=]cours[cours0]
+[#tag]cours1[#=]cours[introProba]
+[#tag]cours2[#=]cours[estim]
+[#tag]cours3[#=]cours[ic]
+[#tag]cours4[#=]cours[prodAB]
+[#tag]cours5[#=]cours[pval]
+[#tag]cours6[#=]cours[cadre,1ech]
+[#tag]cours7[#=]cours[2ech]
+[#tag]cours:indus[#=]cours[indus]
+[#tag]cours:prob[#=]cours[prob]
+[#tag]cours:prob2[#=]cours[prob2]
+[#tag]coursOld:prob2[#=]cours[prob2Old]
+[#tag]coursOld:hypoProd[#=]cours[hypoProdOld]
+[#tag]coursOld:appProd[#=]cours[appProdOld]
+[#tag]cours:versgen[#=]cours[versgen]
+[#?]false
+[#tag]cours:cadreasymp[#=]cours[]
+[#tag]coursOld:cadreasymp[#<<]Component/CoursCadreAsympOLD
+[#tag]cours:aep[#<<]Component/CoursProba2Indus
+[#tag]cours:2params[#<<]Component/CoursDeuxParam
+[#tag]cours:redstd[#<<]Component/CoursRedStd
+[#tag]cours:autreredstd[#<<]Component/CoursExosRappel
+[#tag]cours:2gauss[#<<]Component/CoursDeuxGauss
+[#tag]cours:prescadre[#<<]Component/CoursPresCadre
+[#tag]cours:prescadre2[#<<]Component/CoursPresCadre2
+[#tag]cours:prescadretmp[#<<]Component/CoursPresCadreTMP
+[#tag]cours:pval[#<<]Component/CoursPValeur
+[#tag]cours:histo[#<<]Component/CoursAEPHisto
+[#tag]cours:ic[#<<]Component/CoursIC
+[#tag]cours:risk2esp[#<<]Component/CoursSecEspATMP
+[#?]end
+[#tag]cours1-2009[#=]cours[indus,prob]
+[#tag]end
+[#%]L'avantage avec #case (à la différence de #tag) c'est que l'on peut changer l'ordre!
+[#>]{#case]#{cours}
+[#when]cours0[#%]Pour prépa du cours
+{#Compose>]Component/CoursCadre:initScene,dietn50short,putScene[#}
+{#Compose>]Component/CoursPVal:data,initScene,comp,dict,note,putScene[#}
+[#when]introProba[#%]Cours 1 (2010)
+{#Compose>]Component/CoursIntroProba:section,annivPres,gobPres,déPres,electionPres,SchémaFormal,annivSF,gobSF,déSF,loiAEPvsAMP,loiAEP,déAEP,electionAEP
+[#}
+[#when]estim[#%] Cours 2 (2010)
+{#Compose>]Component/CoursEstim:section,saljusPb,initScene,estim,qualité,se,alea,aep,putScene[#}
+[#when]ic[#%] Cours 3 (2010)
+{#Compose>]Component/CoursIC:section,motiv,création,qualité,vérifAEP,saljusIC[#}
+[#when]prodAB[#%] Cours 4 (2010)
+{#hide]En chantier!{#Compose>]Component/CoursProdAB:section,data,initScene,intro,pA1,putScene[#}[#}
+{#Compose>]Component/CoursHypoTestIndusProba1[#}
+[#when]pval[#%] Cours 5 (2010)
+{#Compose>]Component/CoursAEP2:section,data,histo,initScene,prodA,putScene[#}
+{#Compose>]Component/CoursPVal:section,data,initScene,diet,putScene[#}
+[#when]cadre[#%] Cours 6 (2010)
+{#Compose>]Component/CoursCadre:rédaction,testInstrR[#}
+[#when]1ech[#%] Cours 7 (2010)
+{#Compose>]Component/CoursCadre:pbs1[#}
+\section{P-valeur (suite)}
+{#Compose>]Component/CoursPVal:data,initScene,comp,dict,putScene[#}
+\section{Exercices (1 échantillon)}
+{#paramSlide]pb1pa[#}
+{#Compose>]Component/CoursExos:initScene,chomData,chomAQ,chomAP,dietn50Data,dietn50SQ,dietn50SP,dietn50AQ,dietn50AP,alfredn50Data,alfredn50SQ,alfredn50SP,alfredn50AQ,alfredn50AP,putScene[#}
+{#paramSlide]pb1pg[#}
+{#Compose>]Component/CoursExos:initScene, dietn10Data,dietn10AQ,dietn10AP,alfredn20Data,alfredn20SQ,alfredn20SP,putScene[#}
+[#when]2ech[#%] Cours 8 (2010)[#>]
+\section{Exemples de comparaisons de paramètres}
+{#Compose>]Component/CoursExos:chAffContexte[#}
+{#Compose>]Component/CoursCadre:pbs2[#}
+\section{Détermination de l'assertion d'intérêt $\mathbf{H}_1$}
+{#Compose>]Component/CoursExos:chAffH1[#}
+{#Compose>]Component/CoursCadre:signeDelta,prelim2[#}
+\section{Rédaction des exemples}
+{#Compose>]Component/CoursExos:,initScene, chAffData,chAffq1a,chAffq1b,chAffq2,chAffq3a,chAffq3b,chAffq4a,chAffq4b,chAffq5a,chAffq5b,putScene[#}
+[#when]exos[#%] Cours 9 (2010)
+{#Compose>]Component/CoursCadre:pbs,tabPbs[#}
+[#when]indus[#<<]Component/CoursPresIndus
+[#when]prob[#<<]Component/CoursProba1
+[#when]prob2[#<<]Component/CoursHypoTestIndusProba1
+[#when]versgen[#<<]Component/CoursVersGen
+[#when]cadreasymp[#<<]Component/CoursCadreAsymp
+[#when]aep[#<<]Component/CoursProba2Indus
+[#when]2params[#<<]Component/CoursDeuxParam
+[#when]redstd[#<<]Component/CoursRedStd
+[#when]autreredstd[#<<]Component/CoursExosRappel
+[#when]2gauss[#<<]Component/CoursDeuxGauss
+[#when]prescadre[#<<]Component/CoursPresCadre
+[#when]prescadre2[#<<]Component/CoursPresCadre2
+[#when]prescadretmp[#<<]Component/CoursPresCadreTMP
+[#when]pval.old[#<<]Component/CoursPValeur
+[#when]histo[#<<]Component/CoursAEPHisto
+[#when]ic[#<<]Component/CoursIC
+[#when]risk2esp[#<<]Component/CoursSecEspATMP
+[#when]prob2Old[#<<]Component/CoursProba
+[#when]hypoProdOld[#<<]Component/CoursHypoTestPrAEtB
+[#when]appProdOld[#<<]Component/CoursAppProdAetB
+[#when]cadreasympOld[#<<]Component/CoursCadreAsympOLD
+[#}
+

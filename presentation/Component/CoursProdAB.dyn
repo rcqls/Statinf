@@ -1,0 +1,395 @@
+[#require]Import/StatDevel/TabHypo
+[#preamble]
+\definecolor{darkblue}{rgb}{0,0,.4}
+[#package]
+\usepackage{colortbl}
+\usepackage{tabularx}
+\usepackage{multirow}
+[#main][#>]
+{#case]#{docs}
+[#when]section[#>]\section{Test d'hypothèses}
+[#when]initScene[#>]{#InitScene#}
+[#when]putScene[#>]{#PutScene#}
+[#when]data[#r<]
+require(CqlsRandom)
+pA<-.15
+plim<-c(.15,.17,.2)
+plim2<-c(.15,.168573,.17)
+plim3<-c(0,qnorm(.95),qnorm(.975))
+n<-1000
+qtmp<-qbinom(c(.001,.999),n,pA)
+modtmp<-qtmp[1]:qtmp[2]
+Y1<-Norm(.1,sqrt(.1*.9/1000))
+Y2<-Norm(.2,sqrt(.2*.8/1000))
+Y14<-Norm(.14,sqrt(.14*.86/1000))
+Y15<-Norm(.15,sqrt(.15*.85/1000))
+Y151<-Norm(.151,sqrt(.151*.849/1000))
+Y16<-Norm(.16,sqrt(.16*.84/1000))
+Delta<-Norm(0,1)
+N<-2000000
+N1<-c(100000,180000,200000,220000,300000)
+N2<-N3<-20000
+N0<- N-(N1+N2+N3)
+varB<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
+Y1B<-Norm(.1,sqrt(varB[1]/1000))
+Y2B<-Norm(.2,sqrt(varB[2]/1000))
+Y14B<-Norm(.14,sqrt(varB[3]/1000))
+Y15B<-Norm(.15,sqrt(varB[4]/1000))
+Y16B<-Norm(.16,sqrt(varB[5]/1000))
+N1<-N2<-0
+N3<-100000
+N0<-N-N3
+varB2<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
+Y15B2<-Norm(.15,sqrt(varB2/1000))
+plimB<-c(.15,QQ(Y15B,.95),.2)
+plimB2<-c(QQ(Y15,.95),QQ(Y15B,.95),QQ(Y15B2,.95))
+attach("~/cqls/data/simEch.RData")
+attach("~/cqls/data/simEch2.RData")
+attach("~/cqls/data/simEch3.RData")
+attach('~/cqls/data/industriel.RData');attach(industriel)
+pAEst01<-muEst.sim[,1];pAEst015<-muEst.sim[,2];pAEst02<-muEst.sim[,3]
+pAEst0151<-yy0151.sim
+muBEst01<-muEst.sim[,4];muBEst015<-muEst.sim[,5];muBEst02<-muEst.sim[,6]
+pAEst014<-muEst2.sim[,1];pAEst016<-muEst2.sim[,2]
+muBEst014<-muEst2.sim[,3];muBEst016<-muEst2.sim[,4]
+deltaAEst01<-(pAEst01-0.15)/sqrt(0.15*0.85/n)
+deltaAEst015<-(pAEst015-0.15)/sqrt(0.15*0.85/n)
+deltaAEst02<-(pAEst02-0.15)/sqrt(0.15*0.85/n)
+deltaAEst014<-(pAEst014-0.15)/sqrt(0.15*0.85/n)
+deltaAEst016<-(pAEst016-0.15)/sqrt(0.15*0.85/n)
+deltaBEst01<-muEst.sim[,7]
+deltaBEst015<-muEst.sim[,8]
+deltaBEst02<-muEst.sim[,9]
+deltaBEst014<-muEst2.sim[,4]
+deltaBEst016<-muEst2.sim[,6]
+deltaBEstUA01<-(muEst.sim[,1]-.15)/sqrt(muEst.sim[,1]*(1-muEst.sim[,1])/1000)
+deltaBEstUA015<-(muEst.sim[,2]-.15)/sqrt(muEst.sim[,2]*(1-muEst.sim[,2])/1000)
+deltaBEstUA02<-(muEst.sim[,3]-.15)/sqrt(muEst.sim[,3]*(1-muEst.sim[,3])/1000)
+deltaBEstUA014<-(muEst2.sim[,1]-.15)/sqrt(muEst2.sim[,1]*(1-muEst2.sim[,1])/1000)
+deltaBEstUA016<-(muEst2.sim[,2]-.15)/sqrt(muEst2.sim[,2]*(1-muEst2.sim[,2])/1000)
+[#rb<]
+plimPCT=#R{as.integer(plim*100)}
+plim5PCT=#R{round(qnorm(.95,.15,sqrt(.15*.85/1000))*100,2)}
+plimN=#R{as.integer(plim*n)}
+[#when]intro[#%]Produit  (intro) -> Intro[#<]
+{#Slide][#nb]3[#titre]Décision pour Produits A et B
+[#haut]\textbf{Objectif}~: Nous rappelons que l'industriel désire établir une règle de décision à partir d'une unique estimation obtenue le \textbf{Jour J} quant au lancement du produit~$\bullet$.
+[#bas]{#only]:2-3[#>]\textbf{Question}~: Quelle est la forme de la règle de décision en faveur de l'assertion d'intérêt (c-à-d $\mu^\bullet > 0.15$)~?[#}
+{#only]:3[#>]\\\textbf{Réponse}~: Accepter l'assertion d'intérêt si $\Est{\mu^\bullet}{y^\bullet}>\mu_{lim}$.[#}
+[#}
+[#when]pA1[#%]Produit A -> Comment remplir les tableaux[#<]
+{#Slide][#nb]4[#titre]Décision pour le Produit~A
+[#haut]{#only]:1-2[#>]\textbf{Question}~: Pour différentes urnes $U^A_p$, l'{\color{blue}expérimentateur} a évalué {\small ${\color{blue}\meanEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}>p_{lim}}}$}. Comment ces valeurs ont-elles été obtenues~?[#}{#only]:2[#>]\\\textbf{Réponse}~: proportions parmi {\color{blue}$m=10000$} (et parmi {\color{red}$m=\infty$} avec un peu de patience) estimations {\small $\Est{p^A}{y^A_{[\cdot]}}$} supérieures à $p_{lim}$.[#}{#only]:3-4[#>]\textbf{Question}~: Comment la connaissance du {\color{red}mathématicien} $\Est{p^A}{Y^A}\SuitApprox \mathcal{N}(p^A,\sqrt{\frac{p^A(1-p^A)}n})$ a été utilisée~?[#}
+{#only]:4[#>]\\\textbf{Réponse}~:\\ 
+$P_{p^A=p}(\Est{p^A}{Y^A}>p_{lim})\NotR\mathtt{1-pnorm(plim,p,sqrt(p*(1-p)/n))}$.[#}
+{#only]:5[#>]\textbf{Question}~: Avec le point de vue de l'industriel, quelles valeurs de 
+${\color{red}P_{p^A=p}(\Est{p^A}{Y^A}>p_{lim})}\simeq {\color{blue}\meanEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}>p_{lim}}}$ conduisent à des risques d'erreur de décision (nature à préciser) trop grands~?[#}
+[#bas]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1)}
+@{TabLine_Prod(14\%|plim|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15)}
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2)}
+@{TabEnd}
+[#}
+
+[#when]pA2[#%]ProduitA (2) -> Risques d'erreur[#<]
+{#Slide][#nb]2[#titre]Décision pour le Produit~A
+[#haut]
+{#only]:2-3[#>]\textbf{Réponse}~: pour $p=$10\%, 14\% et 15\%, on a un \textbf{Risque 1ère espèce} (devenir pauvre)
+{\color{white}\bf raisonnable (< 5\%)} et 
+{\color{darkgray}\bf plutôt grand ($\geq$ 5\%)}[#}
+{#only]:3[#>]\\
+et pour $p=$15.1\%, 16\% et 20\%, \textbf{Risque 2ème espèce} (ne pas devenir riche)
+{\color{cyan}\bf raisonnable (< 5\%)} et 
+{\color{darkblue}\bf plutôt grand ($\geq$ 5\%)}
+[#}
+[#bas]{#only]:1[#>]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1)}
+@{TabLine_Prod(14\%|plim|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15)}
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2)}
+@{TabEnd}[#}
+{#only]:2[#>]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1|white)} 
+@{TabLine_Prod(14\%|plim|pAEst014|Y14|white)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2)} 
+@{TabEnd}[#}
+{#Actor]ex:pA2_tab_plim2[#,]:3[#,]0.5,1.0[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1|white)} 
+@{TabLine_Prod(14\%|plim|pAEst014|Y14|white)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151|darkblue|darkblue|cyan)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16|darkblue|darkblue|cyan)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2|darkblue|darkblue|cyan)} 
+@{TabEnd}
+[#}
+
+[#when]pATab1[#<]
+{#Slide][#nb]5[#titre]Produit~A
+[#bas]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1)}
+@{TabLine_Prod(14\%|plim|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15)}
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2)}
+@{TabEnd}
+[#}
+[#when]pATab2[#<]
+{#Slide][#nb]1[#titre]Produit~A
+[#bas]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1|white)} 
+@{TabLine_Prod(14\%|plim|pAEst014|Y14|white)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2)} 
+@{TabEnd}
+[#}
+[#when]pATab3[#<]
+{#Slide][#nb]4[#titre]Produit~A
+[#bas]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1|white)} 
+@{TabLine_Prod(14\%|plim|pAEst014|Y14|white)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151|darkblue|darkblue|cyan)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16|darkblue|darkblue|cyan)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2|darkblue|darkblue|cyan)} 
+@{TabEnd}
+[#}
+[#when]pATab4[#<]
+{#Slide][#nb]2[#titre]Produit~A
+[#bas]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1)} 
+@{TabLine_Prod(14\%|plim|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2)}
+[#}
+[#when]pATab5[#<]
+{#Slide][#nb]3[#titre]Produit~A
+[#bas]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|16\%|17\%)} 
+@{TabLine_Prod(10\%|plim2|pAEst01|Y1)} 
+@{TabLine_Prod(14\%|plim2|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim2|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim2|pAEst0151|Y151)} 
+@{TabLine_Prod(16\%|plim2|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim2|pAEst02|Y2)}
+[#}
+
+[#when]pATab6[#<]
+{#Slide][#nb]1[#titre]Produit~A
+[#bas]\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|16.8573\%|17\%)} 
+@{TabLine_Prod(10\%|plim2|pAEst01|Y1)} 
+@{TabLine_Prod(14\%|plim2|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim2|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim2|pAEst0151|Y151)} 
+@{TabLine_Prod(16\%|plim2|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim2|pAEst02|Y2)}
+[#}
+
+[#when]reste
+
+
+[#%]ProduitA (3): pire des erreurs[#<]
+{#ActorWhen]pA_tit[#,]:1-4[#}
+{#Actor]def:pA3_tab_risk1et2[#,]:1-2[#,]0.5,1.15[#,]
+@{ONLY(:1-2)}{\textbf{Question}~: Peut-on choisir $p_{lim}$ de sorte que tous les risques de 1ère et 2ème espèces soient raisonnablement petits~?}@{ONLY(:2)}{\\\textbf{Réponse}~: Non, puisque somme des risques de 1ère et 2ème espèces peut être aussi proche de 1 (ex: $p=15\%$ et $p=15.1\%$)~! }[#}
+{#Actor]def:pA3_tab_risk1et2suite[#,]:3-4[#,]0.5,1.15[#,]
+@{ONLY(:3-4)}{\textbf{Question}~: Quel risque faut-il alors essayer de controler lors du choix de $p_{lim}$~?}@{ONLY(:4)}{\\\textbf{Réponse}~: le plus grave, c-à-d le risque de 1ère espèce (ici devenir pauvre), uniquement possible pour $p^A=p\leq15\%$.}[#}
+{#ActorWhen]pA2_tab_plim2[#,]:1-3[#}
+{#ActorWhen]pA2_tab_plim[#,]:4[#}
+{#incCpt]4[#}
+[#%]ProduitA (4): pire des situations[#<]
+{#ActorWhen]pA_tit[#,]:1-3[#}
+{#Actor]def:pA4_tab_pire[#,]:1-3[#,]0.5,1.15[#,]
+@{ONLY(:1-3)}{\textbf{Question}~: Parmi les mauvaises situations pour l'industriel $p\leq 15\%$ (ici $p=10\%$, $14\%$ et $15\%$), quelle est la pire au sens du plus grand risque de 1ère espèce~?}@{ONLY(:2)}{\\\textbf{Réponse}~: $p^A=p=15\%$. Les risques avec $p<15\%$ sont plus petits~!}@{ONLY(:3)}{\\\textbf{Réponse}~: $p^A=15\%$ sera  \textbf{la pire des (mauvaises) situations}! }[#}
+{#ActorWhen]pA2_tab_plim[#,]:1[#}
+{#Actor]ex:pA4_tab_plim[#,]:2-3[#,]0.5,1.0[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|17\%|20\%)}
+@{TabLine_Prod(10\%|plim|pAEst01|Y1)} 
+@{TabLine_Prod(14\%|plim|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim|pAEst0151|Y151)}
+@{TabLine_Prod(16\%|plim|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim|pAEst02|Y2)} 
+@{TabEnd}[#}
+{#incCpt]3[#}
+[#%]ProduitA (5): choix de plim[#<]
+{#ActorWhen]pA_tit[#,]:1-3[#}
+{#Actor]def:pA5_tab_plim[#,]:1-3[#,]0.5,1.15[#,]
+@{ONLY(:1-3)}{\textbf{Question}~: Dans \textbf{la pire des situations}, comment choisir $p_{lim,\alpha}$ pour avoir un risque maximal de 1ère espèce fixé à $\alpha=5\%$~?}@{ONLY(:2-3)}{\\\textbf{Réponse}~: trouver $p_{lim,\alpha}$ tq $P_{p^A=15\%}(\Est{p^A}{Y^A}>p_{lim,\alpha})=\alpha=5\%$}@{ONLY(:3)}{\\c-à-d $p_{lim,5\%}\!\NotR\! \mathtt{qnorm(.95,.15,sqrt(.15*.85/1000)}\!=\!#r{qnorm(.95,.15,sqrt(.15*.85/1000))*100}\%$. }[#}
+{#ActorWhen]pA4_tab_plim[#,]:1[#}
+{#Actor]ex:pA5_tab_plim[#,]:2-3[#,]0.5,1.0[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(15\%|16.8573\%|17\%)} 
+@{TabLine_Prod(10\%|plim2|pAEst01|Y1)} 
+@{TabLine_Prod(14\%|plim2|pAEst014|Y14)}
+@{TabLine_Prod(15\%|plim2|pAEst015|Y15|white)} 
+@{TabLine_Prod(15.1\%|plim2|pAEst0151|Y151)} 
+@{TabLine_Prod(16\%|plim2|pAEst016|Y16)}
+@{TabLine_Prod(20\%|plim2|pAEst02|Y2)} 
+@{TabEnd} [#}
+{#incCpt]3[#}
+[#%] Produit A (6) -> redStd[#<]
+{#ActorWhen]pA_tit[#,]:1-10[#}
+{#Actor]def:pA6_q1_redStd[#,]:1-2[#,]0.5,1.15[#,]
+\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction du paramètre d'intérêt~?[#}
+{#Actor]def:pA6_q2_redStd[#,]:3-4[#,]0.5,1.15[#,]
+\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?[#}
+{#Actor]def:pA6_q3_redStd[#,]:5-6[#,]0.5,1.15[#,]
+\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{p^A}{Y^A}$ dans la pire des situations~?[#}
+{#Actor]def:pA6_q4_redStd[#,]:7-8[#,]0.5,1.15[#,]
+\textbf{Question }: Comment s'écrit la règle de décision en faveur de l'assertion d'intérêt ne produisant pas plus de 5\% d'erreur de première espèce~?[#}
+{#Actor]def:pA6_q5_redStd[#,]:9-10[#,]0.5,1.15[#,]
+\textbf{Question }: Comment conclueriez-vous au vu des données de l'industriel stockées dans le vecteur $\Vect{y^A}$ (\texttt{yA} en \texttt{R}) et pour lequel $\mathtt{mean(yA)}=0.171$~?[#}
+{#Actor]ex:pA6_redStd[#,]:1-10[#,]0.5,1.0[#minipage]11cm[#,]
+@{VIEW(:2-10)}{\noindent\textbf{Hypothèses de test~:}}@{VIEW(:4-10)}{ {\small $\mathbf{H_0}:p^A=15\%$} vs } @{VIEW(:2-10)}{$\mathbf{H_1}:p^A>15\%$\\}
+@{VIEW(:6-10)}{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{p^A}{Y^A}\SuitApprox \mathcal{N}(15\%,\sqrt{\frac{15\%\times 85\%}{n}})$}\newline}
+@{VIEW(:8-10)}{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si $\Est{p^A}{y^A} > p_{lim,\alpha}$}\newline}
+@{VIEW(:10)}{\noindent\textbf{Conclusion}~: Au vu des données, puisque\\
+ \centerline{$\Est{p^A}{y^A}=17.1\%> p_{lim,5\%}\simeq :r{qnorm(.95,.15,sqrt(.15*.85/1000))*100}\%$}\\
+on peut plutôt penser que le produit~A est rentable.\\
+(avec
+$p_{lim,5\%}\NotR
+\mathtt{qnorm(.95,.15,sqrt(.15*.85/1000))}$)}[#}
+{#incCpt]10[#}
+[#%]Produit B[#<]
+{#Actor]head:pB_tit[#,]:1-3[#,]0.5,0.5[#align]center,center[#,]\textbf{\large Décision pour le Produit~B}[#}
+{#Actor]def:pB_risk[#,]:1[#,]0.5,1.2[#,]
+\textbf{Même démarche (accélérée)}~: Les valeurs des cases ci-dessous correspondent à~: {\small ${\color{red}P_{\mu^B=\mu}(\Est{\mu^B}{Y^B}>\mu_{lim})}\simeq{\color{blue}\meanEmp[10000]{\Est{\mu^B}{y^B_{[\cdot]}}>\mu_{lim}}}$}\\
+obtenues grâce à la connaissance du mathématicien suivante\\
+\centerline{\color{red}$\Est{\mu^B}{Y^B}\SuitApprox \mathcal{N}(\mu^B,\sigma_{\widehat{\mu^B}})$ où $\sigma_{\widehat{\mu^B}}=\frac{\sigma_B}{\sqrt{n}}$}[#}
+{#Actor]ex:pB_tab_mulim[#,]:1[#,]0.5,1.0[#align]center,top[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(0.15|0.17|0.20|\mu|\mu)}
+@{TabLine_Prod(0.1|plim|muBEst01|Y1B|white)}
+@{TabLine_Prod(0.14|plim|muBEst014|Y14B|white)}
+@{TabLine_Prod(0.15|plim|muBEst015|Y15B|white)}
+@{TabLine_Prod(0.16|plim|muBEst016|Y16B|darkblue|darkblue|cyan)}
+@{TabLine_Prod(0.20|plim|muBEst02|Y2B|darkblue|darkblue|cyan)}
+@{TabEnd}[#}
+{#Actor]def:pB_risk2[#,]:2[#,]0.5,1.2[#,]
+\textbf{Même démarche (accélérée)}~: On ne cherche donc qu'à contrôler le risque de 1ère espèce dans \textbf{la pire des situations}, i.e. {\small $\mathbf{H_0}:\mu^B=0.15$}.\\
+\textbf{Question}~: Comment ajuster $\mu_{lim}$ de manière à ne produire qu'un risque maximal de 1ère espèce à $\alpha=5\%$~?[#}
+{#Actor]ex:pB_tab_mulim2[#,]:2[#,]0.5,1.0[#align]center,top[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(0.15|0.17|0.20|\mu|\mu)}
+@{TabLine_Prod(0.1|plim|muBEst01|Y1B)}
+@{TabLine_Prod(0.14|plim|muBEst014|Y14B)}
+@{TabLine_Prod(0.15|plim|muBEst015|Y15B|white)}
+@{TabLine_Prod(0.16|plim|muBEst016|Y16B)}
+@{TabLine_Prod(0.20|plim|muBEst02|Y2B)}
+@{TabEnd}[#}
+{#Actor]def:pB_risk3[#,]:3[#,]0.5,1.0[#,]
+[\textbf{Réponse}~: \\
+\[
+\mu_{lim}\NotR\mathtt{qnorm(.95,.15,sqrt(varBO15/n))}\simeq #r{QQ(Y15B,.95)}
+\]][#}
+{#Actor]ex:pB_tab_mulim3[#,]:3[#,]0.5,1.0[#align]center,top[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(0.15|#r{QQ(Y15B,.95)}|0.2|\mu|\mu)}
+@{TabLine_Prod(0.1|plimB|muBEst01|Y1B)}
+@{TabLine_Prod(0.14|plimB|muBEst014|Y14B)}
+@{TabLine_Prod(0.15|plimB|muBEst015|Y15B|white)}
+@{TabLine_Prod(0.16|plimB|muBEst016|Y16B)}
+@{TabLine_Prod(0.20|plimB|muBEst02|Y2B)}
+@{TabEnd}[#}
+{#incCpt]3[#}
+[#%]Prod B (2)[#<]
+{#ActorWhen]pB_tit[#,]:1-4[#}
+{#Actor]def:pB2_tab_mulim[#,]:1[#,]0.5,1.25[#,]
+L'urne $U^A_{0.15}$ est une pire situation potentielle pour le produit~B ainsi que beaucoup d'autres (à décrire). 
+Par conséquent, $\mu_{lim,5\%}$ peut prendre les valeurs  #r{QQ(Y15B,.95)},  #r{QQ(Y15,.95)} ainsi que beaucoup d'autres
+(le plus grand à 3 boules max est #r{QQ(Y15B2,.95)}) $\Rightarrow$ \textbf{ECHEC!}[#}
+{#Actor]ex:pB2_tab_muB[#,]:1[#,]0.5,1.0[#align]center,top[#minipage]nil[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|}\hline
+ & \multicolumn{2}{>{\columncolor{yellow}}c|}{$\mu_{lim,5\%}$} \\\cline{2-3}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Y15,.95)} ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Y15B,.95)} ($U^B_{0.15}$)} \\\hline
+0.1 & $#r{percentFilter(mean(pAEst01>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y1,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst01>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y1B,plimB2[2]))}$ \\\hline
+0.14 & $#r{percentFilter(mean(pAEst014>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y14,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst014>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y14B,plimB2[2]))}$ \\\hline
+0.15 & \cellcolor{white}$#r{percentFilter(mean(pAEst015>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y15,plimB2[1]))}$ & \cellcolor{white}$#r{percentFilter(mean(muBEst015>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y15B,plimB2[2]))}$ \\\hline
+0.16 & $#r{percentFilter(mean(pAEst016>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y16,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst016>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y16B,plimB2[2]))}$ \\\hline
+0.1 & $#r{percentFilter(mean(pAEst02>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y2,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst02>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y2B,plimB2[2]))}$ \\\hline
+\end{tabular}[#}
+{#Actor]def:pB2_tab_deltaB[#,]:2[#,]0.5,1.25[#,]
+\textbf{mais pas MATH!}~: en effet, $\Est{\mu^B}{Y^B}\SuitApprox \mathcal{N}({\color{blue}0.15},\frac{\color{red}\sigma_B}{\sqrt{n}})$ sous $\mathbf{H_0}$. Heureusement, $\mathbf{H_1}:\mu^B>0.15\Leftrightarrow \delta_{\mu^B,0.15}:=\frac{\mu^B-0.15}{\sigma_B/\sqrt{n}}>0$\\
+estimé par $\Est{\delta_{\mu^B,0.15}}{Y^B}:=\frac{\Est{\mu^B}{Y^B}-0.15}{\Est{\sigma_B}{Y^B}/\sqrt{n}}\SuitApprox \mathcal{N}({\color{blue}0},{\color{blue}1})$ sous $\mathbf{H_0}$.[#}
+{#Actor]def:pB2_tab_deltaB2[#,]:3[#,]0.5,1.25[#,]
+\textbf{mais pas MATH!}~: La Règle de Décision peut donc se formuler~:\\
+\centerline{Accepter $\mathbf{H_1}$ si $\Est{\delta_{\mu^B,0.15}}{y^B} > \delta_{lim,\alpha}\NotR \mathtt{qnorm(1-\alpha)}$}\newline
+de sorte que le risque maximal de 1ère espèce soit fixé à (urne $U^B_{0.15}$)\\ $\alpha\simeq{\color{red}P_{\mu^B=0.15}(\Est{\delta_{\mu^B,0.15}}{Y^B}>\delta_{lim,\alpha})}={\color{blue}\meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>\delta_{lim,\alpha}}}$.[#}
+{#Actor]ex:tab_deltaB[#,]:2-3[#,]0.5,1.0[#align]center,top[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+@{TabHead_Prod(0|1.6449|1.96|\mu|\delta)}
+@{TabLine_Prod(0.1|plim3|deltaBEst01|NULL)}
+@{TabLine_Prod(0.14|plim3|deltaBEst014|NULL)}
+@{TabLine_Prod(0.15|plim3|deltaBEst015|Delta|white)}
+@{TabLine_Prod(0.16|plim3|deltaBEst016|NULL)}
+@{TabLine_Prod(0.20|plim3|deltaBEst02|NULL)}
+@{TabEnd}[#}
+{#Actor]def:pB2_tab_deltaB4[#,]:4[#,]0.5,1.25[#,]
+\textbf{mais pas MATH!}~: De plus, le résultat~:\\ $\alpha\simeq{\color{red}P_{\mu^B=0.15}(\Est{\delta_{\mu^B,0.15}}{Y^B}>\delta_{lim,\alpha})}={\color{blue}\meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>\delta_{lim,\alpha}}}$\\
+est valide pour tout type d'urne potentielle pour le produit~B comme le montre les résultats ci-dessous pour les urnes $U^A_{0.15}$ et  $U^B_{0.15}$.[#}
+{#Actor]ex:tab_deltaB2[#,]:4[#,]0.5,1.0[#align]center,top[#minipage]nil[#,]
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|}\hline
+ & \multicolumn{2}{>{\columncolor{yellow}}c|}{$\delta_{lim,5\%}$} \\\cline{2-3}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Norm(0,1),.95)} ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Norm(0,1),.95)} ($U^B_{0.15}$)} \\\hline
+0.1 & $#r{percentFilter(mean(deltaBEstUA01>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst01>plim3[2]))} \simeq {\color{red}???}$ \\\hline
+0.14 & $#r{percentFilter(mean(deltaBEstUA014>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst014>plim3[2]))} \simeq {\color{red}???}$ \\\hline
+0.15 &\cellcolor{white} $#r{percentFilter(mean(deltaBEstUA015>plim3[2]))} \simeq #r{percent2Filter(1-FF(Delta,plim3[2]))}$ &\cellcolor{white} $#r{percentFilter(mean(deltaBEst015>plim3[2]))} \simeq #r{percent2Filter(1-FF(Delta,plim3[2]))}$ \\\hline
+0.16 & $#r{percentFilter(mean(deltaBEstUA016>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst016>plim3[2]))} \simeq {\color{red}???}$ \\\hline
+0.1 & $#r{percentFilter(mean(deltaBEstUA02>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst02>plim3[2]))} \simeq {\color{red}???}$ \\\hline
+\end{tabular}[#}
+{#incCpt]4[#}
+[#%] Produit B -> redStd[#<]
+{#ActorWhen]pB_tit[#,]:1-10[#}
+{#Actor]def:muB_q1_redStd[#,]:1-2[#,]0.5,1.15[#,]
+\textbf{Question }: Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction du paramètre d'intérêt et en fonction du paramètre d'écart standardisé~?@{ONLY(:2)}{\\\textbf{Réponse}~: $\mathbf{H_1}:\mu^B>0.15\Leftrightarrow \delta_{\mu^B,0.15}:=\frac{\mu^B-0.15}{\sigma_{\widehat{\mu^B}}}>0$\\
+avec $\sigma_{\widehat{\mu^B}}=\frac{\sigma_B}{\sqrt{n}}$.}[#}
+{#Actor]def:muB_q2_redStd[#,]:3-4[#,]0.5,1.15[#,]
+\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?[#}
+{#Actor]def:muB_q3_redStd[#,]:5-6[#,]0.5,1.15[#,]
+\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\mu^B,0.15}}{Y^B}$ dans la pire des situations~?[#}
+{#Actor]def:muB_q4_redStd[#,]:7-8[#,]0.5,1.15[#,]
+\textbf{Question }: Comment s'écrit la règle de décision en faveur de l'assertion d'intérêt ne produisant pas plus de 5\% d'erreur de première espèce~?[#}
+{#Actor]def:muB_q5_redStd[#,]:9-10[#,]0.5,1.15[#,]
+\textbf{Question }: Comment conclueriez-vous au vu des données de l'industriel stockées dans le vecteur $\Vect{y^B}$ (\texttt{yB} en \texttt{R}) et pour lequel $\mathtt{mean(yB)}=#r{mean(yB)}$ et $\mathtt{sd(yB)}=#r{sd(yB)}$~?[#}
+{#Actor]ex:muB_redStd[#,]:1-10[#,]0.5,1.05[#minipage]11cm[#,]
+@{VIEW(:2-10)}{\noindent\textbf{Hypothèses de test~:}}@{VIEW(:4-10)}{ {\small $\mathbf{H_0}:\mu^B=0.15$} vs } @{VIEW(:2-10)}{$\mathbf{H_1}:\mu^B>0.15$\\}
+@{VIEW(:6-10)}{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\mu^B,0.15}}{Y^B}:=\frac{\Est{\mu^B}{Y^B}-0.15}{\Est{\sigma_{\widehat{\mu^B}}}{Y^B}}\SuitApprox \mathcal{N}(0,1)$}\newline}
+@{VIEW(:8-10)}{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si $\Est{\delta_{\mu^B,0.15}}{y^B} > \delta_{lim,\alpha}$}\newline}
+@{VIEW(:10)}{\noindent\textbf{Conclusion}~: Au vu des données, puisque\\
+ \centerline{$\Est{\delta_{\mu^B,0.15}}{y^B} =#r{(mean(yB)-0.15)/sqrt(var(yB)/length(yB))}\ngtr \delta_{lim,5\%}\NotR \mathtt{qnorm(.95)}\simeq :r{qnorm(.95)}$}\\
+on NE peut PAS plutôt penser que le produit~B est rentable.\\
+(avec
+$ \Est{\delta_{\mu^B,0.15}}{y^B}\NotR
+\mathtt{ (mean(yB)-0.15)/sqrt(var(yB)/n)}$)}[#}
+{#incCpt]10[#}
+[#case}

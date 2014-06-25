@@ -1,0 +1,397 @@
+[#require]
+Import/Tex/FilterR
+[#package]
+\usepackage{color}
+[#main]
+[#%]Traitements R et ruby préliminaires
+[#r<]
+require(CqlsRandom)
+#source("~/work/statinf-cours/td/R/aep1.R")
+pA<-.15
+plim<-.16
+n<-1000
+qtmp<-qbinom(c(.001,.999),n,pA)
+modtmp<-qtmp[1]:qtmp[2]
+Y1<-Norm(.1,sqrt(.1*.9/1000))
+Y2<-Norm(.2,sqrt(.2*.8/1000))
+Y14<-Norm(.14,sqrt(.14*.86/1000))
+Y15<-Norm(.15,sqrt(.15*.85/1000))
+ra<-c(plim,QQ(Y2,.999))
+[#rb<]
+plimPCT=#R{as.integer(plim*100)}
+plim5PCT=#R{round(qnorm(.95,.15,sqrt(.15*.85/1000))*100,2)}
+plimN=#R{as.integer(plim*n)}
+[#<]{#InitScene#}
+{#case]#{docs}
+[#when]section[#>]\section[Proba]{Cours introductif de probabilités}
+[#when]notationsSyn[#<]
+
+[#when]déPres[#%]Lancer d'un dé[#<]
+{#Slide]dePres[#nb]2[#titre]Lancer d'un dé
+[#haut]Cet exemple (pas le plus intéressant) va nous servir à appréhender la notion de mesures de chance de réalisation d'une prédiction avant et après le lancer du dé (équivalent à à choisir une boule au hasard dans une urne contenant 6 boules numérotées de 1 à 6). 
+[#bas]\noindent \textbf{Votre intuition~:} \underline{Avant le lancer du dé}, sauriez-vous 
+\begin{itemize}
+\item si la face supérieure du dé est aléatoire ou non~? 
+\item évaluer les chances que la face du dé soit 2 (resp. $\leq2$).
+\end{itemize}
+\underline{Après le lancer du dé} (i.e. \textit{Alea jacta est})
+ sauriez-vous répondre aux mêmes questions précédentes. Comment formuler plus directement les réponses à la dernière question~?\\
+{#only]:2[#,]\textbf{Remarque~:} La probabilité comme une extension de la logique!\\ 
+\underline{Assertion certaine} (vraie ou fausse) = proba 1 ou 0. \\
+\underline{Assertion incertaine} (peut-être vraie ou fausse) = proba dans $]0,1[$.[#only} 
+[#}
+
+[#when]annivPres[#%]Anniversaire[#<]
+{#Slide]annivPres[#nb][1][#titre]Anniversaires
+[#haut]Quelles sont les chances qu'au moins 2 individus d'un groupe de 20 ou 30 ou 50 ou 100 personnes ($N$ en général) soient nés le même jour~? 
+[#bas]\noindent \textbf{Simplification} Pour pouvoir éventuellement réaliser cette expérience assistée par ordinateur, on convient ici de supposer (même si cela est peu abusif) que tout individu a la même chance d'être né à n'importe quel jour de l'année (excepté peut-être le 29 février qui ne sera pas considéré comme possible).\\ 
+\textbf{Votre intuition~:} Sauriez-vous dire à partir de quelles valeurs de $N$ les chances sont à peu près de 50\% ou 75\% ou 95\%~?\\
+\textbf{On joue~!} Executer plusieurs fois la fonction~\texttt{R}:\\
+\texttt{anniv(n)} avec n=20, 30, 50 et 100.
+[#}
+
+[#when]gobPres[#%]Jeu des Gobelets[#<]
+{#Slide]gobPres[#nb]2[#titre]Jeu des Gobelets
+[#haut]Une personne organise le jeu des gobelets (décrit ci-dessous) et invite un joueur à participer à ce jeu. A la fin du jeu, il lui demande quelle stratégie il désire adopter~? Qu'en pensez-vous~?
+[#bas]{#only]:1[#,]\textbf{Règle du Jeu~:} L'organisateur prépare l'expérience en proposant 3 (ou $N\geq3$ en général) gobelets dont un seul (choisi au hasard) contient une balle.
+Dans un premier temps, l'organisateur demande au joueur de choisir le gobelet sensé contenir la balle.\\ 
+(Quelles sont les chances que son choix soit le bon~?)\\
+Dans un deuxième temps, sachant où se trouve la balle, l'organisateur retourne 1 (ou N-2) gobelet(s) autre(s) que le premier choix du joueur (c'est toujours possible!) ne contenant pas la balle de sorte que le joueur n'a plus que maintenant 2 choix possibles.\\
+\textbf{Votre intuition~:} Quelle stratégie adopter: changer ou pas de choix~?[#}|
+{#only]:2[#,]\textbf{On joue !} Executer les instructions~\texttt{R} ci-dessous~:\\
+\texttt{gobelet(change=T,nb=3)}\\
+\texttt{gobelet(change=F,nb=3)}\\
+\texttt{gobelet(change=T,nb=5)}\\
+\texttt{gobelet(change=F,nb=5)}
+[#only}
+[#}
+
+[#when]electionPres[#%]Election[#<]
+{#Slide]elecPres[#nb]3[#titre]Election
+[#haut]Une candidate Amélie Poulain veut savoir 7 jours avant le 1er tour d'une élection l'intention de vote pour elle.
+[#bas]\textbf{Paramètre d'intérêt~:} $p^A$ la proportion d'électeurs potentiels qui ont l'intention de voter pour elle (7 jours avant).\\
+\textbf{Echantillonnage~:} Quel est le procédé d'échantillonnage le plus équitable si l'on a aucune connaissance sur la population des électeurs.\\
+{#only]:2-3[#,]\textbf{Solution}: Elle sait alors qu'il lui faudra demander de l'aide à un institut de sondage pour construire {#color]:2[#,]blue[#,]aléatoirement[#} son échantillon de sorte que {#color]:2[#,]blue[#,]tous les électeurs ont les mêmes chances d'être choisi[#}.\\[#}
+{#only]:3[#,]\textbf{Estimation~:} Comment obtiendra-t'elle l'estimation de $p^A$ à partir de ce ``futur" échantillon~?[#}
+[#}
+
+[#when]SchémaFormal[#%]Formalisation[#<]
+{#Slide]form[#,]4[#titre]Schéma de Formalisation
+[#haut]L'objectif est de formaliser un problème (ou, plus généralement, un phénomène) donné, de décrire sa nature aléatoire ou non et ainsi de mieux appréhender comment mesurer les chances de réalisation de certaines prédictions. 
+[#bas]\centerline{\textbf{Schéma de Formalisation {#only]:1[#,]pour Evénement (SFE)[#}{#only]:2[#,]pour Variable (SFV)[#}{#only]:3-4[#,]SFE et SFV[#}}}
+
+{#only]:1[#,]Identifier et décrire (si nécessaire) littéralement ou mathématiquement:
+\begin{itemize}
+\item l'expérience~$\mathcal{E}$
+\item la (les) variable(s) (a priori) aléatoire(s) d'intérêt $Y$ (, ...)
+\item l'événement d'intérêt exprimé en fonction de la (des) variable(s) $Y$ (, ...)
+\item les mesures de chances (i.e. probabilités) de réalisations de l'événement d'intérêt
+\end{itemize}
+[#only}
+{#only]:2[#,]Identifier et décrire (si nécessaire) littéralement ou mathématiquement:
+\begin{itemize}
+\item l'expérience~$\mathcal{E}$
+\item la variable (a priori) aléatoire d'intérêt $Y$
+\item la loi de probabilité de $Y$ permettant d'évaluer toutes les mesures de chances (i.e. probabilités) de réalisations de tous les événements relatifs à $Y$.
+\end{itemize}
+[#}
+{#only]:3-4[#,]\textbf{Expérience~:} Identifier et décrire (si nécessaire) l'expérience~$\mathcal{E}$ (aléatoire ou non) correspondant au problème (ou phénomène) d'intérêt.\\
+\textbf{Variable d'intérêt~:} Variable (aléatoire ou non) mesurant une caractéristique (ou plusieurs dans le cas de vecteur) relative(s) à l'expérience~$\mathcal{E}$.\\
+\underline{\textit{Convention notation~:}} Une variable \underline{{#color]:4[#,]red[#,]aléatoire[#}} (ou supposée aléatoire) est notée en \textbf{{#color]:4[#,]red[#,]majuscule[#}} et une variable \underline{{#color]:4[#,]blue[#,]déterministe[#}} (i.e. dont on sait qu'elle est non aléatoire) est notée en \textbf{{#color]:4[#,]blue[#,]minuscule[#}}.[#only}
+[#}
+[#when]annivSF[#<]
+{#SlideSFE]anniv[#titre]Anniversaires[#desc]l'exemple des anniversaires
+[#exp][Elle consiste à choisir $n$ personnes au hasard dans la population ou, de part la  simplication, choisir $n$ jours au hasard parmi l'ensemble des 365 jours]
+[#va][$Y$=Maximum des effectifs de la répartition des dates d'anniversaire pour les $n$ personnes]
+[#ev][``$Y\geq 2$" i.e. au moins 2 personnes sont nés le même jour]
+[#prob][$\PP(Y\geq 2)$ i.e. probabilité qu'au moins 2 individus parmi les $n$ soient nés le même jour]
+[#}
+
+[#when]gobSF[#<]
+{#SlideSFE]gob[#titre]Jeu des Gobelets
+[#desc]le jeu des gobelets
+[#exp][Elle consiste à choisir un gobelet parmi les deux proposés à la fin du jeu]
+[#va][$Y$=1 si le gobelet choisi est le même que celui choisi par l'organisateur et 0 sinon.\\
+\underline{2ème option~:} $Y^J$ et $Y^O$ sont les numéros des gobelets choisis par le Joueur et l'Organisateur]
+[#ev][``$Y=1$" équivalent à ``$Y^J=Y^O$" (\underline{2ème option})]
+[#prob][$\PP(Y=1)=\PP(Y^J=Y^O)$]
+[#}
+
+[#when]déSF[#<]
+{#SlideSFE]deAv[#titre]Dé avant lancer
+[#desc]l'exemple du dé avant le lancer
+[#exp][Elle consiste à lancer le dé et observer le numéro de la face supérieure]
+[#va][$Y$=numéro de la face supérieure du dé]
+[#ev][$Y=2$ (resp. $Y\leq 2$)]
+[#prob][$\PP(Y=2)=\frac16$ (resp. $\PP(Y\leq 2)=\frac26=\frac13$)]
+[#}
+
+{#SlideSFE]deAp[#titre]Dé après lancer
+[#desc]l'exemple du dé après le lancer (objectif pédagogique) 
+[#exp][Elle consiste une fois le dé lancé à observer le numéro de la face supérieure]
+[#va][$y$=numéro de la face supérieure du dé qui est en fait la réalisation de $Y$]
+[#ev][$y=2$ (resp. $y\leq2$)]
+[#prob][$\PP(y=2)=$1 si $y=2$ est vrai et 0 sinon 
+(resp. $\PP(y\leq 2)=$1 si $y\leq 2$ est vrai et 0 sinon)]
+[#}
+
+[#when]electionSF[#<]
+{#Slide]electionSF[#nb]2[#titre]
+[#haut]
+[#bas]
+[#}
+
+[#when]loiAEPvsAMP[#%]Loi de proba v.a. (A.E.P. versus A.M.P.)[#<]
+{#Actor]head:tit_loi[#,]:1-3[#,]0.5,0.5[#,]\textbf{\large Loi de probabilité (SFV)}[#}
+{#Actor]def:loi[#,]:1-3[#,]0.5,0.5[#,]
+Le comportement aléatoire d'une variable $Y$ est caractérisé par la connaissance de toutes les probabilités $P(Y\in E)$ (avec $E$ sous-ensemble quelconque, $E=]a,b]$ ou $E=]-\infty,b]$) mesurant les chances de réalisation des événements de la forme ``$Y \in E$".[#}
+{#Actor]ex:loi_amp_aep[#,]:2-3[#,]0.5,1.0[#,]
+\textbf{@{COLOR(:3|blue)}Expérimentateur}~:\\
+il propose une {@{COLOR(:3|blue)}interprétation des probabilités} en se basant sur son aptitude à réaliser l'expérience aléatoire $\mathcal{E}$.\\
+\textbf{@{COLOR(:3|red)}Mathématicien}~:\\
+il propose une {@{COLOR(:3|red)}évaluation des probabilités} via le développement et l'application de techniques mathématiques.[#}
+{#incCpt]3[#}
+
+[#when]loiAMP[#%]Loi de proba (AMP)[#<]
+{#ActorWhen]tit_loi[#,]:1-4[#}
+{#ActorWhen]loi[#,]:1-2[#}
+{#Actor]ex:loi_amp[#,]:1[#,]0.5,1.05[#,]
+\textbf{{\color{red}A}pproche {\color{red}M}athématique des {\color{red}P}robabilités~:}\\
+a) \textbf{Loi de v.a. discrète~:} caractérisée par $P(Y=y)$ pour tout $y$.\\
+b) \textbf{Loi de v.a. continue~:} caractérisée par $f_Y(y)=P(Y\in[y,y+dy[)$ densité de probabilité  autour de $y$.\\
+c) \textbf{Somme des probabilités~:}\\
+\centerline{\fbox{$P(Y\in E)=\left\{\begin{array}{ll} 
+\displaystyle\sum_{y\in E}P(Y=y) & \mbox{si v.a. discrète}\\
+\displaystyle\int_{E}f_Y(y)dy & \mbox{si v.a. continue}
+\end{array}\right.$}}\newline
+Evidemment, $\sum_{y}P(Y=y)=1$ (v.a.d.) et $\int f_Y(y)dy=1$ (v.a.c.).[#}
+{#Actor]ex:acp_et_amp[#,]:2[#,]0.5,1.0[#,]
+\textbf{Communication entre l'{\color{blue}Expérimentateur} et le {\color{red}Mathématicien}}~:\\
+Fonction de répartition: $F_Y(t)={\color{red}P(Y \leq t)}={\color{blue}\meanEmp[\infty]{y_{[\cdot]}\leq t}}$\\
+généralement fournie par le {\color{red}matheux} et permettant de calculer~:\\
+\centerline{\fbox{$P(Y\!\in\! [a,b])\!=\!F_Y(b)\!-\!F_Y(a^-)$} et \fbox{$P(Y\!=\!y)\!=\!F_Y(y)\!-\!F_Y(y^-)$}}\newline
+\textbf{Lois de proba connues}~: \fbox{$Y\stackrel{(approx.)}{\leadsto} {\color{purple}loi}({\color{purple}\cdots})$}\\
+Ex: $Z^A=\displaystyle\sum_{i=1}^n Y^A_i\leadsto {\color{purple}\mathcal{B}}({\color{purple}n,p^A})$ i.e. Binômiale de paramètre $n$ et $p^A$.\\
+\textbf{Résultats en \texttt{R}}~: \fbox{$F_Y(t)\NotR \mathtt{p{\color{purple}loi}(t,{\color{purple}\ldots})}$} et \fbox{$q_{\alpha}(Y)\NotR \mathtt{q{\color{purple}loi}(\alpha,{\color{purple}\ldots})}$}[#}
+{#Actor]def:ex_acp_et_amp[#,]:3-4[#,]0.5,0.5[#,]
+\textbf{Produit~A (avec $p^A=15\%$)}: le {\color{red}matheux} nous apprend que\\
+\centerline{\fbox{$Z^A\!=\!\displaystyle\sum_{i=1}^n \!Y^A_i\!\leadsto\! {\color{purple}\mathcal{B}}({\color{purple}n,p^A})$} et \fbox{$\Est{p^A}{Y^A}\!=\!\frac{Z^A}n \! \SuitApprox \! {\color{purple}\mathcal{N}}({\color{purple}p^A,\sqrt{p^A(1-p^A)}})$}}[#}
+{#Actor]ex:ex_acp_et_amp2[#,]:3[#,]0.5,1.0[#,]
+On obient alors en \texttt{R}~:
+\begin{eqnarray*}
+P(\Est{p^A}{Y^A}> 16\%)&=&P(Z^A> 160)\\
+&=&\mathtt{1-p{\color{purple}binom}(160,{\color{purple}1000,.15})}\\
+&=&{\color{red}#r{(1-pbinom(160,1000,.15))*100}\%}\\
+&\simeq& \mathtt{1-p{\color{purple}norm}(.16,{\color{purple}.15,sqrt(.15*.85/1000)})}\\
+&=&#r{(1-pnorm(.16,.15,sqrt(.15*.85/1000)))*100}\%.
+\end{eqnarray*}[#}
+{#Actor]ex:ex_acp_et_amp2bis[#,]:4[#,]0.5,1.0[#,]
+On obient alors en \texttt{R}~:
+\begin{eqnarray*}
+\quant{\Est{p^A}{Y^A}}{95\%}&=&\frac{\quant{Z^A}{95\%}}{n}\\
+&=&\mathtt{q{\color{purple}binom}(.95,{\color{purple}1000,.15})/1000}\\
+&=&{\color{red}#r{qbinom(.95,1000,.15)/10}\%}\\
+&\simeq& \mathtt{q{\color{purple}norm}(.95,{\color{purple}.15,sqrt(.15*.85/1000)}}\\
+&=&#r{qnorm(.95,.15,sqrt(.15*.85/1000))*100}\%.
+\end{eqnarray*}[#}
+{#incCpt]4[#}
+
+[#when]loiAEP[#%]Loi de proba v.a. (A.E.P.)[#<]
+{#ActorWhen]tit_loi[#,]:1-13[#}
+{#ActorWhen]loi[#,]:1-13[#}
+{#Actor]ex:loi_aep[#,]:1-13[#,]0.5,1.0[#,]
+\textbf{{\color{blue}A}pproche {\color{blue}E}xpérimentale des {\color{blue}P}robabilités~:} Répétitions de l'expérience aléatoire $\mathcal{E}$, un grand nombre de fois $m$ (éventuellement infini) et obtention des réalisations de la v.a. $Y$~: \fbox{$y_{[1]},y_{[2]},\ldots,y_{[m]},\ldots$}\\
+@{ONLY(:2-4)}{\textbf{Probabilité de l'événement $Y\in E$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\meanEmp[m]{y_{[\cdot]}\in E}}
+&:=&\mbox{Proportion des } y_{[1]},\ldots,y_{[m]}\in E \\
+@{ONLY(:3-4)}{&\simeq& \meanEmp[\infty]{y_{[\cdot]}\in E} \\}
+@{ONLY(:4)}{&=& {\color{red}P(Y\in E)} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}
+@{ONLY(:5-7)}{\textbf{Moyenne de $Y$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\meanEmp[m]{y_{[\cdot]}}}
+&:=&\mbox{Moyenne des } y_{[1]},\ldots,y_{[m]} \\
+@{ONLY(:6-7)}{&\simeq& \meanEmp[\infty]{y_{[\cdot]}} \\}
+@{ONLY(:7)}{&=& {\color{red}\Esp(Y)} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}
+@{ONLY(:8-10)}{\textbf{Ecart-type de $Y$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\sdEmp[m]{y_{[\cdot]}}}
+&:=&\mbox{Ecart-type des } y_{[1]},\ldots,y_{[m]} \\
+@{ONLY(:9-10)}{&\simeq& \sdEmp[\infty]{y_{[\cdot]}} \\}
+@{ONLY(:10)}{&=& {\color{red}\sigma(Y)=\sqrt{\Var(Y)}} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}
+@{ONLY(:11-13)}{\textbf{Quantile de $Y$ via l'{\color{blue}A.E.P.}}~:
+\begin{eqnarray*}
+{\color{blue}\quantEmp[m]{y_{[\cdot]}}{95\%}}
+&:=&\mbox{Quantile d'ordre 95\%  des } y_{[1]},\ldots,y_{[m]} \\
+@{ONLY(:12-13)}{&\simeq& \quantEmp[\infty]{y_{[\cdot]}}{95\%} \\}
+@{ONLY(:13)}{&=& {\color{red}\quant{Y}{95\%}} \mbox{ (lien avec {\color{red}A.M.P.})}}
+\end{eqnarray*}}[#}
+{#incCpt]13[#}
+
+[#when]annivAEP[#<]
+[#when]gobAEP[#<]
+
+[#when]déAEP[#r<]tmpEx<-sample(1:6,10000,replace=T)[#<]
+{#Slide]deAEP[#,]4[#titre]A.E.P. pour le lancer de dé
+[#haut]{#only]:1[#,]$Y=$Numéro face d'un dé.\\[#}
+$P(Y\leq 2){#only]:1[#,]=\mbox{ ???}[#}
+{#only]:4[#,]=\meanEmp[\infty]{y_{[\cdot]}\leq 2}={\color{red}\frac26}[#}
+{#only]:2[#,]\simeq\meanEmp[250]{y_{[\cdot]}\leq 2}
+={#color]:2[#,]blue[#,]\frac{#r{sum(tmpEx[1:250]<=2)}}{250}[#}[#}
+{#only]:3-4[#,]\simeq\meanEmp[10000]{y_{[\cdot]}\leq 2}
+={#color]:3-4[#,]blue[#,]\frac{#r{sum(tmpEx<=2)}}{10000}[#}\simeq #r{mean(tmpEx<=2)}[#}$\\
+$\Esp(Y){#only]:1[#,]=\mbox{ ???}[#}{#only]:4[#,]=\meanEmp[\infty]{y_{[\cdot]}}={\color{red}#r{mean(1:6)}}[#}{#only]:2[#,]\simeq\meanEmp[250]{y_{[\cdot]}}
+=#r{mean(tmpEx[1:250])}[#}
+{#only]:3-4[#,]\simeq\meanEmp[10000]{y_{[\cdot]}}
+=#r{mean(tmpEx)}[#}$\\
+$\sigma(Y){#only]:1[#,]=\mbox{ ???}[#}{#only]:4[#,]=\sdEmp[\infty]{y_{[\cdot]}}={\color{red}\sqrt{\frac{105}{36}}=#r{sqrt(mean((1:6)^2) - mean(1:6)^2)}}[#}{#only]:2[#,]\simeq\sdEmp[250]{y_{[\cdot]}}
+=#r{sqrt(mean(tmpEx[1:250]^2)-mean(tmpEx[1:250])^2)}[#}
+{#only]:3-4[#,]\simeq\sdEmp[10000]{y_{[\cdot]}}
+=#r{sqrt(mean(tmpEx^2)-mean(tmpEx)^2)}[#}$
+[#bas]\textbf{{#only]:1-2[#,]$m=250$[#}{#only]:3[#,]$m=10000$[#}{#only]:4[#,]$m=\infty$[#} réalisations}~:\\
+{#only]:1[#,]
+{\scriptsize #rb{#r{=tmpEx[1:250]}.join(", ")} }[#}
+{#only]:2-4[#,]
+{\scriptsize @{DataFilter(tmpEx[1:250]|3|blue|<)}}[#}
+{#only]:3-4[#,]
+{\scriptsize, \ldots, @{DataFilter(tmpEx[251:300]|3|blue|<)}}[#}
+{#only]:4[#,], \ldots[#}
+[#}
+
+[#when]electionAEP[#%]Loi de proba v.a. (a.e.p.)[#r<]
+attach("~/cqls/data/simEch.RData")
+tmpEx<-sample(yy.sim[,2])
+detach()
+[#<]{#Slide]elecAEP[#nb]4[#titre]A.E.P. pour Election
+[#haut]
+@{ONLY(:1)}{$\Est{p^A}{Y^A}=$estimation de $p^A$ (fixé artificiellement à $15\%$).\\}$P(\Est{p^A}{Y^A}> 16\%)@{ONLY(:1)}{=\mbox{ ???}}
+@{ONLY(:4)}{=\meanEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}>16\% }={\color{red}#r{(1-pbinom(160,1000,.15))*100}\%}}
+@{ONLY(:2)}{\simeq\meanEmp[100]{\Est{p^A}{y^A_{[\cdot]}}>16\%}
+={@{COLOR(:2|blue)}\frac{#r{sum(tmpEx[1:100]>.16)}}{100}}}
+@{ONLY(:3)}{\simeq\meanEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}>16\%}
+={@{COLOR(:3|blue)}\frac{#r{sum(tmpEx>.16)}}{10000}}\simeq #r{mean(tmpEx>.16)}}$\\
+$\quant{ \Est{p^A}{Y^A}}{95\%}@{ONLY(:1)}{=\mbox{ ???}}@{ONLY(:4)}{=\quantEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}}{95\%}={\color{red}\frac{#r{qbinom(.95,1000,.15)}}{1000}=#r{qbinom(.95,1000,.15)/10}\%}}@{ONLY(:2)}{\simeq\quantEmp[100]{\Est{p^A}{y^A_{[\cdot]}}}{95\%}
+=#r{quantile(tmpEx[1:100],.95)}}
+@{ONLY(:3)}{\simeq\quantEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}}{95\%}
+=#r{quantile(tmpEx,.95)}}$
+[#bas]
+\textbf{@{ONLY(:1-2)}{$m=100$}@{ONLY(:3)}{$m=10000$}@{ONLY(:4)}{$m=\infty$} réalisations}~:\\
+@{ONLY(:1)}{
+{\scriptsize #rb{#r{=tmpEx[1:100]}.join(", ")}}}
+@{ONLY(:2-4)}{
+{\scriptsize {#DataFilter][tmpEx[1:100]][#,].16[#,]blue[#}}}
+@{ONLY(:3-4)}{
+{\scriptsize, \ldots, {#DataFilter][tmpEx[101:115]][#,].16[#,]blue[#}}}
+@{ONLY(:4)}{, \ldots}
+[#}
+
+
+[#when]old[#<]
+[#%]Expérience aléatoire (2)[#<]
+{#Actor]head:tit_exp[#,]:1-2[#,]0.5,0.5[#align]center,center[#,]\textbf{\large Expérience aléatoire $\mathcal{E}$}[#}
+{#Actor]def:exp[#,]:1-2[#,]0.5,0.5[#align]center,center[#minipage]11cm[#,]
+``Future" expérience non encore réalisée, ou \underline{plus généralement}, expérience dont on ne sait pas encore le résultat.[#}
+{#Actor]ex:ex_tit[#,]:1[#,]0.5,0.95[#align]center,top[#minipage]11cm[#,]\centerline{\textbf{Exemples classiques}}\vline[#}
+
+{#Actor]ex:ex_exp[#,]:1[#,]0.5,0.8[#,]
+$\mathcal{E}_1$=``lancer de dé"\\
+$\mathcal{E}_2$=``lancer d'une fléchette autour du centre d'une cible"[#}
+{#Actor]ex:ex_tit_stat[#,]:2[#,]0.5,0.95[#,]
+\centerline{\textbf{Exemples issus de la Statistique}}\vline
+[#}
+{#Actor]ex:ex_exp_stat[#,]:2[#,]0.5,0.8[#,]
+$\mathcal{E}_i$=``Choix au hasard d'un individu $i$ dans une population"\\
+$\mathcal{E}_n$=``Choix au hasard de $n=1000$ individus dans une population"
+[#}
+{#incCpt]2[#}
+
+[#%]Evénement (2)[#<]
+{#Actor]head:tit_eve[#,]:1-2[#,]0.5,0.5[#,]
+\textbf{\large Evénement E}
+[#}
+{#Actor]def:eve[#,]:1-2[#,]0.5,0.5[#,]Prédiction relative à l'expérience aléatoire $\mathcal{E}$.[#}
+{#ActorWhen]ex_tit[#,]:1[#}
+{#Actor]ex:ex_eve[#,]:1[#,]0.5,0.8[#,]
+$E_1$=``face supérieure du dé inférieure à 2"\\
+$E_2$=``distance de la fléchette au centre d'une cible inférieure à 10cm"
+[#}
+{#ActorWhen]ex_tit_stat[#,]:2[#}
+{#Actor]ex:ex_eve_stat[#,]:2[#,]0.5,0.8[#,]
+$E_3$=``l'individu achète le produit"\\
+$E_4$=``au moins #R{as.integer(plim*n)} produits sont achetés"
+[#}{#incCpt]2[#}
+
+[#%]Proba (2)[#<]
+{#Actor]head:tit_prob[#,]:1-2[#,]0.5,0.5[#,]\textbf{\large Probabilité de E} [#}
+{#Actor]def:prob[#,]:1-2[#,]0.5,0.5[#,]
+\textit{Mesure des chances de réalisation de l'événement E~:} comprise entre 0 et 1. L'événement est certain, respectivement faux et vrai lorsque sa probabilité de réalisation vaut respectivement 0 et 1. Dans le cas contraire, l'événement est incertain. [#}
+{#ActorWhen]ex_tit[#,]:1[#}
+{#Actor]ex:ex_prob[#,]:1[#,]0.5,0.8[#,]
+$P(E_1)$=probabilité que la face supérieure du dé soit inférieure à 2\\
+$P(E_2)$=probabilité que la distance de la fléchette au centre d'une cible soit inférieure à 10cm
+[#}
+{#ActorWhen]ex_tit_stat[#,]:2[#}
+{#Actor]ex:ex_prob_stat[#,]:2[#,]0.5,0.8[#,]
+$P(E_3)$=probabilité que l'individu achète le produit\\
+$P(E_4)$=probabilité qu'au moins #R{as.integer(plim*n)} produits sont achetés
+[#}
+{#incCpt]2[#}
+
+[#%]Variable Aléatoire (4)[#<]
+{#Actor]head:tit_va[#,]:1-4[#,]0.5,0.5[#,]\textbf{\large Variable aléatoire réelle (v.a.)}[#}
+{#Actor]def:va[#,]:1-4[#,]0.5,0.5[#,]
+Variable mesurant une quantité relative à l'expérience aléatoire $\mathcal{E}$. On note en général les variables aléatoires en majuscules et leurs réalisations en minuscules.[#}
+{#ActorWhen]ex_tit[#,]:1-2[#}
+{#Actor]ex:ex_va[#,]:1-2[#,]0.5,0.8[#,]
+$Y_1$=face supérieure du dé\\
+$Y_2$=distance en cm de la fléchette au centre d'une cible\\
+@{ONLY(:2)}{
+
+$E_1$=``face supérieure du dé inférieure à 2"=$[Y_1\leq 2]$\\
+$E_2$=``distance de la fléchette au centre d'une cible inférieure à 10cm"=$[Y_2\leq 10]$
+}[#}
+{#ActorWhen]ex_tit_stat[#,]:3-4[#}
+{#Actor]ex:ex_va_stat[#,]:3-4[#,]0.5,0.8[#,]
+$Y^\bullet_i$=nbre de produit(s) $\bullet$ acheté(s) par l'individu $i$.\\
+$Z^\bullet_n=\displaystyle\sum_{i=1}^n Y^\bullet_i$=nbre de produits $\bullet$ achetés par les $n$ individus.\\
+$\Est{p^A}{\Vect{Y}^A}=\frac{Z^A_n}{n}$= proportion d'acheteur(s) potentiel(s) du produit~A.\\
+$\Est{\mu^B}{\Vect{Y}^B}=\frac{Z^B_n}{n}$= nbre moyen de produit(s) B acheté(s) par individu\\
+@{ONLY(:4)}{$E_3=[Y^\bullet_i=1]$\\
+$E_4=[Z^\bullet_n\geq #R{as.integer(plim*n)}]=[\Est{\mu^\bullet}{\Vect{Y}^\bullet}\geq #R{plim}]$}[#}
+{#incCpt]4[#}
+
+
+[#%]Loi de proba v.a. (a.e.p.)[#r<]tmpEx<-rbinom(10000,1,.15)[#<]
+{#Actor]head:tit_exA_aep[#,]:1-4[#,]0.5,0.5[#,]\textbf{Loi de proba: produit~A}[#}
+{#Actor]def:ex2_prodA_aep[#,]:1-4[#,]0.5,0.5[#,]
+{@{ONLY(:1)}{$Y^A=$Nbre de boules 1 dans une urne contenant 15\% de boules 1 et 85\% de boules 0 (i.e. comparable au produit~A avec $p^A=15\%$).\\}$P(Y^A=1)@{ONLY(:1)}{=\mbox{ ???}}
+@{ONLY(:4)}{=\meanEmp[\infty]{y^A_{[\cdot]}=1}={\color{red}15\%}}
+@{ONLY(:2)}{\simeq\meanEmp[1000]{y^A_{[\cdot]}=1}
+={@{COLOR(:2|blue)}\frac{#r{sum(tmpEx[1:1000]==1)}}{1000}}}
+@{ONLY(:3-4)}{\simeq\meanEmp[10000]{y^A_{[\cdot]}=1}
+={@{COLOR(:3-4|blue)}\frac{#r{sum(tmpEx==1)}}{10000}}}$\\
+$\Esp(Y^A)@{ONLY(:1)}{=\mbox{ ???}}@{ONLY(:4)}{=\meanEmp[\infty]{y^A_{[\cdot]}}={\color{red}15\%}}@{ONLY(:2)}{\simeq\meanEmp[1000]{y^A_{[\cdot]}}
+=#r{mean(tmpEx[1:1000])}}
+@{ONLY(:3)}{\simeq\meanEmp[10000]{y^A_{[\cdot]}}
+=#r{mean(tmpEx)}}$ et 
+$\sigma(Y^A)@{ONLY(:1)}{=\mbox{ ???}}@{ONLY(:4)}{=\!\sdEmp[\infty]{y^A_{[\cdot]}}\!={\color{red}\!\sqrt{15\%\times85\%}\!=\!#r{round(sqrt(.15*.85),2)}}}@{ONLY(:2)}{\simeq\sdEmp[1000]{y^A_{[\cdot]}}
+=#r{sqrt(mean(tmpEx[1:1000]^2)-mean(tmpEx[1:1000])^2)}}
+@{ONLY(:3)}{\simeq\sdEmp[10000]{y^A_{[\cdot]}}
+=#r{sqrt(mean(tmpEx^2)-mean(tmpEx)^2)}}$}[#}
+{#Actor]ex:ex1_de_aep2[#,]:1-4[#,]0.5,1.0[#,]
+\textbf{@{ONLY(:1-2)}{$m=1000$}@{ONLY(:3)}{$m=10000$}@{ONLY(:4)}{$m=\infty$} réalisations}~:\\
+@{ONLY(:1)}{
+{\scriptsize #rb{#r{=tmpEx[1:125]}.join(", ")}, \ldots, #rb{#r{=tmpEx[126:250]}.join(", ")}}}
+@{ONLY(:2-4)}{
+{\scriptsize @{DataFilter(tmpEx[1:125]|0|blue)}, \ldots,  @{DataFilter(tmpEx[126:250]|0|blue)}}}
+@{ONLY(:3-4)}{
+{\scriptsize, \ldots, @{DataFilter(tmpEx[251:300]|0|blue)}}}
+@{ONLY(:4)}{, \ldots}[#}
+{#incCpt]4[#}
+[#case}
+[#>]
+{#PutScene]un[#}
+

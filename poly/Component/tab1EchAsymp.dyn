@@ -1,0 +1,32 @@
+\begin{table}[H]
+\begin{center}
+
+\begin{tabular}{|c||c|c|c|} \hline
+\multicolumn{4}{|c|}{}\\
+\multicolumn{4}{|c|}{\textbf{Param{\`e}tre d'int{\'e}r{\^e}t et estimation}}\\
+\hline
+
+Param{\`e}tre d'int{\'e}r{\^e}t $\theta$ & $p$ & $\mu$ & $\sigma^2$ \\
+\hline
+Future estimation $\Est{\theta}{Y}$ & $\Est{p}{Y}=\displaystyle{\frac 1n \sum_{i=1}^nY_i}$ & $\Est{\mu}{Y}=\displaystyle{\frac1n \sum_{i=1}^nY_i}$ & $\displaystyle{\Est{\sigma^2}{Y}=\frac{1}{n-1} \sum_{i=1}^n{(Y_i-\overline{Y})^2}}$ \\\hline 
+$\Est{\theta}{y}$ exprim{\'e} en \verb+R+ & \verb+mean(y)+ & \verb+mean(y)+ & \verb+var(y)+  \\\hline \hline\multicolumn{4}{c}{}\\ \hline
+\multicolumn{4}{|c|}{}\\
+\multicolumn{4}{|c|}{\textbf{Comportement asymptotique de la variance de la future estimation}}\\
+\hline
+Quantit{\'e} $\gamma$ & $\gamma_p=\displaystyle{ \sqrt{\frac{ p(1-p)}{n}}}$ & $\displaystyle{\sqrt{ \frac{\sigma^2 }{n}}}$ & $\displaystyle{\sqrt{ \frac{\sigma^2_{\ddot{Y}}}{n}}}$ \\\hline
+Future $\Est{\gamma}{Y}$ & $\displaystyle{ \sqrt{\frac{ \Est{p}{Y}(1-\Est{p}{Y})}{n}}}$ & $\displaystyle{\sqrt{ \frac{\Est{\sigma^2}{Y} }{n}}}$ & $\displaystyle{\sqrt{ \frac{\Est{\sigma^2_{\ddot{Y}}}{\ddot{Y}}}{n}}}$ \\\hline
+$\Est{\gamma}{y}$ exprim{\'e} en \verb+R+ & \verb+gMu(y)+ & \verb+gMu(y)+ & \verb+gVar(y)+\\\hline \hline\multicolumn{4}{c}{}\\\hline
+\multicolumn{4}{|c|}{}\\
+\multicolumn{4}{|c|}{\textbf{Mesure d'{\'e}cart standardis{\'e}e}}\\
+\hline
+$\delta_\theta(\Vect{Y})$ & $\delta_p(\Vect{Y})=\displaystyle{\frac{\Est{p}{Y}-p}{\Est{\gamma}{Y}}}$ & $\delta_\mu(\Vect{Y})=\displaystyle{\frac{\Est{\mu}{Y}-\mu}{\Est{\gamma}{Y}}}$ & $\delta_{\sigma^2}(\Vect{Y})=\displaystyle{\frac{\Est{\sigma^2}{Y}-\sigma^2}{\Est{\gamma}{Y}}}$\\\hline \hline\multicolumn{4}{c}{}\\\hline
+\multicolumn{4}{|c|}{}\\
+\multicolumn{4}{|c|}{\textbf{Statistique de test ou Mesure d'{\'e}cart standardis{\'e}e de test}}\\
+\hline
+Valeur de r{\'e}f{\'e}rence $\theta_0$ & $p_0$ & $\mu_0$ & $\sigma^2_0$ \\\hline
+$\delta_{\theta_0}(\Vect{Y})$ & $\delta_{p_0}(\Vect{Y})=\displaystyle{\frac{\Est{p}{Y}-p_0}{\gamma_{p_0}}}$ & $\delta_{\mu_0}(\Vect{Y})=\displaystyle{\frac{\Est{\mu}{Y}-\mu_0}{\Est{\gamma}{Y}}}$ & $\delta_{\sigma^2_0}(\Vect{Y})=\displaystyle{\frac{\Est{\sigma^2}{Y}-\sigma^2_0}{\Est{\gamma}{Y}}}$ \\\hline
+\end{tabular}
+\end{center}
+\caption{Tableau r{\'e}capitulatif relatif au cas d'un seul {\'e}chantillon dans un cadre asymptotique}
+\label{UnEchAsympt}
+\end{table}

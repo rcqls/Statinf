@@ -1,0 +1,330 @@
+[#require]Import/Tools/TabAEP
+[#main][#r<]
+require(CqlsRandom)
+load("~/cqls/data/statinf/simEchCoursIC.RData")
+muEst.tmp<-muEst.sim[exOrder,2]
+YB<-Norm(.15,sqrt(sum((0:3-.15)^2*c(1760000,200000,20000,20000)/2000000)/1000))
+YA<-Norm(.15,sqrt(.15*.85/1000))
+[#>]
+\section[A.E.P.]{Approche Expérimentale des Probabilités}
+
+\begin{frame}
+\frametitle{Conseils pour l'industriel }
+\begin{alertblock}{Expérience}
+L'industriel demande conseil auprès de~:
+\begin{enumerate}[<+-| alert@+>]
+\item Un Expérimentateur~: naïvement, celui-ci se propose de reproduire l'expérience que se propose de faire l'industriel le \textbf{jour~J} en la répétant $m=10000$ fois pour autant de situations souhaitées par l'industriel.
+\item Un Mathématicien~: de manière un peu arrogante, il prétend connaître tout ce qui peut se passer avant le \textbf{jour~J} dès lors qu'une population totale  lui est proposé.
+\item[] Puisque $\mu^\bullet$  (resp. $\underline{\mathcal{Y}}^\bullet$) est inconnu, les deux conseillers s'accordent sur le fait de le remplacer par $\mu^\Sim$ (resp. $\underline{\mathcal{Y}}^\Sim$) fixé arbitrairement avant le \textbf{jour~J} parmi l'ensemble des valeurs possibles de $\mu^\bullet$. 
+\end{enumerate}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Travail de l'expérimentateur}
+\begin{alertblock}{Expérience}
+Il construit des urnes contenant $N=2000000$ boules avec des répartitions en boules $0,1,2,3,\ldots$ spécifiques.
+puis effectue \textbf{des} tirages (avec remise) de $n=1000$ boules au hasard au sein de cette urne.
+\end{alertblock}
+
+\begin{exampleblock}{Les urnes expérimentales}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+situation & urne $U_{0.1}^A$ & urne $U_{0.15}^A$ & urne $U_{0.2}^A$ \\
+\hline
+Caract. & $N_1=200000$ &  $N_1=300000$ & $N_1=400000$  \\
+\hline
+$\mu^\Sim=$ & 0.1 & 0.15 & 0.2 \\
+\hline
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+& urne $U_{0.1}^B$ & urne $U_{0.15}^B$ & urne $U_{0.2}^B$ \\
+\hline
+Caract. & $N_1=100000$ &  $N_1=200000$ & $N_1=300000$  \\
+& \multicolumn{3}{|c|}{$N_2=N_3=20000$} \\
+\hline
+$\mu^\Sim=$ & 0.1 & 0.15 & 0.2 \\
+\hline
+\end{tabular}
+\end{center}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}<1->[label=aep]
+\frametitle<1->{\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités : l'Expérimentateur versus le Matheux}
+\frametitle<11->{Histogramme discret}
+\begin{onlyenv}<1-10>
+\begin{columns}
+\begin{column}{5cm}
+      \begin{enumerate}
+     \item[] \textbf{L'Expérimentateur ~:} 
+        \item<1-10| alert@1-4>
+         Réaliser $m$ expériences
+        \item<5-10| alert@5-8>
+          Répartition des $\Est{\mu^\Sim}{y^\Sim_{[j]}}$
+          \hyperlink{aep<11>}{\beamergotobutton{Histo}}
+  \item<9-10>[] \textbf{Le Matheux :}      
+  \item<9-10| alert@9>
+          Je le savais \textbf{à l'avance} pour $m\to+\infty$
+           \item<10| alert@10>
+           $\Est{\mu^\Sim}{Y^\Sim}\SuitApprox \mathcal{N}(\mu^\Sim,\frac{\sigma_\Sim}{\sqrt{n}})$
+      \end{enumerate}
+     
+\end{column}    
+
+\begin{column}{6.5cm}
+[#=] new[FALSE]
+[#>]{#FigureSimple]img[img/hist100A15.png] [#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:100],xlab="m=100",ylab="",xlim=c(.11,.19),ylim=c(0,45),discr=TRUE)[#}
+{#FigureSimple]img[img/hist1000A15.png] [#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:1000],xlab="m=1000",ylab="",xlim=c(.11,.19),ylim=c(0,45))[#}
+{#FigureSimple]img[img/hist5000A15.png] [#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=5000",ylab="",xlim=c(.11,.19),ylim=c(0,45))[#}
+{#FigureSimple]img[img/hist10000A15.png] [#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:10000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45))[#}
+{#FigureSimple]img[img/hist10000A15Norm.png][#scale].3[#include]false[#rcode]
+Hist.EAP( muEst.tmp[1:10000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45))
+plot(Norm(.15,sqrt(.15*.85/1000)),add=TRUE,lwd=3,col="blue")[#}
+{#FigureSimple]img[img/hist10000A15NormContour.png][#scale].3[#include]false[#rcode]
+Hist.EAP( muEst.tmp[1:10000],rect=FALSE,xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45))
+plot(Norm(.15,sqrt(.15*.85/1000)),add=TRUE,lwd=3,col="blue")[#}
+\begin{pgfpicture}{-0.5cm}{0cm}{6cm}{6cm}
+      \only<2-10>{\pgfputat{\pgfxy(0,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[1]*100,2)}\%$}}}
+       \only<3-10>{\pgfputat{\pgfxy(2,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[3]*100,2)}\%$}}}
+       \only<4-5>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[100]*100,2)}\%$}}}
+      \only<6>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[1000]*100,2)}\%$}}}
+      \only<7>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[5000]*100,2)}\%$}}}
+      \only<8>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[10000]*100,2)}\%$}}}
+      \only<9-10>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$\cdots$}}}
+     \pgfnodebox{EstY}[stroke]{\pgfxy(3,6.3)}{Future $\Est{\mu^\Sim}{Y^\Sim}$}{2pt}{2pt}
+      \only<2-10>{\pgfnodebox{esty1}[stroke]{\pgfxy(0,5)}{$\Est{\mu^\Sim}{y^\Sim_{[1]}}$}{2pt}{2pt}}
+       \only<3-10>{\pgfnodebox{esty2}[stroke]{\pgfxy(2,5)}{$\Est{\mu^\Sim}{y^\Sim_{[2]}}$}{2pt}{2pt}}
+     \only<4-10>{\pgfputat{\pgfxy(3.75,5)}{\pgfbox[center,center]{$\cdots\cdots$}}
+        \pgfnodebox{estym}[stroke]{\pgfxy(5.5,5)}{$\Est{\mu^\Sim}{y^\Sim_{[m]}}$}{2pt}{2pt}}
+  \pgfsetendarrow{\pgfarrowto}
+\only<2,5-10>{\pgfnodeconncurve{EstY}{esty1}{-90}{90}{0.5cm}{0.5cm}}
+\only<2>{\pgfnodelabel{EstY}{esty1}[0.5][-3pt]{\pgfbox[right,base]{$1^{\grave eme}$ réalisation}}
+}
+\only<3,5-10>{\pgfnodeconncurve{EstY}{esty2}{-90}{90}{0.5cm}{0.5cm}}
+\only<3>{\pgfnodelabel{EstY}{esty2}[0.5][-3pt]{\pgfbox[center,base]{$2^{\grave eme}$ réalisation}}
+}
+\only<4-10>{\pgfnodeconncurve{EstY}{estym}{-90}{90}{0.5cm}{0.5cm}}
+\only<4>{\pgfnodelabel{EstY}{estym}[0.5][-3pt]{\pgfbox[center,base]{$m^{\grave eme}$ réalisation}}
+}
+\only<5>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image1}{img/hist100A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image1}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=100$}}
+}
+\only<6>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image2}{img/hist1000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image2}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=1000$}}
+}
+\only<7>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image3}{img/hist5000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image3}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=5000$}}
+}
+\only<8>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image4}{img/hist10000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image4}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=10000$}}
+}
+\only<9>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image5}{img/hist10000A15Norm}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image5}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=+\infty$}}
+}
+\only<10>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image6}{img/hist10000A15NormContour}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image6}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=10000$ vs $m=+\infty$}}
+}
+\end{pgfpicture}
+\end{column}
+    
+\end{columns}  
+\end{onlyenv}
+%\end{frame}
+
+%\begin{frame}
+\begin{onlyenv}<11->
+\begin{exampleblock}{Répartition de $m$ réalisations de $\Est{\mu^\Sim}{Y}$}
+\begin{itemize}
+\item<11-| alert@11> Chaque réalisation $\Est{\mu^\Sim}{y_{[j]}}$ de $\Est{\mu^\Sim}{Y}$ est représentée par une brique de surface $1/m$ et de largeur $1/n$.
+\item<12-| alert@12> Toutes les briques sont empilées l'une après l'autre en les centrant en abscisse en leur valeur associée.
+\item<13-| alert@13> L'évolution de cet empilement laisse apparaître un ``mur" de briques de surface totale toujours égale à 1. 
+\item <14-| alert@14> Cette représentation est appelée histogramme (discret) et permet de visualiser en seul coup d'oeil la répartition des $(\Est{\mu^\Sim}{y_{[j]}})_{j=1,\cdots,m}$.
+\end{itemize}
+\hyperlink{aep<5>}{\beamerreturnbutton{Retour}} \hyperlink{recap<1>}{\beamergotobutton{Suite}}
+\end{exampleblock}
+\end{onlyenv}
+\end{frame}
+
+
+
+\begin{frame}[label=recap]
+\frametitle{\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités : Tableau récapitulatif}
+\begin{block}{}
+{\tiny
+\begin{center}
+\begin{tabular}{|c|c|c|c|}\hline
+\multicolumn{4}{|l|}{$\downarrow$ \textbf{AVANT le jour J}}\\\hline\hline
+\multicolumn{4}{|c|}{\textbf{Phase expérimentale}}\\
+\multicolumn{4}{|c|}{\textit{Le paramètre à estimer est $\mu^\Sim$ fixé arbitrairement (par exemple,  à $0.15$)}}\\\hline
+Avant simulation & $\cqlsbm{\mathcal{E}^\Sim}=(\mathcal{E}^\Sim_1,\mathcal{E}^\Sim_2,...,\mathcal{E}^\Sim_n)$ & ${\cqlsbm Y}^\Sim=(Y^\Sim_1,Y^\Sim_2,\ldots,Y^\Sim_n)$ & $\Est{\mu^\Sim}{Y^\Sim}$ \pause\\\hline
+%\multicolumn{2}{|c|}{{Simulation en \texttt{R} d'une réalisation}} & \texttt{YY<-Sample(Y,n)} & \texttt{mean(YY)} \\ \hline
+Après simulation & $1^{\grave ere}$ expérience $\cqlsbm{e}^\Sim_{[1]}$ & $\cqlsbm{y}^\Sim_{[1]}$ & $\Est{\mu^\Sim}{y^\Sim_{[1]}}$\\
+ & $2^{\grave eme}$ expérience $\cqlsbm{e}^\Sim_{[2]}$ & $\cqlsbm{y}^\Sim_{[2]}$ & $\Est{\mu^\Sim}{y^\Sim_{[2]}}$\\
+ & $\vdots$ & $\vdots$ & $\vdots$ \\
+ &$m^{\grave eme}$ expérience $\cqlsbm{e}^\Sim_{[m]}$ & $\cqlsbm{y}^\Sim_{[m]}$ & $\Est{\mu^\Sim}{y^\Sim_{[m]}}$ \\
+ & $\vdots$ & $\vdots$ & $\vdots$ \pause\\ \hline\hline
+%\multicolumn{2}{|c|}{{Simulation en \texttt{R} de $m$ réalisations}} & \texttt{sim(YY,m)} & \texttt{sim(mean(YY),m)} \\ \hline
+\multicolumn{4}{|c|}{\textbf{Phase pratique}}\\
+\multicolumn{4}{|c|}{\textit{Le paramètre à estimer est $\mu^\bullet$ qui est inconnu}}\\\hline
+Avant pratique & $\cqlsbm{\mathcal{E}^\bullet}=(\mathcal{E}^\bullet_1,\mathcal{E}^\bullet_2,...,\mathcal{E}^\bullet_n)$ & ${\cqlsbm Y^\bullet}=(Y^\bullet_1,Y^\bullet_2,\ldots,Y^\bullet_n)$ & $\Est{\mu^\bullet}{Y^\bullet}$ \pause\\\hline\hline
+\multicolumn{4}{|l|}{$\downarrow$ \textbf{APRES le jour J}}\\\hline\hline
+Après pratique & l'expérience réelle $\cqlsbm{e}^\bullet$ & $\cqlsbm{y}^\bullet$ & $\Est{\mu^\bullet}{y^\bullet}$ \\\hline
+\end{tabular}
+\end{center}
+}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle<1-3>{Réalisation d'une future estimation par l'\textbf{Expérimentateur}}
+\frametitle<4-6>{Réalisation d'une future estimation par le \textbf{Matheux}}
+[#r<] exBrique<-c(4153,2108,3731) [#>]
+\begin{columns}
+\begin{column}{5cm}
+\begin{center}
+\only<1,4>{
+{#TabChoixUrne]value[#R{exBrique[1]}] [#}
+}\only<2,5>{
+{#TabChoixUrne]value[#R{exBrique[2]}][#}
+}\only<3,6>{
+{#TabChoixUrne]value[#R{exBrique[3]}][#}
+}
+\end{center}
+\end{column}
+[#=]new[TRUE]
+[#>]\begin{column}{5cm}
+{#FigureSimple]img[img/brique1.png [#scale].4[#include]false[#rcode]
+Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[1])[#}
+{#FigureSimple]img[img/brique2.png][#scale].4[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[2])[#}
+{#FigureSimple]img[img/brique3.png] [#scale].4[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[3])[#}
+{#FigureSimple]img[img/point1.png][#scale].4[#include]false[#rcode]
+Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[1])
+plot(YA,add=TRUE,col="blue",lwd=3)
+points(x<-muEst.tmp[exBrique[1]],y<-(sum(muEst.tmp[1:exBrique[1]]==muEst.tmp[exBrique[1]])*1000/5000-1/10),cex=1.5)
+lines(c(x,x),c(0,y),lty=2)[#}
+{#FigureSimple]img[img/point2.png] [#scale].4[#include]false[#rcode]
+Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[2])
+plot(YA,add=TRUE,col="blue",lwd=3)
+points(x<-muEst.tmp[exBrique[2]],y<-(sum(muEst.tmp[1:exBrique[2]]==muEst.tmp[exBrique[2]])*1000/5000-1/10),cex=1.5)
+lines(c(x,x),c(0,y),lty=2)[#}
+{#FigureSimple]img[img/point3.png] [#scale].4[#include]false[#rcode]
+Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[3])
+plot(YA,add=TRUE,col="blue",lwd=3)
+points(x<-muEst.tmp[exBrique[3]],y<-(sum(muEst.tmp[1:exBrique[3]]==muEst.tmp[exBrique[3]])*1000/5000-1/10),cex=1.5)
+lines(c(x,x),c(0,y),lty=2)[#}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{6cm}
+\only<1>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique1}{img/brique1}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique1}}}
+}
+\only<2>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique2}{img/brique2}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique2}}}
+}
+\only<3>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique3}{img/brique3}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique3}}}
+}
+\only<4>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point1}{img/point1}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point1}}}
+}
+\only<5>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point2}{img/point2}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point2}}}
+}
+\only<6>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point3}{img/point3}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point3}}}
+}
+\end{pgfpicture}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment l'industriel doit-il utiliser ces informations~?}
+\begin{exampleblock}{Réalisation d'une future estimation}
+\begin{itemize}[<+-| alert@+>]
+\item[$\to$] L'industriel s'imagine être le \textbf{jour~J} dans la situation où $\mu^\bullet=\mu^\Sim=0.15$ (juste pas le marché)
+\item[$\to$] Il prend alors conscience que ce qui peut lui arriver \textbf{le jour~J}, c'est équivalent (ou presque) à~:
+\begin{enumerate}
+\item Choisir au hasard une brique (i.e un des $m$ $\Est{\mu^\Sim}{y_{[j]}}$)
+\item Choisir au hasard un point sous la ``courbe $\mathcal{N}(\mu^\Sim,\frac{\sigma_\Sim}{\sqrt{n}})$'' associé à son abscisse représentant une réalisation au hasard de $\Est{\mu^\Sim}{Y}$ choisie parmi une infinité. 
+\end{enumerate}
+\item[$\Rightarrow$] Il voit clairement  la ``courbe $\mathcal{N}(\mu^\Sim,\frac{\sigma_\Sim}{\sqrt{n}})$'' comme un empilement d'une infinité de briques (``devenues des points'') associées à une infinité de réalisations possibles  de $\Est{\mu^\Sim}{Y}$.
+\end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Approche Expérimentale versus Approche Classique}
+\begin{exampleblock}{}
+\begin{itemize}[<+-| alert@+>]
+\item[] Moyenne des $m=10000$  réalisations $\Est{\mu^\Sim}{y_{[j]}}$ de $\Est{\mu^\Sim}{Y}$
+\item[$\simeq$]  Moyenne d'une infinité de  réalisations $\Est{\mu^\Sim}{y_{[j]}}$ de $\Est{\mu^\Sim}{Y}$
+\item[$=$] Espérance $\EEE{\Est{\mu^\Sim}{Y}}$
+\item[$=$] Le paramètre $\mu^\Sim$
+\end{itemize}
+\end{exampleblock}
+
+\begin{exampleblock}<5->{}
+\begin{itemize}[<+-| alert@+>]
+\item[] Variance des $m=10000$  réalisations $\Est{\mu^\Sim}{y_{[j]}}$ de $\Est{\mu^\Sim}{Y}$
+\item[$\simeq$]  Variance d'une infinité de  réalisations $\Est{\mu^\Sim}{y_{[j]}}$ de $\Est{\mu^\Sim}{Y}$
+\item[$=$] Variance $\VVV{\Est{\mu^\Sim}{Y}}$
+\item[$=$] $\frac{\sigma^2_\Sim}{n}$
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Risque d'erreur de première espèce - Produit A ($\mu^\Sim=p^A$)}
+\begin{exampleblock}{}
+\begin{itemize}[<+-| alert@+>]
+\item[] Proportion parmi les $m=10000$  estimations $\Est{p^A}{y_{[j]}}$ de $p^A=15\%$ qui sont supérieures à $p_{lim,5\%}^+=16.86\%$ ($=#R{sum(muEst.tmp>0.168573)}/10000$)
+\item[$=$] Proportion parmi les $m=10000$  estimations $\Est{\delta_{p^A,15\%}}{y_{[j]}}$ de $\delta_{p^A,15\%}=0$ qui sont supérieures à $\delta_{lim,5\%}^+\simeq 1.6449$ ($=#R{sum(muEst.tmp>0.168573)}/10000$)
+\item[$\simeq$] Proportion parmi une infinité d'estimations $\Est{p^A}{y_{[j]}}$ de $p^A=15\%$  qui sont supérieures à $16.86\%$
+\item[$=$] $\mathbb{P}_{p^A=15\%} \left( \Est{p^A}{Y} > 16.86\%\right)$
+\item[$=$] $\mathbb{P}_{\delta_{p^A,15\%}=0} \left( \Est{\delta_{p^A,15\%}}{Y} > 1.6449\right)$
+\item[$=$] $\mathbb{P}_{H_0} \left( \mbox{ Accepter } H_1\right)$
+\item[$\simeq$] $\alpha=5\%$.
+\end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Risque d'erreur de première espèce - Produit B ($\mu^\Sim=\mu^B$)}
+\begin{exampleblock}{}
+\begin{itemize}[<+-| alert@+>]
+\item[] Proportion parmi les $m=10000$ estimations $\Est{\delta_{\mu^B,0.15}}{y_{[j]}}$  de $\delta_{\mu^B,0.15}=0$ qui sont supérieures à $\delta_{lim,5\%}^+\simeq 1.6449$ ($=497/10000$). %inventé
+\item[$\simeq$] Proportion parmi une infinité d'estimations $\Est{\delta_{\mu^B,0.15}}{y_{[j]}}$  de $\delta_{\mu^B,0.15}=0$  qui sont supérieures à $1.6449$.
+\item[$=$] $\mathbb{P}_{\delta_{\mu^B,0.15}=0} \left( \Est{\delta_{\mu^B,0.15}}{Y} > 1.6449\right)$
+\item[$=$] $\mathbb{P}_{H_0} \left( \mbox{ Accepter } H_1\right)$
+\item[$\simeq$] $\alpha=5\%$.
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+

@@ -1,0 +1,256 @@
+\section{Test d'hypothèses}
+{#nitScene]head[#}{#nitScene]def[#}{#nitScene]ex[#}
+[#r<]
+require(CqlsRandom)
+pA<-.15
+plim<-.16
+n<-1000
+qtmp<-qbinom(c(.001,.999),n,pA)
+modtmp<-qtmp[1]:qtmp[2]
+Y1<-Norm(.1,sqrt(.1*.9/1000))
+Y2<-Norm(.2,sqrt(.2*.8/1000))
+Y14<-Norm(.14,sqrt(.14*.86/1000))
+Y15<-Norm(.15,sqrt(.15*.85/1000))
+ra<-c(plim,QQ(Y2,.999))
+[#rb<]
+plimPCT=#R{as.integer(plim*100)}
+plim5PCT=#R{round(qnorm(.95,.15,sqrt(.15*.85/1000))*100,2)}
+plimN=#R{as.integer(plim*n)}
+[#%]Risk Q1 (2)[#>]
+{#Actor]head:tit_risk[#,]:1-2[#,]0.5,0.5[#,]\textbf{\large Risque de mal décider $\mathbf{H_1}$}[#}
+{#Actor]def:risk_surf[#,]:1-2[#,]0.5,1.0[#align]center,top[#minipage]11cm[#,]@{ONLY(:1)}{\textbf{Question}~: Que représente la surface en magenta~?}@{ONLY(:2)}{\textbf{Réponse}~:$P_{p^A=14\%}(\Est{p^A}{Y^A}\geq #Rb{plimPCT}\%)$, i.e. la probabilité que le futur échantillon $\Vect{Y}^A$ conduise au lancement du produit~A (si $p_{lim}=#Rb{plimPCT}\%$) et lorsqu'en réalité $p^A=14\%$.}[#}
+{#ImageR]ex:img/risk14.png[#,]11,5[#,]:1-2[#,]0,-0.05[#,]
+plot(Y1,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="")
+plot(Y14,add=T,lwd=3)
+plot(Y15,add=T)
+plot(Y2,add=T)
+abline(h=0)
+area(Y2,ra,col="green",angle=45,density=10)
+area(Y15,ra,col="red",angle=60,density=30)
+area(Y14,ra,col="magenta")
+abline(v=c(.1,.14,.15,.2))
+abline(v=plim,lwd=3,col="darkgreen")[#}
+{#Actor]ex:plim[#,]:1-2[#,]risk14:#R{plim},-5[#align]center,top[#,]{$p_{lim}=#Rb{plimPCT}\%$}[#}
+{#incCpt]2[#}
+[#%]Risk Q2 (5)[#>]
+{#ActorWhen]tit_risk[#,]:1-5[#}
+{#Actor]def:risk_bad[#,]:1-5[#,]0.5,1.0[#,]
+\textbf{Question}~: Quelles sont les mauvaises situations pour l'industriel parmi $p^A=10\%$, $14\%$, $15\%$, $20\%$ s'il ne veut pas mal décider $\mathbf{H_1}$ et donc devenir pauvre~?\\
+{\small 
+@{ONLY(:1)}{$P_{p^A=10\%}(\Est{p^A}{Y^A}\geq #Rb{plimPCT}\%)={\color{white}\mathtt{\!\!1\!\!-\!\!pnorm(plim,.10,sqrt(.10*.90/1000))}\!\!\simeq\!\! 0\%}$}
+@{ONLY(:2)}{$P_{p^A=14\%}(\Est{p^A}{Y^A}\geq #Rb{plimPCT}\%)={\color{magenta}\mathtt{\!\!1\!\!-\!\!pnorm(plim,.14,sqrt(.14*.86/1000))}\!\!=\!\!#R{round(1-pnorm(plim,.14,sqrt(.14*.86/1000)),4)*100}\%}$}
+@{ONLY(:3)}{$P_{p^A=15\%}(\Est{p^A}{Y^A}\geq #Rb{plimPCT}\%)={\color{red} \mathtt{\!\!1\!\!-\!\!pnorm(plim,.15,sqrt(.15*.85/1000))}\!\!=\!\!#R{round(1-pnorm(plim,.15,sqrt(.15*.85/1000)),4)*100}\%}$}
+@{ONLY(:4)}{$P_{p^A=20\%}(\Est{p^A}{Y^A}\geq #Rb{plimPCT}\%)={\color{green} \mathtt{\!\!1\!\!-\!\!pnorm(plim,.20,sqrt(.20*.80/1000))}\!\!=\!\!#R{round(1-pnorm(plim,.2,sqrt(.2*.8/1000)),4)*100}\%}$}
+}@{ONLY(:5)}{
+\textbf{Réponse:} $p^A=10\%$, $14\%$, $15\%$}[#}
+{#ImageR]ex:img/risk10.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(Y1,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="",lwd=3)
+plot(Y14,add=T)
+plot(Y15,add=T)
+plot(Y2,add=T)
+abline(h=0)
+area(Y2,ra,col="green",angle=45,density=10)
+area(Y15,ra,col="red",angle=60,density=30)
+area(Y14,ra,col="magenta",angle=90,density=30)
+abline(v=c(.1,.14,.15,.2))
+abline(v=plim,lwd=3,col="darkgreen")[#}
+{#ActorWhen]risk14[#,]:2[#}
+{#ImageR]ex:img/risk15.png[#,]11,5[#,]:3[#,]0,-0.05[#,]
+plot(Y1,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="")
+plot(Y14,add=T)
+plot(Y15,add=T,lwd=3)
+plot(Y2,add=T)
+abline(h=0)
+area(Y2,ra,col="green",angle=45,density=10)
+area(Y14,ra,col="magenta")
+area(Y15,ra,col="red")
+abline(v=c(.1,.14,.15,.2))
+abline(v=plim,lwd=3,col="darkgreen")[#}
+{#ImageR]ex:img/risk20.png[#,]11,5[#,]:4[#,]0,-0.05[#,]
+plot(Y1,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="")
+plot(Y14,add=T)
+plot(Y15,add=T)
+plot(Y2,add=T,lwd=3)
+abline(h=0)
+area(Y15,ra,col="red",angle=60,density=30)
+area(Y14,ra,col="magenta",angle=90,density=30)
+area(Y2,ra,col="green")
+abline(v=c(.1,.14,.15,.2))
+abline(v=plim,lwd=3,col="darkgreen")[#}
+{#ImageR]ex:img/risk.png[#,]11,5[#,]:5[#,]0,-0.05[#,]
+plot(Y1,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="")
+plot(Y14,add=T)
+plot(Y15,add=T)
+plot(Y2,add=T)
+abline(h=0)
+area(Y2,ra,col="green",angle=45,density=10)
+area(Y15,ra,col="red",angle=60,density=30)
+area(Y14,ra,col="magenta",angle=90,density=30)
+area(Y1,ra,col="yellow")
+abline(v=c(.1,.14,.15,.2))
+abline(v=plim,lwd=3,col="darkgreen")[#}
+{#ActorWhen]plim[#,]:1-5[#}{#ActorLast]ex:plim[#}
+{#incCpt]5[#}
+[#%]Risk Q3 (4)[#>]
+{#ActorWhen]tit_risk[#,]:1-4[#}
+{#Actor]def:risk_worst[#,]:1-2[#,]0.5,1.0[#,]
+\textbf{Question}~:Quelle est la pire des mauvaises situations pour l'industriel parmi $p^A=10\%$, $14\%$, $15\%$, $20\%$~?
+
+@{ONLY(:2)}{\textbf{Réponse:} $p^A=15\%$.}[#}
+{#ActorWhen]risk[#,]:1[#}
+{#ActorWhen]risk15[#,]:2[#}
+{#ImageR]ex:img/riskH0.png[#,]11,5[#,]:3-4[#,]0,-0.05[#,]
+plot(Y15,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="",lwd=3,ylim=c(0,43))
+abline(h=0)
+area(Y15,ra,col="red")
+abline(v=.15)
+abline(v=plim,lwd=3,col="darkgreen")[#}
+{#Actor]def:risk_q_H0[#,]:3-4[#,]0.5,1.0[#,]
+\textbf{Question}~: Pourquoi se place-t-on dans cette pire des situations $p^A=15\%$ désormais notée $\mathbf{H_0}$~?
+
+@{ONLY(:4)}{\textbf{Réponse:} Pour contrôler le risque (maximal) $\alpha$ de mal décider $\mathbf{H_1}$.}[#}
+{#ActorWhen]plim[#,]:1-4[#}{#ActorLast]ex:plim[#}
+{#incCpt]4[#}
+[#%]Risk Q4 (3)[#>]
+{#ActorWhen]tit_risk[#,]:1-3[#}
+{#Actor]def:risk_plim[#,]:1-3[#,]0.5,1.0[#,]
+\textbf{Question}~: Comment choisir $p_{lim,5\%}$ s'il l'industriel ne veut pas plus de $\alpha=5\%$ de risque de devenir pauvre (mal décider $\mathbf{H_1}$)~?\\
+@{ONLY(:2-3)}{\textbf{Réponse:}\\ $p_{lim,5\%}=\mathtt{qnorm(.95,.15,sqrt(.15*.85/1000))=#R{round(qnorm(.95,.15,sqrt(.15*.85/1000)),6)}}$.}[#}
+{#ActorWhen]riskH0[#,]:1[#}
+{#ActorWhen]plim[#,]:1[#}
+{#ImageR]ex:img/riskplim.png[#,]11,5[#,]:2[#,]0,-0.05[#,]
+plim5<-qnorm(.95,.15,sqrt(.15*.85/1000))
+ra5<-c(plim5,QQ(Y2,.999))
+plot(Y15,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="",lwd=3,ylim=c(0,43))
+abline(h=0)
+area(Y15,ra5,col="red")
+abline(v=.15)
+abline(v=plim5,lwd=3,col="darkgreen")[#}
+{#ImageR]ex:img/riskall.png[#,]11,5[#,]:3[#,]0,-0.05[#,]
+plot(Y1,xlim=c(QQ(Y1,.001),QQ(Y2,.999)),xlab="",ylab="")
+plot(Y14,add=T)
+plot(Y15,add=T)
+plot(Y2,add=T)
+abline(h=0)
+area(Y2,ra5,col="green",angle=45,density=10)
+area(Y15,ra5,col="red",angle=60,density=30)
+area(Y14,ra5,col="magenta",angle=90,density=30)
+area(Y1,ra5,col="yellow")
+abline(v=c(.1,.14,.15,.2))
+abline(v=plim5,lwd=3,col="darkgreen")[#}
+{#Actor]ex:plim5[#,]:2-3[#,]risk:#R{plim5},-5[#align]center,top[#,]{$p_{lim,5\%}=#Rb{plim5PCT}\%$}[#}
+{#incCpt]3[#}
+[#%]ProdB (4)[#>]
+{#Actor]head:tit_prodB[#,]:1-4[#,]0.5,0.5[#align]center,center[#,]\textbf{Produit B}[#}
+{#Actor]def:prodB_inconnu[#,]:1-4[#,]0.5,1.25[#align]center,top[#minipage]11cm[#,]
+{\small On sait que $\Est{\mu^B}{Y^B}\SuitApprox \mathcal{N}(\mu^B,\sqrt{\frac{\sigma^2_B}n})\;\;$ où $\sigma^2_B={ \frac1N\sum_{i=1}^N(\mathcal{Y}_i^B-\mu^B)^2 }$
+
+@{ONLY(:1-2)}{\textbf{Question :} que représente la quantité $\sigma_B^2$~?}
+
+@{ONLY(:2)}{\textbf{Réponse :} la variance des nombres de produit(s)~B acheté(s) par les individus de la population totale.}
+
+@{ONLY(:3-4)}{\textbf{Question :} ce résultat est-il utilisable~?} 
+
+@{ONLY(:4)}{\textbf{Réponse :} NON car le paramètre $\sigma_B^2$ est inconnu $\Rightarrow$ impossible de déterminer $\mu_{lim,\alpha}$ pour le produit~B.}
+}[#}
+{#incCpt]4[#}
+[#%]Ecart (4)[#>]
+{#Actor]head:tit_ecart[#,]:1-4[#,]0.5,0.5[#,]\textbf{Paramètres d'écart}[#}
+{#Actor]def:ecart_def[#,]:1-4[#,]0.5,1.25[#align]center,top[#minipage]11cm[#,]
+{\small On définit $\delta_{\mu^\bullet,0.15}= 
+\frac{p^A-15\%}{\sqrt{\frac{15\%\times 85\%}n}} \mbox{(produit A), }
+\frac{\mu^B-0.15}{\sqrt{\frac{\sigma_B^2}n}}  \mbox{(produit B)}.
+$
+
+@{ONLY(:1-2)}{\textbf{Question :} ces nouveaux paramètres peuvent-ils être évalués~?}
+
+@{ONLY(:2)}{\textbf{Réponse :} NON car les paramètres $p^A$ d'une part et $\mu^B, \sigma_B^2$ INCONNUS.}
+
+@{ONLY(:3-4)}{\textbf{Question :} exprimer $\mathbf{H_0}$ et $\mathbf{H_1} $ à partir du paramètre d'écart.}
+
+@{ONLY(:4)}{\textbf{Réponse :} $\mathbf{H_0}:\delta_{\mu^\bullet,0.15}=0$ et $\mathbf{H_1}:\delta_{\mu^\bullet,0.15}>0$.}
+}[#}
+{#Actor]ex:red_std[#,]:1-13[#,]0,1.0[#align]left,top[#minipage]6cm[#,]
+\small
+@{ONLY(:3-)}{\noindent\textbf{Hypothèses de test~:}\\
+\hspace*{0.5cm}$\mathbf{H_0}:\mu^\bullet=0.15$ vs. $\mathbf{H_1}:\mu^\bullet>0.15$\\}[#}
+{#incCpt]4[#}
+[#%]Estim Ecart (4)[#>]
+{#ActorWhen]tit_ecart[#,]:1-4[#}
+{#ActorWhat]red_std[#,]:1-9[#,]
+@{ONLY(:4-)}{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}
+{@{COLOR(:4|blue)}
+\[
+\Est{\delta_{\mu^\bullet},0.15}{Y^\bullet}\SuitApprox \mathcal{N}(0,1)
+\]}}
+@{ONLY(:6-)}{\noindent\textbf{Règle de décision~:}  (au vu des données) \\
+\hspace*{0.5cm}Accepter $\mathbf{H_1}$ si $\Est{\delta_{\mu^\bullet,0.15}} {y^\bullet}>{@{COLOR(:8|brown)}\delta_{lim,\alpha}}$}[#}
+{#Actor]def:ecart_estim[#,]:1-4[#,]0.5,1.25[#,]
+@{ONLY(:1-2)}{\textbf{Question :} comment estime-t-on ces paramètres le jour~J ~?}
+
+@{ONLY(:2)}{\textbf{Rép :} $\Est{\delta_{p^A,15\%}}{y^A}=
+\frac{\Est{p^A}{y^A}-15\%}{\sqrt{\frac{15\%\times 85\%}n}} \mbox{ et }
+\Est{\delta_{\mu^B,0.15}}{y^B}=\frac{\Est{\mu^B}{y^B}-0.15}{\sqrt{\frac{\Est{\sigma_B^2}{y^B}}n}}$}
+
+@{ONLY(:3-4)}{\textbf{Question :} loi de proba de sa future estimation sous $\mathbf{H_0}$~?}
+
+@{ONLY(:4)}{\textbf{Rép :} $\Est{\delta_{p^A,15\%}}{Y^A}=
+\frac{\Est{p^A}{Y^A}-15\%}{\sqrt{\frac{15\%\times 85\%}n}} \mbox{ et }
+\Est{\delta_{\mu^B,0.15}}{Y^B}=\frac{\Est{\mu^B}{Y^B}-0.15}{\sqrt{\frac{\Est{\sigma_B^2}{Y^B}}n}}$}[#}
+{#ImageR]ex:img/stattest.png[#,]5,5[#,]:4[#,]0.6,-0.05[#,]
+require(CqlsRandom)
+ST<-Norm()
+plot(ST,main="",xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)[#}
+[#%]Redaction Standard[#>] 
+{#Actor]head:tit_redstd[#,]:5-9[#,]0.5,0.5[#,]\textbf{Rédaction Standard}[#}
+{#ActorWhen]stattest[#,]:5-7[#}
+{#Actor]def:redstd_rd[#,]:5-6[#,]0.5,1.25[#,]
+{\small \textbf{Question~:} Comment s'écrit la règle de décision à partir du paramètre d'écart estimé~?}[#}
+{#Actor]def:redstd_deltalim[#,]:7-9[#,]0.5,1.25[#,]
+{\small \textbf{Question~:} Comment déterminer $\delta_{lim,\alpha}$ pour que le risque de mal décider $\mathbf{H_1}$ n'excède pas $\alpha=5\%$ ~?
+
+@{ONLY(:8-9)}{\noindent\textbf{Réponse~:} $\delta_{lim,\alpha}$ est le quantile d'ordre $1-\alpha$ d'une loi $\mathcal{N}(0,1)$ @{ONLY(:8)}{(pourquoi~?)} @{ONLY(:9)}{car $P_{\mu^\bullet=0.15}(\Est{\delta_{\mu^\bullet,0.15}}{Y^\bullet} > \delta_{lim,\alpha})$ (correspondant au risque sous $\mathbf{H_0}$ de mal décider $\mathbf{H_1}$ à partir du futur échantillon $\Vect{Y^\bullet}$) est égal à $\alpha$.}}
+}[#}
+{#ImageR]ex:img/deltalim5.png[#,]5,5[#,]:8-9[#,]0.6,-0.05[#,]
+require(CqlsRandom)
+ST<-Norm()
+deltalim5<-QQ(ST,.95)
+plot(ST,main="",xlab="",ylab="",col="blue",lwd=3)
+area(ST,c(deltalim5,QQ(ST,.9999)),col="red",lwd=3)
+abline(h=0)
+abline(v=deltalim5,col="brown",lwd=3)[#}
+{#Actor]ex:redstd_show2[#,]:8-9[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(deltalim5:-3,-0.08)})}{\pgfxy(@{xy(deltalim5:1.65,-0.01)})}[#}
+{#Actor]ex:redstd_show[#,]:8-9[#,]deltalim5:-0.5,-0.08[#align]center,top[#minipage]none[#,]
+{\small $\delta_{lim,5\%}=\mathtt{qnorm(1-0.05)=#R{round(qnorm(.95),4)}}$}[#}
+{#Actor]ex:redstd_show[#,]:9[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(deltalim5:-0.5,0.45)})}{\pgfxy(@{xy(deltalim5:2,0.02)})}[#}
+{#Actor]ex:redstd_show[#,]:9[#,]deltalim5:-0.5,0.45[#align]center,bottom[#minipage]none[#,]
+{\small $P_{\mathbf{H_0}}(\Est{\delta_{\mu^\bullet,0.15}}{Y^\bullet} > \delta_{lim,\alpha})=\alpha$}
+[#}
+{#hide][#hide}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shaded=true,lower=header]{}
+  @{beginScene(head)}
+  @{writeScene(head)}
+  @{endScene(head)}
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=magenta!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+@{beginScene(def)}
+@{writeScene(def)}
+@{endScene(def)}
+\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=cyan!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+@{beginScene(ex)}
+@{writeScene(ex)}
+@{endScene(ex)}
+\end{beamercolorbox}
+\end{frame}

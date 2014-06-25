@@ -1,0 +1,19 @@
+[#>]
+\section[Test hypothèses]{Test d'hypothèses (Cadre asymptotique)}
+\begin{frame}[label=param]
+\frametitle{Paramètres d'intérêt et d'écart standardisé}
+\begin{alertblock}{}
+[#=]alert[7][#=]alert2[9] [#=]alert3[14][#=]alert4[15][#=]alert5[18] 
+[#>]
+\begin{enumerate}
+\item \textbf{\color<#{alert}>[rgb]{1,0,0}Paramètre d'intérêt :} \pause ${\color<#{alert}>[rgb]{1,0,0}\theta}$ (et $\theta^\bullet$ le \textbf{jour~J}) \pause
+\item \textbf{Future estimation de $\theta$ :} \pause \fbox{$\Est{\theta}{Y}\SuitApprox \mathcal{N}({\color<#{alert}>[rgb]{1,0,0}\theta},{\color<#{alert2}>[rgb]{0,0,1}\sigma_{\widehat{\theta}}})$}\pause
+\item \textbf{Qualité de $\Est{\theta}{Y}$ :} \\\pause
+Moyenne d'une infinité de $\Est{\theta}{y_{[j]}}=\mathbb{E}(\Est{\theta}{Y})\simeq$\pause \fbox{$ \color<#{alert}>[rgb]{1,0,0}\theta$}\\\pause
+Variance d'une infinité de $\Est{\theta}{y_{[j]}}=\mathbb{V}ar(\Est{\theta}{Y})$\pause=\fbox{${\color<#{alert2}>[rgb]{0,0,1}\sigma^2_{\widehat{\theta}}}$}\pause
+\item \textbf{Erreur Standard :} \pause $\Est{\sigma_{\widehat{\theta}}}{Y}$ future estimation de $\sigma_{\widehat{\theta}}$\pause
+\item \textbf{{\color<#{alert3}>[rgb]{1,0,0}Paramètre d'écart} {\color<#{alert4}>[rgb]{0,0,1}standardisé} :} \pause \fbox{$\displaystyle \delta_{\theta,\theta_0}=\frac{\color<#{alert3}>[rgb]{1,0,0}{\color<#{alert5}>[rgb]{1,0,0}\theta}-\theta_0}{\color<#{alert4},#{alert5}>[rgb]{0,0,1}\sigma_{\widehat{\theta}}}$}\pause\pause\pause
+\item  \textbf{Future estimation de $\delta_{\theta,\theta_0}$ :} \pause \fbox{$\displaystyle \Est{\delta_{\theta,\theta_0}}{Y}=\frac{{\color<#{alert5}>[rgb]{1,0,0}\Est{\theta}{Y}}-\theta_0}{\color<#{alert5}>[rgb]{0,0,1}\Est{\sigma_{\widehat{\theta}}}{Y}}$}
+\end{enumerate}
+\end{alertblock}
+\end{frame}

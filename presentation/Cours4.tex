@@ -1,0 +1,457 @@
+
+\documentclass[11pt]{beamer}
+%Packages
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{xkeyval,calc,listings,tikz}
+\usepackage{colortbl}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\mode<article>{\usepackage{fullpage}}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+\usetheme{Antibes}
+%\usecolortheme{lily}
+
+\definecolor{VertFonce}{rgb}{0,.4,.0}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  % or ...
+\usetheme{Boadilla}
+
+  \setbeamercovered{transparent=5}
+  % or whatever (possibly just delete it)
+}
+%\setbeamercovered{dynamic}
+
+
+\subject{Talks}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+\setbeamercovered{invisible}
+\newcommand{\Sim}{{\star}}
+\newcommand{\ok}{ \textcolor{green}{\large$\surd$}}
+\newcommand{\nok}{ \textcolor{red}{\large X}}
+
+
+\usetikzlibrary{arrows,%
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+\tikzset{
+  every plot/.style={prefix=plots/pgf-},
+  shape example/.style={
+    color=black!30,
+    draw,
+    fill=yellow!30,
+    line width=.5cm,
+    inner xsep=2.5cm,
+    inner ysep=0.5cm}
+}
+
+
+\definecolor{darkblue}{rgb}{0,0,.4}
+
+%Styles
+
+%Title
+
+\beamertemplateshadingbackground{green!50}{yellow!50}
+\title[Problématiques Produits A et B]
+{Cours de Statistiques Inférentielles}
+\author{CQLS~: cqls@upmf-grenoble.fr}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+%\begin{frame}
+%  \titlepage
+%\end{frame}
+
+
+\section{Test d'hypothèses}
+
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-3>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{
+\textbf{\large Décision pour le Produit~$\bullet$}}}}
+\only<4-7,8-10,11-14,15-17,18-20,21-30>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{
+\textbf{\large Décision pour le Produit~A}}}}
+\only<31-33,34-37,38-47>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Décision pour le Produit~B}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Objectif}~: Nous rappelons que l'industriel désire établir une règle de décision à partir d'une unique estimation obtenue le \textbf{Jour J} quant au lancement du produit~$\bullet$.\end{minipage}}}}
+\only<2-3>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<2-3>{\textbf{Question}~: Quelle est la forme de la règle de décision en faveur de l'assertion d'intérêt (c-à-d $\mu^\bullet > 0.15$)~?}
+\only<3>{\\\textbf{Réponse}~: Accepter l'assertion d'intérêt si $\Est{\mu^\bullet}{y^\bullet}>\mu_{lim}$.} \end{minipage}}}}
+\only<4-5>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<4-5>{\textbf{Question}~: Pour différentes urnes $U^A_p$, l'{\color{blue}expérimentateur} a évalué {\small ${\color{blue}\meanEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}>p_{lim}}}$}. Comment ces valeurs ont-elles été obtenues~?}\only<5>{\\\textbf{Réponse}~: proportions parmi {\color{blue}$m=10000$} (et parmi {\color{red}$m=\infty$} avec un peu de patience) estimations {\small $\Est{p^A}{y^A_{[\cdot]}}$} supérieures à $p_{lim}$.} \end{minipage}}}}
+\only<6-7>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<6-7>{\textbf{Question}~: Comment la connaissance du {\color{red}mathématicien} $\Est{p^A}{Y^A}\SuitApprox \mathcal{N}(p^A,\sqrt{\frac{p^A(1-p^A)}n})$ a été utilisée~?}
+ \only<7>{\\\textbf{Réponse}~:\\ 
+$P_{p^A=p}(\Est{p^A}{Y^A}>p_{lim})\NotR\mathtt{1-pnorm(plim,p,sqrt(p*(1-p)/n))}$.} \end{minipage}}}}
+\only<8-10>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<8>{\textbf{Question}~: Avec le point de vue de l'industriel, quelles valeurs de 
+${\color{red}P_{p^A=p}(\Est{p^A}{Y^A}>p_{lim})}\simeq {\color{blue}\meanEmp[10000]{\Est{p^A}{y^A_{[\cdot]}}>p_{lim}}}$ conduisent à des risques d'erreur de décision (nature à préciser) trop grands~?}
+\only<9-10>{\textbf{Réponse}~: pour $p=$10\%, 14\% et 15\%, on a un \textbf{Risque 1ère espèce} (devenir pauvre)
+{\color{white}\bf raisonnable (< 5\%)} et 
+{\color{darkgray}\bf plutôt grand ($\geq$ 5\%)}}
+\only<10>{\\
+et pour $p=$15.1\%, 16\% et 20\%, \textbf{Risque 2ème espèce} (ne pas devenir riche)
+{\color{cyan}\bf raisonnable (< 5\%)} et 
+{\color{darkblue}\bf plutôt grand ($\geq$ 5\%)}
+}\end{minipage}}}}
+\only<11-12>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<11-12>{\textbf{Question}~: Peut-on choisir $p_{lim}$ de sorte que tous les risques de 1ère et 2ème espèces soient raisonnablement petits~?}\only<12>{\\\textbf{Réponse}~: Non, puisque somme des risques de 1ère et 2ème espèces peut être aussi proche de 1 (ex: $p=15\%$ et $p=15.1\%$)~! }\end{minipage}}}}
+\only<13-14>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<13-14>{\textbf{Question}~: Quel risque faut-il alors essayer de controler lors du choix de $p_{lim}$~?}\only<14>{\\\textbf{Réponse}~: le plus grave, c-à-d le risque de 1ère espèce (ici devenir pauvre), uniquement possible pour $p^A=p\leq15\%$.}\end{minipage}}}}
+\only<15-17>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<15-17>{\textbf{Question}~: Parmi les mauvaises situations pour l'industriel $p\leq 15\%$ (ici $p=10\%$, $14\%$ et $15\%$), quelle est la pire au sens du plus grand risque de 1ère espèce~?}\only<16>{\\\textbf{Réponse}~: $p^A=p=15\%$. Les risques avec $p<15\%$ sont plus petits~!}\only<17>{\\\textbf{Réponse}~: $p^A=15\%$ sera  \textbf{la pire des (mauvaises) situations}! }\end{minipage}}}}
+\only<18-20>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\only<18-20>{\textbf{Question}~: Dans \textbf{la pire des situations}, comment choisir $p_{lim,\alpha}$ pour avoir un risque maximal de 1ère espèce fixé à $\alpha=5\%$~?}\only<19-20>{\\\textbf{Réponse}~: trouver $p_{lim,\alpha}$ tq $P_{p^A=15\%}(\Est{p^A}{Y^A}>p_{lim,\alpha})=\alpha=5\%$}\only<20>{\\c-à-d $p_{lim,5\%}\!\NotR\! \mathtt{qnorm(.95,.15,sqrt(.15*.85/1000)}\!=\!16.8573\%$. }\end{minipage}}}}
+\only<21-22>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction du paramètre d'intérêt~?\end{minipage}}}}
+\only<23-24>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<25-26>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{p^A}{Y^A}$ dans la pire des situations~?\end{minipage}}}}
+\only<27-28>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Comment s'écrit la règle de décision en faveur de l'assertion d'intérêt ne produisant pas plus de 5\% d'erreur de première espèce~?\end{minipage}}}}
+\only<29-30>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Comment conclueriez-vous au vu des données de l'industriel stockées dans le vecteur $\Vect{y^A}$ (\texttt{yA} en \texttt{R}) et pour lequel $\mathtt{mean(yA)}=0.171$~?\end{minipage}}}}
+\only<31>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Même démarche (accélérée)}~: Les valeurs des cases ci-dessous correspondent à~: {\small ${\color{red}P_{\mu^B=\mu}(\Est{\mu^B}{Y^B}>\mu_{lim})}\simeq{\color{blue}\meanEmp[10000]{\Est{\mu^B}{y^B_{[\cdot]}}>\mu_{lim}}}$}\\
+obtenues grâce à la connaissance du mathématicien suivante\\
+\centerline{\color{red}$\Est{\mu^B}{Y^B}\SuitApprox \mathcal{N}(\mu^B,\sigma_{\widehat{\mu^B}})$ où $\sigma_{\widehat{\mu^B}}=\frac{\sigma_B}{\sqrt{n}}$}\end{minipage}}}}
+\only<32>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Même démarche (accélérée)}~: On ne cherche donc qu'à contrôler le risque de 1ère espèce dans \textbf{la pire des situations}, i.e. {\small $\mathbf{H_0}:\mu^B=0.15$}.\\
+\textbf{Question}~: Comment ajuster $\mu_{lim}$ de manière à ne produire qu'un risque maximal de 1ère espèce à $\alpha=5\%$~?\end{minipage}}}}
+\only<33>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Réponse}~: \\
+\[
+\mu_{lim}\NotR\mathtt{qnorm(.95,.15,sqrt(varBO15/n))}\simeq 0.1740846
+\]\end{minipage}}}}
+\only<34>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+L'urne $U^A_{0.15}$ est une pire situation potentielle pour le produit~B ainsi que beaucoup d'autres (à décrire). 
+Par conséquent, $\mu_{lim,5\%}$ peut prendre les valeurs  0.1740846,  0.168573 ainsi que beaucoup d'autres
+(le plus grand à 3 boules max est 0.1840091) $\Rightarrow$ \textbf{ECHEC!}\end{minipage}}}}
+\only<35>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{mais pas MATH!}~: en effet, $\Est{\mu^B}{Y^B}\SuitApprox \mathcal{N}({\color{blue}0.15},\frac{\color{red}\sigma_B}{\sqrt{n}})$ sous $\mathbf{H_0}$. Heureusement, $\mathbf{H_1}:\mu^B>0.15\Leftrightarrow \delta_{\mu^B,0.15}:=\frac{\mu^B-0.15}{\sigma_B/\sqrt{n}}>0$\\
+estimé par $\Est{\delta_{\mu^B,0.15}}{Y^B}:=\frac{\Est{\mu^B}{Y^B}-0.15}{\Est{\sigma_B}{Y^B}/\sqrt{n}}\SuitApprox \mathcal{N}({\color{blue}0},{\color{blue}1})$ sous $\mathbf{H_0}$.\end{minipage}}}}
+\only<36>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{mais pas MATH!}~: La Règle de Décision peut donc se formuler~:\\
+\centerline{Accepter $\mathbf{H_1}$ si $\Est{\delta_{\mu^B,0.15}}{y^B} > \delta_{lim,\alpha}\NotR \mathtt{qnorm(1-\alpha)}$}\newline
+de sorte que le risque maximal de 1ère espèce soit fixé à (urne $U^B_{0.15}$)\\ $\alpha\simeq{\color{red}P_{\mu^B=0.15}(\Est{\delta_{\mu^B,0.15}}{Y^B}>\delta_{lim,\alpha})}={\color{blue}\meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>\delta_{lim,\alpha}}}$.\end{minipage}}}}
+\only<37>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{mais pas MATH!}~: De plus, le résultat~:\\ $\alpha\simeq{\color{red}P_{\mu^B=0.15}(\Est{\delta_{\mu^B,0.15}}{Y^B}>\delta_{lim,\alpha})}={\color{blue}\meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>\delta_{lim,\alpha}}}$\\
+est valide pour tout type d'urne potentielle pour le produit~B comme le montre les résultats ci-dessous pour les urnes $U^A_{0.15}$ et  $U^B_{0.15}$.\end{minipage}}}}
+\only<38-39>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction du paramètre d'intérêt et en fonction du paramètre d'écart standardisé~?\only<39>{\\\textbf{Réponse}~: $\mathbf{H_1}:\mu^B>0.15\Leftrightarrow \delta_{\mu^B,0.15}:=\frac{\mu^B-0.15}{\sigma_{\widehat{\mu^B}}}>0$\\
+avec $\sigma_{\widehat{\mu^B}}=\frac{\sigma_B}{\sqrt{n}}$.}\end{minipage}}}}
+\only<40-41>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<42-43>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\mu^B,0.15}}{Y^B}$ dans la pire des situations~?\end{minipage}}}}
+\only<44-45>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Comment s'écrit la règle de décision en faveur de l'assertion d'intérêt ne produisant pas plus de 5\% d'erreur de première espèce~?\end{minipage}}}}
+\only<46-47>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question }: Comment conclueriez-vous au vu des données de l'industriel stockées dans le vecteur $\Vect{y^B}$ (\texttt{yB} en \texttt{R}) et pour lequel $\mathtt{mean(yB)}=0.172$ et $\mathtt{sd(yB)}=0.5610087$~?\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<4-7,8>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
+$p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
+10\% &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+14\% &  $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ &  $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% &  $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ &  $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ &  $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ &  $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline
+\end{tabular}}}}
+\only<9,14,15>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
+$p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
+10\% & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% & \cellcolor{darkgray} $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ & \cellcolor{white} $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ &  $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ &  $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline 
+\end{tabular}}}}
+\only<10,11-13>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
+$p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
+10\% & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% & \cellcolor{darkgray} $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ & \cellcolor{white} $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+15.1\% & \cellcolor{darkblue} $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ & \cellcolor{darkblue} $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ & \cellcolor{darkblue} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% & \cellcolor{darkblue} $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ & \cellcolor{darkblue} $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ & \cellcolor{darkblue} $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% & \cellcolor{cyan} $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ & \cellcolor{cyan} $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ & \cellcolor{darkblue} $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline 
+\end{tabular}}}}
+\only<16-17,18>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
+$p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
+10\% &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% &  $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ &  $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ &  $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ &  $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline 
+\end{tabular}}}}
+\only<19-20>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
+$p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{16.8573\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} \\\hline 
+10\% &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% &  $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ &  $ {\color{blue}0.52\% } \simeq {\color{red}0.46\% } $ &  $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}5.17\% } \simeq {\color{red}5\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ \\\hline 
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}6.18\% } \simeq {\color{red}6.03\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ \\\hline 
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}22.89\% } \simeq {\color{red}22.98\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.35\% } \simeq {\color{red}99.35\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ \\\hline 
+\end{tabular} }}}
+\only<21-30>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\visible<22-30>{\noindent\textbf{Hypothèses de test~:}}\visible<24-30>{ {\small $\mathbf{H_0}:p^A=15\%$} vs } \visible<22-30>{$\mathbf{H_1}:p^A>15\%$\\}
+\visible<26-30>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{p^A}{Y^A}\SuitApprox \mathcal{N}(15\%,\sqrt{\frac{15\%\times 85\%}{n}})$}\newline}
+\visible<28-30>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si $\Est{p^A}{y^A} > p_{lim,\alpha}$}\newline}
+\visible<30>{\noindent\textbf{Conclusion}~: Au vu des données, puisque\\
+ \centerline{$\Est{p^A}{y^A}=17.1\%> p_{lim,5\%}\simeq 16.8573\%$}\\
+on peut plutôt penser que le produit~A est rentable.\\
+(avec
+$p_{lim,5\%}\NotR
+\mathtt{qnorm(.95,.15,sqrt(.15*.85/1000))}$)}\end{minipage}}}}
+\only<31>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\mu_{lim}$} \\\cline{2-4}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.17} & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.20} \\\hline
+0.1 & \cellcolor{white} $ {\color{blue}0.01\% } \simeq {\color{red}0.01\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+0.14 & \cellcolor{darkgray} $ {\color{blue}23.39\% } \simeq {\color{red}24.38\% } $ & \cellcolor{white} $ {\color{blue}1.74\% } \simeq {\color{red}1.86\% } $ & \cellcolor{white} $ {\color{blue}0.01\% } \simeq {\color{red}0\% } $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{darkgray} $ {\color{blue}7.72\% } \simeq {\color{red}8.6\% } $ & \cellcolor{white} $ {\color{blue}0.04\% } \simeq {\color{red}0.03\% } $ \\\hline
+0.16 & \cellcolor{darkblue} $ {\color{blue}74.24\% } \simeq {\color{red}74.07\% } $ & \cellcolor{darkblue} $ {\color{blue}23.45\% } \simeq {\color{red}25.93\% } $ & \cellcolor{darkblue} $ {\color{blue}0.39\% } \simeq {\color{red}0.49\% } $ \\\hline
+0.20 & \cellcolor{cyan} $ {\color{blue}99.96\% } \simeq {\color{red}99.98\% } $ & \cellcolor{cyan} $ {\color{blue}97.81\% } \simeq {\color{red}98.3\% } $ & \cellcolor{darkblue} $ {\color{blue}48.43\% } \simeq {\color{red}50\% } $ \\\hline
+\end{tabular}\end{minipage}}}}
+\only<32>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\mu_{lim}$} \\\cline{2-4}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.17} & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.20} \\\hline
+0.1 &  $ {\color{blue}0.01\% } \simeq {\color{red}0.01\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+0.14 &  $ {\color{blue}23.39\% } \simeq {\color{red}24.38\% } $ &  $ {\color{blue}1.74\% } \simeq {\color{red}1.86\% } $ &  $ {\color{blue}0.01\% } \simeq {\color{red}0\% } $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{darkgray} $ {\color{blue}7.72\% } \simeq {\color{red}8.6\% } $ & \cellcolor{white} $ {\color{blue}0.04\% } \simeq {\color{red}0.03\% } $ \\\hline
+0.16 &  $ {\color{blue}74.24\% } \simeq {\color{red}74.07\% } $ &  $ {\color{blue}23.45\% } \simeq {\color{red}25.93\% } $ &  $ {\color{blue}0.39\% } \simeq {\color{red}0.49\% } $ \\\hline
+0.20 &  $ {\color{blue}99.96\% } \simeq {\color{red}99.98\% } $ &  $ {\color{blue}97.81\% } \simeq {\color{red}98.3\% } $ &  $ {\color{blue}48.43\% } \simeq {\color{red}50\% } $ \\\hline
+\end{tabular}\end{minipage}}}}
+\only<33>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\mu_{lim}$} \\\cline{2-4}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.1740846} & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.2} \\\hline
+0.1 &  $ {\color{blue}0.01\% } \simeq {\color{red}0.01\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+0.14 &  $ {\color{blue}23.39\% } \simeq {\color{red}24.38\% } $ &  $ {\color{blue}0.94\% } \simeq {\color{red}0.9\% } $ &  $ {\color{blue}0.01\% } \simeq {\color{red}0\% } $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}4.63\% } \simeq {\color{red}5\% } $ & \cellcolor{white} $ {\color{blue}0.04\% } \simeq {\color{red}0.03\% } $ \\\hline
+0.16 &  $ {\color{blue}74.24\% } \simeq {\color{red}74.07\% } $ &  $ {\color{blue}16.04\% } \simeq {\color{red}18.16\% } $ &  $ {\color{blue}0.39\% } \simeq {\color{red}0.49\% } $ \\\hline
+0.20 &  $ {\color{blue}99.96\% } \simeq {\color{red}99.98\% } $ &  $ {\color{blue}95.74\% } \simeq {\color{red}96.64\% } $ &  $ {\color{blue}48.43\% } \simeq {\color{red}50\% } $ \\\hline
+\end{tabular}\end{minipage}}}}
+\only<34>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|}\hline
+ & \multicolumn{2}{>{\columncolor{yellow}}c|}{$\mu_{lim,5\%}$} \\\cline{2-3}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.168573 ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.1740846 ($U^B_{0.15}$)} \\\hline
+0.1 & ${\color{blue}0\% } \simeq {\color{red}0\% }$ & ${\color{blue}0\% } \simeq {\color{red}0\% }$ \\\hline
+0.14 & ${\color{blue}0.52\% } \simeq {\color{red}0.46\% }$ & ${\color{blue}0.94\% } \simeq {\color{red}0.9\% }$ \\\hline
+0.15 & \cellcolor{white}${\color{blue}5.17\% } \simeq {\color{red}5\% }$ & \cellcolor{white}${\color{blue}4.63\% } \simeq {\color{red}5\% }$ \\\hline
+0.16 & ${\color{blue}22.89\% } \simeq {\color{red}22.98\% }$ & ${\color{blue}16.04\% } \simeq {\color{red}18.16\% }$ \\\hline
+0.1 & ${\color{blue}99.35\% } \simeq {\color{red}99.35\% }$ & ${\color{blue}95.74\% } \simeq {\color{red}96.64\% }$ \\\hline
+\end{tabular}}}}
+\only<35-36>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
+ & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\delta_{lim}$} \\\cline{2-4}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0}& \multicolumn{1}{>{\columncolor{yellow}}c|}{1.6449} & \multicolumn{1}{>{\columncolor{yellow}}c|}{1.96} \\\hline
+0.1 &  $ {\color{blue}0.01\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ \\\hline
+0.14 &  $ {\color{blue}100\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.66\% } \simeq {\color{red}5\% } $ & \cellcolor{white} $ {\color{blue}1.73\% } \simeq {\color{red}2.5\% } $ \\\hline
+0.16 &  $ {\color{blue}74.24\% } \simeq {\color{red}???} $ &  $ {\color{blue}53.52\% } \simeq {\color{red}???} $ &  $ {\color{blue}50.9\% } \simeq {\color{red}???} $ \\\hline
+0.20 &  $ {\color{blue}99.96\% } \simeq {\color{red}???} $ &  $ {\color{blue}96.46\% } \simeq {\color{red}???} $ &  $ {\color{blue}92.45\% } \simeq {\color{red}???} $ \\\hline
+\end{tabular}}}}
+\only<37>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
+\arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
+\begin{tabular}{|>{\columncolor{red}}c|c|c|}\hline
+ & \multicolumn{2}{>{\columncolor{yellow}}c|}{$\delta_{lim,5\%}$} \\\cline{2-3}
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{1.644854 ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{1.644854 ($U^B_{0.15}$)} \\\hline
+0.1 & ${\color{blue}0\% } \simeq {\color{red}???}$ & ${\color{blue}0\% } \simeq {\color{red}???}$ \\\hline
+0.14 & ${\color{blue}0.39\% } \simeq {\color{red}???}$ & ${\color{blue}0\% } \simeq {\color{red}???}$ \\\hline
+0.15 &\cellcolor{white} ${\color{blue}4.39\% } \simeq {\color{red}5\% }$ &\cellcolor{white} ${\color{blue}3.66\% } \simeq {\color{red}5\% }$ \\\hline
+0.16 & ${\color{blue}20.15\% } \simeq {\color{red}???}$ & ${\color{blue}53.52\% } \simeq {\color{red}???}$ \\\hline
+0.1 & ${\color{blue}99.2\% } \simeq {\color{red}???}$ & ${\color{blue}96.46\% } \simeq {\color{red}???}$ \\\hline
+\end{tabular}}}}
+\only<38-47>{
+\pgfputat{\pgfxy(0.5,1.05)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\visible<39-47>{\noindent\textbf{Hypothèses de test~:}}\visible<41-47>{ {\small $\mathbf{H_0}:\mu^B=0.15$} vs } \visible<39-47>{$\mathbf{H_1}:\mu^B>0.15$\\}
+\visible<43-47>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\mu^B,0.15}}{Y^B}:=\frac{\Est{\mu^B}{Y^B}-0.15}{\Est{\sigma_{\widehat{\mu^B}}}{Y^B}}\SuitApprox \mathcal{N}(0,1)$}\newline}
+\visible<45-47>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si $\Est{\delta_{\mu^B,0.15}}{y^B} > \delta_{lim,\alpha}$}\newline}
+\visible<47>{\noindent\textbf{Conclusion}~: Au vu des données, puisque\\
+ \centerline{$\Est{\delta_{\mu^B,0.15}}{y^B} =1.24009\ngtr \delta_{lim,5\%}\NotR \mathtt{qnorm(.95)}\simeq 1.644854$}\\
+on NE peut PAS plutôt penser que le produit~B est rentable.\\
+(avec
+$ \Est{\delta_{\mu^B,0.15}}{y^B}\NotR
+\mathtt{ (mean(yB)-0.15)/sqrt(var(yB)/n)}$)}\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+
+\end{document}
+
+

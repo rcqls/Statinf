@@ -1,0 +1,153 @@
+
+\documentclass[]{article}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage{here}
+\usepackage{fichetd}
+\usepackage{mathenv}
+\usepackage[a4paper,pdftex=true]{geometry}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\rightmargin -2cm
+\leftmargin -1cm
+\topmargin -2cm
+\textheight 25cm
+\usepackage{tikz}
+
+
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+\definecolor{beaubleu}{rgb}{0.26,0.31,0.61}
+\definecolor{beauvert}{rgb}{0.27,0.52,0.42}
+
+%Styles
+
+%Title
+
+\begin{document}
+
+
+
+\begin{exercice}~
+
+Un industriel s'interroge sur la proportion d'acheteurs parmi sa clientèle qui ont acheté ou ont l'intention d'acheter le produit~A, proportion notée $p^A$. En particulier, il souhaiterait construire un intervalle de confiance de cette proportion d'acheteurs $p^A$ obtenu à partir d'un échantillon de taille $n=500$ individus issus de la population de taille $N=2000000$. 
+
+\begin{enumerate}
+
+
+
+\item  Proposez l'instruction \texttt{R} ayant permis d'obtenir le résultat ci-dessous correspondant à un intervalle de confiance au niveau de confiance de 90\% de $p^A$ calculé à partir du jeu de données $\Vect{y}$ que l'on note \texttt{y} en \texttt{R}~ (cet intervalle est noté $[\Int{p^A}{inf}{y} , \Int{p^A}{sup}{y} ]$:
+
+\IndicR
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> # IC <- (instruction R à fournir dans la rédaction)
+> IC
+[1] 0.1630267 0.2209733
+\end{Verbatim}
+
+
+
+
+\item Le produit~A est maintenant lancé sur le marché, et il a été alors possible d'évaluer le vrai paramètre $p^A$ à $18.9\%$. Pour essayer de faire comprendre à l'un de ses collègues comment il faut interpréter les intervalles de confiance (en particulier le précédent), le concurrent propose l'exercice pédagogique suivant. On construit une urne de taille $N=2000000$ boules dont une proportion $p^A=18.9\%$ sont numérotées 1 (les autres étant numérotées 0). On fait alors $199$ tirages de 500 boules au hasard au sein de cette urne. Les jeux de données créés sont donc de la même nature que $\Vect{y}$. Les $m=200$ jeux de données sont notés $\Vect{y_{[1]}}$, $\Vect{y_{[2]}}$, \ldots, $\Vect{y_{[200]}}$ (le premier $\Vect{y_{[1]}}$ correspondant à $\Vect{y}$). Pour chacun de ces jeux de données, on construit un intervalle de confiance au niveau de 90\% du paramètre $p^A$. 
+Voici dans l'ordre des tirages quelques uns de ces intervalles~:
+
+
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+pInf      pSup
+  [1,] 0.1630267 0.2209733
+  [2,] 0.1971384 0.2588616
+  [3,] 0.2210000 0.2210000
+...
+[198,] 0.1649122 0.2230878
+[199,] 0.1724662 0.2315338
+[200,] 0.1573773 0.2146227
+\end{Verbatim}
+
+
+Parmi les $m=200$ intervalles de confiance, 179 contiennent le vrai paramètre $p^A$, qu'en pensez-vous~? Si l'on construisait une infinité d'intervalles de confiance, combien contiendraient le vrai paramètre $p^A$~?
+
+
+
+\item Complétez sans justification les encadrés ci-dessous~: 
+
+\begin{eqnarray*}
+\Prob{ \Int{p^A}{inf}{y_{[1]}} < p^A < \Int{p^A}{sup}{y_{[1]}} } &=&  \fbox{ \phantom{\textbf{\huge pastis}}} \nonumber \\
+\Prob{ \Int{p^A}{inf}{y_{[2]}} < p^A < \Int{p^A}{sup}{y_{[2]}} } &=&  \fbox{ \phantom{\textbf{\huge pastis}}} \nonumber \\ 
+\Prob{ \Int{p^A}{inf}{Y} < p^A < \Int{p^A}{sup}{Y} } &\simeq&  \fbox{ \phantom{\textbf{\huge pastis}}} \nonumber
+\end{eqnarray*}
+
+\item Complétez sans justification les encadrés ci-dessous~:
+\begin{list}{$\bullet$}{}
+\item si le niveau de confiance avait été de 95\% alors
+$$\Prob{ \Int{p^A}{inf}{y_{[1]}} < p^A < \Int{p^A}{sup}{y_{[1]}} } =  \fbox{ \phantom{\textbf{\huge pastis}}} $$
+\item si le niveau de confiance avait été de 80\% alors
+$$\Prob{ \Int{p^A}{inf}{y_{[2]}} < p^A < \Int{p^A}{sup}{y_{[2]}} } =  \fbox{ \phantom{\textbf{\huge pastis}}} $$
+\end{list}
+\item Complétez sans justification les encadrés ci-dessous~:
+\begin{list}{$\bullet$}{}
+\item si le niveau de confiance avait été de 95\% alors
+$$\Prob{ \Int{p^A}{inf}{y_{[2]}} < p^A < \Int{p^A}{sup}{y_{[2]}} } =  \fbox{ \phantom{\textbf{\huge pastis}}} $$
+\item si le niveau de confiance avait été de 80\% alors
+$$\Prob{ \Int{p^A}{inf}{y_{[1]}} < p^A < \Int{p^A}{sup}{y_{[1]}} } =  \fbox{ \phantom{\textbf{\huge pastis}}} $$
+\end{list}
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+
+Avant le premier tour des élections, nous sommes souvent assaillis par de nombreux sondages. 
+Le 13 mars 2012, deux instituts de sondages (IFOP et SOFRES) publient leurs estimations  sur les intentions de votes pour deux candidats C1 et C2~:
+
+
+
+\begin{itemize}
+\item Sondage IFOP ($n=1638$): $\Est{p^{C1}}{y^{I}}=27\%$ et $\Est{p^{C2}}{y^{I}}=28.5\%$
+\item Sondage SOFRES ($n=1000$): $\Est{p^{C1}}{y^{S}}=30\%$ et $\Est{p^{C2}}{y^{S}}=28\%$
+\end{itemize}
+
+\begin{enumerate}
+\item A la lumière de ce cours, nous proposons les mêmes résultats présentés à partir des intervalles de confiance à 95\% de niveau de confiance~: 
+
+\begin{itemize}
+\item Sondage IFOP: $IC^{C1}(\Vect{y^{I}})=[24.85\%,29.15\%]$ et  $IC^{C2}(\Vect{y^{I}})=[26.31\%,30.69\%]$
+\item Sondage SOFRES:  $IC^{C1}(\Vect{y^{S}})=[27.16\%,32.84\%]$ et  $IC^{C2}(\Vect{y^{S}})=[25.22\%,30.78\%]$
+\end{itemize}
+
+ Fournir au choix~:
+ \begin{itemize}
+ \item la formule mathématique (générale) permettant d'obtenir l'intervalle de confiance d'une proportion $p$ s'exprimant en fonction de l'estimation $\Est{p}{y}$ et de la taille d'échantillon~$n$.
+ \item la vérification à la calculatrice de l'obtention de l'un des intervalles de confiance ci-dessus (détails des calculs à fournir).
+ \item la formule~\texttt{R} d'obtention d'un intervalle de confiance en fonction de \texttt{pEst} et \texttt{n} désignant respectivement l'intention de vote pour un candidat et la taille d'échantillon.
+ \end{itemize}
+
+
+
+
+\item Interpréter via l'approche expérimentale des probabilités les intervalles de confiance obtenus à la question précédente.
+
+
+
+ 
+\item La plupart des commentateurs politiques ont semblé troublés par de tels résultats apparemment contradictoires. A partir de la connaissance acquise dans ce cours et en supposant (de manière un peu abusive) que tous les intervalles de confiances précédents contiennent le vrai paramètre inconnu, pensez-vous qu'on puisse savoir lequel des candidats est en tête au premier tour~? Justifiez très simplement votre réponse en envisageant deux cas de figures bien choisis.   
+
+
+
+\end{enumerate}
+\end{exercice}
+
+
+
+\end{document}
+
+

@@ -1,0 +1,14 @@
+
+De mani{\`e}re g{\'e}n{\'e}rale, la r{\'e}daction standard d'un test d'hypoth{\`e}ses s'{\'e}crit toujours de la m{\^e}me fa{\c c}on. Elle est d{\'e}crite ci-dessous pour un param{\`e}tre $\theta$ qui devra {\^e}tre remplacé par $p$ pour une proportion, $\mu$ pour une moyenne, $\sigma^2$ pour une variance, $d_\mu$ (resp. $r_\mu$) pour une diff{\'e}rence (resp. rapport) de moyennes et enfin $d_{\sigma^2}$ (resp. $r_{\sigma^2}$) pour une diff{\'e}rence (resp. rapport) de variances. La valeur de r{\'e}f{\'e}rence $\theta_0$ et la loi $\mathcal{L}_0$ devront {\^e}tre adapt{\'e}e selon la probl{\'e}matique. \\
+
+[#<<]formulaireTestGen[#>] \\
+
+\bigskip
+
+\fbox{\begin{minipage}{15cm}
+\underline{Propriétés~:} \\
+\begin{enumerate}
+\item  {\bf La somme des p-valeur gauche et p-valeur droite est égale à 1}
+\item  {\bf La p-valeur bilatérale est égale à deux fois la plus petite des p-valeurs gauche et droite}
+\end{enumerate}
+\end{minipage}}

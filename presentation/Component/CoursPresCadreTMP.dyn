@@ -1,0 +1,84 @@
+\begin{frame}
+  
+[#rb<]
+nPar=2
+nPar1=nPar+1
+nPar2=nPar1+4
+nEch=nPar2+1
+nEch1=nEch+1
+nEch2=nEch1+5
+nLast=nEch2+4
+lY=1
+[#>]
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+  \pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+   \onslide<#Rb{nPar}-#Rb{nPar1+3},#Rb{nLast}>{
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,#Rb{8-2*lY})}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+}
+ \onslide<#Rb{nPar},#Rb{nPar2}->{
+    \pgfnodebox{Par2}[stroke]{\pgfxy(7.5,#Rb{8-lY})}{2 paramètres}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par2}{-90}{90}{0.5cm}{0.5cm}
+} 
+\onslide<#Rb{nEch}->{
+ \pgfnodebox{CritEch}[stroke]{\pgfxy(7.5,#Rb{8-2*lY})}{\color[rgb]{0,0,1}Nbre d'échantillons~?}{2pt}{2pt}
+ \pgfnodeconncurve{Par2}{CritEch}{-90}{90}{0.5cm}{0.5cm}
+}  
+\onslide<#Rb{nEch1}-#Rb{nEch1+4},#Rb{nLast}>{
+\pgfnodebox{Ech1}[stroke]{\pgfxy(6,#Rb{8-3*lY})}{1 échantillon}{2pt}{2pt}
+ \pgfnodeconncurve{CritEch}{Ech1}{-90}{90}{0.5cm}{0.5cm}
+}
+\onslide<#Rb{nEch1},#Rb{nEch2}->{
+   \pgfnodebox{Ech2}[stroke]{\pgfxy(9,#Rb{8-3*lY})}{2 échantillons}{2pt}{2pt}
+     \pgfnodeconncurve{CritEch}{Ech2}{-90}{90}{0.5cm}{0.5cm}
+}
+\onslide<#Rb{nPar1+1},#Rb{nPar1+2},#Rb{nEch1+2}-#Rb{nEch1+3},#Rb{nEch2+1}-#Rb{nEch2+2},#Rb{nLast}>{
+  \pgfnodebox{Asympt}[stroke]{\pgfxy(3,#Rb{8-4.5*lY})}{\color[rgb]{0,0.6,0}Asymptotique}{2pt}{2pt}
+}
+ \onslide<#Rb{nPar1+1},#Rb{nPar1+3},#Rb{nEch1+2},#Rb{nEch1+4},#Rb{nEch2+1},#Rb{nEch2+3},#Rb{nLast}>{  
+\pgfnodebox{Gauss}[stroke]{\pgfxy(8,#Rb{8-4.5*lY})}{\color[rgb]{0,0.6,0}Gaussien}{2pt}{2pt}
+} 
+ \only<#Rb{nPar1+1},#Rb{nPar1+2},#Rb{nLast}>{       
+\pgfnodeconncurve{Par1}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+}\only<#Rb{nPar1+1},#Rb{nPar1+3},#Rb{nLast}>{
+\pgfnodeconncurve{Par1}{Gauss}{-90}{90}{2cm}{0.5cm}
+}\only<#Rb{nEch1+2},#Rb{nEch1+3},#Rb{nLast}>{ 
+     \pgfnodeconncurve{Ech1}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+}\only<#Rb{nEch1+2}, #Rb{nEch1+4},#Rb{nLast}>{ 
+     \pgfnodeconncurve{Ech1}{Gauss}{-90}{90}{0.5cm}{0.5cm}
+}\only<#Rb{nEch2+1},#Rb{nEch2+2},#Rb{nLast}>{
+     \pgfnodeconncurve{Ech2}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+}\only< #Rb{nEch2+1},#Rb{nEch2+3},#Rb{nLast}>{ 
+     \pgfnodeconncurve{Ech2}{Gauss}{-90}{90}{0.5cm}{0.5cm}
+}
+%%% 1 param et asympt
+\only< #Rb{nPar1+2}>{ 
+\pgfputat{\pgfxy(0.5,#Rb{8-5.5*lY})}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $p$, $\mu$ et $\sigma^2$}}
+}%%% 1 param et gaussien
+\only< #Rb{nPar1+3}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $\mu$ et $\sigma^2$}}
+}%%% 2 params, 1 ech et asympt
+\only< #Rb{nEch1+3}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y^D}=\Vect{Y^{(1)}}-\Vect{Y^{(2)}}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètre~:} $\mu^D=\mu^{(1)}-\mu^{(2)}$}}
+}%%% 2 params, 1 ech et asympt
+\only< #Rb{nEch1+4}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y^D}=\Vect{Y^{(1)}}-\Vect{Y^{(2)}}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètre~:} $\mu^D=\mu^{(1)}-\mu^{(2)}$}}
+}%%% 2 params, 2 ech et asympt
+\only< #Rb{nEch2+2}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}=\left(\Vect{Y^{(1)}},\Vect{Y^{(2)}}\right)$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $d_\mu=\mu^{(1)}-\mu^{(2)}$, $r_\mu=\mu^{(1)}/\mu^{(2)}$}}
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[left,top]{\phantom{\textbf{Paramètre~:}} $d_{\sigma^2}=\sigma^2_{(1)}-\sigma^2_{(2)}$,  $r_{\sigma^2}=\sigma^2_{(1)}/\sigma^2_{(2)}$}}
+}%%% 2 params, 2 ech et gaussien
+\only< #Rb{nEch2+3}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}=\left(\Vect{Y^{(1)}},\Vect{Y^{(2)}}\right)$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $d_\mu=\mu^{(1)}-\mu^{(2)}$}}
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[left,top]{\phantom{\textbf{Paramètre~:}} $r_{\sigma^2}=\sigma^2_{(1)}/\sigma^2_{(2)}$}}
+}
+\end{pgfpicture}
+\end{frame}

@@ -1,0 +1,128 @@
+
+\begin{itemize}
+\item Dans ce cours, deux systèmes de notation sont utilisés pour décrire des expressions mathématiques dédiées à la statistique. Le premier, appelé \textit{Norme CQLS} (ou \textit{Norme CQLS Standard}) consiste en un système de notation riche (et peut-être un peu lourde) dont le principal avantage est qu'il est taillé sur mesure pour être traduisible dans le langage littéral. Le deuxième système, appelé  \textit{Norme \textbf{SSE}} (ou \textit{Norme CQLS Simplifié}), a pour vocation à être \textbf{S}imple, \textbf{S}ynthétique et \textbf{E}xplicite (ou du moins le plus possible). Il demande cependant dans son utilisation un meilleur niveau d'expertise essentiellement dû au fait que sa traduction dans le langage littéral est moins explicite que celle pour la \textit{Norme CQLS}. 
+\item Notre conseil est de commencer par l'utilisation de la \textit{Norme CQLS} pour, au fur et à mesure du cours, passer à la \textit{Norme SSE}.
+\item Conventions communes aux deux Normes CQLS et SSE~:  
+\begin{enumerate}
+\item Majuscule versus Minuscule: une variable aléatoire (ou susceptible de l'être) est notée en majuscule quand une variable dont on sait qu'elle est déterministe (i.e. non aléatoire) est noté en minuscule.
+\item Le Chapeau au dessus d'une quantité (par exemple, $\widehat{\theta}$) désigne généralement un remplaçant appelé plus communément estimation dans le cas où la quantité est un paramètre (ici $\theta$).
+\item Un vecteur est noté en \textbf{caractères gras}.\\
+\textit{Remarque~:} une expression écrite sur un document imprimé en caractères gras (ex: ``\textbf{expression en gras}") est subtituée sur un tableau ou sur une feuille papier par sa version soulignée (ex: ``\underline{expression en gras}"). 
+\item ``Delta" ($\delta$ en minuscule et $\Delta$ en majuscule) est utilisé pour désigner un écart le plus souvent additif (i.e. une soustraction) mais parfois multiplicatif (i.e. une division). 
+\end{enumerate}
+\item La \textit{Norme CQLS} a été introduite pour décrire le plus précisément possible l'Approche Expérimentale des Probabilités (A.E.P.).  L'A.E.P. s'articulant sur une distinction des différents jeux de données, la \textit{Norme CQLS} repose sur la convention suivante~: Toute statistique (i.e. v.a. dépendant d'un jeu de données) s'écrit comme une fonction du jeu de données.
+\item Il n'y a pas vraiment de convention propre à la \textit{Norme SSE}. Son objectif est cependant  de ne pas respecter la convention spécifique (ci-dessus) à la \textit{Norme CQLS} dans le but de rendre plus synthétique les notations mathématiques. 
+\item Le tableau ci-dessous exprime plus clairement la spécificité des \textit{Normes CQLS} et \textit{SSE} en proposant les principales expressions utilisées en statistique dans les 2 normes. 
+
+
+\hspace*{-0.5cm}\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+Statistique & \multicolumn{2}{c|}{Aléatoire  ou futur} & \multicolumn{2}{c|}{Réalisé ou présent} &  \multicolumn{2}{c|}{Réalisable ou  conditionnel}\\ 
+(v.a. fonction de l'échantillon) & \textit{CQLS} & \textit{SSE} & \textit{CQLS} & \textit{SSE} & \textit{CQLS} & \textit{SSE}\\\hline 
+Estimation de $\theta$ & $\Est{\theta^\bullet}{\Vect{Y}}$ & $\widehat{\Theta}^\bullet$ & $\Est{\theta^\bullet}{\Vect{y}}$ & $\widehat{\theta}^\bullet$& $\Est{\theta^\bullet}{\Vect{y}_{[k]}}$ & $\widehat{\theta}^\bullet_{[k]}$ \\
+Estimation de $p^\bullet$ & $\Est{p^\bullet}{\Vect{Y}}$ & $\widehat{P}^\bullet$ & $\Est{p^\bullet}{\Vect{y}}$ & $\widehat{p}^\bullet$ & $\Est{p^\bullet}{\Vect{y}_{[k]}}$ & $\widehat{p}^\bullet_{[k]}$\\
+Estimation de $\mu^\bullet$ & $\Est{\mu^\bullet}{\Vect{Y}}$& $\widehat{M}^\bullet$& $\Est{\mu^\bullet}{\Vect{y}}$& $\widehat{\mu}^\bullet$ & $\Est{\mu^\bullet}{\Vect{y}_{[k]}}$& $\widehat{\mu}^\bullet_{[k]}$\\
+Estimation de $\sigma_\bullet^2$ & $\Est{\sigma_\bullet^2}{\Vect{Y}}$& $\widehat{\Sigma}_\bullet^2$& $\Est{\sigma_\bullet^2}{\Vect{y}}$& $\widehat{\sigma}_\bullet^2$ & $\Est{\sigma_\bullet^2}{\Vect{y}_{[k]}}$& $\widehat{\sigma}_{\bullet,{[k]}}^2$\\\hline
+Erreur standard de $\widehat{\theta^\bullet}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{\Vect{Y}}$  & $\widehat{\Sigma}_{\theta^\bullet}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{\Vect{y}}$  & $\widehat{\sigma}_{\theta^\bullet}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{\Vect{y}_{[k]}}$  & $\widehat{\sigma}_{\theta^\bullet,{[k]}}$ \\\hline
+Ecart entre $\widehat{\theta^\bullet}$ et $\theta^\bullet$ & $\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{Y})$ & $\Delta_{\theta^\bullet}$ & $\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{y})$ & $\delta_{\theta^\bullet}$ & $\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{y}_{[k]})$ & $\delta_{\theta^\bullet,{[k]}}$ \\\hline
+Estimation de $\delta_{\theta^\bullet,\theta_0}$ (ou $\delta_{\theta_0}$) & $\Est{\delta_{\theta^\bullet,\theta_0}}{\Vect{Y}}$ & $\widehat{\Delta}_{\theta_0}$ & $\Est{\delta_{\theta^\bullet,\theta_0}}{\Vect{y}}$ & $\widehat{\delta}_{\theta_0}$ & $\Est{\delta_{\theta^\bullet,\theta_0}}{\Vect{y}_{[k]}}$ & $\widehat{\delta}_{\theta_0,{[k]}}$ \\\hline
+\end{tabular}\\
+%\end{itemize}
+%\newpage
+%\begin{itemize}
+\item Le tableau ci-dessous illustre comment convertir une notation en sa définition littérale ou mathématique pour des concepts de base de la statistique. La conversion dans le langage~\texttt{R} y est aussi proposée permettant à l'utilisateur de savoir comment obtenir ces quantités en Pratique~:\\ 
+\hspace*{-0.3cm}\begin{tabular}{|c|c|c|}\hline
+Notation & Définition littérale  & Définition mathématique\\\hline
+$\Vect{y}$  & Vecteur des réels $y_1,\cdots,y_n$ & $(y_1,\cdots,y_n)$ \\
+ou $(y_\cdot)_n$ & ($y_i$ est la $i^{\grave eme}$ composante de $\Vect{y}$) & (en \texttt{R}: \texttt{y <- c($y_1$,$\cdots$,$y_n$)}) \\\hline
+$\#(\Vect{y})$ & Nombre de composantes de $\Vect{y}$& $n$ \NotR \texttt{length(y)} \\\hline
+$\overline{y}$ ou $\overline{(y_\cdot)_n}$ & Moyenne (empirique) de $\Vect{y}$ & $\displaystyle\frac1n\sum_{i=1}^n y_i$ \NotR \texttt{mean(y)} \\
+$\overline{y=a}$ & Proportion des $y_1,\cdots,y_n$ & \multirow{2}{*}{$\displaystyle\frac1n \sum_{i=1}^n \mathbf{1}_{y_i=a}$\NotR \texttt{mean(y==a)}}  \\
+ou $\overline{(y_\cdot=a)_n}$ & égaux à $a$ &  \\ & & \\
+$\overline{a\leq y\leq b}$ & Proportion des $y_1,\cdots,y_n$& \multirow{2}{*}{$\displaystyle\frac1n \sum_{i=1}^n \mathbf{1}_{[a,b]}(y_i)$ \NotR \texttt{mean(a<= y \& y<= b)}}\\
+ou $\overline{(a\leq y_\cdot\leq b)_n}$ &  dans  $[a,b]$ avec ($a\leq b$)  & \\&&\\\hline
+$\overleftrightarrow{y}$ ou $\overleftrightarrow{(y_\cdot)_n}$ & Ecart-type  (empirique) de $\Vect{y}$ &  $\displaystyle\sqrt{\frac1{n-1}\sum_{i=1}^n(y_i-\overline{y})^2}$ \NotR \texttt{sd(y)}\\
+$(\overleftrightarrow{y})^2$ ou $\big(\overleftrightarrow{(y_\cdot)_n}\big)^2$ & Variance  (empirique) de $\Vect{y}$ &  $\displaystyle\frac1{n-1}\sum_{i=1}^n(y_i-\overline{y})2$ \NotR \texttt{var(y)}\\\hline
+$q_\alpha(\Vect{y})$ & Quantile d'ordre $\alpha$ de \texttt{y} &   
+$y_{[\alpha n]+1}$ ($n$ impair) et $\frac{y_{[\alpha n]+1}+y_{[\alpha n]+1}}2$ (n pair)\\
+ou $q_\alpha\big((y_\cdot)_n\big)$ & $(0<\alpha<1)$  & \NotR \texttt{quantile(y,alpha)} \\
+\hline
+\end{tabular}
+\end{itemize}
+
+\section{Quelques instructions R}
+\noindent\textbf{Instructions de base par l'exemple}~: des exemples (commentés) valent (peut-être) mieux que de longs discours!
+{#rverb]
+c(-1,1)                   # Création du vecteur (-1,1)
+4+2*c(-1,0,1)             # Transformation 4+2*x appliqué pour chaque composante de y
+y<-c(1,3,2,4,7,6)
+y
+4+2*y
+mean(y)                   # Moyenne de y
+sd(y)                     # Ecart-type de y
+yc <- y-mean(y)           # yc correspond au vecteur y centré
+yc
+mean(yc)                  # Moyenne nulle
+sd(yc)                    # Idem que l'écart-type de y
+ycr <- (y-mean(y))/sd(y)  # ycr correspond au vecteur y centré et réduit
+mean(ycr)                 # Moyenne nulle
+sd(ycr)                   # Ecart-type à 1
+var(y)                    # Variance de y
+sqrt(var(y))              # Ecart-type = racine carrée de variance
+sd(y)^2                   # Variance = carré de l'écart-type
+[#}
+\noindent\textbf{Quantiles et fonctions de répartition avec R}~:
+Soit $p$ un r{\'e}el appartenant {\`a} $]0,1[$, on d{\'e}finit le quantile d'ordre $p$ associ{\'e}e {\`a} une loi de probabilit{\'e} le r{\'e}el qui via l'approche exp{\'e}rimentale peut {\^e}tre vu comme le r{\'e}el qui s{\'e}pare l'infinit{\'e} des observations (associ{\'e}e {\`a} la loi de probabilit{\'e}) en deux, une proportion $p$ {\`a} gauche et une proportion $1-p$ {\`a} droite. On d{\'e}finit {\'e}galement la fonction de r{\'e}partition en un r{\'e}el $q$, la proportion parmi l'infinit{\'e} des observations qui se situent avant $q$. Ces deux notions sont illustr{\'e}es dans la figure~\ref{fig:rloi}. \\
+
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=10cm,height=6cm]{Images/dpqloiIte}}
+\caption{Si $X\leadsto\mathbf{loi}(\ldots)$ (v.a. continue), alors $f\left(x\right)\stackrel{R}{=}d\mathbf{loi}\left(x,\ldots\right)$ repr{\'e}sente sa densit{\'e} de probabilit{\'e}, $p=F(q)=P(X\leq q)\stackrel{R}{=}p\mathbf{loi}\left(q,\ldots\right)$ sa fonction de r{\'e}partition et $q=F^{-1}(p)\stackrel{R}{=}q\mathbf{loi}\left(p,\ldots\right)$ son quantile d'ordre~$p$.}
+\label{fig:rloi}
+\end{figure}
+
+Le tableau suivant r{\'e}sume les diff{\'e}rentes lois de probabilit{\'e}s consid{\'e}r{\'e}es dans ce cours de deuxi{\`e}me ann{\'e}e ainsi que les instructions \verb+R+ permettant d'{\'e}valuer les quantiles et fonctions de r{\'e}partitions associ{\'e}s {\`a} ces lois de probabilit{\'e}s.
+
+\begin{center}
+\begin{tabular}{ccll}
+\hline
+\quad lois de probabilit{\'e}s \quad &\quad loi \verb+R+ \quad &quantile d'ordre \verb+p+ \qquad&  fonction de r{\'e}partition en \verb+q+\qquad \\
+\hline \hline
+Normale $\mathcal{N}(\mu,\sigma)$ & \verb+norm+ & \verb+qnorm(p+$,\mu,\sigma$\verb+)+ & \verb+pnorm(q,+$\mu,\sigma$\verb+)+ \\
+Normale $\mathcal{N}(0,1)$ & \verb+norm+ & \verb+qnorm(p)+ & \verb+pnorm(q)+ \\
+Chisquare $\chi^2(n)$ & \verb+chisq+ & \verb+qchisq(p+$,n$\verb+)+ & \verb+pchisq(q+$,n$\verb+)+ \\
+Fisher $\mathcal{F}(n_1,n_2)$ & \verb+f+ & \verb+qf(p+$,n_1,n_2$\verb+)+ & \verb+pf(q+$,n_1,n_2$\verb+)+ \\
+Student $\mathcal{S}t(n)$ & \verb+t+ & \verb+qt(p+$,n$\verb+)+ & \verb+pt(q+$,n$\verb+)+ \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Application}~:
+{#rverb]
+pnorm(1.6449)                             # proba N(0,1) plus petit que 1.6449
+qnorm(0.95)                               # quantile N(0,1) d'ordre 95% proche de 1.6449
+1-pnorm(1.96)                             # proba N(0,1) plus grand que 1.96 proche de 2.5% 
+qnorm(c(.95,.975,.99))                    # quantiles N(0,1) d'ordre 95%, 97.5% et 99% 
+qt(c(.95,.975,.99),10)                    # quantiles St(10) d'ordre 95%, 97.5% et 99%
+pt(c(1.812461,2.228139,2.763769),10)      # les probas correspondantes
+qchisq(c(.95,.975,.99),10)                # quantiles Khi2(10) d'ordre 95%, 97.5% et 99%
+pchisq(c(18.30704,20.48318,23.20925),10)  # les probas correspondantes
+qf(c(.95,.975,.99),10,20)                 # quantiles F(10,20) d'ordre 95%, 97.5% et 99%
+pf(c(2.347878,2.773671,3.368186),10,20)   # les probas correspondantes
+[#}
+
+\noindent\textbf{Illustration du lien entre A.E.P. et A.M.P.}~: 
+Une instruction \texttt{rloi(n,...)} (du même type que les intructions \texttt{ploi(q,...)} et \texttt{qloi(p,...)} présentées précédemment) permet de générer simultanément $n$ réalisations $\Vect{y}:=(y_1,\cdots,y_n)$ d'une v.a. $Y$ ayant pour loi \texttt{loi(...)}. Illustrons-le sur une vérification expérimentale (A.E.P.) d'obtention de probabilité, quantile, moyenne et variance relatifs à une loi $\mathcal{N}(1,2)$.  
+{#rverb]
+yy<-rnorm(10000,1,2)        # les m=10000 réalisations ont stockées dans le vecteur yy
+## out | short=2,...,2
+yy                          # les 10 premières et 10 dernières composantes de yy
+mean(yy<0.5)                # proportion des m=10000 composantes strictement inférieur à 0.5
+pnorm(0.5,1,2)              # idem si m=infini
+mean(yy==0.5)               # proportion des m=10000 composantes égale à 0.5 (=0 si m=infini)
+mean(0.5<=yy && yy<=3)      # proportion des m=10000 composantes compris entre 0.5 et 3
+pnorm(3,1,2)-pnorm(.5,1,2)  # idem si m=infini
+quantile(yy,.95)            # quantile d'ordre 95% des m=10000 composantes
+qnorm(.95,1,2)              # idem si m=infini
+mean(yy)                    # moyenne des m=10000 composantes (=1 si m=infini)
+var(yy)                     # variance des m=10000 composantes (=2^2=4 si m=infini)
+[#}

@@ -1,0 +1,52 @@
+{
+:version=> :V3,
+:doc_list=>["cours"],
+:docs=>{
+  "cours"=>["cours1","cours2","cours3","cours4","cours5","cours6"], #,"cours7","cours8"],  
+  "cours1"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours1"],
+    :append_doc=>"1"
+  },
+  "cours1-2009"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours1-2009"],
+    :append_doc=>"1-2009"
+  },
+  "cours2"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours2"],
+    :append_doc=>"2"
+  },
+  "cours3"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours3"],
+    :append_doc=>"3"
+  },
+  "cours4"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours4"],
+    :append_doc=>"4"
+  },
+  "cours5"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours5"],
+    :append_doc=>"5"
+  },
+  "cours6"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours6"],
+    :append_doc=>"6"
+  },
+  "cours7"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours7"],
+    :append_doc=>"7"
+  },
+  "cours8"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours8"],
+    :append_doc=>"8"
+  }
+}
+}

@@ -1,0 +1,170 @@
+ 
+\section[Intro]{Introduction et Objectif dans la problématique de l'industriel}
+
+\begin{frame}
+  \frametitle{Enoncé des problématiques}
+  
+\begin{exampleblock}{Enoncé et contraintes}
+\begin{itemize}[<+- | alert@+>]
+\item Un industriel veut lancer sur le march{\'e} deux produits que l'on nommera \PR{A} et \PR{B}.
+\item  Le \PR{A} est achet{\'e} au plus une fois par mois tandis que le \PR{B} peut être acheté autant de fois que désiré. 
+\item Apr{\`e}s une {\'e}tude financi{\`e}re, les services comptables indiquent {\`a} cet industriel que pour que le lancement de chacun de ces produits soit rentable, il faut qu'il soit vendu {\`a} plus de 300000 exemplaires par mois. 
+\item Consommateurs potentiels~: population de taille $N=2000000$.
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}<5->{Problématique}
+ L'industriel se demande s'il doit ou non lancer le(s) \textit{Produit(s) A et/ou B}.
+\end{alertblock}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Vers le paramètre d'intérêt}
+  
+  \begin{exampleblock}{Rentabilité du produit~$\bullet$ ($\bullet$=A ou B)}
+     \begin{itemize}[<+->]
+      \item[] Le produit $\bullet$ est rentable si $N^\bullet > 300000 \Longleftrightarrow \mu^\bullet > 0.15$
+      \item[] où $\mu^\bullet=$nombre moyen de produit(s) $\bullet$ acheté(s) par individu
+      \item[] \centering{\fbox{${\displaystyle \mu^\bullet= \frac{N^\bullet}{N} = \frac1N \sum_{k=1}^N \mathcal{Y}^\bullet_k}$}} \\
+      calculé avec $\underline{\mathcal{Y}^\bullet}=(\mathcal{Y}^\bullet_1,\cdots,\mathcal{Y}^\bullet_N)$ les nombres de produit(s) $\bullet$ acheté(s) par les $N$ individus de la population totale.
+    \end{itemize}
+  \end{exampleblock}
+\visible<4->{
+  \begin{alertblock}<4->{Commentaires}
+    \begin{enumerate}[<+-| alert@+>]    
+      \item $\mu^\bullet$ est appelé \textbf{paramètre d'intérêt}
+      \item il est raisonnablement inévaluable donc \underline{INCONNU}
+    \end{enumerate}
+  \end{alertblock}
+}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Estimation du paramètre d'intérêt}
+  
+
+\begin{exampleblock}{Solution réalisable}
+\begin{itemize}[<+-| alert@+>]
+\item [$\to$] Interroger un \textbf{échantillon} de $n$ ($n < < N$) individus au hasard au sein de la population totale de taille $N$.
+\item [$\to$] \textbf{Jeu de données~:} $\Vect{y}^\bullet=(y_1^\bullet,\ldots,y_n^\bullet)$ les nombres de produit(s) $\bullet$ acheté(s) par les $n$ individus de l'échantillon (\alert{à la place des $\underline{\mathcal{Y}^\bullet}=(\mathcal{Y}^\bullet_1,\cdots,\mathcal{Y}^\bullet_N)$}).
+\item [$\to$] Le jeu de données sera créé le \textbf{jour~J}.
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}<4->{Remplaçant de $\mu^\bullet$}
+\centerline{\fbox{${\displaystyle \Est{\mu^\bullet}{\Vect{y^\bullet}}= \frac1n \sum_{i=1}^n y_i^\bullet }$ } (\alert{à la place de \fbox{${\displaystyle \mu^\bullet= \frac1N \sum_{k=1}^N \mathcal{Y}^\bullet_k}$}})}
+ estimation de $\mu^\bullet$ calculée à partir des données $\Vect{y^\bullet}$
+\end{alertblock}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[label=regle]
+\frametitle{Objectif~: construction d'une règle de décision}
+
+\begin{exampleblock}{Forme de la règle de décision}
+\begin{itemize}[<+-| alert@+>]
+\item[] \fbox{L'industriel décide de lancer le produit $\bullet$ sur le marché} 
+\item[\textbf{si}]  il peut plutôt penser que le produit $\bullet$ est rentable ($\mu^\bullet>0.15$) au vu de l'échantillon $\Vect{y}^\bullet$
+\item[\textbf{si}] $\Est{\mu^\bullet}{y^\bullet} >> 0.15$
+\item[\textbf{si}] \fbox{$\Est{\mu^\bullet}{y^\bullet} > \mu_{lim}$} (avec $\mu_{lim}$ à déterminer a priori $>> 0.15)$
+ 
+\end{itemize}
+\end{exampleblock}
+
+{#hide]
+\begin{alertblock}<2->{Questions}
+\begin{enumerate}[<+-| alert@+>]
+\item Est-il possible d'avoir $\mu^A=0.1$ et $\Est{\mu^A}{y}=100\%$~?
+\item Est-il possible d'avoir $\mu^A=0.2$ et $\Est{\mu^A}{y}=0\%$~?
+\item[] $\Longrightarrow$ la règle de décision comporte des erreurs.
+\end{enumerate}
+\end{alertblock}
+[#hide}
+
+\begin{alertblock}<5->{En résumé}
+\begin{enumerate}
+\item[] \hspace*{-.5cm}\underline{\textbf{En réalité}, au vu de $\underline{\mathcal{Y}^\bullet}$ (population totale, $N=2000000$)~:}
+\item<alert@6> Produit $\bullet$ rentable \textbf{si et seulement si} \fbox{${\color<7>[rgb]{1,0,0} \mu^\bullet}>{\color<8>[rgb]{0,0,1}0.15}$}
+\item<6->[]
+\hspace*{-.5cm}\underline{{\color<7>[rgb]{1,0,0}\color<8>[rgb]{0,0,1}\textbf{Remplacé par}}, au vu de $\Vect{y^\bullet}$ (échantillon, $n=1000$)~:}
+\item<6- | alert@6> Décider produit $\bullet$ rentable \textbf{si} \fbox{${\color<7>[rgb]{1,0,0}\Est{\mu^\bullet}{y^\bullet}} > {\color<8>[rgb]{0,0,1}\mu_{lim}}$}
+\end{enumerate} 
+\end{alertblock}
+
+\end{frame}
+
+\againframe<9>{regle}
+
+
+\begin{frame}
+\frametitle{Remarque pour le produit~A}
+
+\begin{enumerate}[<+-| alert@+>]
+\item quelles sont les valeurs possibles de la réponse d'un individu au nbre d'exemplaires du produit A acheté~?
+\item quel est le lien entre le nombre de produits~A achetés par la population totale et le nombre d'acheteurs potentiels du produit~A~?
+\item quel est donc le lien entre le nombre moyen de produit(s)~A acheté(s) par individu et la proportion d'acheteurs potentiels du produit~A~?
+\end{enumerate}
+
+\pause
+\begin{block}{Désormais,}
+on notera \fbox{$\mu^A=p^A$}. Cette remarque est d'autant plus importante qu'une problématique type proportion ne bénéficie pas du même traitement qu'une problématique de type moyenne.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{A propos du procédé d'échantillonnage}
+\begin{enumerate}[<+-| alert@+>]
+\item Si on cherchait à construire un échantillon représentatif d'une ou plusieurs caractéristiques pour la problématique, quelle(s) pourrai(ent) être cette ou ces caractéristiques~?
+\item Comment interprétez-vous la notion de représentativité en l'absence d'information sur la population totale~?
+\end{enumerate}
+
+\pause
+
+\begin{block}{Critère de représentativité maximale sans a priori (RSAP)}
+Tous les individus de la population totale ont la même chance d'être choisi dans l'échantillon
+\end{block}
+
+\pause 
+
+\begin{exampleblock}{Procédés d'échantillonnage suivant le critère RSAP}
+Pour créer un échantillon de taille $n$, on peut soit
+\begin{itemize}[<+-| alert@+>]
+\item choisir $n$ individus avec remise
+\item choisir $n$ inidividus sans remise
+\end{itemize}
+\pause$n=1000$ et $N=2000000$ $\Rightarrow$ deux procédés quasiment équivalents.
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sensibilisation à la notion d'erreur de décision}
+\begin{enumerate}[<+-| alert@+>]
+\item Si on obtient $\Est{p^A}{y^A}=90\%$ voire 100\%, quelle décision prenez-vous (quant au lancement du produit~A)~?
+\item Avez-vous la certitude que votre décision est bonne~?
+\item Est-il possible que $p^A=10\%$ voire 15\% avec $\Est{p^A}{y^A}=90\%$ voire 100\%~?
+\item Pensez-vous avoir beaucoup de chances de vous tromper dans votre décision~?
+\item Sauriez-vous mesurer les chances de vous tromper~?
+\end{enumerate}
+
+\pause
+\begin{block}{Notre objectif \ldots}
+\ldots est de proposer une règle de décision incorporant un risque $\alpha$ de prendre une mauvaise décision, i.e. de déterminer $p_{lim,\alpha}$ (produit~A) $\mu_{lim,\alpha}$ (produit~B).
+\end{block}
+\end{frame}

@@ -1,0 +1,220 @@
+{
+:version=> :V3,
+:doc_list=>["cours"],
+:docs=>{
+  "cours"=>["cours1","cours2","cours3","cours4","cours5","cours6","cours7","cours8"],  
+  "cours0"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours0","style:cqls"],
+    :append_doc=>"0"
+  },
+  "cours1"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours1","style:cqls"],
+    :append_doc=>"1"
+  },
+  "cours1-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours1"],
+    :append_doc=>"1-print"
+  },
+  "cours1-2009"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours1-2009","style:cqls"],
+    :append_doc=>"1-2009"
+  },
+  "cours2"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours2","style:cqls"],
+    :append_doc=>"2"
+  },
+  "cours2-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours2"],
+    :append_doc=>"2-print"
+  },
+  "cours3"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours3","style:cqls"],
+    :append_doc=>"3"
+  },
+  "cours3-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours3"],
+    :append_doc=>"3-print"
+  },
+  "cours4"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours4","style:cqls"],
+    :append_doc=>"4"
+  },
+  "cours4-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours4"],
+    :append_doc=>"4-print"
+  },
+  "cours5"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours5","style:cqls"],
+    :append_doc=>"5"
+  },
+  "cours5-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours5"],
+    :append_doc=>"5-print"
+  },
+  "cours6"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours6","style:cqls"],
+    :append_doc=>"6"
+  },
+  "cours6-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours6"],
+    :append_doc=>"6-print"
+  },
+  "cours7"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours7","style:cqls"],
+    :append_doc=>"7"
+  },
+  "cours7-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours7"],
+    :append_doc=>"7-print"
+  },
+  "cours8"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours8","style:cqls"],
+    :append_doc=>"8"
+  },
+  "cours8-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours8"],
+    :append_doc=>"8-print"
+  },
+  "cours9"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours9","style:cqls"],
+    :append_doc=>"9"
+  },
+  "cours9-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours9"],
+    :append_doc=>"9-print"
+  },
+  "cours10"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours10","style:cqls"],
+    :append_doc=>"10"
+  },
+  "cours10-print"=>{
+    :cmd=>[:save,:pdf], #this is the default for all command
+    :tag=>["cours10"],
+    :append_doc=>"10-print"
+  },
+  "theme"=>["indus","prob","prob2","versgen","cadre2params","redstd"],
+  "other"=>["prob2old","hypoold","appold","cadre2gauss","cadreasymp","histo"],
+  "indus"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:indus"],
+    :append_doc=>"_indus"
+  },
+  "prob"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:prob"],
+    :append_doc=>"_prob"
+  },
+  "prob2"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:prob2"],
+    :append_doc=>"_prob2"
+  },
+  "prob2old"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["coursold:prob2"],
+    :append_doc=>"_prob2old"
+  },
+  "hypoold"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["coursold:hypoprod"],
+    :append_doc=>"_hypoold"
+  },
+  "appold"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["coursold:appprod"],
+    :append_doc=>"_appold"
+  },
+  "versgen"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:versgen"],
+    :append_doc=>"_versgen"
+  },
+  "aep"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:aep"],
+    :append_doc=>"_aep"
+  },
+  "cadre2params"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:cadre2params"],
+    :append_doc=>"_cadre2params"
+  },
+  "redstd"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:redstd"],
+    :append_doc=>"_redstd"
+  },
+  "autreredstd"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:autreredstd"],
+    :append_doc=>"_autreredstd"
+  },
+  "cadre2gauss"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:cadre2gauss"],
+    :append_doc=>"_cadre2gauss"
+  },
+  "cadreasymp"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:cadreasymp"],
+    :append_doc=>"_cadreasymp"
+  },
+  "prescadre"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:prescadre"],
+    :append_doc=>"_prescadre"
+  },
+  "prescadre2"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:prescadre2"],
+    :append_doc=>"_prescadre2"
+  },
+  "prescadretmp"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:prescadretmp"],
+    :append_doc=>"_prescadretmp"
+  },
+  "pval"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:pval"],
+    :append_doc=>"_pval"
+  },
+  "histo"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:histo"],
+    :append_doc=>"_histo"
+  },
+  "ic"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:ic"],
+    :append_doc=>"_ic"
+  },
+  "risk2esp"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["cours:risk2esp"],
+    :append_doc=>"_risk2esp"
+  }
+  
+}
+}

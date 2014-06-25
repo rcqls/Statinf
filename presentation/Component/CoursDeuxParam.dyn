@@ -1,0 +1,124 @@
+
+\section{Test basés sur deux paramètres}
+
+\begin{frame}
+\frametitle{Objectif}
+
+\begin{exampleblock}{Problématique associée à ce cours}
+On s'intéresse aux performances relatives de l'ensemble des petites et moyennes entreprises (PME) de deux pays fictifs notés P1 et P2 en 2004 et 2005 en analysant leurs chiffres d'affaires (exprimés dans une même unité). Ne pouvant pas interroger l'ensemble des PME, on ne pourra disposer que des chiffres d'affaires sur des échantillons de PME (les tailles d'échantillons seront précisées plus tard).
+\end{exampleblock}
+
+\begin{alertblock}{Exercice}
+Sauriez-vous pour les différentes questions suivantes décrire l'assertion d'intérêt à partir des deux paramètres puis en fonction d'un unique que vous introduirez (qui sera soit une différence soit un rapport).
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comparaison de moyennes sur deux échantillons}
+\begin{block}{Question 1}
+En 2005, le C.A. annuel moyen des PME du pays $P_1$ est-il de plus de 20 unités supérieur à celui du pays $P_2$~?
+\end{block}
+\pause
+\begin{exampleblock}{Réponse}
+\centerline{$
+\mathbf{H_1}: \!\mu^{P1}>\mu^{P2}\!+\!20  \!\Longleftrightarrow\!$ \pause$ \mu^{P1}\!-\!\mu^{P2} > 20 \!\Longleftrightarrow \!d_\mu:=\mu^{P1}\!-\!\mu^{P2} >20
+$}
+\end{exampleblock}
+\pause
+\begin{block}{Question 2}
+En 2005, le C.A. annuel moyen des PME du pays $P_1$ est-il de plus de 20\% à celui du pays $P_2$~?
+\end{block}
+\pause
+\begin{exampleblock}{Réponse}
+\centerline{$
+\mathbf{H_1}: \!\mu^{P1}\!>\!(1+20\%)\mu^{P2} \!\Longleftrightarrow \pause \!\mu^{P1}>1.2\times  \mu^{P2}\! \Longleftrightarrow \! r_\mu:=\frac{\mu^{P1}}{\mu^{P2}} >1.2
+$}
+{\small \underline{Attention}: notez bien qu'une différence de moyennes ne permet pas de réécrire l'assertion d'intérêt en fonction d'un unique paramère!!}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Comparaison de variances sur deux échantillons}
+
+\begin{block}{Question 3}
+En 2005, l'hétérogénéité (mesurée par la variance) des C.A. annuels des PME du pays $P_1$ est-elle différente de celle du pays $P_2$~?
+\end{block}
+\pause
+\begin{exampleblock}{Réponse}
+\centerline{$
+\mathbf{H_1}: \!\sigma^2_{P1}\neq\sigma^2_{P2} \!\Longleftrightarrow\!$ \pause$ d_{\sigma^2}:=\sigma^2_{P1}\!-\!\sigma^2_{P2} \neq 0 \; \Longleftrightarrow\! r_{\sigma^2}:=\frac{\sigma^2_{P1}}{\sigma^2_{P2}} \neq 1.
+$}
+\end{exampleblock}
+
+\begin{block}{Question 4}
+En 2005, l'hétérogénéité des C.A. annuels des PME du pays $P_1$ est-elle de plus de 25\% supérieure à celle du pays $P_2$~?
+\end{block}
+\pause
+\begin{exampleblock}{Réponse}
+\centerline{$
+\mathbf{H_1}: \!\sigma^2_{P1}\!>\!(1+25\%)\sigma^2_{P2} \!\Longleftrightarrow$  \pause $\!\sigma^2_{P1}>1.25\times  \sigma^2_{P2}\! \Longleftrightarrow \! r_\mu:=\frac{\sigma^2_{P1}}{\sigma^2_{P2}} >1.25
+$}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Attention à la notion d'échantillon!}
+
+\begin{block}{Question 5}
+{\small Le C.A. moyen des PME de P1 a-t-il augmenté de plus de 10 unités entre 2004 et 2005~?
+Pour traiter cette question, on disposera des chiffres d'affaires des mêmes $n$ PME en 2004 et 2005.}
+\end{block}
+\pause
+\begin{exampleblock}{Réponse}
+\centerline{$
+\mathbf{H_1}: \!\mu^{05}\!>\! \mu^{04} +10
+$}
+{\small \underline{Attention:} test basé sur deux paramètres mais seulement sur un seul échantillon car les mêmes $n$ PME ont été interrogées.} \\
+{\small \underline{Solution}
+\begin{itemize}
+\item Construire la variable d'intérêt $Y^D=Y^{04}-Y^{05}$ mesurant l'augmentation du CA entre 2004 et 2005.
+\item $\mu^D:=$ moy. de la diff. du C.A. entre 2004 et 2005 ($=\mu^{04}-\mu^{05}$).
+\end{itemize}}
+\centerline{$
+\mathbf{H_1}: \!\mu^{05}\!>\! \mu^{04} +10 \Longleftrightarrow \!\mu^{04}\!-\! \mu^{05} \!<\! -10 \Longleftrightarrow \mu^D <-10.
+$}
+{\small $\Longrightarrow$ test de moy. d'une diff. (et non pas d'une diff. de moy.).}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Disponibilité des outils de test d'hypothèses}
+
+{\small L'outil de test d'hypothèses est-il disponible (cf formulaire) dans les cadres d'application suivants~:
+\begin{enumerate}
+\item $n=n^{P1}=n^{P2}=20$~?
+\item $n=n^{P1}=n^{P2}=40$~? 
+\end{enumerate}}
+
+\pause
+{\hspace*{-1cm}
+\begin{tabular}{|c|l|c|c|}
+\hline
+Question & Assertion d'intérêt & Cadre gaussien & Cadre Asymptotique\\
+&&$n=n^{P1}=n^{P2}=20$ &$n=n^{P1}=n^{P2}=40$ \\
+\hline
+Q1 & $\mathbf{H_1}:d_\mu>20$&\ok $\;$ si $\sigma^2_{P1}=\sigma^2_{P2}$&\ok \\
+\hline
+Q2 & $\mathbf{H_1}:r_\mu>1.2$&\nok&\ok\\
+\hline
+Q3 & $\mathbf{H_1}:d_{\sigma^2}\neq 0$&\nok&\ok\\
+&$\mathbf{H_1}:r_{\sigma^2}\neq 1$&\ok&\ok\\
+\hline
+Q4 & $\mathbf{H_1}:r_{\sigma^2}>1.25$ &\ok & \ok\\
+\hline
+Q5 & $\mathbf{H_1}:\mu^D<-10$&\ok & \ok\\
+\hline
+\end{tabular}}
+{\small \underline{Conseil}: lorsque vous avez le choix entre un paramètre différence et rapport pour traiter une même question (ex Q3 avec $n^{P1}=n^{P2}=40$), optez pour la différence!!}
+
+\end{frame}
+

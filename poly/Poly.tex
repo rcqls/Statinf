@@ -1,0 +1,886 @@
+
+\documentclass[10pt]{article}
+%Packages
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage[a4paper,right=2.5cm,pdftex=true]{geometry}
+\usepackage{array}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{syntax}
+\usepackage[francais]{babel}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\rightmargin -2cm
+\leftmargin -1cm
+\topmargin -2cm
+\textheight 25cm
+
+\input tcilatex
+
+%Styles
+
+%Title
+
+\title{Tests d'hypoth{\`e}ses via une \textbf{A}pproche \textbf{E}xp{\'e}rimentale des \textbf{P}robabilités}
+\author{CQLS : cqls@upmf-grenoble.fr \\ http://cqls.upmf-grenoble.fr}
+\date{ }
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction et g{\'e}n{\'e}ralit{\'e}s} \label{introGen}
+
+\subsection{Cadre d'estimation à un échantillon}
+%TODO : enlever les subsubsection
+Dans ce cadre, tout probl{\`e}me pratique doit se ramener {\`a} l'{\'e}tude d'une unique variable d'int{\'e}r{\^e}t not{\'e}e ici $Y$ (pouvant aussi {\^e}tre vue comme une future unique donn{\'e}e). %(hide)
+En pratique, nous disposerons d'un jeu de $n$ donn{\'e}es $\Vect{y}=(y_1,\ldots,y_n)$ (i.e. un vecteur ou ``paquet'' de $n$ observations ``ind{\'e}pendantes'' de $Y$) qui peut par cons{\'e}quent {\^e}tre vu comme un r{\'e}sultat possible d'un futur jeu de $n$ donn{\'e}es $\Vect{Y}=(Y_1,\ldots,Y_n)$. Afin d'expliciter le param{\`e}tre d'int{\'e}r{\^e}t intimement li{\'e} dans les probl{\'e}matiques du cours {\`a} la variable d'int{\'e}r{\^e}t $Y$, nous imaginerons disposer d'une infinit{\'e} de donn{\'e}es virtuelles $y_{[1]},\ldots,y_{[m]},\ldots$ dont la notation en indice entre crochet (i.e. ``$_{[\cdot]}$'') nous rappelle qu'il ne faut pas les confondre avec le jeu des $n$ donn{\'e}es $y_1,\ldots,y_n$ qui seront bien r{\'e}elles. Rappelons aussi que dans ce cours les tailles $n$ des donn{\'e}es \textbf{r{\'e}elles} et $m$ des donn{\'e}es \textbf{virtuelles} ont a priori des ordres de grandeur compl{\`e}tement diff{\'e}rents, {\`a} savoir $n$ plut{\^o}t raisonnablement grand  et $m$ aussi grand que possible voire infini.%(main) Les param{\`e}tres d'int{\'e}r{\^e}t {\'e}tudi{\'e}s seront soit des moyennes soit des variances.
+\subsubsection{Paramètres proportion et moyenne}
+ La moyenne not{\'e}e $\mu_Y$ ou plus simplement $\mu$ (plut{\^o}t appel{\'e}e esp{\'e}rance de $Y$ dans l'\textbf{A}pproche \textbf{M}athématique des \textbf{P}robabilités et not{\'e}e $\mathbb{E}(Y)$) s'exprime via l'\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités par~:\\
+\centerline{\fbox{${\displaystyle
+\meanEmp[m]{y_{[\cdot]}} = \frac1m \sum_{k=1}^m y_{[k]} \simeq \meanEmp[\infty]{y_{[\cdot]}} = \mu_Y = \EEE{Y}.
+}$}}
+
+Soulignons toutefois que si les donn{\'e}es sont exclusivement {\`a} valeurs 0 ou 1, la moyenne devient une proportion (ou probabilit{\'e}) et sera not{\'e}e $p$ plut{\^o}t que $\mu$. Rappelons qu'une future estimation $\Est{\mu_Y}{Y}$ de $\mu_Y$ est tout simplement $\overline{Y}_n=\displaystyle{\frac 1n\sum_{i=1}^nY_i}$ (not{\'e}e aussi $\overline{Y}$). 
+\subsubsection{Paramètre variance}
+La variance not{\'e}e $\sigma^2_Y$ ou plus simplement $\sigma^2$ (conservant la m{\^e}me d{\'e}nomination dans l'\textbf{A.M.P.} et not{\'e}e $\Var(Y)$) s'exprime via l'\textbf{A.E.P.} par~:\\ 
+\centerline{\fbox{${\displaystyle
+\left(\sdEmp[m]{y_{[\cdot]}}\right)^2 = \frac1m \sum_{k=1}^m \left(y_{[k]}-\meanEmp[m]{y_{[\cdot]}}\right)^2 \simeq \left(\sdEmp[\infty]{y_{[\cdot]}}\right)^2 = \sigma^2_Y = \VVV{Y} = \sigma(Y)^2.
+}$}}
+
+Dans le cadre de grands {\'e}chantillons (voir plus loin), il est plus qu'int{\'e}ressant de  noter que la variance est aussi une moyenne. En effet, nous pouvons {\'e}crire 
+$\sigma^2_Y=\mu_{\ddot{Y}}$ puisque $\Var(Y)=\mathbb{E}((Y-\mu_Y)^2)=\mathbb{E}(\ddot{Y}) $ o{\`u} $\ddot{Y}=(Y-\mu_Y)^2$ est le carr{\'e} de la variable al{\'e}atoire $Y$ pr{\'e}alablement centr{\'e}e. 
+Le vecteur des futures donn{\'e}es  $((Y_1-\mu_Y)^2,\ldots,(Y_n-\mu_Y)^2)$ {\'e}tant inaccessible puisque $\mu_Y$ est inconnu, nous le remplacerons par $\Vect{\ddot{Y}}=((Y_1-\overline{Y})^2,\ldots,(Y_n-\overline{Y})^2 )$. Ainsi, nous pourrions aussi proposer $\Est{\mu_{\ddot{Y}}}{\ddot{Y}}$ comme future estimation de $\sigma^2_Y=\mu_{\ddot{Y}}$ (plut{\^o}t lorsque la taille $n$ des donn{\'e}es sera suffisamment grande).\\
+
+
+\subsection{Cadre d'estimation {\`a} deux {\'e}chantillons (ind{\'e}pendants)}
+%TODO : enlever les subsubsection
+ll y a dans ce cadre deux variables d'int{\'e}r{\^e}ts $Y^{(1)}$ et $Y^{(2)}$ (``ind{\'e}pendantes'') dont on cherche soit {\`a} comparer les moyennes soit les variances {\`a} partir de deux {\'e}chantillons, l'un $\mathbf{y}^{(1)}=(y_1^{(1)},\ldots,y_{n^{(1)}}^{(1)})$ de taille $n^{(1)}$ et  l'autre $\mathbf{y}^{(2)}=(y_1^{(2)},\ldots,y_{n^{(2)}}^{(2)})$ de taille $n^{(2)}$. Il en d{\'e}coule deux futurs jeux de donn{\'e}es  $\mathbf{Y}^{(1)}=(Y_1^{(1)},\ldots,Y_{n^{(1)}}^{(1)})$ et $\mathbf{Y}^{(2)}=(Y_1^{(2)},\ldots,Y_{n^{(2)}}^{(2)})$. Pour homog{\'e}n{\'e}iser ce cas avec celui {\`a} un seul {\'e}chantillon, nous noterons $\mathbf{Y}$, le vecteur aggr{\'e}g{\'e} de toutes les futures donn{\'e}es $\mathbf{Y}=(\mathbf{Y}^{(1)},\mathbf{Y}^{(2)})$ de taille $n=n^{(1)}+n^{(2)}$.
+De mani{\`e}re analogue au cas d'un seul {\'e}chantillon, nous imaginons disposer de deux infinit{\'e}s de donn{\'e}es virtuelles, l'une $y_{[1]}^{(1)},\ldots,y_{[m]}^{(1)},\ldots$ relative {\`a} $Y^{(1)}$ et l'autre $y_{[1]}^{(2)},\ldots,y_{[m]}^{(2)},\ldots$ relative {\`a} $Y^{(2)}$. Pour $j=1$ ou $j=2$, on peut alors exprimer~:%TODO : enlever les subsubsection
+\begin{itemize}
+  \item la \textbf{moyenne} $\mu_{Y^{(j)}}$ ou plus simplement $\mu^{(j)}$ par  \fbox{$\meanEmp[m]{y_{[\cdot]}^{(j)}} \simeq \meanEmp[\infty]{y_{[\cdot]}^{(j)}} = \mu^{(j)}$}.
+  \item la \textbf{variance} $\sigma^2_{Y^{(j)}}$ ou plus simplement $\sigma_{(j)}^2$ d{\'e}finie par \fbox{$\left(\sdEmp[m]{y_{[\cdot]}^{(j)}}\right)^2 \simeq \left(\sdEmp[\infty]{y_{[\cdot]}^{(j)}}\right)^2=\sigma_{(j)}^2$}  
+\end{itemize}
+
+Nous sommes alors en mesure d'introduire les param{\`e}tres servant {\`a} comparer respectivement les moyennes et les variances.
+\begin{itemize}
+  \item \textbf{comparaison de moyennes} s'{\'e}tudiant soit {\`a} partir de la \textbf{diff{\'e}rence de moyennes} $d_\mu=\mu^{(1)}-\mu^{(2)}$ soit {\`a} partir du \textbf{rapport de moyennes} $r_\mu=\mu^{(1)}/\mu^{(2)}$ (si $\mu^{(2)} \neq 0$).
+  \item \textbf{comparaison de variances} s'{\'e}tudiant soit {\`a} partir de la \textbf{diff{\'e}rence de variances} $d_{\sigma^2}=\sigma_{(1)}^2-\sigma_{(2)}^2$ soit {\`a} partir du \textbf{rapport de variances} $ r_{\sigma^2}=\sigma_{(1)}^2/\sigma_{(2)}^2$ (si $\sigma^2_{(2)} \neq 0$).
+\end{itemize} 
+Insistons sur le fait que les utilisations d'une diff{\'e}rence ou d'un rapport ne sont pas anodines puisqu'elles permettent de traiter des assertions d'int{\'e}r{\^e}t diff{\'e}rentes.
+
+
+
+\subsection{Les deux cadres usuels : asymptotique et gaussien} \label{cadreEstim}
+  \begin{list}{$\to$}{}
+\item \textbf{Cadre asymptotique ou  grand(s) échantillon(s)} : par grand {\'e}chantillon, on entend dans ce cours une taille de donn{\'e}es $n\geq30$  pour le cas un seul {\'e}chantillon et  des tailles $n^{(1)}\geq30$ et $n^{(2)}\geq30$ pour celui de deux {\'e}chantillons. 
+\item \textbf{Cadre gaussien} : si une variable d'int{\'e}r{\^e}t est suppos{\'e}e suivre une loi Normale on dit que l'{\'e}chantillon associ{\'e} est gaussien.
+Ce cadre d'{\'e}tude n'est a priori int{\'e}ressant que s'il est possible de v{\'e}rifier ({\'e}ventuellement {\`a} partir d'un outil statistique) cette hypoth{\`e}se de Normalit{\'e} de la variable d'int{\'e}r{\^e}t. Alors qu'il faudrait disposer d'un grand {\'e}chantillon pour cette v{\'e}rification, l'usage dans la litt{\'e}rature statistique est d'utiliser ce cadre d'{\'e}tude m{\^e}me pour des petits {\'e}chantillons. Les r{\'e}sultats reposent alors sur la validit{\'e} de l'a priori que la variable d'int{\'e}r{\^e}t suit une loi Normale. Cependant, certains ph{\'e}nom{\`e}nes {\'e}tudi{\'e}s peuvent laisser penser que cette hypoth{\`e}se sur la (ou les) variable(s) d'int{\'e}r{\^e}t ne doit  pas {\^e}tre aberrante. 
+%%%Par cons{\'e}quent, nous pr{\'e}sentons ce cadre d'{\'e}tude tr{\`e}s couramment enseign{\'e} et proposons ci-dessous les principaux r{\'e}sultats sous forme de tableaux. Dans ce cours, ils ne seront  utilis{\'e}s que dans le cas d'{\'e}chantillon(s) de taille pas suffisamment grande.
+\end{list}
+
+\subsection{Comparaison entre A.M.P., A.E.P. et Pratique }
+
+Dans le tableau suivant, le \textbf{jour J} désigne le jour où les données sont réellement récoltées (\textit{Indic}~: voir fin de document pour les différentes notations).
+
+\hspace*{-.5cm}\scalebox{0.9}{\begin{tabular}{|c|cc|c|c|}\hline
+\multicolumn{5}{|c|}{\textbf{Avant le jour J}}\\
+\multicolumn{5}{|c|}{\textit{($\theta$ fixé éventuellement à une valeur arbitraire pour l'expérimentation)}}\\\hline
+Mathématique & ${\bm Y}$ & $Y$ &  $\widehat{\theta}(\bm Y)$ ou $\widehat\Theta$ & $t(\bm Y)$ ou $T$ \\\hline
+ & $\bm{y}_{[1]}$ &  \begin{minipage}[c]{2cm}
+$\left\{
+\begin{array}{c}
+y_{[1]}\\
+\phantom{\hspace*{1cm}}\vdots\phantom{\hspace*{1cm}}\\
+y_{[n]}
+\end{array}
+\right.$
+\end{minipage}
+  & $\widehat{\theta}(\bm{y}_{[1]})$ ou $\widehat\theta_{[1]}$& $t( \bm{y}_{[1]})$ ou $t_{[1]}$\\
+ Expérimental & $\bm{y}_{[2]}$ &  \begin{minipage}[c]{2cm}
+$\left\{
+\begin{array}{c}
+y_{[n+1]}\\
+\phantom{\hspace*{1cm}}\vdots\phantom{\hspace*{1cm}}\\
+y_{[2n]}
+\end{array}
+\right.$
+\end{minipage}
+  & $\widehat{\theta}(\bm{y}_{[2]})$ ou $\widehat\theta_{[2]}$ & $t( \bm{y}_{[2]})$ ou $t_{[2]}$\\
+ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\
+ & $\bm{y}_{[m]}$  & \begin{minipage}[c]{2cm}
+$\left\{
+\begin{array}{c}
+y_{[(m-1)\times n+1]}\\
+\phantom{\hspace*{1cm}}\vdots\phantom{\hspace*{1cm}}\\
+y_{[m\times n]}
+\end{array}
+\right.$
+\end{minipage}
+ &   $\widehat{\theta}(\bm{y}_{[m]})$ ou $\widehat\theta_{[m]}$ & $t( \bm{y}_{[m]})$ ou $t_{[m]}$\\
+ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\\hline
+\multicolumn{2}{|r|}{Moyenne =} & 
+$\mu:=\meanEmp[\infty]{y_{[\cdot]}}=\EEE{Y}$ & 
+$\meanEmp[\infty]{\Est{\theta}{y_{[\cdot]}}}=\EEE{\Est{\theta}{Y}}$ & $\meanEmp[\infty]{t(\Vect{y}_{[\cdot]})}=\EEE{t(\bm Y)}$ \\\hline
+\multicolumn{2}{|r|}{Ecart-Type =} & 
+\begin{minipage}[c]{2.5cm} 
+\begin{eqnarray*}
+\!\!\!\!\sigma &\!\!\!:=\!\!\!&\sdEmp[\infty]{y_{[\cdot]}}\!\!\\
+&\!\!\!=\!\!\!&\sigma(Y)\!\! \\
+&\!\!\!=\!\!\!& \sqrt{\VVV{Y}}\!\! 
+\end{eqnarray*} 
+\end{minipage}&
+\begin{minipage}[c]{2.5cm} 
+\begin{eqnarray*}
+\!\!\!\!\sigma_{\widehat{\theta}}&\!\!\!:=\!\!\!& \sdEmp[\infty]{\Est{\theta}{y_{[\cdot]}}}\!\! \\
+&\!\!\!=\!\!\!& \sigma(\Est{\theta}{Y})\!\!\\
+&\!\!\!=\!\!\!&\sqrt{\VVV{\Est{\theta}{Y}}}\!\!
+\end{eqnarray*} 
+\end{minipage} &
+\begin{minipage}[c]{3.5cm} 
+\begin{eqnarray*}
+\!\!\!\!\!\sdEmp[\infty]{t(\Vect{y}_{[\cdot]})}&\!\!\!=\!\!\!&\!\!\sigma(t(\Vect{Y})) \\ 
+&\!\!\!=\!\!\!&\!\!\sqrt{\VVV{t(\Vect{Y})}}\!
+\end{eqnarray*} 
+\end{minipage}
+\\\hline
+\multicolumn{2}{|r|}{Proportion dans $[a,b[$ =} & 
+\begin{minipage}[c]{3cm} 
+\begin{eqnarray*}
+\meanEmp[\infty]{y_{[\cdot]}\in [a,b[}\\
+=\PP(Y\in[a,b[)
+\end{eqnarray*} 
+\end{minipage}  
+& \begin{minipage}[c]{3cm} 
+\begin{eqnarray*}
+\meanEmp[\infty]{\Est{\theta}{y_{[\cdot]}}\in [a,b[}\\
+=\PP(\Est{\theta}{Y}\in[a,b[)
+\end{eqnarray*} 
+\end{minipage} 
+& 
+\begin{minipage}[c]{4cm} 
+\begin{eqnarray*}
+\meanEmp[\infty]{t(\Vect{y}_{[\cdot]})\in [a,b[}\\
+=\PP(t(\bm Y)\in[a,b[)
+\end{eqnarray*} 
+\end{minipage}
+\\\hline
+\multicolumn{2}{|r|}{Histogramme à pas ``zéro'' =} & $f_Y$ & $f_{\Est{\theta}{Y}}$ ou $f_{\widehat\Theta}$ &$f_{g(\bm Y)}$ ou $f_T$\\\hline
+\multicolumn{2}{|r|}{Surface brique ($m$ fini) =} & $\frac1{mn}$ & $\frac1m$  &$\frac1m$\\\hline\hline
+\multicolumn{5}{|c|}{\textbf{Après le jour J}}\\
+\multicolumn{5}{|c|}{\textit{($\theta$ est égal à $\theta^\bullet$ qui est toujours inconnu)}}\\\hline
+Pratique &  $\bm{y}$ &  \begin{minipage}[c]{2cm}
+$\left\{
+\begin{array}{c}
+y_{1}\\
+\phantom{\hspace*{1cm}}\vdots\phantom{\hspace*{1cm}}\\
+y_{n}
+\end{array}
+\right.$
+\end{minipage}
+ & $\widehat{\theta}(\bm{y})$ ou $\widehat\theta$ & $t( \bm{y})$ ou $t$\\\hline
+\end{tabular}
+}\\
+Le \textbf{jour J} ($\theta=\theta^\bullet$), si on essaye d'associer des temps de conjugaison aux différents concepts, nous pouvons dire~:
+\begin{list}{$\to$}{}
+\item le \textbf{jeu de données réel} ${\bm y}$ représente le \textit{présent}.
+\item le \textbf{jeu de données aléatoire} ${\bm Y}$ représente le \textit{futur} (on pourra alors aussi l'appeler \textit{futur jeu de données})
+\item les \textbf{jeux de données virtuels} ${\bm y}_{[j]}$ représentent le \textit{conditionnel} (ils représentent une infinité de jeux de données que l'on aurait pu avoir à la place de $\bm y$) 
+\end{list}
+
+
+
+\newpage
+
+\section{Test d'hypoth{\`e}ses}\label{sec-gen-hypo}
+
+De mani{\`e}re g{\'e}n{\'e}rale, la r{\'e}daction standard d'un test d'hypoth{\`e}ses s'{\'e}crit toujours de la m{\^e}me fa{\c c}on. Elle est d{\'e}crite ci-dessous pour un param{\`e}tre $\theta$ qui devra {\^e}tre remplacé par $p$ pour une proportion, $\mu$ pour une moyenne, $\sigma^2$ pour une variance, $d_\mu$ (resp. $r_\mu$) pour une diff{\'e}rence (resp. rapport) de moyennes et enfin $d_{\sigma^2}$ (resp. $r_{\sigma^2}$) pour une diff{\'e}rence (resp. rapport) de variances. La valeur de r{\'e}f{\'e}rence $\theta_0$ et la loi $\mathcal{L}_0$ devront {\^e}tre adapt{\'e}e selon la probl{\'e}matique. \\
+
+\begin{minipage}{15cm}
+
+\centerline{\fbox{ \large \textit{  R{\'e}daction standard d'un test d'hypoth{\`e}ses param{\'e}trique  }} }\vspace*{.2cm}  
+
+\fbox{
+\begin{minipage}{15cm}
+
+\noindent \textbf{Hypoth{\`e}ses de test~:} 
+$$\mathbf{H_0}: \theta=\theta_0\mbox{ contre }\mathbf{H_1}:\left\{
+\begin{array}{ll} 
+\theta>\theta_0 & \mbox{(cas \textbf{(a)}: {\it test unilatéral droit})}\\ 
+\theta<\theta_0 & \mbox{(cas \textbf{(b)}: {\it test unilatéral gauche})} \\ 
+\theta\neq\theta_0 & \mbox{(cas \textbf{(c)}: {\it test bilatéral})}
+\end{array}\right.
+$$
+
+\noindent \textbf{Statistique de test sous $\mathbf{H_0}$}~:
+$$\Est{\delta_{\theta,\theta_0}}{Y}\leadsto\mathcal{L}_0$$
+o{\`u} $\mathcal{L}_0$ est une loi standard {\`a} pr{\'e}ciser (selon la probl{\'e}matique envisag{\'e}e).\\
+
+\noindent \textbf{R{\`e}gle de d{\'e}cision~:}\\
+on accepte $\mathbf{H_1}$ si 
+$\left\{\begin{array}{c}
+\mbox{\fbox{$p-valeur<\alpha$}}\\
+\mbox{ou de mani{\`e}re {\'e}quivalente}\\
+\mbox{\fbox{$\left\{ 
+\begin{array}{ll} 
+\Est{\delta_{\theta,\theta_0}}{y}>\delta^{+}_{\lim,\alpha} & \mbox{\textbf{(a)}}\\ 
+\Est{\delta_{\theta,\theta_0}}{y}<\delta^{-}_{\lim,\alpha} & \mbox{\textbf{(b)}}\\ 
+\Est{\delta_{\theta,\theta_0}} {y} < \delta^{-}_{\lim,\alpha/2} \mbox{ ou } \Est{\delta_{\theta,\theta_0}} {y} > \delta^{+}_{\lim,\alpha/2} & \mbox{\textbf{(c)}}
+\end{array}\right.$} }
+\end{array}\right.$
+
+o{\`u} $\delta^{-}_{\lim,\alpha}=q_{\alpha}$ et $\delta^{+}_{\lim,\alpha}=q_{1-\alpha}$ d{\'e}signent respectivement les quantiles d'ordre $\alpha$ et $1-\alpha$ associ{\'e}s {\`a} la loi $\mathcal{L}_0$ et o{\`u} la p$-$valeur est d{\'e}finie math{\'e}matiquement par~:
+$$ \mbox{\it p-valeur} = \left\{ \begin{array}{ll}
+\ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} >\Est{\delta_{\theta,\theta_0}} {y}}  & \mbox{\textbf{(a)}: {\it p-valeur droite}} \\
+\ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} <\Est{\delta_{\theta,\theta_0}} {y}}  & \mbox{\textbf{(b)}: {\it p-valeur gauche}}\\
+{\scriptstyle 2  \times \min \left( \ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} <\Est{\delta_{\theta,\theta_0}} {y}} ,  \ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} >\Est{\delta_{\theta,\theta_0}} {y}} \right) } & \mbox{\textbf{(c)}: {\it p-valeur bilatérale}} 
+\end{array} \right.$$
+
+
+\noindent \textbf{Conclusion~:} Application de la r{\`e}gle de d{\'e}cision au vu des donn{\'e}es $\Vect{y}$.
+
+\end{minipage}}\end{minipage}
+ \\
+
+\bigskip
+
+\fbox{\begin{minipage}{15cm}
+\underline{Propriétés~:} \\
+\begin{enumerate}
+\item  {\bf La somme des p-valeur gauche et p-valeur droite est égale à 1}
+\item  {\bf La p-valeur bilatérale est égale à deux fois la plus petite des p-valeurs gauche et droite}
+\end{enumerate}
+\end{minipage}}
+
+
+\vspace*{1cm}
+\noindent\textbf{Tableaux récapitulatifs} :
+
+Il sera aussi suppos{\'e} que les donn{\'e}es ont {\'e}t{\'e} saisies dans le logiciel \verb+R+ soit sous le nom \verb+y+ (pour un unique {\'e}chantillon) soit sous les noms \verb+y1+ et \verb+y2+ (pour deux {\'e}chantillons ind{\'e}pendants).
+\pagebreak
+\begin{landscape}
+%\begin{minipage}{20cm}
+\vspace*{-1.5cm}
+\hspace*{-1cm}
+\scalebox{0.85}{
+\begin{tabular}{|>{\columncolor[gray]{.9}}c|c|c||c|c|c|}
+\hline
+\rowcolor[gray]{.8} $\theta$ & $\Est{\theta}{Y}$ & $\Est{\theta}{y}$ en \texttt{R}& $\sigma_{\widehat{\theta}}$ & $\Est{\sigma_{\widehat{\theta}}}{Y}$ & $\Est{\sigma_{\widehat{\theta}}}{y}$ en \texttt{R}   \\
+
+\hline
+
+$p$ &
+$\Est{p}{Y}=\overline{Y}= \displaystyle{\frac 1n \sum_{i=1}^nY_i}$ & 
+\texttt{mean(y)}&
+$\sigma_{\widehat{{p}} } = \displaystyle{ \sqrt{\frac{ p(1-p)}{n}}}$ &
+$\displaystyle{ \sqrt{\frac{ \Est{p}{Y}(1-\Est{p}{Y})}{n}}}$ & 
+\texttt{seMean(y)}\\
+
+\hline
+
+$\mu$ & 
+$\Est{\mu}{Y}=\overline{Y}=\displaystyle{\frac1n \sum_{i=1}^nY_i}$ &
+\texttt{mean(y)}&
+$\sigma_{\widehat{{\mu}} }=\displaystyle{\sqrt{ \frac{\sigma^2 }{n}}}$ & 
+$\displaystyle{\sqrt{ \frac{\Est{\sigma^2}{Y} }{n}}}$ &
+\texttt{seMean(y)}\\
+
+\hline
+
+$\sigma^2$ &
+$\displaystyle{\Est{\sigma^2}{Y}=\frac{1}{n-1} \sum_{i=1}^n{(Y_i-\overline{Y})^2}}$&
+\texttt{var(y)}&
+$\sigma_{\widehat{\sigma^2}}=\displaystyle{\sqrt{ \frac{\sigma^2_{\ddot{Y}}}{n}}}$ &
+$\displaystyle{\sqrt{ \frac{\Est{\sigma^2_{\ddot{Y}}}{\ddot{Y}}}{n}}}$ &
+\texttt{seVar(y)} \\
+
+\hline
+
+\multirow{2}{*}{$d_{\mu}\!=\! \mu^{(1)}\!-\! \mu^{(2)}$} &
+\multirow{2}{*}{$\displaystyle{\Est{d_{\mu}}{Y}= \Est{\mu^{(1)}}{Y^{(1)}}-\Est{\mu^{(2)}}{Y^{(2)}}}$} &
+\multirow{2}{*}{\texttt{mean(y1)-mean(y2) }}&
+$\sigma_{\widehat{d_{\mu}   }}= \displaystyle{ \sqrt{ \frac{\sigma^2_{(1)}}{n^{(1)}} + \frac{\sigma^2_{(2)}}{n^{(2)}} }}$ & 
+$\displaystyle{ \sqrt{ \frac{\Est{\sigma^2_{(1)}}{Y^{(1)}}}{n^{(1)}} + \frac{\Est{\sigma^2_{(2)}}{Y^{(2)}}}{n^{(2)}}}}$ &
+\texttt{seDMean(y1,y2)}  \\\cline{4-6}
+&&&\multicolumn{2}{c|}{\textit{Cas Gaussien et $\sigma^2_{(1)}=\sigma^2_{(1)}=\sigma^2$}~: $\Est{\sigma^2}{Y}=\frac{(n^{(1)}-1) \Est{\sigma^2_{(1)}}{Y^{(1)}} + (n^{(2)}-1) \Est{\sigma^2_{(2)}}{Y^{(2)}} }{n^{(1)}+n^{(2)}-2} $} & \texttt{seDMeanG(y1,y2)} \\
+\hline
+
+$d_{\sigma^2} \!=\! \sigma^2_{(1)}\!-\! \sigma^2_{(2)}$ &
+$\Est{d_{\sigma^2}}{Y}= \Est{\sigma_{(1)}^2}{Y^{(1)}}-\Est{\sigma_{(2)}^2}{Y^{(2)}}$ &
+\texttt{var(y1)-var(y2)}  &
+$\sigma_{\widehat{d_{\sigma^2}   }}=\displaystyle{ \sqrt{ \frac{\sigma^2_{\ddot{Y}^{(1)}}}{n^{(1)}} +\frac{\sigma^2_{\ddot{Y}^{(2)}}}{n^{(2)}}}}$ &
+$\displaystyle{ \sqrt{ \frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}} +\frac{\Est{\sigma^2_{\ddot{Y}^{(2)}}}{\ddot{Y}^{(2)}}}{n^{(2)}}}}$&
+\texttt{seDVar(y1,y2)} \\
+\hline
+
+$\displaystyle{r_{\mu}= \frac{\mu^{(1)}}{\mu^{(2)}}}$ &
+$\displaystyle{\Est{r_{\mu}}{Y}= \frac{\Est{\mu^{(1)}}{Y^{(1)}}}{ \Est{\mu^{(2)}}{Y^{(2)}}}}$ &
+\texttt{mean(y1)/mean(y2)}& 
+$\sigma_{\widehat{r_\mu}}=\displaystyle{\frac1{\mu^{(2)}} \sqrt{\frac{\sigma_{(1)}^2}{n^{(1)}}+r_{\mu}^2\times\frac{\sigma_{(2)}^2}{n^{(2)}}}}$ &
+${\frac1{\Est{\mu^{(2)}}{Y^{(2)}}} \sqrt{\frac{\Est{\sigma_{(1)}^2}{Y^{(1)}}}{n^{(1)}}+\Est{r_{\mu}}{Y}^2\times\frac{\Est{\sigma_{(2)}^2}{Y^{(2)}}}{n^{(2)}}}}$&
+\texttt{seRMean(y1,y2)} \\
+
+
+
+
+
+\hline 
+
+$\displaystyle{r_{\sigma^2} = \frac{\sigma^2_{(1)} }{\sigma^2_{(2)}}}$&
+$\displaystyle{\Est{r_{\sigma^2}}{Y}= \frac{\Est{\sigma_{(1)}^2}{Y^{(1)}}}{ \Est{\sigma_{(2)}^2}{Y^{(2)}}}}$&
+\texttt{var(y1)/var(y2)} &
+$\sigma_{\widehat{r_{\sigma^2}   }}=\displaystyle{\frac1{\sigma^2_{(2)}} \sqrt{\frac{\sigma^2_{\ddot{Y}^{(1)}}}{n^{(1)}}\!+\!r_{\sigma^2}^2 \frac{\sigma^2_{\ddot{Y}^{(2)}}}{n^{(2)}}}}$&
+${\frac1{\Est{\sigma^2_{(2)}}{Y^{(2)}}} \sqrt{\frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}}\!+\!\Est{r_{\sigma^2}}{Y}^2   \frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}}}}$ &
+\texttt{seRVar(y1,y2)}\\
+\hline
+
+\end{tabular}
+}
+
+
+\vspace*{.5cm}
+%\thispagestyle{empty}
+\hspace*{-0.3cm}
+\scalebox{0.91}{
+\noindent\begin{tabular}{|>{\columncolor[gray]{.9}}c|c|c|c|c||c|c|}
+\cline{4-7}
+
+\multicolumn{3}{c|}{} & \multicolumn{2}{>{\columncolor[gray]{.8}}c||}{Cadre Asymptotique} &  \multicolumn{2}{>{\columncolor[gray]{.8}}c|}{Cadre Gaussien}\\
+\hline
+
+\rowcolor[gray]{.8} $\theta$ &  
+$\theta_0$ &  
+$\sigma_{\widehat{\theta}}$ sous $\mathbf{H_0}$& 
+$\delta_{\theta,\theta_0}= (\theta-\theta_0)/ \sigma_{\widehat{\theta}}$& 
+$\Est{\delta_{\theta,\theta_0}}{Y}$ et sa loi sous $\mathbf{H_0}$ & 
+$\delta_{\theta,\theta_0}$&
+$\Est{\delta_{\theta,\theta_0}}{Y}$ et sa loi sous $\mathbf{H_0}$ \\
+
+\hline
+
+$p$ &$p_0$& 
+$\displaystyle{ \sqrt{\frac{ p_0(1-p_0)}{n}}}$&
+$\displaystyle{ \delta_{p,p_0}= \frac{p-p_0}  { \sqrt{\frac{ p_0(1-p_0)}{n}}}}    $& 
+$\displaystyle{ \Est{\delta_{p,p_0}}{Y}= \frac{\Est{p}{Y}-p_0}  { \sqrt{\frac{ p_0(1-p_0)}{n}}}}    \SuitApprox \mathcal{N}(0,1)$ & 
+ \multicolumn{2}{>{\columncolor[gray]{.1}}c}{}
+\\
+\hline
+
+$\mu$&$\mu_0$&
+$\sigma_{\widehat{{\mu}} }$ &
+$\displaystyle{ \delta_{\mu,\mu_0} = \frac{\mu-\mu_0}{\sigma_{\widehat{{\mu}} }}}$&
+$\displaystyle{ \Est{\delta_{\mu,\mu_0}}{Y} = \frac{\Est{\mu}{Y}-\mu_0}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}}\SuitApprox  \mathcal{N}(0,1)$ &
+ $\displaystyle{ \delta_{\mu,\mu_0} = \frac{\mu-\mu_0}{\sigma_{\widehat{{\mu}} }}}$&
+$\displaystyle{ \Est{\delta_{\mu,\mu_0}}{Y} = \frac{\Est{\mu}{Y}-\mu_0}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}}\leadsto  \mathcal{S}t(n-1)$ \\
+
+\hline
+
+$\sigma^2$ &$\sigma_0^2$&
+$\sigma_{\widehat{\sigma^2}}$&
+$\displaystyle{ \delta_{\sigma^2,\sigma^2_0}= \frac{\sigma^2-\sigma^2_0}{\sigma_{\widehat{\sigma^2}}}}$&
+$\displaystyle{ \Est{\delta_{\sigma^2,\sigma^2_0}}{Y}= \frac{\Est{\sigma^2}{Y}-\sigma_0^2}{\Est{    \sigma_{\widehat{\sigma^2}}       }{Y}}}\SuitApprox  \mathcal{N}(0,1)$ &
+ $\displaystyle{ \delta_{\sigma^2,\sigma^2_0}= (n-1) \frac{\sigma^2}{\sigma_0^2}}$&
+$\displaystyle{ \Est{\delta_{\sigma^2,\sigma^2_0}}{Y}= (n-1) \frac{\Est{\sigma^2}{Y}}{\sigma_0^2} \leadsto \chi^2(n-1)}$\\
+
+
+
+\hline
+
+$d_{\mu}\!=\! \mu^{(1)}\!-\! \mu^{(2)}$ &$d_0$&
+$\sigma_{\widehat{d_\mu}}$&  
+$\displaystyle{ \delta_{d_\mu,d_0}= \frac{d_\mu-d_0}{\sigma_{\widehat{d_\mu}}}}$&
+$\displaystyle{ \Est{\delta_{d_\mu,d_0}}{Y}= \frac{\Est{d_\mu}{Y}-d_0}{\Est{\sigma_{\widehat{d_\mu}}  }{Y}    }}\SuitApprox  \mathcal{N}(0,1)$ &
+$\displaystyle{ \delta_{d_\mu,d_0}= \frac{d_\mu-d_0}{\sigma_{\widehat{d_\mu}}}}$&
+$ \Est{\delta_{d_\mu,d_0}}{Y} =  {\frac{\Est{d_\mu}{Y}-d_0}{\Est{\sigma_{\widehat{d_\mu}}  }{Y} }} \leadsto\mathcal{S}t(\!n^{(1)}\!+\!n^{(2)}\!-\!2\!) $\\
+
+\hline
+
+$d_{\sigma^2} \!=\! \sigma^2_{(1)}\!-\! \sigma^2_{(2)}$&$d_0$&
+$\sigma_{\widehat{d_{\sigma^2}   }}$&
+$\displaystyle{ \delta_{d_{\sigma^2},d_0}= \frac{d_{\sigma^2}-d_0}{\sigma_{\widehat{d_{\sigma^2}}}}}$&
+$\displaystyle{ \Est{\delta_{d_{\sigma^2},d_0}}{Y}= \frac{\Est{d_{\sigma^2}}{Y}-d_0}{\Est{\sigma_{\widehat{d_{\sigma^2}}}  }{Y}   }} \SuitApprox  \mathcal{N}(0,1)$ &
+ \multicolumn{2}{>{\columncolor[gray]{.1}}c}{} \\
+
+
+\hline
+
+$   \displaystyle{r_{\mu}= \frac{\mu^{(1)}}{\mu^{(2)}}}        $ &$r_0$&
+$\sigma_{\widehat{r_\mu}}$&  
+$\displaystyle{ \delta_{r_\mu,r_0}= \frac{r_\mu-r_0}{\sigma_{\widehat{r_\mu}}}}$&
+$\displaystyle{ \Est{\delta_{r_\mu,r_0}}{Y}= \frac{\Est{r_\mu}{Y}-r_0}{\Est{\sigma_{\widehat{r_\mu}}  }{Y}    }}\SuitApprox  \mathcal{N}(0,1)$ &
+\multicolumn{2}{>{\columncolor[gray]{.1}}c}{}
+ \\
+\hline
+$   \displaystyle{r_{\sigma^2} = \frac{\sigma^2_{(1)} }{\sigma^2_{(2)}}}           $&$r_0$&
+$\sigma_{\widehat{r_{\sigma^2}   }}$&
+$\displaystyle{ \delta_{r_{\sigma^2},r_0}= \frac{r_{\sigma^2}-r_0}{\sigma_{\widehat{r_{\sigma^2}}}}}$&
+$\displaystyle{ \Est{\delta_{r_{\sigma^2},r_0}}{Y}= \frac{\Est{r_{\sigma^2}}{Y}-r_0}{\Est{\sigma_{\widehat{r_{\sigma^2}}}  }{Y}   }}\SuitApprox  \mathcal{N}(0,1)$ &
+$\displaystyle{ \delta_{r_{\sigma^2},r_0}= \frac{r_{\sigma^2}}{r_0}}$&
+$\displaystyle{ \Est{\delta_{r_{\sigma^2},r_0}}{Y}= \frac{\Est{r_{\sigma^2}}{Y}}{r_0}\leadsto \mathcal{F}(n^{(1)}-1,n^{(2)}-1)} $    \\
+\hline
+\end{tabular}}
+%\end{minipage}
+\end{landscape}
+
+
+\section{Intervalle de confiance}
+
+\subsection{Généralités}
+Le concept d'intervalle de confiance d'un param{\`e}tre quelconque $\theta$ consiste {\`a} proposer un encadrement (ou une ``fourchette'') repr{\'e}sent{\'e} par un intervalle de variables al{\'e}atoires $\left[\Int{\theta}{\inf}{Y},\Int{\theta}{\sup}{Y}\right]$ de sorte que le param{\`e}tre d'int{\'e}r{\^e}t $\theta$ inconnu ait un niveau de confiance $1-\alpha$ (plut{\^o}t élev{\'e} si $\alpha$ raisonnablement petit) d'{\^e}tre {\`a} l'int{\'e}rieur de cet intervalle. Math{\'e}matiquement cela s'exprime par~:
+$$\mbox{\fbox{$\Prob{ \theta\in \left[\Int{\theta}{\inf}{Y},\Int{\theta}{\sup}{Y}\right] } = 1-\alpha$}}$$
+
+Par l'approche exp{\'e}rimentale, si nous pouvions imaginer r{\'e}p{\'e}ter autant de fois que possible la conception d'intervalles de confiance 
+$\left[\Int{\theta}{\inf}{y_{[1]}},\Int{\theta}{\sup}{y_{[1]}}\right],\ldots,\left[\Int{\theta}{\inf}{y_{[m]}},\Int{\theta}{\sup}{y_{[m]}}\right],\ldots$ obtenus respectivement sur une infinit{\'e} de jeux de donn{\'e}es virtuels $\mathbf{y_{[1]}},\ldots,\mathbf{y_{[m]}},\ldots$, nous constaterions alors qu'il n'y en aurait qu'une proportion $1-\alpha$ qui contiendraient le param{\`e}tre d'int{\'e}r{\^e}t $\theta$ inconnu. La construction de ces intervalles d{\'e}pend en g{\'e}n{\'e}ral de la caract{\'e}risation du comportement al{\'e}atoire 
+de la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat\theta,\theta}(\mathbf{Y})$ propos{\'e}e dans toutes les probl{\'e}matiques dans le tableau suivant~:
+\begin{center}
+\hspace*{-1cm}
+\begin{tabular}{|c|c|c|}
+\cline{2-3}
+\multicolumn{1}{c|}{} & \multicolumn{1}{>{\columncolor[gray]{.8}}c|}{Cadre Asymptotique} &  \multicolumn{1}{>{\columncolor[gray]{.8}}c|}{Cadre Gaussien}\\
+\hline
+\rowcolor[gray]{.8} $\theta$ &
+$\delta_{\widehat{\theta},\theta}(\Vect{Y})$ &$\delta_{\widehat{\theta},\theta}(\Vect{Y})$
+\\
+
+\hline
+
+$p$ &
+$\displaystyle{ \delta_{\widehat{p},p}(\Vect{Y})= \frac{\Est{p}{Y}-p}{\Est{\sigma_{\widehat{p}}}{Y}}\SuitApprox  \mathcal{N}(0,1)}$ &
+\multicolumn{1}{>{\columncolor[gray]{.1}}c}{} \\
+
+\hline
+
+$\mu$ &
+$\displaystyle{\delta_{\widehat{\mu},\mu}(\Vect{Y})= \frac{\Est{\mu}{Y}-\mu}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}\SuitApprox  \mathcal{N}(0,1)}$  &
+$\displaystyle{\delta_{\widehat{\mu},\mu}(\Vect{Y})= \frac{\Est{\mu}{Y}-\mu}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}\leadsto  \mathcal{S}t(n-1)}$ \\
+
+\hline
+
+$\sigma^2$ &
+$\displaystyle{\delta_{\widehat{\sigma^2},\sigma^2}(\Vect{Y})= \frac{\Est{\sigma^2}{Y}-\sigma^2}{\Est{    \sigma_{\widehat{\sigma^2}}       }{Y}}\SuitApprox  \mathcal{N}(0,1)}$&
+$\displaystyle{\delta_{\widehat{\sigma^2},\sigma^2}(\Vect{Y})=(n-1) \frac{\Est{\sigma^2}{Y}}{\sigma^2} \leadsto \chi^2(n-1)} $\\
+
+\hline
+
+$d_{\mu}\!=\! \mu^{(1)}\!-\! \mu^{(2)}$ &
+$\displaystyle{\delta_{\widehat{d_{\mu}},d_{\mu}}(\Vect{Y})= \frac{\Est{d_\mu}{Y}-d_\mu}{\Est{\sigma_{\widehat{d_\mu}}}{Y}}\SuitApprox  \mathcal{N}(0,1)}$&
+$\displaystyle{\delta_{\widehat{d_{\mu}},d_{\mu}}(\Vect{Y})\!=\!\frac{\Est{d_\mu}{Y}\!-\!d_\mu}{\Est{\sigma_{\widehat{d_\mu}}  }{Y}}}\!   \leadsto \! \mathcal{S}t(\!n^{(1)}\!+\!n^{(2)}\!-\!2\!) $ \\
+
+\hline
+
+$d_{\sigma^2} \!=\! \sigma^2_{(1)}\!-\! \sigma^2_{(2)}$&
+$\displaystyle{\delta_{\widehat{d_{\sigma^2}},d_{\sigma^2}}(\Vect{Y})= \frac{\Est{d_{\sigma^2}}{Y}-d_{\sigma^2}}{\Est{\sigma_{\widehat{d_{\sigma^2}}}}{Y}}\SuitApprox  \mathcal{N}(0,1)}$  &
+\multicolumn{1}{>{\columncolor[gray]{.1}}c}{} \\
+
+
+
+\hline
+$   \displaystyle{r_{\mu}= \frac{\mu^{(1)}}{\mu^{(2)}}}        $ &
+$ \displaystyle{\delta_{\widehat{r_{\mu}},r_{\mu}}(\Vect{Y})= \frac{\Est{r_\mu}{Y}-r_\mu}{\Est{\sigma_{\widehat{r_\mu}} }{Y}}\SuitApprox  \mathcal{N}(0,1)}$ &
+\multicolumn{1}{>{\columncolor[gray]{.1}}c}{} \\
+
+\hline
+
+$   \displaystyle{r_{\sigma^2} = \frac{\sigma^2_{(1)} }{\sigma^2_{(2)}}}           $&
+$\displaystyle{\delta_{\widehat{r_{\sigma^2}},r_{\sigma^2}}(\Vect{Y})= \frac{\Est{r_{\sigma^2}}{Y}-r_{\sigma^2}}{\Est{\sigma_{\widehat{r_{\sigma^2}  }}  }{Y}}\SuitApprox  \mathcal{N}(0,1)}$ &
+$\displaystyle{\delta_{\widehat{r_{\sigma^2}},r_{\sigma^2}}(\Vect{Y})=\frac{\Est{r_{\sigma^2}}{Y}}{r_{\sigma^2}}\leadsto \mathcal{F}(n^{(1)}-1,n^{(2)}-1)} $\\
+
+
+\hline
+
+\end{tabular}
+\end{center}
+
+
+\subsection{Cadre asymptotique}
+Tous les intervalles de confiance relatifs {\`a} toutes les probl{\'e}matiques du cours s'obtiennent \textbf{dans le cadre de grands {\'e}chantillons} par la m{\^e}me m{\'e}thode. 
+Apr{\`e}s substitution du param{\`e}tre d'int{\'e}r{\^e}t de votre probl{\'e}matique (au choix parmi $p$, $\mu$, $\sigma^2$, $d_\mu$, $d_{\sigma^2}$, $r_{\mu}$ et $r_{\sigma^2}$)
+ not{\'e}e ici de mani{\`e}re g{\'e}n{\'e}rale $\theta$, nous allons naturellement utiliser la caract{\'e}risation du comportement al{\'e}atoire de l'{\'e}cart entre $\Est{\theta}{Y}$ 
+et $\theta$ exprim{\'e}e via la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ suivant approximativement une loi Normale  $\mathcal{N}(0,1)$. 
+Tr{\`e}s facilement, nous pouvons affirmer que~:
+\[
+1-\alpha\simeq\Prob{\left|\delta_{\widehat{\theta},\theta}(\Vect{Y}) \right|<\delta^+_{lim,\frac{\alpha}2}}=\mathbb{P} \Big( 
+\underbrace{\Est{\theta}{Y}-\delta^+_{lim,\frac{\alpha}2}\times 
+\Est{\sigma_{\widehat{\theta}}}{Y}}_{\Int{\theta}{\inf}{Y}}<\theta<\underbrace{\Est{\theta}{Y}+\delta_{lim,\frac{\alpha}2}^+\times 
+\Est{\sigma_{\widehat{\theta}}}{Y}}_{\Int{\theta}{\sup}{Y}} \Big)
+\]
+o{\`u} $\delta^+_{lim,\frac{\alpha}2}$ est le quantile d'ordre 
+$1-\frac{\alpha}2$ de la loi $\mathcal{N}(0,1)$
+
+
+\subsection{Cadre gaussien}
+Pour construire un intervalle de confiance dans un cadre gaussien du param{\`e}tre $\theta$ (au choix $\mu$, $\sigma^2$, $d_{\mu}$ ou $r_{\sigma^2}$), nous allons naturellement utiliser la caract{\'e}risation du comportement al{\'e}atoire de l'{\'e}cart entre $\Est{\theta}{Y}$ et $\theta$ exprim{\'e}e via la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$. Il s'agit alors de trouver $\Int{\theta}{\inf}{Y}$ et  $\Int{\theta}{\sup}{Y}$ tels que 
+\[
+1-\alpha=\Prob{ \Int{\theta}{\inf}{Y} < \theta < \Int{\theta}{\sup}{Y}}
+\qquad 
+\mbox{ en utilisant le fait que }
+\qquad
+1-\alpha=\Prob{ q_{\frac\alpha2} < \delta_{\widehat{\theta},\theta}(\Vect{Y}) < q_{1-{\frac{\alpha}2}}}
+\]
+o{\`u} $q_{1-\frac{\alpha}2}$ est le quantile d'ordre $1-\frac{\alpha}2$ de la loi de la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$. L'exercice est plus difficile que dans le cadre asymptotique d'une part parce que la mesure d'{\'e}cart standardis{\'e}e $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ ($\theta$ {\'e}tant au choix $\mu$, $\sigma^2$, $d_{\mu}$ ou $r_{\sigma^2}$) ne se d{\'e}cline pas toujours sur le m{\^e}me sch{\'e}ma de construction et d'autre part parce que la loi de  $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ n'est plus une loi Normale standard. Sans trop nous attarder, voici les diff{\'e}rents intervalles de confiance pour les diff{\'e}rents choix de $\theta$~: 
+\begin{list}{$\bullet$}{}
+\item $\theta=\mu$~:
+\[ \Int{\mu}{\inf}{Y} = \Est{\mu}{Y} - q_{1-\frac{\alpha}{2}} \times \sqrt{ \frac{\Est{\sigma^2}{Y}}{n}} \quad \mbox{ et } \quad  \Int{\mu}{\sup}{Y} = \Est{\mu}{Y} + q_{1-\frac{\alpha}{2}} \times \sqrt{ \frac{\Est{\sigma^2}{Y}}{n}} 
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ est le quantile d'ordre $1-\frac{\alpha}{2}$ de la loi $\mathcal{S}t(n-1)$.
+\item $\theta=\sigma^2$~:
+\[ \Int{\sigma^2}{\inf}{Y} =  \Est{\sigma^2}{Y} \times \frac{n-1}{q_{1-\frac{\alpha}2}}  \quad \mbox{ et } \quad 
+\Int{\sigma^2}{\sup}{Y} = \Est{\sigma^2}{Y} \times \frac{n-1}{q_{\frac{\alpha}2}} 
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ (resp. $q_{\frac\alpha2}$) est le quantile d'ordre $1-\frac\alpha2$ (resp. $\frac\alpha2$) de la loi $\chi^2(n-1)$.
+\item $\theta=d_\mu$~:
+\[ \Int{d_\mu}{\inf}{Y} =  \Est{d_\mu}{Y} - q_{1-\frac{\alpha}{2}} \times \sqrt{\Est{\sigma^2}{Y} \left( \frac1{n^{(1)}}+ \frac1{n^{(2)}}\right)} \]
+et 
+\[ 
+\Int{d_\mu}{\sup}{Y} =  \Est{d_\mu}{Y} + q_{1-\frac{\alpha}{2}} \times \sqrt{\Est{\sigma^2}{Y} \left( \frac1{n^{(1)}}+ \frac1{n^{(2)}}\right)}
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ est le quantile d'ordre $1-\frac{\alpha}{2}$ de la loi $\mathcal{S}t(n^{(1)}+n^{(2)}-2)$. La quantit{\'e} $\Est{\sigma^2}{Y}$ est d{\'e}finie comme dans le tableau récapitulatif des tests d'hypothèses (partie cadre gaussien).
+\item $\theta=r_{\sigma^2}$~:
+\[ \Int{r_{\sigma^2}}{\inf}{Y} = \Est{r_{\sigma^2}}{Y} \times \frac{1}{q_{1-\frac{\alpha}{2}}} \quad \mbox{ et } \quad 
+\Int{r_{\sigma^2}}{\sup}{Y} = \Est{r_{\sigma^2}}{Y} \times \frac{1}{q_{\frac{\alpha}{2}}} 
+\]
+o{\`u} $ q_{1-\frac{\alpha}{2}}$ (resp. $q_{\frac\alpha2}$) est le quantile d'ordre $1-\frac\alpha2$ (resp. $\frac\alpha2$) de la loi $\mathcal{F}\left(n^{(1)}-1 ,n^{(2)}-1 \right)$.
+\end{list}
+
+
+%\newpage
+\section{Langage mathématique et Systèmes de notation}
+\begin{itemize}
+\item Dans ce cours, deux systèmes de notation sont utilisés pour décrire des expressions mathématiques dédiées à la statistique. Le premier, appelé \textit{Norme CQLS} (ou \textit{Norme CQLS Standard}) consiste en un système de notation riche (et peut-être un peu lourde) dont le principal avantage est qu'il est taillé sur mesure pour être traduisible dans le langage littéral. Le deuxième système, appelé  \textit{Norme \textbf{SSE}} (ou \textit{Norme CQLS Simplifié}), a pour vocation à être \textbf{S}imple, \textbf{S}ynthétique et \textbf{E}xplicite (ou du moins le plus possible). Il demande cependant dans son utilisation un meilleur niveau d'expertise essentiellement dû au fait que sa traduction dans le langage littéral est moins explicite que celle pour la \textit{Norme CQLS}. 
+\item Notre conseil est de commencer par l'utilisation de la \textit{Norme CQLS} pour, au fur et à mesure du cours, passer à la \textit{Norme SSE}.
+\item Conventions communes aux deux Normes CQLS et SSE~:  
+\begin{enumerate}
+\item Majuscule versus Minuscule: une variable aléatoire (ou susceptible de l'être) est notée en majuscule quand une variable dont on sait qu'elle est déterministe (i.e. non aléatoire) est noté en minuscule.
+\item Le Chapeau au dessus d'une quantité (par exemple, $\widehat{\theta}$) désigne généralement un remplaçant appelé plus communément estimation dans le cas où la quantité est un paramètre (ici $\theta$).
+\item Un vecteur est noté en \textbf{caractères gras}.\\
+\textit{Remarque~:} une expression écrite sur un document imprimé en caractères gras (ex: ``\textbf{expression en gras}") est subtituée sur un tableau ou sur une feuille papier par sa version soulignée (ex: ``\underline{expression en gras}"). 
+\item ``Delta" ($\delta$ en minuscule et $\Delta$ en majuscule) est utilisé pour désigner un écart le plus souvent additif (i.e. une soustraction) mais parfois multiplicatif (i.e. une division). 
+\end{enumerate}
+\item La \textit{Norme CQLS} a été introduite pour décrire le plus précisément possible l'Approche Expérimentale des Probabilités (A.E.P.).  L'A.E.P. s'articulant sur une distinction des différents jeux de données, la \textit{Norme CQLS} repose sur la convention suivante~: Toute statistique (i.e. v.a. dépendant d'un jeu de données) s'écrit comme une fonction du jeu de données.
+\item Il n'y a pas vraiment de convention propre à la \textit{Norme SSE}. Son objectif est cependant  de ne pas respecter la convention spécifique (ci-dessus) à la \textit{Norme CQLS} dans le but de rendre plus synthétique les notations mathématiques. 
+\item Le tableau ci-dessous exprime plus clairement la spécificité des \textit{Normes CQLS} et \textit{SSE} en proposant les principales expressions utilisées en statistique dans les 2 normes. 
+
+
+\hspace*{-0.5cm}\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+Statistique & \multicolumn{2}{c|}{Aléatoire  ou futur} & \multicolumn{2}{c|}{Réalisé ou présent} &  \multicolumn{2}{c|}{Réalisable ou  conditionnel}\\ 
+(v.a. fonction de l'échantillon) & \textit{CQLS} & \textit{SSE} & \textit{CQLS} & \textit{SSE} & \textit{CQLS} & \textit{SSE}\\\hline 
+Estimation de $\theta$ & $\Est{\theta^\bullet}{\Vect{Y}}$ & $\widehat{\Theta}^\bullet$ & $\Est{\theta^\bullet}{\Vect{y}}$ & $\widehat{\theta}^\bullet$& $\Est{\theta^\bullet}{\Vect{y}_{[k]}}$ & $\widehat{\theta}^\bullet_{[k]}$ \\
+Estimation de $p^\bullet$ & $\Est{p^\bullet}{\Vect{Y}}$ & $\widehat{P}^\bullet$ & $\Est{p^\bullet}{\Vect{y}}$ & $\widehat{p}^\bullet$ & $\Est{p^\bullet}{\Vect{y}_{[k]}}$ & $\widehat{p}^\bullet_{[k]}$\\
+Estimation de $\mu^\bullet$ & $\Est{\mu^\bullet}{\Vect{Y}}$& $\widehat{M}^\bullet$& $\Est{\mu^\bullet}{\Vect{y}}$& $\widehat{\mu}^\bullet$ & $\Est{\mu^\bullet}{\Vect{y}_{[k]}}$& $\widehat{\mu}^\bullet_{[k]}$\\
+Estimation de $\sigma_\bullet^2$ & $\Est{\sigma_\bullet^2}{\Vect{Y}}$& $\widehat{\Sigma}_\bullet^2$& $\Est{\sigma_\bullet^2}{\Vect{y}}$& $\widehat{\sigma}_\bullet^2$ & $\Est{\sigma_\bullet^2}{\Vect{y}_{[k]}}$& $\widehat{\sigma}_{\bullet,{[k]}}^2$\\\hline
+Erreur standard de $\widehat{\theta^\bullet}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{\Vect{Y}}$  & $\widehat{\Sigma}_{\theta^\bullet}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{\Vect{y}}$  & $\widehat{\sigma}_{\theta^\bullet}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{\Vect{y}_{[k]}}$  & $\widehat{\sigma}_{\theta^\bullet,{[k]}}$ \\\hline
+Ecart entre $\widehat{\theta^\bullet}$ et $\theta^\bullet$ & $\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{Y})$ & $\Delta_{\theta^\bullet}$ & $\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{y})$ & $\delta_{\theta^\bullet}$ & $\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{y}_{[k]})$ & $\delta_{\theta^\bullet,{[k]}}$ \\\hline
+Estimation de $\delta_{\theta^\bullet,\theta_0}$ (ou $\delta_{\theta_0}$) & $\Est{\delta_{\theta^\bullet,\theta_0}}{\Vect{Y}}$ & $\widehat{\Delta}_{\theta_0}$ & $\Est{\delta_{\theta^\bullet,\theta_0}}{\Vect{y}}$ & $\widehat{\delta}_{\theta_0}$ & $\Est{\delta_{\theta^\bullet,\theta_0}}{\Vect{y}_{[k]}}$ & $\widehat{\delta}_{\theta_0,{[k]}}$ \\\hline
+\end{tabular}\\
+%\end{itemize}
+%\newpage
+%\begin{itemize}
+\item Le tableau ci-dessous illustre comment convertir une notation en sa définition littérale ou mathématique pour des concepts de base de la statistique. La conversion dans le langage~\texttt{R} y est aussi proposée permettant à l'utilisateur de savoir comment obtenir ces quantités en Pratique~:\\ 
+\hspace*{-0.3cm}\begin{tabular}{|c|c|c|}\hline
+Notation & Définition littérale  & Définition mathématique\\\hline
+$\Vect{y}$  & Vecteur des réels $y_1,\cdots,y_n$ & $(y_1,\cdots,y_n)$ \\
+ou $(y_\cdot)_n$ & ($y_i$ est la $i^{\grave eme}$ composante de $\Vect{y}$) & (en \texttt{R}: \texttt{y <- c($y_1$,$\cdots$,$y_n$)}) \\\hline
+$\#(\Vect{y})$ & Nombre de composantes de $\Vect{y}$& $n$ \NotR \texttt{length(y)} \\\hline
+$\overline{y}$ ou $\overline{(y_\cdot)_n}$ & Moyenne (empirique) de $\Vect{y}$ & $\displaystyle\frac1n\sum_{i=1}^n y_i$ \NotR \texttt{mean(y)} \\
+$\overline{y=a}$ & Proportion des $y_1,\cdots,y_n$ & \multirow{2}{*}{$\displaystyle\frac1n \sum_{i=1}^n \mathbf{1}_{y_i=a}$\NotR \texttt{mean(y==a)}}  \\
+ou $\overline{(y_\cdot=a)_n}$ & égaux à $a$ &  \\ & & \\
+$\overline{a\leq y\leq b}$ & Proportion des $y_1,\cdots,y_n$& \multirow{2}{*}{$\displaystyle\frac1n \sum_{i=1}^n \mathbf{1}_{[a,b]}(y_i)$ \NotR \texttt{mean(a<= y \& y<= b)}}\\
+ou $\overline{(a\leq y_\cdot\leq b)_n}$ &  dans  $[a,b]$ avec ($a\leq b$)  & \\&&\\\hline
+$\overleftrightarrow{y}$ ou $\overleftrightarrow{(y_\cdot)_n}$ & Ecart-type  (empirique) de $\Vect{y}$ &  $\displaystyle\sqrt{\frac1{n-1}\sum_{i=1}^n(y_i-\overline{y})^2}$ \NotR \texttt{sd(y)}\\
+$(\overleftrightarrow{y})^2$ ou $\big(\overleftrightarrow{(y_\cdot)_n}\big)^2$ & Variance  (empirique) de $\Vect{y}$ &  $\displaystyle\frac1{n-1}\sum_{i=1}^n(y_i-\overline{y})2$ \NotR \texttt{var(y)}\\\hline
+$q_\alpha(\Vect{y})$ & Quantile d'ordre $\alpha$ de \texttt{y} &   
+$y_{[\alpha n]+1}$ ($n$ impair) et $\frac{y_{[\alpha n]+1}+y_{[\alpha n]+1}}2$ (n pair)\\
+ou $q_\alpha\big((y_\cdot)_n\big)$ & $(0<\alpha<1)$  & \NotR \texttt{quantile(y,alpha)} \\
+\hline
+\end{tabular}
+\end{itemize}
+
+\section{Quelques instructions R}
+\noindent\textbf{Instructions de base par l'exemple}~: des exemples (commentés) valent (peut-être) mieux que de longs discours!
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> c(-1,1)                   # Création du vecteur (-1,1)
+[1] -1  1
+> 4+2*c(-1,0,1)             # Transformation 4+2*x appliqué pour chaque composante de y
+[1] 2 4 6
+> y<-c(1,3,2,4,7,6)
+> y
+[1] 1 3 2 4 7 6
+> 4+2*y
+[1]  6 10  8 12 18 16
+> mean(y)                   # Moyenne de y
+[1] 3.833333
+> sd(y)                     # Ecart-type de y
+[1] 2.316607
+> yc <- y-mean(y)           # yc correspond au vecteur y centré
+> yc
+[1] -2.8333333 -0.8333333 -1.8333333  0.1666667  3.1666667  2.1666667
+> mean(yc)                  # Moyenne nulle
+[1] -1.480297e-16
+> sd(yc)                    # Idem que l'écart-type de y
+[1] 2.316607
+> ycr <- (y-mean(y))/sd(y)  # ycr correspond au vecteur y centré et réduit
+> mean(ycr)                 # Moyenne nulle
+[1] -7.40239e-17
+> sd(ycr)                   # Ecart-type à 1
+[1] 1
+> var(y)                    # Variance de y
+[1] 5.366667
+> sqrt(var(y))              # Ecart-type = racine carrée de variance
+[1] 2.316607
+> sd(y)^2                   # Variance = carré de l'écart-type
+[1] 5.366667
+\end{Verbatim}
+
+\noindent\textbf{Quantiles et fonctions de répartition avec R}~:
+Soit $p$ un r{\'e}el appartenant {\`a} $]0,1[$, on d{\'e}finit le quantile d'ordre $p$ associ{\'e}e {\`a} une loi de probabilit{\'e} le r{\'e}el qui via l'approche exp{\'e}rimentale peut {\^e}tre vu comme le r{\'e}el qui s{\'e}pare l'infinit{\'e} des observations (associ{\'e}e {\`a} la loi de probabilit{\'e}) en deux, une proportion $p$ {\`a} gauche et une proportion $1-p$ {\`a} droite. On d{\'e}finit {\'e}galement la fonction de r{\'e}partition en un r{\'e}el $q$, la proportion parmi l'infinit{\'e} des observations qui se situent avant $q$. Ces deux notions sont illustr{\'e}es dans la figure~\ref{fig:rloi}. \\
+
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=10cm,height=6cm]{Images/dpqloiIte}}
+\caption{Si $X\leadsto\mathbf{loi}(\ldots)$ (v.a. continue), alors $f\left(x\right)\stackrel{R}{=}d\mathbf{loi}\left(x,\ldots\right)$ repr{\'e}sente sa densit{\'e} de probabilit{\'e}, $p=F(q)=P(X\leq q)\stackrel{R}{=}p\mathbf{loi}\left(q,\ldots\right)$ sa fonction de r{\'e}partition et $q=F^{-1}(p)\stackrel{R}{=}q\mathbf{loi}\left(p,\ldots\right)$ son quantile d'ordre~$p$.}
+\label{fig:rloi}
+\end{figure}
+
+Le tableau suivant r{\'e}sume les diff{\'e}rentes lois de probabilit{\'e}s consid{\'e}r{\'e}es dans ce cours de deuxi{\`e}me ann{\'e}e ainsi que les instructions \verb+R+ permettant d'{\'e}valuer les quantiles et fonctions de r{\'e}partitions associ{\'e}s {\`a} ces lois de probabilit{\'e}s.
+
+\begin{center}
+\begin{tabular}{ccll}
+\hline
+\quad lois de probabilit{\'e}s \quad &\quad loi \verb+R+ \quad &quantile d'ordre \verb+p+ \qquad&  fonction de r{\'e}partition en \verb+q+\qquad \\
+\hline \hline
+Normale $\mathcal{N}(\mu,\sigma)$ & \verb+norm+ & \verb+qnorm(p+$,\mu,\sigma$\verb+)+ & \verb+pnorm(q,+$\mu,\sigma$\verb+)+ \\
+Normale $\mathcal{N}(0,1)$ & \verb+norm+ & \verb+qnorm(p)+ & \verb+pnorm(q)+ \\
+Chisquare $\chi^2(n)$ & \verb+chisq+ & \verb+qchisq(p+$,n$\verb+)+ & \verb+pchisq(q+$,n$\verb+)+ \\
+Fisher $\mathcal{F}(n_1,n_2)$ & \verb+f+ & \verb+qf(p+$,n_1,n_2$\verb+)+ & \verb+pf(q+$,n_1,n_2$\verb+)+ \\
+Student $\mathcal{S}t(n)$ & \verb+t+ & \verb+qt(p+$,n$\verb+)+ & \verb+pt(q+$,n$\verb+)+ \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Application}~:
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> pnorm(1.6449)                             # proba N(0,1) plus petit que 1.6449
+[1] 0.9500048
+> qnorm(0.95)                               # quantile N(0,1) d'ordre 95% proche de 1.6449
+[1] 1.644854
+> 1-pnorm(1.96)                             # proba N(0,1) plus grand que 1.96 proche de 2.5% 
+[1] 0.0249979
+> qnorm(c(.95,.975,.99))                    # quantiles N(0,1) d'ordre 95%, 97.5% et 99% 
+[1] 1.644854 1.959964 2.326348
+> qt(c(.95,.975,.99),10)                    # quantiles St(10) d'ordre 95%, 97.5% et 99%
+[1] 1.812461 2.228139 2.763769
+> pt(c(1.812461,2.228139,2.763769),10)      # les probas correspondantes
+[1] 0.950 0.975 0.990
+> qchisq(c(.95,.975,.99),10)                # quantiles Khi2(10) d'ordre 95%, 97.5% et 99%
+[1] 18.30704 20.48318 23.20925
+> pchisq(c(18.30704,20.48318,23.20925),10)  # les probas correspondantes
+[1] 0.950 0.975 0.990
+> qf(c(.95,.975,.99),10,20)                 # quantiles F(10,20) d'ordre 95%, 97.5% et 99%
+[1] 2.347878 2.773671 3.368186
+> pf(c(2.347878,2.773671,3.368186),10,20)   # les probas correspondantes
+[1] 0.950 0.975 0.990
+\end{Verbatim}
+
+
+\noindent\textbf{Illustration du lien entre A.E.P. et A.M.P.}~: 
+Une instruction \texttt{rloi(n,...)} (du même type que les intructions \texttt{ploi(q,...)} et \texttt{qloi(p,...)} présentées précédemment) permet de générer simultanément $n$ réalisations $\Vect{y}:=(y_1,\cdots,y_n)$ d'une v.a. $Y$ ayant pour loi \texttt{loi(...)}. Illustrons-le sur une vérification expérimentale (A.E.P.) d'obtention de probabilité, quantile, moyenne et variance relatifs à une loi $\mathcal{N}(1,2)$.  
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> yy<-rnorm(10000,1,2)        # les m=10000 réalisations ont stockées dans le vecteur yy
+> yy                          # les 10 premières et 10 dernières composantes de yy
+    [1]  4.279724e+00  8.447115e-01 -1.098879e+00  2.826055e+00 -1.356146e+00
+    [6]  1.540536e+00  2.304664e+00 -3.084724e+00 -1.098613e+00  9.650271e-01
+...
+ [9991]  2.483222e+00  3.517996e-01 -1.382401e-02  2.162169e+00  4.103853e-01
+ [9996] -1.998113e+00  5.178801e+00  6.135185e-01 -3.672471e-01  9.240147e-01
+> mean(yy<0.5)                # proportion des m=10000 composantes strictement inférieur à 0.5
+[1] 0.4053
+> pnorm(0.5,1,2)              # idem si m=infini
+[1] 0.4012937
+> mean(yy==0.5)               # proportion des m=10000 composantes égale à 0.5 (=0 si m=infini)
+[1] 0
+> mean(0.5<=yy && yy<=3)      # proportion des m=10000 composantes compris entre 0.5 et 3
+[1] 0
+> pnorm(3,1,2)-pnorm(.5,1,2)  # idem si m=infini
+[1] 0.4400511
+> quantile(yy,.95)            # quantile d'ordre 95% des m=10000 composantes
+     95% 
+4.316004 
+> qnorm(.95,1,2)              # idem si m=infini
+[1] 4.289707
+> mean(yy)                    # moyenne des m=10000 composantes (=1 si m=infini)
+[1] 0.9720361
+> var(yy)                     # variance des m=10000 composantes (=2^2=4 si m=infini)
+[1] 4.134311
+\end{Verbatim}
+
+\newpage
+\thispagestyle{empty}
+\nopagebreak
+{\scriptsize
+\nopagebreak
+\begin{landscape}
+\pagestyle{empty}
+\nopagebreak
+%\begin{minipage}{15cm} 
+\hspace*{-2cm}
+\begin{tabular}{|l|l|l|l|l|} \hline
+\multicolumn{5}{|c|}{\normalsize {\bf Tables de lois usuelles de variables al{\'e}atoires continues (pour la statistique) }}\\\hline
+%1ere ligne
+\parbox[ct]{3.5cm}{\centerline {\normalsize Nom}}  & 
+\parbox[ct]{5cm}{\centerline {\normalsize Graphe}} &
+\parbox[ct]{5cm}{\centerline {\normalsize Densit{\'e} de probabilit{\'e}}} &
+\parbox[ct]{4cm}{\centerline {\normalsize Esp{\'e}rance et Variance}} & 
+\parbox[ct]{6cm}{\centerline {\normalsize Remarques}} \\ \hline
+%2eme ligne
+\parbox[ct]{3.5cm}{Uniforme\\ 
+$$ \begin{array}{l} X\leadsto \QTR{cal}{U}\left( \left[ a,b\right] \right)  \\
+a<b \end{array} $$}
+& \begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{/export/prjCqls/share/rsrc/statinf-cours/poly/img/uniforme} \\ $\QTR{cal}{U}\left( \left[ 0,1\right] \right)$ et $\QTR{cal}{U} \left( \left[ 2,4\right] \right)$.\\ \end{tabular} &
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\left\{ 
+\begin{array}{lc}
+\dfrac 1{b-a} & \text{si }x\in \left[ a,b\right]  \\ 0 & \text{sinon}
+\end{array}
+\right.  
+$$} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =
+\dfrac{a+b}2 \\ \text{et} \\ Var\left( X\right) =\dfrac{\left( b-a\right) ^2%
+}{12}
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{La densit{\'e} de probabilit{\'e} d'une loi uniforme est un histogramme {\`a} $1$ classe.} \\ \hline
+%3eme ligne
+\parbox[ct]{3.5cm}{Normale\\ 
+$$\begin{array}{l} X\leadsto \QTR{cal}{N}\left( \mu,\sigma\right)\\
+\mu \text{ r{\'e}el et } \sigma \text{ r{\'e}el}>0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{/export/prjCqls/share/rsrc/statinf-cours/poly/img/normal}\\ $\QTR{cal}{N}\left( -2,0.5\right)$, $\QTR{cal}{N}\left( 0,1\right)$ puis $\QTR{cal}{N}\left( 4,2\right)$.\\ \end{tabular} &
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\frac 1{\sigma \sqrt{2\pi }}e^{-\dfrac 12\left( \dfrac{%
+x-\mu }\sigma \right) ^2} 
+$$} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =\mu  \\ 
+\text{et} \\ Var\left( X\right) =\sigma ^2
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{1) Si $X\leadsto \QTR{cal}{N}\left( \mu,\sigma\right)$ alors
+$ \dfrac{X-\mu}{\sigma}\leadsto \QTR{cal}{N}\left( 0,1\right)$\\\\
+ 2) Si $X\leadsto \QTR{cal}{N}\left( \mu_X,\sigma_X\right)$ et $Y\leadsto \QTR{cal}{N}\left( \mu_Y,\sigma_Y\right)$ sont des v.a. ind{\'e}pendantes alors
+$$
+X+Y \leadsto \QTR{cal}{N}\left( \mu_X+\mu_Y,\sqrt{\sigma_X^2+\sigma_Y^2}\right).
+$$} \\ \hline
+%4eme ligne
+\parbox[ct]{3.5cm}{Chisquare\\ 
+$$\begin{array}{l} X\leadsto \chi^2\left( \nu \right)\\
+\nu  \text{ entier} >0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{/export/prjCqls/share/rsrc/statinf-cours/poly/img/chi2}\\
+ $\nu =3$, $\nu =6$ puis $\nu =9$. \\ \end{tabular}&
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\left\{ 
+\begin{array}{lc}
+\dfrac{e^{-\frac{x}{2}}x^{\frac{\left( \nu -2\right)}{2}}}{2^{\frac{\nu} {2}}\Gamma \left( \frac{\nu}
+{2}\right) } & \text{si }x>0 \\ 0 & \text{sinon}
+\end{array}
+\right.  
+$$
+} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =\nu  \\ 
+\text{et} \\ Var\left( X\right) =2\nu 
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{Si $X_1,\cdots,X_n$ sont $n$ lois $\QTR{cal}{N}\left( 0,1\right)$ ind{\'e}pendantes alors
+$$ Y=\displaystyle\sum\limits_{i=1}^n{X_i}^2 \leadsto \chi^2\left( n\right)$$}  \\ \hline
+%5eme ligne
+\parbox[ct]{3.5cm}{Student\\ 
+$$\begin{array}{l} X\leadsto \QTR{cal}{S}t\left( \nu \right)\\
+\nu  \text{ entier} >0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{/export/prjCqls/share/rsrc/statinf-cours/poly/img/student}\\
+ $\nu =2$ et $\nu =30$. \\ \end{tabular}&
+\parbox[ct]{5cm}{$$
+f\left( x\right) =\dfrac{\left( 1+\frac{x^2}{\nu} \right) ^{-\frac{1}{2}\left( \nu +1\right)
+}}{\beta \left( \frac{1}{2},\frac{\nu} {2}\right)\sqrt{\nu } } 
+$$
+} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+E\left( X\right) =0
+\text{ si }\nu \geq 2 \\ \text{et} \\ Var\left( X\right) =\dfrac \nu {\nu -2}%
+\text{ si }\nu \geq 3
+\end{array}
+$$
+}  & 
+\parbox[ct]{6cm}{Si $X\leadsto \QTR{cal}{N}\left( 0,1\right)$ et $Y\leadsto \chi^2\left( \nu \right)$ sont ind{\'e}pendantes alors
+$$
+Z=\dfrac{X}{\sqrt{\dfrac{Y}{\nu}}}\leadsto \QTR{cal}{S}t\left( \nu \right)
+$$}  \\ \hline
+%6eme ligne
+\parbox[ct]{3.5cm}{Fisher\\ 
+$$\begin{array}{l} X\leadsto \QTR{cal}{F}\left( \nu_1,\nu_2\right)\\
+\nu_1,\nu_2 \text{ entiers}>0  \end{array} $$}  & 
+\begin{tabular}{c} 
+\includegraphics[width=5cm,height=2.5cm]{/export/prjCqls/share/rsrc/statinf-cours/poly/img/fisher} \\ $\QTR{cal}{F}\left( 5,200\right)$, $\QTR{cal}{F}\left( 200,5\right)$ puis $\QTR{cal}{F}\left( 30,30\right)$.\\ \end{tabular} &
+\parbox[ct]{5cm}{$$\begin{array}{c} \left\{
+\begin{array}{l}
+f\left( x\right) \! =
+\! \dfrac{\nu _1^{\frac{1}{2} \! \nu _1} \! \nu _2^{\frac{1}{2} \! \nu _2} \! x^{\frac{\nu _1}{2} \!- \!1}}{\left( \! \nu
+_1 \! x \! + \! \nu _2 \! \right) ^{\frac{1}{2} \!\left( \! \nu _1 \!+\!\nu _2 \! \right) \!} \! \beta \!\left( \frac{\nu
+_1}{2},\frac{\nu _2}{2} \!\right) } \\ \text{si }x>0 
+\end{array} \right.\\ \\ f\left( x\right) \! =0  \text{ sinon}
+\end{array}  
+$$} &
+\parbox[ct]{4cm}{$$
+\begin{array}{c}
+\left\{ \begin{array}{l}
+E\left( X\right) =\dfrac {\nu_2} {\nu_2 -2} \\
+\text{si }\nu_2 \geq 3 
+\end{array} \right. \\ \text{et} \\
+\left\{ \begin{array}{l} 
+Var\left( X\right)\! = \!\dfrac{2\nu
+_2^2 \! \left( \! \nu _1\! + \!\nu _2 \!-\! 2\! \right) }{\! \nu _1 \! \left( \! \nu _2 \! - \! 2 \! \right) ^2 \!\left(
+ \! \nu _2 \! - \! 4 \! \right) } \\ \text{si }\nu_2 \geq 5 
+\end{array} \right.
+\end{array}
+$$}  & 
+\parbox[ct]{6cm}{Si $X_1 \leadsto \chi^2\left( \nu_1 \right)$ et $X_2\leadsto \chi^2\left( \nu_2 \right)$ sont ind{\'e}pendantes alors
+$$
+Y=\dfrac{X_1/\nu_1}{X_2/\nu_2} \leadsto \QTR{cal}{F}\left( \nu_1,\nu_2\right)
+$$} \\ \hline
+\end{tabular}
+%\end{minipage}
+
+\end{landscape}
+
+}
+%\nopagebreak
+
+
+\end{document}
+
+

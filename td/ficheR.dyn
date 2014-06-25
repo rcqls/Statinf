@@ -1,0 +1,241 @@
+[#require]
+Tex/Cqls
+Import/Tools/RFigure
+Tex/LargeA4
+[#title]
+\title{Instructions \texttt{R} utilisées dans le polycopié de T.D. et illustrées sur un exemple}
+\author{CQLS \\ cqls@upmf-grenoble.fr \\
+\texttt{http://cqls.upmf-grenoble.fr/hypotest}}
+\date{ }
+
+[#main]
+
+Le tableau ci-dessous est un résumé (très succinct) des principales instructions illustrées et développées dans ce document~:\\
+
+
+\hspace*{-2.5cm}\begin{tabular}{|c|c|c|}
+\hline
+Définition littérale & Définition mathématique & Instruction \texttt{R} \\
+\hline
+Puissance $a$ d'un réel $x$ & $x^a$ & \texttt{x\^{}a} \\
+Racine carrée d'un réel $x$ & $\sqrt{x} $ & \texttt{sqrt(x)} \\
+\hline
+Nombre de composantes de $\Vect{y}$& $\# \{ y_1,y_2,\ldots,y_n\}$ &\texttt{length(y)} \\
+Somme des composantes de $\Vect{y}$ &$\sum_{i=1}^n y_i$ & \texttt{sum(y)} \\
+Moyenne empirique de $\Vect{y}$ &$\overline{y}=\frac1n\sum_{i=1}^n y_i$ & \texttt{mean(y)} \\
+Proportion des comp. de $\Vect{y}$ entre $a$ et $b$ ($a\leq b$) & $\overline{a\leq y\leq b}:=\frac1n \sum_{i=1}^n \mathbf{1}_{[a,b]}(y_i)$ & \texttt{mean(a<= y \& y<= b)} \\
+Ecart-type estimé de $\Vect{y}$ & $\overleftrightarrow{y}:=\sqrt{\frac1{n-1}\sum_{i=1}^n(y_i-\overline{y})^2}$ & \texttt{sd(y)}\\
+Variance estimée de $\Vect{y}$ & $(\overleftrightarrow{y})^2:=\frac1{n-1}\sum_{i=1}^n(y_i-\overline{y})2$ & \texttt{var(y)=sd(y)\^{}2}\\
+Quantile emp. d'ordre $\alpha$ de \texttt{y} $(0<\alpha<1)$ & $q_\alpha(\Vect{y}) := \left\{ \begin{array}{ll}
+y_{[\alpha n]+1} & \mbox{ si } n \mbox{ est impair} \\
+\frac{y_{[\alpha n]+1}+y_{[\alpha n]+1}}2 & \mbox{ si } n \mbox{ est pair},
+\end{array}\right.$ & \texttt{quantile(y,alpha)} \\
+\hline
+Fonction de répartition de la loi $\mathcal{L}(...)$ en $t$&$\PP(Y\leq t)$ où $Y\leadsto\mathcal{L}(...)\NotR \texttt{loi(...)}$ & \texttt{ploi(t,...)} \\
+Quantile d'ordre $\alpha\in ]0,1[$ de la loi $\mathcal{L}(...)$ & $\PP(Y\leq q_\alpha(Y))=\alpha$ où $Y\leadsto\mathcal{L}(...)\NotR \texttt{loi(...)}$ & \texttt{qloi(alpha,...)} \\
+\hline
+\end{tabular}
+
+
+\vspace*{2cm}
+
+Dans cette fiche, nous proposons quelques explications et exemples sur les principales instructions \texttt{R} utilisées dans le polycopié de T.D. Nous allons pour cela partir d'un exemple et supposer que l'on dispose dans \texttt{R} d'un jeu de données qu'on notera $\Vect{y}$ dans le langage mathématique et \texttt{y} en \texttt{R}. Commençons par examiner le contenu du vecteur \texttt{y}~:
+
+[#r<]
+y<-trunc(rnorm(50,10,2))
+[#>]
+{#rverb]
+length(y)
+y
+[#}
+
+L'instruction \texttt{>} invite l'utilisateur à taper une commande, ici \texttt{length(y)} puis \texttt{y} (pour connaître la longueur du vecteur \texttt{y} et ce que contient ce jeu de données). Comme on peut le constater, ce vecteur est de longueur #r{length(y)}. Les notations \texttt{[1]} et \texttt{[39]} du vecteur \texttt{y} indiquent à l'utilisateur que les composantes numéros 1 et 39 valent respectivement #r{y[1]} et #r{y[39]}. On notera que la sortie de \texttt{length(y)} est un vecteur de longueur~1. Avant d'attaquer la suite, il est important d'être en accord avec l'instruction suivante (à taper plusieurs fois si besoin est)~:
+{#rverb]
+"R est mon ami"
+[#}
+
+\section{Quelques instructions de base de R}
+
+\begin{itemize}
+\item \texttt{R} comme une calculatrice de base~:
+{#rverb]
+(3+4)*5
+5^2
+7/2
+sqrt(25)
+25^(1/2)
+[#}
+Vous noterez qu'en \texttt{R} (comme tous les logiciels anglo-saxons) les décimales se notent avec des "." et que la racine carrée est évaluée avec l'intstruction \texttt{sqrt} (raccourci de ``square root'') et la fonction puissance avec \texttt{\^{}}
+\item L'écriture scientifique d'un nombre se note de la manière suivante~:
+{#rverb]
+3^(-20)
+[#}
+Ainsi $3^{-20} \simeq 2.87 \times 10^{-10}$. 
+\item Une des grandes forces de \texttt{R} est de pouvoir manipuler facilement des vecteurs et de pouvoir faire un certain nombre de calculs facilement
+{#rverb]
+c(-1,1)
+1:5
+[#}
+L'instruction \texttt{c(-1,1)} (resp. \texttt{1:5}) définit un vecteur de longueur 2 (resp. 5) dont les composantes sont -1 et 1 (resp. les entiers de 1 à 5). Au travers des trois autres instructions suivantes, vous observerez comment \texttt{R} opère les calculs élément par élément
+{#rverb]
+8+c(-1,1)*3
+2*(1:5)
+(1:5)^2
+[#}
+\item Variables logiques~:  une variables logique est une variable valant soit \texttt{TRUE} soit \texttt{FALSE} résultant par exemple de comparaisons simples
+{#rverb]
+1==2
+1<2
+1!=2
+[#}
+associées aux questions 1 est-il égal à (resp. inférieur à resp. différent de) 2. Les opérateurs \texttt{\&} et \texttt{|} signifient "et" et "ou". Ainsi
+{#rverb]
+1<2 & 2<3
+1<2 & 2<1.5
+1<2 | 2<1.5
+[#}
+De façon plus évoluée sur tout un vecteur
+{#rverb]
+y==10
+y>7 & y<11
+[#}
+Pour chaque composante du vecteur \texttt{y}, on cherche à savoir si celle-ci est égale à 10 (resp. à la fois supérieure à 7 et inférieure à 11). 
+\end{itemize}
+
+
+
+\section{Statistiques descriptives}
+
+\begin{itemize}
+\item L'instruction \texttt{table(y)} permet de connaître la table des effectifs d'un vecteur donné
+{#rverb]
+table(y)
+[#}
+La première ligne donne les différentes modalités du vecteur \texttt{y} rangés par ordre croissant et la seconde le nombre d'occurences de chacune de ces modalités. Remarquons que l'on peut alors facilement obtenir la table des fréquences du vecteur \texttt{y}~:
+{#rverb]
+table(y)/length(y)
+[#}
+\item L'instruction \texttt{sum(y)} permet de calculer la somme des composantes du vecteur \texttt{y} donnée mathématiquement par $$\sum_{i=1}^{#r{length(y)}} y_i $$
+{#rverb]sum(y)[#} et ici égale à #r{sum(y)}.
+\item L'instruction \texttt{mean(y)} permet de calculer la moyenne empirique des composantes du vecteur \texttt{y} donnée mathématiquement par $$\overline{y}:=\frac1{#r{length(y)}} \; \sum_{i=1}^{#r{length(y)}} y_i$$
+{#rverb]sum(y)/length(y)
+mean(y)[#} et ici égale à #r{mean(y)}.
+\item L'instruction \texttt{var(y)} permet de calculer la variance estimée du jeu de données \texttt{y} donnée mathématiquement par $$(\overleftrightarrow{y})^2 := \frac1{#r{length(y)}-1} \; \sum_{i=1}^{#r{length(y)}} (y_i-\overline{y})^2$$
+{#rverb]sum((y-mean(y))^2)/(length(y)-1)
+var(y)[#} et ici égale à #r{var(y)}.
+\item L'instruction \texttt{sd(y)} correspond à l'écart-type estimé du jeu de données \texttt{y} noté mathématiquement $\overleftrightarrow{y}$
+{#rverb]sqrt(var(y))
+sd(y)[#}
+\item L'instruction \texttt{quantile(y,$\alpha$)} pour un réel $0<\alpha <1$ permet de calculer le quantile empirique d'ordre $\alpha$ du jeu de données \texttt{y} mathématiquement défini par
+$$
+q_\alpha(\Vect{y}) := \left\{ \begin{array}{ll}
+y_{[\alpha n]+1} & \mbox{ si } n \mbox{ est impair} \\
+\frac{y_{[\alpha n]+1}+y_{[\alpha n]+1}}2 & \mbox{ si } n \mbox{ est pair},
+\end{array}\right.
+$$
+où $n$ est la taille d'échantillon et où $[x]$ pour un réel $x$ désigne la partie entière d'un réel $x$. On rappelle que le quantile d'ordre 50\% (resp. 25\% 75\%) par exemple correspond à la médiane empirique (resp. au 1er et 3ème quartile empirique). En \texttt{R},
+{#rverb] quantile(y,0.5)
+median(y)
+quantile(y,0.25)
+quantile(y,0.75)
+c(0.25,0.75)
+quantile(y,c(0.25,0.75))
+quantile(y,0.95)
+[#}
+On notera que la médiane peut directement se calculer avec l'instruction \texttt{median(y)}. Par ailleurs, on remarquera également qu'on peut calculer simultanément plusieurs quantiles (ici par exemple simultanément les 1er et 3ème quartiles) en définissant le vecteur \texttt{c(0.25,0.75)}. 
+\end{itemize}
+
+
+Quelques instructions IMPORTANTES combinant des instructions des deux parties précédentes~:
+
+\begin{itemize}
+\item Quel est le nombre de composantes du vecteur \texttt{y} égales à 10~?
+{#rverb]
+sum(y==10)
+[#}
+\item Quelle est la proportion de composantes du vecteur \texttt{y} égales à 10~?
+{#rverb]
+mean(y==10)
+[#}
+\item Quelle est la proportion de composantes à la fois supérieures à 7 et inférieures à 11~?
+{#rverb]
+mean(y>7 & y<11)
+[#}
+\end{itemize}
+Pour assimiler les précédentes instructions, il faut comprendre que \texttt{R} assimile une variable logique \texttt{TRUE - FALSE} en variable \texttt{1 - 0}. Par conséquent, l'instruction \texttt{mean(y==10)} par exemple évalue une moyenne de 0 et de 1, autrement dit la proportion parmi les observations qui sont égales à 10 car 
+
+\centerline{\fbox{une moyenne de 0 et de 1 d'un vecteur correspond à la proportion de 1 contenue dans ce vecteur}}
+
+
+
+\section{Sur le calcul de probabilités}
+
+Un très grand avantage du logiciel \texttt{R} est qu'il permet d'évaluer les valeurs des fonctions de répartition, de quantiles des lois de probabilité les plus classiques y compris celles pour lesquelles il n'existe aucune formule analytique pour évaluer ces quantités. Parmi les lois de probabilités classiques citons celles qui seront utilisées dans le polycopié de T.D.~: loi Normale (ou loi de Gauss), loi de Student, loi du $\chi^2$, loi de Fisher.
+
+Les différentes instructions obéissent toutes à la même logique~: formalisons le problème en notant $Y$ une variable aléatoire suivant une loi de probabilité notée en toute généralité $\mathcal{L}(...)$ où $(...)$ représentent éventuellement les paramètres de la loi considérée. Ceci se note en abrégé $Y \leadsto \mathcal{L}(...)$. Quelques exemples : $\mathcal{N}(0,1)$, $\mathcal{S}t(5)$, $\chi^2(10)$, $\mathcal{F}(2,4)$,\ldots En \texttt{R},  on notera \texttt{loi(...)} cette loi $\mathcal{L}(...)$. Ainsi, $\mathcal{N} \NotR$ \texttt{norm}, $\mathcal{S}t \NotR$ \texttt{t}, $\chi^2 \NotR$ \texttt{chisq}, $\mathcal{F} \NotR$ \texttt{f}. 
+
+\subsection{Fonction de répartition}
+
+Donnons-nous un réel $t$, pour évaluer $P(Y\leq t)$ où $Y\leadsto \mathcal{L}(...)$, il suffit de taper l'instruction \texttt{ploi(t,...)}. Cette valeur correspondra de manière littérale à la valeur de la suface à gauche du réél $t$ sous la courbe représentant la densité de probabilité de la loi $\mathcal{L}(...)$. En résumé
+$$
+P(Y\leq t) \NotR \texttt{ploi(t,...)} \mbox{ et } P(Y> t)=  1-P(Y\leq t)\NotR\texttt{1-ploi(t,...)}
+$$
+Proposons quelques exemples~:
+\begin{itemize}
+\item $P(Y\leq 4)$ où $Y\leadsto \mathcal{N}(0,1)$
+{#rverb]
+pnorm(4,0,1)
+pnorm(4)
+[#}
+On notera au passage que la loi $\mathcal{N}(0,1)$ étant une loi standard les paramétres de cette loi sont par défaut 0 et 1, inutile donc de les préciser.
+\item $P(Y\geq 1)=P(Y>1)$ où $Y \leadsto \mathcal{S}t(5)$
+{#rverb]
+1-pt(1,5)
+[#}
+\item $P(Y \leq 8.5)$ où $Y \leadsto \chi^2(10)$
+{#rverb]
+pchisq(8.5,10)
+[#}
+\item $P(Y \geq 2.3)=P(Y>2.3)$ où $Y\leadsto \mathcal{F}(2,4)$
+{#rverb]
+1-pf(2.3,2,4)
+[#}
+\end{itemize}
+
+Dans le contexte des tests d'hypothèses, ces différentes instructions permettent de pouvoir évaluer avec précision la p$-$valeur d'un test d'hypothèses.
+
+\subsection{Quantiles}
+
+Le quantile d'ordre $\alpha$ pour un $\alpha \in ]0,1[$ d'une loi de probabilité $\mathcal{L}(...)$ correspond de manière littérale au réel tel que la surface à gauche de ce réel sous la densité de probabilité de la loi $\mathcal{L}(...)$ soit égale à $\alpha$. Autrement dit, il est mathématiquement défini par $P(Y\leq q_{\alpha}(Y) ) =\alpha$. En \texttt{R}, l'instruction générale permettant de le calculer est \texttt{qloi(alpha,...)}. 
+
+Lorsque la loi $\mathcal{L}(...)$ est \underline{symétrique par rapport à 0} (c'est le cas de la loi $\mathcal{N}(0,1)$ et des lois de $\mathcal{S}t(...)$), on a le résultat suivant:
+$$
+q_{\alpha}(Y) = - q_{1-\alpha}(Y) \mbox{ autrement dit } \texttt{qloi(alpha,...)=-qloi(1-alpha,...)}
+$$
+En effet pour une loi symétrique par rapport à 0, on a pour tout réel $t$, $P(Y\leq t)=PY\geq -t)$. Donc $P(Y\leq q_{1-\alpha}(Y))=P(Y\geq q_{1-\alpha}(Y))=1-\alpha$, c'est-à-dire $P(Y\leq -q_{1-\alpha}(Y))=\alpha$. Or $q_\alpha(Y)$ est tel que $P(Y\leq q_\alpha(Y))=\alpha$ d'où le résultat.
+
+Proposons tout de suite quelques exemples de quantiles pour différentes lois~:
+\begin{itemize}
+\item Quantile d'ordre 5\% de la loi $\mathcal{N}(0,1)$
+{#rverb]
+qnorm(.05,0,1)
+qnorm(.05)
+-qnorm(.95)
+[#}
+\item Quantile d'ordre 95\% de la loi $\mathcal{S}t(5)$
+{#rverb]
+qnorm(.95,5)
+[#}
+\item Quantile d'ordre 10\% de la loi $\chi^2(10)$
+{#rverb]
+qchisq(.05,10)
+[#}
+\item Quantile d'ordre 90\% de la loi $\mathcal{F}(2,4)$
+{#rverb]
+qf(.9,2,4)
+[#}
+\end{itemize}
+
+
+
+Dans le contexte des tests d'hypothèses et des intervalles de confiance, les précédentes instructions permettent d'évaluer des quantités notées $\delta_{lim,\alpha}^-$, $\delta_{lim,\alpha}^+$.

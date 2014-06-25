@@ -1,0 +1,58 @@
+\begin{center}
+\hspace*{-1cm}
+\begin{tabular}{|c|c|c|}
+\cline{2-3}
+\multicolumn{1}{c|}{} & \multicolumn{1}{>{\columncolor[gray]{.8}}c|}{Cadre Asymptotique} &  \multicolumn{1}{>{\columncolor[gray]{.8}}c|}{Cadre Gaussien}\\
+\hline
+\rowcolor[gray]{.8} $\theta$ &
+$\delta_{\widehat{\theta},\theta}(\Vect{Y})$ &$\delta_{\widehat{\theta},\theta}(\Vect{Y})$
+\\
+
+\hline
+
+$p$ &
+$\displaystyle{ \delta_{\widehat{p},p}(\Vect{Y})= \frac{\Est{p}{Y}-p}{\Est{\sigma_{\widehat{p}}}{Y}}\SuitApprox  \mathcal{N}(0,1)}$ &
+\multicolumn{1}{>{\columncolor[gray]{.1}}c}{} \\
+
+\hline
+
+$\mu$ &
+$\displaystyle{\delta_{\widehat{\mu},\mu}(\Vect{Y})= \frac{\Est{\mu}{Y}-\mu}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}\SuitApprox  \mathcal{N}(0,1)}$  &
+$\displaystyle{\delta_{\widehat{\mu},\mu}(\Vect{Y})= \frac{\Est{\mu}{Y}-\mu}{\Est{ \sigma_{\widehat{\mu}}    }{Y}}\leadsto  \mathcal{S}t(n-1)}$ \\
+
+\hline
+
+$\sigma^2$ &
+$\displaystyle{\delta_{\widehat{\sigma^2},\sigma^2}(\Vect{Y})= \frac{\Est{\sigma^2}{Y}-\sigma^2}{\Est{    \sigma_{\widehat{\sigma^2}}       }{Y}}\SuitApprox  \mathcal{N}(0,1)}$&
+$\displaystyle{\delta_{\widehat{\sigma^2},\sigma^2}(\Vect{Y})=(n-1) \frac{\Est{\sigma^2}{Y}}{\sigma^2} \leadsto \chi^2(n-1)} $\\
+
+\hline
+
+$d_{\mu}\!=\! \mu^{(1)}\!-\! \mu^{(2)}$ &
+$\displaystyle{\delta_{\widehat{d_{\mu}},d_{\mu}}(\Vect{Y})= \frac{\Est{d_\mu}{Y}-d_\mu}{\Est{\sigma_{\widehat{d_\mu}}}{Y}}\SuitApprox  \mathcal{N}(0,1)}$&
+$\displaystyle{\delta_{\widehat{d_{\mu}},d_{\mu}}(\Vect{Y})\!=\!\frac{\Est{d_\mu}{Y}\!-\!d_\mu}{\Est{\sigma_{\widehat{d_\mu}}  }{Y}}}\!   \leadsto \! \mathcal{S}t(\!n^{(1)}\!+\!n^{(2)}\!-\!2\!) $ \\
+
+\hline
+
+$d_{\sigma^2} \!=\! \sigma^2_{(1)}\!-\! \sigma^2_{(2)}$&
+$\displaystyle{\delta_{\widehat{d_{\sigma^2}},d_{\sigma^2}}(\Vect{Y})= \frac{\Est{d_{\sigma^2}}{Y}-d_{\sigma^2}}{\Est{\sigma_{\widehat{d_{\sigma^2}}}}{Y}}\SuitApprox  \mathcal{N}(0,1)}$  &
+\multicolumn{1}{>{\columncolor[gray]{.1}}c}{} \\
+
+
+
+\hline
+$   \displaystyle{r_{\mu}= \frac{\mu^{(1)}}{\mu^{(2)}}}        $ &
+$ \displaystyle{\delta_{\widehat{r_{\mu}},r_{\mu}}(\Vect{Y})= \frac{\Est{r_\mu}{Y}-r_\mu}{\Est{\sigma_{\widehat{r_\mu}} }{Y}}\SuitApprox  \mathcal{N}(0,1)}$ &
+\multicolumn{1}{>{\columncolor[gray]{.1}}c}{} \\
+
+\hline
+
+$   \displaystyle{r_{\sigma^2} = \frac{\sigma^2_{(1)} }{\sigma^2_{(2)}}}           $&
+$\displaystyle{\delta_{\widehat{r_{\sigma^2}},r_{\sigma^2}}(\Vect{Y})= \frac{\Est{r_{\sigma^2}}{Y}-r_{\sigma^2}}{\Est{\sigma_{\widehat{r_{\sigma^2}  }}  }{Y}}\SuitApprox  \mathcal{N}(0,1)}$ &
+$\displaystyle{\delta_{\widehat{r_{\sigma^2}},r_{\sigma^2}}(\Vect{Y})=\frac{\Est{r_{\sigma^2}}{Y}}{r_{\sigma^2}}\leadsto \mathcal{F}(n^{(1)}-1,n^{(2)}-1)} $\\
+
+
+\hline
+
+\end{tabular}
+\end{center}

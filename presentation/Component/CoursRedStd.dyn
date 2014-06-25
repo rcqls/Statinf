@@ -1,0 +1,101 @@
+[#require]Import/StatDevel/BeamerRedStdCours
+[#main][#<] Contexte
+
+{#new]dmun20ChAff[#of]ParamFrame[#in]dmun20ChAff[#,]dm[#,]g[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+attach('~/cqls/data/chAff.RData')
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+detach()
+[#}
+{#new]dmun20ChAffTest[#of]TestParam[#in]dmun20ChAff[#,]:dmun20ChAff[#,].theta0R[20][#,].side[>][#,].assertion[le chiffre d'affaires annuel moyen des PME du pays P1 est de plus de 20 unités supérieur à celui du pays P2][#}
+
+{#new]dmuChAff[#of]ParamFrame[#in]dmuChAff[#,]dm[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+attach('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+detach()
+[#}
+{#new]dmuChAffTest[#of]TestParam[#in]dmuChAff[#,]:dmuChAff[#,].theta0R[20][#,].side[>][#,].assertion[le chiffre d'affaires annuel moyen des PME du pays P1 est de plus de 20 unités supérieur à celui du pays P2][#}
+
+{#new]rmuChAff[#of]ParamFrame[#in]rmuChAff[#,]rm[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+attach('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+detach()
+[#}
+{#new]rmuChAffTest[#of]TestParam[#in]rmuChAff[#,]:rmuChAff[#,].theta0R[1.2][#,].side[>][#,].assertion[le C.A. annuel moyen des PME du pays P1 est de plus de 20\% supérieur à celui du pays P2][#}
+
+{#new]rvarn20ChAff[#of]ParamFrame[#in]rvarn20ChAff[#,]rv[#,]g[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+attach('~/cqls/data/chAff.RData')
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+detach()
+[#}
+{#new]rvarn20ChAffTest[#of]TestParam[#in]rvarn20ChAff[#,]:rvarn20ChAff[#,].theta0R[1][#,].side[!=][#,].assertion[les hétérogénéités des chiffres d'affaires annuels des PME des deux pays diffèrent][#}
+
+{#new]rvarChAff[#of]ParamFrame[#in]rvarChAff[#,]rv[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+attach('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+detach()
+[#}
+{#new]rvarChAffTest[#of]TestParam[#in]rvarChAff[#,]:rvarChAff[#,].theta0R[1.25][#,].side[>][#,].assertion[l'hétérogénéité des C.A. annuels des PME de P1 est de plus de 25\% supérieure à celle de P2][#}
+
+{#new]dvarChAff[#of]ParamFrame[#in]dvarChAff[#,]dv[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+attach('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+detach()
+[#}
+{#new]dvarChAffTest[#of]TestParam[#in]dvarChAff[#,]:dvarChAff[#,].theta0R[0][#,].side[!=][#,].assertion[les hétérogénéités des chiffres d'affaires annuels des PME des deux pays diffèrent][#}
+
+{#new]muDn20ChAff[#of]ParamFrame[#in]muDn20ChAff[#,]md[#,]g[#,].nom1Pb[04][#,].nom2Pb[05][#r<]
+attach('~/cqls/data/chAff.RData')
+y04<-yy04[1:20]
+y05<-yy05[1:20]
+detach()
+[#}
+{#new]muDn20ChAffTest[#of]TestParam[#in]muDn20ChAff[#,]:muDn20ChAff[#,].theta0R[-10][#,].side[<][#,].assertion[le chiffre d'affaires annuel moyen des PME a augmenté entre 2004 et 2005 de 10 unités][#}
+
+{#new]muDChAff[#of]ParamFrame[#in]muDChAff[#,]md[#,]a[#,].nom1Pb[04][#,].nom2Pb[05][#r<]
+attach('~/cqls/data/chAff.RData')
+y04<-yy04
+y05<-yy05
+detach()
+[#}
+{#new]muDChAffTest[#of]TestParam[#in]muDChAff[#,]:muDChAff[#,].theta0R[-10][#,].side[<][#,].assertion[le chiffre d'affaires annuel moyen des PME a augmenté entre 2004 et 2005 de 10 unités][#}
+[#>]
+{#initScene]head[#}{#initScene]def[#}{#initScene]ex[#}
+{#RedStdBeamer]dmun20ChAffTest[#,]caq1[#,]Chiffre Affaires - Question 1a[#.indic]q[#}
+{#RedStdBeamer]dmuChAffTest[#,]caq1b[#,]Chiffre Affaires - Question 1b[#}
+{#RedStdBeamer]rmuChAffTest[#,]caq2[#,]Chiffre Affaires - Question 2[#.indic]q[#}
+{#RedStdBeamer]rvarn20ChAffTest[#,]caq3a[#,]Chiffre Affaires - Question 3a[#}
+{#RedStdBeamer]dvarChAffTest[#,]caq3b[#,]Chiffre Affaires - Question 3b[#}
+{#initH1]rvarn20ChAffTest[#theta0]1.25[#side]>[#}{#init]rvarn20ChAffTest[#,].assertion[l'hétérogénéité des C.A. annuels des PME de P1 est de plus de 25\% supérieure à celle de P2][#}
+{#RedStdBeamer]rvarn20ChAffTest[#,]caq4a[#,]Chiffre Affaires - Question 4a[#}
+{#RedStdBeamer]rvarChAffTest[#,]caq4b[#,]Chiffre Affaires - Question 4b[#}
+{#RedStdBeamer]muDn20ChAffTest[#,]caq5a[#,]Chiffre Affaires - Question 5a[#}
+{#RedStdBeamer]muDChAffTest[#,]caq5b[#,]Chiffre Affaires - Question 5b[#}
+[#>]
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shaded=true,lower=header]{}
+  @{beginScene(head)}
+  @{writeScene(head)}
+  @{endScene(head)}
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=magenta!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+@{beginScene(def)}
+@{writeScene(def)}
+@{endScene(def)}
+\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=cyan!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+@{beginScene(ex)}
+@{writeScene(ex)}
+@{endScene(ex)}
+\end{beamercolorbox}
+\end{frame}

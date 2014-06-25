@@ -1,0 +1,93 @@
+{
+:version=> :V3,
+:doc_list=>["enonce"],
+:docs=>{
+  "all"=>["enonce","correction"],
+  "enonce"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","tds"],
+    :append_doc=>"_enonce"
+  },
+  "correction"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","tds"],
+    :append_doc=>"_correction"
+  },
+  "pres"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:pres"],
+    :append_doc=>"_pres_enonce"
+  },
+  "presCorr"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","td:pres"],
+    :append_doc=>"_pres_correction"
+  },
+  "prob"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:prob"],
+    :append_doc=>"_prob_enonce"
+  },
+  "probCorr"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","td:prob"],
+    :append_doc=>"_prob_correction"
+  },
+  "est"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:est"],
+    :append_doc=>"_est_enonce"
+  },
+  "estCorr"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","td:est"],
+    :append_doc=>"_est_correction"
+  },
+  "prodAB"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:prodab"],
+    :append_doc=>"_prodAB_enonce"
+  },
+  "prodABCorr"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","td:prodab"],
+    :append_doc=>"_prodAB_correction"
+  },
+  "hypo"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:hypo"],
+    :append_doc=>"_hypo_enonce"
+  },
+  "hypoCorr"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","td:hypo"],
+    :append_doc=>"_hypo_correction"
+  },
+  "exosGen"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:exosgen"],
+    :append_doc=>"_exosgen_enonce"
+  },
+  "exosGenCorr"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","td:exosgen"],
+    :append_doc=>"_exosgen_correction"
+  },
+ "aepGraph"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:aep:graph"],
+    :append_doc=>"_aepGraph_enonce"
+  },
+  "aepGraphCorr"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","reponse","td:aep:graph"],
+    :append_doc=>"_aepGraph_correction"
+  },
+  "indic"=>{
+    :cmd=>[:save,:pdf,:view], #this is the default for all command
+    :tag=>["enonce","question","td:indic"],
+    :append_doc=>"_indic"
+  }
+}
+}
+

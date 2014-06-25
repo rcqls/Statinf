@@ -1,0 +1,32 @@
+\begin{table}[H]
+%\begin{center}
+\hspace*{-1.5cm}
+\begin{tabular}{|c|c|c|}\hline
+\multicolumn{3}{|c|}{}\\
+\multicolumn{3}{|c|}{\textbf{Param{\`e}tre d'int{\'e}r{\^e}t et estimation}}\\\hline
+Param{\`e}tre d'int{\'e}r{\^e}t $\theta$ & $r_{\mu}= \mu^{(1)}/ \mu^{(2)}$ & $r_{\sigma^2} = \sigma^2_{(1)}/\sigma^2_{(2)}$ \\\hline
+Future estimation $\Est{\theta}{Y}$ &$\displaystyle{\Est{r_{\mu}}{Y}= \Est{\mu^{(1)}}{Y^{(1)}}/\Est{\mu^{(2)}}{Y^{(2)}}}$ & $\displaystyle{\Est{r_{\sigma^2}}{Y}= \Est{\sigma_{(1)}^2}{Y^{(1)}}/\Est{\sigma_{(2)}^2}{Y^{(2)}}}$ \\\hline 
+$\Est{\theta}{y}$ exprim{\'e} en \verb+R+ & \verb+mean(y1)/mean(y2)+ & \verb+var(y1)/var(y2)+  \\
+\hline\hline \multicolumn{3}{c}{}\\ \hline
+\multicolumn{3}{|c|}{}\\
+\multicolumn{3}{|c|}{\textbf{Comportement asymptotique de la variance de la future estimation}}\\\hline
+Quantit{\'e} $\gamma$ & $\displaystyle{\frac1{\mu^{(2)}} \sqrt{\frac{\sigma_{(1)}^2}{n^{(1)}}+r_{\mu}^2\times\frac{\sigma_{(2)}^2}{n^{(2)}}}}$ & 
+$\displaystyle{\frac1{\sigma^2_{(2)}} \sqrt{\frac{\sigma^2_{\ddot{Y}^{(1)}}}{n^{(1)}}+r_{\sigma^2}^2\times\frac{\sigma^2_{\ddot{Y}^{(2)}}}{n^{(2)}}}}$ \\\hline
+Future $\Est{\gamma}{Y}$ & { ${\frac1{\Est{\mu^{(2)}}{Y^{(2)}}} \sqrt{\frac{\Est{\sigma_{(1)}^2}{Y^{(1)}}}{n^{(1)}}+\Est{r_{\mu}}{Y}^2\times\frac{\Est{\sigma_{(2)}^2}{Y^{(2)}}}{n^{(2)}}}}$} & { 
+ ${\frac1{\Est{\sigma^2_{(2)}}{Y^{(2)}}} \sqrt{\frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}}+\Est{r_{\sigma^2}}{Y}^2\times\frac{\Est{\sigma^2_{\ddot{Y}^{(1)}}}{\ddot{Y}^{(1)}}}{n^{(1)}}}}$} \\\hline
+$\Est{\gamma}{y}$ exprim{\'e} en \verb+R+ &  \verb+gRMu(y1,y2)+ & \verb+gRVar(y1,y2)+  \\
+\hline\hline \multicolumn{3}{c}{}\\ \hline
+\multicolumn{3}{|c|}{}\\
+\multicolumn{3}{|c|}{\textbf{Mesure d'{\'e}cart standardis{\'e}e}}\\\hline
+ $\delta_\theta(\Vect{Y})$ & $\delta_{r_\mu}(\Vect{Y})=\displaystyle{\frac{\Est{r_\mu}{Y}-r_\mu}{\Est{\gamma}{Y}}}$ & $\delta_{r_{\sigma^2}}(\Vect{Y})=\displaystyle{\frac{\Est{r_{\sigma^2}}{Y}-r_{\sigma^2}}{\Est{\gamma}{Y}}}$  \\
+\hline\hline \multicolumn{3}{c}{}\\ \hline
+\multicolumn{3}{|c|}{}\\
+\multicolumn{3}{|c|}{\textbf{Statistique de test ou Mesure d'{\'e}cart standardis{\'e}e de test}}\\\hline
+Valeur de r{\'e}f{\'e}rence $\theta_0$ & $r_0$ & $r_0$ \\\hline
+ $\delta_{\theta_0}(\Vect{Y})$ & $\delta_{r_0}(\Vect{Y})=\displaystyle{\frac{\Est{r_\mu}{Y}-r_0}{\Est{\gamma}{Y}}}$ & $\delta_{r_0}(\Vect{Y})=\displaystyle{\frac{\Est{r_{\sigma^2}}{Y}-r_0}{\Est{\gamma}{Y}}}$   \\\hline 
+\end{tabular}
+%\end{center}
+\caption{Tableau r{\'e}capitulatif au cas de deux {\'e}chantillons (dans un cadre asymptotique) pour comparer deux moyennes ou variances via des param{\`e}tres d'int{\'e}r{\^e}ts s'{\'e}crivant comme des rapports.}
+\label{DeuxEchRappAsympt}
+\end{table}
+

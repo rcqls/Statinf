@@ -1,0 +1,46 @@
+
+
+\begin{minipage}{15cm}
+
+\centerline{\fbox{ \large \textit{  R{\'e}daction standard d'un test d'hypoth{\`e}ses param{\'e}trique  }} }\vspace*{.2cm}  
+
+\fbox{
+\begin{minipage}{15cm}
+
+\noindent \textbf{Hypoth{\`e}ses de test~:} 
+$$\mathbf{H_0}: \theta=\theta_0\mbox{ contre }\mathbf{H_1}:\left\{
+\begin{array}{ll} 
+\theta>\theta_0 & \mbox{(cas \textbf{(a)}: {\it test unilatéral droit})}\\ 
+\theta<\theta_0 & \mbox{(cas \textbf{(b)}: {\it test unilatéral gauche})} \\ 
+\theta\neq\theta_0 & \mbox{(cas \textbf{(c)}: {\it test bilatéral})}
+\end{array}\right.
+$$
+
+\noindent \textbf{Statistique de test sous $\mathbf{H_0}$}~:
+$$\Est{\delta_{\theta,\theta_0}}{Y}\leadsto\mathcal{L}_0$$
+o{\`u} $\mathcal{L}_0$ est une loi standard {\`a} pr{\'e}ciser (selon la probl{\'e}matique envisag{\'e}e).\\
+
+\noindent \textbf{R{\`e}gle de d{\'e}cision~:}\\
+on accepte $\mathbf{H_1}$ si 
+$\left\{\begin{array}{c}
+\mbox{\fbox{$p-valeur<\alpha$}}\\
+\mbox{ou de mani{\`e}re {\'e}quivalente}\\
+\mbox{\fbox{$\left\{ 
+\begin{array}{ll} 
+\Est{\delta_{\theta,\theta_0}}{y}>\delta^{+}_{\lim,\alpha} & \mbox{\textbf{(a)}}\\ 
+\Est{\delta_{\theta,\theta_0}}{y}<\delta^{-}_{\lim,\alpha} & \mbox{\textbf{(b)}}\\ 
+\Est{\delta_{\theta,\theta_0}} {y} < \delta^{-}_{\lim,\alpha/2} \mbox{ ou } \Est{\delta_{\theta,\theta_0}} {y} > \delta^{+}_{\lim,\alpha/2} & \mbox{\textbf{(c)}}
+\end{array}\right.$} }
+\end{array}\right.$
+
+o{\`u} $\delta^{-}_{\lim,\alpha}=q_{\alpha}$ et $\delta^{+}_{\lim,\alpha}=q_{1-\alpha}$ d{\'e}signent respectivement les quantiles d'ordre $\alpha$ et $1-\alpha$ associ{\'e}s {\`a} la loi $\mathcal{L}_0$ et o{\`u} la p$-$valeur est d{\'e}finie math{\'e}matiquement par~:
+$$ \mbox{\it p-valeur} = \left\{ \begin{array}{ll}
+\ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} >\Est{\delta_{\theta,\theta_0}} {y}}  & \mbox{\textbf{(a)}: {\it p-valeur droite}} \\
+\ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} <\Est{\delta_{\theta,\theta_0}} {y}}  & \mbox{\textbf{(b)}: {\it p-valeur gauche}}\\
+{\scriptstyle 2  \times \min \left( \ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} <\Est{\delta_{\theta,\theta_0}} {y}} ,  \ProbH{\theta=\theta_0}{ \Est{\delta_{\theta,\theta_0}} {Y} >\Est{\delta_{\theta,\theta_0}} {y}} \right) } & \mbox{\textbf{(c)}: {\it p-valeur bilatérale}} 
+\end{array} \right.$$
+
+
+\noindent \textbf{Conclusion~:} Application de la r{\`e}gle de d{\'e}cision au vu des donn{\'e}es $\Vect{y}$.
+
+\end{minipage}}\end{minipage}

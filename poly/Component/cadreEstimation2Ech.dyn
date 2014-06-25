@@ -1,0 +1,14 @@
+%TODO : enlever les subsubsection
+ll y a dans ce cadre deux variables d'int{\'e}r{\^e}ts $Y^{(1)}$ et $Y^{(2)}$ (``ind{\'e}pendantes'') dont on cherche soit {\`a} comparer les moyennes soit les variances {\`a} partir de deux {\'e}chantillons, l'un $\mathbf{y}^{(1)}=(y_1^{(1)},\ldots,y_{n^{(1)}}^{(1)})$ de taille $n^{(1)}$ et  l'autre $\mathbf{y}^{(2)}=(y_1^{(2)},\ldots,y_{n^{(2)}}^{(2)})$ de taille $n^{(2)}$. Il en d{\'e}coule deux futurs jeux de donn{\'e}es  $\mathbf{Y}^{(1)}=(Y_1^{(1)},\ldots,Y_{n^{(1)}}^{(1)})$ et $\mathbf{Y}^{(2)}=(Y_1^{(2)},\ldots,Y_{n^{(2)}}^{(2)})$. Pour homog{\'e}n{\'e}iser ce cas avec celui {\`a} un seul {\'e}chantillon, nous noterons $\mathbf{Y}$, le vecteur aggr{\'e}g{\'e} de toutes les futures donn{\'e}es $\mathbf{Y}=(\mathbf{Y}^{(1)},\mathbf{Y}^{(2)})$ de taille $n=n^{(1)}+n^{(2)}$.
+De mani{\`e}re analogue au cas d'un seul {\'e}chantillon, nous imaginons disposer de deux infinit{\'e}s de donn{\'e}es virtuelles, l'une $y_{[1]}^{(1)},\ldots,y_{[m]}^{(1)},\ldots$ relative {\`a} $Y^{(1)}$ et l'autre $y_{[1]}^{(2)},\ldots,y_{[m]}^{(2)},\ldots$ relative {\`a} $Y^{(2)}$. Pour $j=1$ ou $j=2$, on peut alors exprimer~:%TODO : enlever les subsubsection
+\begin{itemize}
+  \item la \textbf{moyenne} $\mu_{Y^{(j)}}$ ou plus simplement $\mu^{(j)}$ par  \fbox{$\meanEmp[m]{y_{[\cdot]}^{(j)}} \simeq \meanEmp[\infty]{y_{[\cdot]}^{(j)}} = \mu^{(j)}$}.
+  \item la \textbf{variance} $\sigma^2_{Y^{(j)}}$ ou plus simplement $\sigma_{(j)}^2$ d{\'e}finie par \fbox{$\left(\sdEmp[m]{y_{[\cdot]}^{(j)}}\right)^2 \simeq \left(\sdEmp[\infty]{y_{[\cdot]}^{(j)}}\right)^2=\sigma_{(j)}^2$}  
+\end{itemize}
+
+Nous sommes alors en mesure d'introduire les param{\`e}tres servant {\`a} comparer respectivement les moyennes et les variances.
+\begin{itemize}
+  \item \textbf{comparaison de moyennes} s'{\'e}tudiant soit {\`a} partir de la \textbf{diff{\'e}rence de moyennes} $d_\mu=\mu^{(1)}-\mu^{(2)}$ soit {\`a} partir du \textbf{rapport de moyennes} $r_\mu=\mu^{(1)}/\mu^{(2)}$ (si $\mu^{(2)} \neq 0$).
+  \item \textbf{comparaison de variances} s'{\'e}tudiant soit {\`a} partir de la \textbf{diff{\'e}rence de variances} $d_{\sigma^2}=\sigma_{(1)}^2-\sigma_{(2)}^2$ soit {\`a} partir du \textbf{rapport de variances} $ r_{\sigma^2}=\sigma_{(1)}^2/\sigma_{(2)}^2$ (si $\sigma^2_{(2)} \neq 0$).
+\end{itemize} 
+Insistons sur le fait que les utilisations d'une diff{\'e}rence ou d'un rapport ne sont pas anodines puisqu'elles permettent de traiter des assertions d'int{\'e}r{\^e}t diff{\'e}rentes.

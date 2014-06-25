@@ -1,0 +1,112 @@
+\begin{landscape}
+%\hspace*{-1cm}
+$$
+\begin{tabular}{|l|l|l|l|l|} \hline
+\multicolumn{5}{|c|}{\normalsize {\bf Tables de lois usuelles de variables al{\'e}atoires discr{\`e}tes }}\\\hline
+%1ere ligne
+\parbox[c]{3.5cm}{\centerline {\normalsize Nom}}  & 
+\parbox[c]{5cm}{\centerline {\normalsize Sch{\'e}ma}} &
+\parbox[c]{5cm}{\centerline {\normalsize Loi de probabilit{\'e}}} &
+\parbox[c]{4cm}{\centerline {\normalsize Esp{\'e}rance et Variance}} & 
+\parbox[c]{6cm}{\centerline {\normalsize Remarques}} \\ \hline
+%2eme ligne
+\parbox[c]{3.5cm}{Bernouilli\\ 
+$$ \begin{array}{l} X\leadsto \QTR{cal}{B}\left( 1,p\right)  \\
+p \in \left] 0,1 \right[ \end{array} $$}
+& \parbox[c]{5cm}{
+Lors  d'une {\'e}preuve al{\'e}atoire, l'{\'e}v{\'e}nement $A$ a une probabilit{\'e} de r{\'e}alisation p. 
+ On d{\'e}finit $X$ {\'e}gal {\`a} $1$ si $A$ s'est r{\'e}alis{\'e} et
+ $0$ sinon. 
+ } &
+\parbox[c]{5cm}{$$\begin{array}{l} p\left[ X=k\right] =\left\{ \begin{array}{c} 1-p\text{ si }k=0 \\ \text{et} \\ p\text{ si }k=1\end{array} \right.  \\ k\in \Omega _X=\left\{ 0,1\right\} \end{array}  $$} &
+\parbox[c]{4cm}{$$\begin{array}{c} E\left( X \right)=p \\ \text{ et } \\Var\left( X \right)=p\left(1-p \right) \end{array} $$}  & 
+\parbox[c]{6cm}{Une loi de Bernouilli est une loi Binomiale particuli{\`e}re ($n=1$).} \\ \hline
+%3eme ligne
+\parbox[c]{3.5cm}{Binomiale\\ 
+$$\begin{array}{l} Z_n\leadsto \QTR{cal}{B}\left( n,p\right)\\
+n>0 \text{ et } p \in \left] 0,1 \right[ \end{array} $$}  & 
+\parbox[c]{5cm}{
+ Lors de $n$ m{\^e}mes {\'e}preuves al{\'e}atoires ind{\'e}pendantes ${\QTR{cal}{E}}_i$, l'{\'e}v{\'e}nement $A$ a une probabilit{\'e} de r{\'e}alisation p. 
+ $Z_n$ est le nombre de fois o{\`u} $A$ s'est r{\'e}alis{\'e}.  
+ } &
+\parbox[c]{5cm}{$$\begin{array}{l} p\left[ Z_n=k\right] =C_n^k p^k {\left( 1-p \right)}^{n-k} \\ \\ k\in \Omega _{Z_n}=\left\{ 0,1,\cdots,n\right\} \end{array}  $$} &
+\parbox[c]{4cm}{$$\begin{array}{c} E\left( Z_n \right)=np \\ \text{ et } \\Var\left( Z_n \right)=np\left(1-p \right) \end{array} $$}  & 
+\parbox[c]{6cm}{  
+1) Si $X_1,\cdots ,X_n$ sont $n$ v.a. de Bernouilli ind{\'e}pendantes 
+(voir $X_i$ {\'e}gal {\`a} 1 si $A$ s'est r{\'e}alis{\'e} lors de ${\QTR{cal}{E}}_i$
+et 0 sinon)
+alors\\ $Z_n=\dsum\limits_{i=1}^nX_i \leadsto \QTR{cal}{B}\left( n,p\right)$.\\
+2) Si $Z_{1,n_1}\leadsto \QTR{cal}{B}\left( n_1,p\right)$ 
+et $Z_{2,n_2}\leadsto \QTR{cal}{B}\left( n_2,p\right)$ sont ind{\'e}pendantes alors \\
+$Z_{1,n_1}+Z_{2,n_2}\leadsto \QTR{cal}{B}\left( n_1+n_2,p\right)$.
+ } \\ \hline
+%4eme ligne
+\parbox[c]{3.5cm}{Hyperg{\'e}om{\'e}trique\\ 
+$$ \begin{array}{l} Z_n\leadsto \QTR{cal}{H}\left( N,n,p=\dfrac{M}{N} \right)\\
+ N>n>0 \text{ et } N>M \end{array}$$}  & 
+\parbox[c]{5cm}{
+ Lors de $n$ tirages sans remise dans une urne contenant $N$ boules dont $M$ sont du type $A$,
+ $Z_n$ est le nombre de boules du type $A$ pr{\'e}lev{\'e}es.  
+ } &
+\parbox[c]{5cm}{$$\begin{array}{l} p\left[ Z_n=k\right] =\dfrac{C_M^k C_{N-M}^{n-k}}{C_N^n} \\
+ k \in \Omega _{Z_n} \\
+\Omega _{Z_n}\!=\!\left\{ \! \max \!
+\!\left( \! 0 \!, \! n \!- \! \left( \! N \!-\!M \!\right)\! \right) \! , \!\cdots \! , \!\min \! \left( \! M \!, \!n \!\right) \! \right\} \end{array}  $$} &
+\parbox[c]{4cm}{$$\begin{array}{c} E\left( Z_n \right)=np \\ \text{ et } \\
+Var\left( Z_n \right)=np\left(1-p \right)\dfrac{N-n}{N-1} \end{array} $$}  & 
+\parbox[c]{6cm}{ 
+A comparer avec loi binomiale puisque si les tirages sont avec remise 
+$Z_n \leadsto \QTR{cal}{B}\left( n,p\right)$.\\ (En effet, choisir dans sch{\'e}ma binomial ${\QTR{cal}{E}}_i$=``$i${\`e}me tirage'' et $A$=``la boule tir{\'e}e du type $A$''.)  
+ } \\ \hline
+%5eme ligne
+\parbox[c]{3.5cm}{G{\'e}om{\'e}trique\\
+ $$ \begin{array}{l} X\leadsto \QTR{cal}{G}\left( p \right) \\ 
+p \in \left] 0,1 \right[ \end{array}$$}  & 
+\parbox[c]{5cm}{
+Lors de m{\^e}mes {\'e}preuves al{\'e}atoires ind{\'e}pendantes {\bf successives} ${\QTR{cal}{E}}_i$, l'{\'e}v{\'e}nement $A$ a une probabilit{\'e} de r{\'e}alisation p.
+$X$ est le nombre d'{\'e}preuves ${\QTR{cal}{E}}_i$ n{\'e}cessaires {\`a} la $1${\`e}re r{\'e}alisation de $A$.   
+ } &
+\parbox[c]{5cm}{$$\begin{array}{l} p\left[ X=k\right] ={\left( 1-p \right)}^{k-1} p \\ \\
+ k \in \Omega _X=\left\{ 1,2, \cdots \right\}
+ \end{array}  $$} &
+\parbox[c]{4cm}{$$\begin{array}{c} E\left( X \right)=\dfrac{1}{p} \\ \text{ et } \\
+Var\left( X \right)=\dfrac{1-p}{p^2} \end{array} $$}  & 
+\parbox[c]{6cm}{ Une loi G{\'e}om{\'e}trique est une loi de Pascal particuli{\`e}re ($n=1$). } \\ \hline
+%6eme ligne
+\parbox[c]{3.5cm}{Pascal\\ 
+$$ \begin{array}{l} Z_n\leadsto \QTR{cal}{P}a\left( n,p \right)\\
+n>0 \text{ et } p \in \left] 0,1 \right[ \end{array} $$}  & 
+\parbox[c]{5cm}{
+Lors de m{\^e}mes {\'e}preuves al{\'e}atoires ind{\'e}pendantes {\bf successives} ${\QTR{cal}{E}}_i$, l'{\'e}v{\'e}nement $A$ a une probabilit{\'e} de r{\'e}alisation p.
+$Z_n$ est le nombre d'{\'e}preuves ${\QTR{cal}{E}}_i$ n{\'e}cessaires {\`a} la $n${\`e}me r{\'e}alisation de $A$.   
+ } &
+\parbox[c]{5cm}{$$\begin{array}{l} p\left[ Z_n=k\right] =C_{k-1}^{n-1}p^n {\left( 1-p \right)}^{k-n} \\ \\
+ k \in \Omega_{Z_n}=\left\{ n,n+1, \cdots \right\}
+ \end{array}  $$} &
+\parbox[c]{4cm}{$$\begin{array}{c} E\left( Z_n \right)=\dfrac{n}{p} \\ \text{ et } \\
+Var\left( Z_n \right)=\dfrac{n\left( 1-p \right) }{p^2} \end{array} $$}  & 
+\parbox[c]{6cm}{1) Si $X_1,\cdots,X_n$ sont des lois G{\'e}om{\'e}triques $\QTR{cal}{G}\left( p \right)$ 
+ind{\'e}pendantes alors \\ $Z_n=\dsum\limits_{i=1}^n X_i \leadsto \QTR{cal}{P}a \left( n, p\right)$. \\
+2) Si $Z_{1,n_1}\leadsto \QTR{cal}{P}a \left( n_1,p\right)$ 
+et $Z_{2,n_2}\leadsto \QTR{cal}{P}a \left( n_2,p\right)$ sont ind{\'e}pendantes alors \\
+$Z_{1,n_1}+Z_{2,n_2}\leadsto \QTR{cal}{P}a \left( n_1+n_2,p\right)$. } \\ \hline
+%7eme ligne
+\parbox[c]{3.5cm}{Poisson\\ 
+$$ \begin{array}{l} X\leadsto \QTR{cal}{P}\left( \lambda \right)\\
+\lambda >0 \end{array} $$}  & 
+\parbox[c]{5cm}{ Soit $Z_n\leadsto \QTR{cal}{B}\left( n,p_n \right)$ avec
+$p_n=\dfrac{\lambda}{n}$.\\ $X$ peut {\^e}tre vu comme la limite 
+de $Z_n$ quand $n$ tend vers $+\infty$. \\
+{\it Remarque} : ind{\'e}pendamment de $n$, le nombre moyen de fois 
+o{\`u} $A$ s'est r{\'e}alis{\'e} est $E\left( X \right) =E\left( Z_n \right)=\lambda$ } &
+\parbox[c]{5cm}{$$\begin{array}{l} p\left[ X=k\right] =e^{-\lambda} \dfrac{{\lambda}^k}{k!} \\ \\
+ k \in \Omega_{X}=\left\{ 0,1, \cdots \right\}
+ \end{array}  $$} &
+\parbox[c]{4cm}{$$\begin{array}{c} E\left( X \right)=\lambda \\ \text{ et } \\
+Var\left( X \right)= \lambda \end{array} $$}  & 
+\parbox[c]{6cm}{Si $X_1\leadsto \QTR{cal}{P}\left( {\lambda}_1 \right)$
+et $X_2\leadsto \QTR{cal}{P}\left( {\lambda}_2 \right)$ sont ind{\'e}pendantes alors \\
+$X_1+X_2 \leadsto \QTR{cal}{P}\left( {\lambda}_1 +{\lambda}_2 \right) $. } \\ \hline
+\end{tabular}
+$$
+%\end{landscape}

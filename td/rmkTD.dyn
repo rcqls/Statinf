@@ -1,0 +1,50 @@
+[#require]
+Tex/Cqls
+Import/Tools/RFigure
+Tex/LargeA4
+[#title]
+\title{Remarques sur les différents TD}
+[#main]
+
+RMK générale: donner les versions corrigées par fiche au fur et à mesure de l'avancement des TDs.
+
+\section{TD 1}
+
+plutôt pas mal. Il manque juste les étudiants!!
+On a fait les exos 1 à 4 (le 4 partiellement).
+
+\section{TD2}
+
+\begin{itemize}
+\item exos faits : 6 à 9.
+\item Ce qui est bien : ça va graduellement exos de + en + dur le dernier n'étant plus intuitif. Permet de bien illustrer le schéma exp. hors problématique de statistique.
+\item ce serait bien d'avoir un petit support sur la vérification expérimentale 
+\item Exos 8 et 9 éviter Y1 Y2.\\
+\end{itemize}
+
+\section{TD3}
+
+\begin{itemize}
+\item Exos faits les 10, 11 (que produit A) et 13 (pas jusqu'au bout!)
+\item la question se pose : est-ce qu'il ne vaut pas mieux faire une fiche que pour le produit A. Après réflexion il vaut mieux laisser comme ça et indiquer exo td exo préparation.
+\item Méthode rémy pour les 10, 11: tout ce qui est fourni par le mathématicien devra être vérifiée par l'approche expérimentale sur laquelle nous on met l'accent. Il faut donc améliorer la présentation pour mettre en avant l'info du matheux à ne pas démontrer mais à verifier expérimentalement et à exploiter avec le R. 
+\item Pour les tableaux rajouter une colonne "quel ligne de l'instruction"? 
+\item Typiquement exo 11 2) exo test 
+\item Remonter les instructions présentant les données avant le tableau de vérif.
+\item Peut-être diviser l'exo 11 en deux (un sur les qualités d'estimatuer l'autre sur la loi de proba).Ce qui diviserait les tableaux en deux à chaque fois.
+\end{itemize}
+
+
+\section{TD4}
+
+construction outils produits A et B par l'aep1
+
+\section{TD5}
+
+Exos sur le chomâge, diététicien, compétence (Alfred) -> RD uniquement basées sur les quantiles.
+
+\section{TD6}
+
+Exos sur le diététicien (2,3,a,b) et compétences revisitées avec la p-valeur et la densité de probabilité 
+
+

@@ -1,0 +1,46 @@
+\begin{center}
+\fbox{
+\begin{minipage}{14cm}
+\centerline{ \fbox{\textbf{Param{\`e}tre moyenne}}}
+
+\vspace*{.3cm}
+
+\begin{list}{$\to$}{}
+\item \underline{Donn{\'e}es futures}~: $\Vect{Y}$ futur {\'e}chantillon de taille $n$.
+\item \underline{Assertion d'int{\'e}r{\^e}t}~: $H_1: \left\{ \begin{array}{c} 
+\mu>\mu_0 \\ \mu<\mu_0 \\ \mu\neq\mu_0 \end{array} \right.$
+\item \underline{Pire des situations}~: $H_0: \mu=\mu_0$
+\item \underline{Statistique de test}~:\\
+sous $H_0$, 
+$$u_{\mu_0} (\Vect{Y}) = \frac{ \Est{\mu}{Y} - \mu_0}{ \frac{\Est{\sigma}{Y}}{n}} \SuitApprox \mathcal{S}t(n-1)$$
+
+\end{list}
+\end{minipage}
+} 
+
+\vspace*{.3cm}
+
+\fbox{
+\begin{minipage}{14cm}
+\centerline{ \fbox{\textbf{Intervalle de confiance relatif {\`a} une moyenne}}}
+
+\vspace*{.3cm}
+
+
+Soit $1-\alpha$ le niveau de confiance d{\'e}sir{\'e}. On cherche $\Int{\mu}{inf}{Y}$ et $\Int{\mu}{sup}{Y}$ tels que
+$$ \Prob{}{  \Int{\mu}{inf}{Y} \leq \mu \leq \Int{\mu}{sup}{Y}} = 1-\alpha$$
+On s'appuie sur le fait que 
+$$\frac{ \Est{\mu}{Y} - \mu}{ \frac{\Est{\sigma}{Y}}{n}} \SuitApprox \mathcal{S}t(n-1)$$
+pour obtenir \\
+\centerline{\fbox{\begin{minipage}{8cm}
+\begin{eqnarray}
+\Int{\mu}{inf}{Y} & =&   \Est{\mu}{Y} - q_{\frac{\alpha}{2}} \times \frac{\Est{\sigma}{Y}}{n} \nonumber \\
+\Int{\mu}{sup}{Y} & = &  \Est{\mu}{Y} + q_{1-\frac{\alpha}{2}} \times \frac{\Est{\sigma}{Y}}{n}  \nonumber
+\end{eqnarray}
+\end{minipage}
+}}
+
+o{\`u} $q_{\alpha}$ d{\'e}digne le quantile d'ordre $\alpha$ associ{\'e}e {\`a} la loi $\mathcal{S}t(n-1)$.
+\end{minipage}
+} 
+\end{center}

@@ -1,0 +1,248 @@
+[#require]
+Tools/Tex/Table
+Import/StatDevel/TabAEP
+[#main][#>]
+{#case]#{docs}
+[#when]section[#>]\section[Estimation]{Estimation~: Obtention et Qualité}
+[#when]dictéePb[#>]
+{#BeamerFrame]Problématique de la dictée
+[#>]\begin{exampleblock}{Enoncé}
+\begin{itemize}
+\pause \item En 2000, une \alt<2>{dictaie}{{\large \only<3-4>{\bf} dictée}} (de niveau 3ème) a été \alt<2>{proposer}{{\only<3-4>{\bf} proposé}}\only<4->{{\only<4>{\bf}\color<4>{red}e}} à un très très grand nombre de futurs candidats au baccalauréat. A l'époque la note moyenne (calculée à \alt<2>{partire}{{\only<3-4>{\bf} partir}} de l'ensemble des candidats \alt<2>{présent}{{\only<3-4>{\bf} présents}}) obtenue était de {\color[rgb]{1,0,0}\fbox{$6.3$}}. 
+\pause \pause\pause\item Un professeur de français \textbf{\color{blue}pense} (et voudrait le vérifier {\color{blue} rapidement} en soumettant 25 lycéens choisis au hasard à cette dictée) que les nouvelles méthodes d'enseignement, les nouveaux programmes, les nouvelles préoccupations  des lycéens,\ldots ont un {\color{red}\fbox{effet}} sur le niveau en orthographe des bacheliers actuels.    
+\end{itemize}
+\end{exampleblock}
+[#}
+[#when]techniPb[#>]
+{#BeamerFrame]Problématique du technicien
+[#>]\begin{exampleblock}{Enoncé}
+\begin{itemize}
+\item Un service de contrôle d'une entreprise de métallurgie s'intéresse à savoir si un technicien est {\color{blue} suffisamment précis} au niveau des mesures quotidiennes qu'il effectue sur des minerais de fer (mesures du diamètre). Une compétence suffisante sera récompensée par une prime.
+\pause \item Le technicien sera d'autant plus précis que l'{\color{blue}écart entre deux mesures} d'un même minerai de fer (\textit{qui lui a donc été proposé 2 fois à son insu}) est {\color{red} faible}.
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{Mesure de la compétence par le service}<3>
+Le service impose: ``Le technicien est {\bf compétent} si la {\color{red} variance de ses écarts de mesures} est inférieure à {\color{blue}0.1}''
+\end{alertblock}
+[#}
+
+[#when]saljusPb[#>]
+{#BeamerFrame]Problématique du Salaire Juste
+[#>]\begin{exampleblock}{Enoncé}
+\begin{itemize}
+\item  Une équipe de sociologues propose de réunir un comité d'experts pour la création d'un indicateur, appelé \textbf{Salaire Juste}, mesuré pour toute personne active et qui permettra de transformer les ressources individuelles réelles (souvent mesurées par un salaire) en tenant compte de critères aussi importants que les ressources locales, le partage de ces ressources, la pénibilité du travail, le niveau d'expérience, d'expertise et bien d'autres encore.
+\item Cet indicateur est conçu de sorte qu'en théorie il devrait être équivalent (en fait égale à une valeur étalon 100) pour tout personne active dans le monde.
+\item Après quelques mois de travail, un premier prototype (très perfectible) du \textbf{Salaire Juste} est élaboré par la fine équipe d'experts.
+\end{itemize}
+\end{exampleblock}
+[#}
+
+{#BeamerFrame]Problématique du Salaire Juste 
+[#>]
+\begin{alertblock}{Critère de pays civilisé}
+Les sociologues s'accordent à dire qu'un pays peut se dire non civilisé si~:
+\begin{enumerate} 
+\item \textbf{Discrimination Mondiale}~: le Salaire Juste moyen dans le pays est très supérieur à  la valeur 100 de base. Un Salaire Juste moyen excédant un seuil de 150 est considéré comme intolérable.
+\item \textbf{Discrimination Intérieure}~: les Salaires Justes dans le pays sont très dispersés. La variance des Salaires Justes dans le pays supérieur à 30 est considérée comme excessive et donc anormale.
+\end{enumerate}
+\end{alertblock}
+[#}
+
+{#BeamerFrame]Problématique du Salaire Juste 
+[#>]
+\begin{alertblock}{Mesures de discrimination}
+Les experts sont aussi conseillés par des statisticiens pour proposer les mesures de discrimination au niveau du pays et mondialement. $\mathcal{Y}^{J}_i$ désigne le Salaire Juste du $i^{\grave eme}$ individu parmi les $N$ personnes actives du pays. $Y^{J}$ correspond au Salaire Juste d'un individu choisi au hasard.
+\begin{enumerate} 
+\item \textbf{Discrimination Mondiale}~:  le Salaire Juste moyen s'écrit~:
+$$\mu^{J}=\meanEmp[N]{\mathcal{Y}^{J}}=\frac1N\sum_{i=1}^N \mathcal{Y}^{J}_i=\EEE{Y^{J}}$$
+\item \textbf{Discrimination Intérieure}~: la variance des Salaires Justes s'écrit~:
+$$\sigma^2_{J}=\Big(\sdEmp[N]{\mathcal{Y}^{J}}\Big)^2=\frac1N\sum_{i=1}^N \Big(\mathcal{Y}^{J}_i-\meanEmp[N]{\mathcal{Y}^{J}}\Big)^2=\VVV{Y^{J}}$$
+\end{enumerate}
+\end{alertblock}
+[#}
+
+[#when]initScene[#>]{#InitScene#}
+[#when]putScene[#>]{#PutScene#}
+[#when]estim[#>]
+{#Slide][#nb]4[#titre]Estimation
+[#haut]Les paramètres (d'intérêt) $\mu^{J}$ et $\sigma^2_{J}$ (appelé, $\theta^\bullet$ dans un cadre général) sont donc supposés \textbf{inconnus} car la taille $N$ de la population est trop grande. Proposez les estimations~?
+[#bas]{#only]:2-4[#>]\underline{{#only]:2[#>]Future estimation $\Est{\theta^\bullet}{Y}$[#}{#only]:3[#>]Estimation $\Est{\theta^\bullet}{y}$ du Jour J[#}{#only]:4[#>]Estimations potentielles $\Est{\theta^\bullet}{y_{[k]}}$[#}:} (à partir {#only]:2[#>]d'un futur échantillon $\Vect{Y}$[#}{#only]:3[#>]de l'échantillon $\Vect{y}$ du Jour J[#}{#only]:4[#>]d'échantillons $\Vect{y_{[k]}}$[#}) $$\Est{\mu^{J}}{{#only]:2[#>]Y[#}{#only]:3[#>]y[#}{#only]:4[#>]y_{[k]}[#}}:=\meanEmp[n]{{#only]:2[#>]Y[#}{#only]:3[#>]y[#}{#only]:4[#>]y_{[k]}[#}}:=\frac1{{\color{blue}}n}\sum_{i=1}^{\color{blue}n} {#only]:2[#>]Y_i[#}{#only]:3[#>]y_i[#}{#only]:4[#>]y_{i,[k]}[#}$$ et $$\Est{\sigma^2_{J}}{{#only]:2[#>]Y[#}{#only]:3[#>]y[#}{#only]:4[#>]y_{[k]}[#}}:=\frac1{\color{red}n-1}\sum_{i=1}^{{\color{blue}n}} \Big({#only]:2[#>]Y_i[#}{#only]:3[#>]y_i[#}{#only]:4[#>]y_{i,[k]}[#}-\meanEmp[n]{{#only]:2[#>]Y[#}{#only]:3[#>]y[#}{#only]:4[#>]y_{[k]}[#}}\Big)^2$$[#}
+[#}
+[#when]qualité[#>]
+{#Slide][#nb]4[#titre]Qualité
+[#haut] Quelles sont les qualités souhaitables pour l'estimation d'un paramètre d'intérêt~? Pouvez-vous les traduire à partir des $m$ estimations potentielles~? (\textit{N.B.: l'estimation du jour J est choisi parmi celles-ci})
+[#bas]\begin{itemize}
+{#item]:2-4[#} \textbf{Autour du paramètre}~: {#altcol]:2[#>]leur moyenne égale au paramètre inconnu $\theta^\bullet$ (\textbf{A.M.P.~:} estimateur sans biais)\\
+\centerline{$\displaystyle\meanEmp[m]{\Est{\theta^\bullet}{y_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{\theta^\bullet}{y_{[\cdot]}}}=\EEE{\Est{\theta^\bullet}{Y}}=\theta^\bullet$} 
+[#} 
+{#item]:2-4[#} \textbf{Faible dispersion}~: {#altcol]:3[#>]leur écart-type (ou variance) d'autant plus petit que $n$ grandit (\textbf{A.M.P.~:} estimateur convergent)\\
+\centerline{$\displaystyle\sdEmp[m]{\Est{\theta^\bullet}{y_{[\cdot]}}}\simeq \sdEmp[\infty]{\Est{\theta^\bullet}{y_{[\cdot]}}}=\sigma(\Est{\theta^\bullet}{Y})\mathop{\longrightarrow}_{n\rightarrow +\infty} 0$} 
+[#}
+\end{itemize}
+{#only]:4[#>]
+$\Rightarrow$ \noindent \textbf{Pb}~: qualité d'estimation ${\color{red}\sigma_{\widehat{\theta^\bullet}}}:=\sigma(\Est{\theta^\bullet}{Y})$  est un paramètre \textbf{inconnu}! Peut-on espérer l'estimer à partir de l'échantillon~$\Vect{y}$~?[#}
+[#}
+[#when]se[#>]
+{#Slide][#nb]2[#titre]Erreur standard
+[#haut] Les statisticiens (mathématiciens) proposent généralement l'estimation $\Est{\theta}{y}$ d'un paramètre inconnu $\theta^\bullet$ accompagnée de l'estimation $\Est{\sigma_{\widehat{\theta^\bullet}}}{y}$ de sa qualité $\sigma_{\widehat{\theta^\bullet}}$.
+[#bas] (Voir le tableau dans votre caisse à outils pour la liste de toutes les erreurs standard associées aux différents paramètres!)\\
+Pour illustrer comment cela est possible, étudions le paramètre moyenne $\mu^\bullet$~:\\
+\centerline{${\color{red}\sigma_{\widehat{\mu^\bullet}}}=\frac{{\color{red}\sigma_\bullet}}{\sqrt{n}}
+{#invisible]:1[#>]\mbox{ estimé par } {\color{blue}\Est{\sigma_{\widehat{\mu^\bullet}}}{Y}}=\frac{{#only]:2[#>]{\color{blue}\Est{\sigma_\bullet}{Y}}[#}}{\sqrt{n}}[#}$} 
+[#}
+[#when]alea[#%]All the stuff here
+[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#<]{#<]ind[[#?]i<4[#rb>]i-1[#?]i>4 and i<6[#>]m-:{6-i}[#?]i==6[#>]m][#<}
+{#<]ind2[[#?]i<4[#rb>]i-1[#?]i>6 and i<8[#rb>]10000-8+i[#?]i==8[#>]10000][#<}
+{#new]table1[#of]Tabular[#.tabR]tab1R[#}
+{#new]table2[#of]Tabular[#.tabR]tab2R[#}
+{#new]table3[#of]Tabular[#.tabR]tab3R[#}
+{#make]table1[#mat]
+$\Vect{Y}$ & $\Est{\theta^\bullet}{Y}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}$ & $\Est{\theta^\bullet}{Y}-\theta^\bullet$ & $\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{Y})$ \\
+{#>]y1[$\Vect{y_{[#{ind!}]}}$][#} & 
+{#>]y2[$\Est{\theta^\bullet}{y_{[#{ind!}]}}$][#} & 
+{#>]y3[$\Est{\sigma_{\widehat{\theta^\bullet}}}{y_{[#{ind!}]}}$][#} & 
+{#>]y4[$\Est{\theta^\bullet}{y_{[#{ind!}]}}-\theta^\bullet$][#} & 
+{#>]y5[$\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{y_{[#{ind!}]}})$][#>} \\
+row*1 \\
+\vdots & col*4 \\
+row(2) \\
+row*1 \\
+\vdots & col*4 \\
+Loi ($n\geq 30$) & $\mathcal{N}(\theta^\bullet,{\color{red}\sigma_{\widehat\theta^\bullet}})$ & & $\mathcal{N}(0,{\color{red}\sigma_{\widehat\theta^\bullet}})$ & {\color{blue}$\mathcal{N}(0,1)$}
+[#}
+{#make]table2[#mat]
+$\Vect{Y}$ & $\Est{\mu^{J}}{Y}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{Y}$ & $\Est{\mu^{J}}{Y}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{Y})$ \\
+{#>]y21[$\Vect{y_{[#{ind!}]}}$][#} & 
+{#>]y22[$\Est{\mu^J}{y_{[#{ind!}]}}$][#} & 
+{#>]y23[$\Est{\sigma_{\widehat{\mu^J}}}{y_{[#{ind!}]}}$][#} & 
+{#>]y24[$\Est{\mu^J}{y_{[#{ind!}]}}-\mu^J$][#} & 
+{#>]y25[$\delta_{\widehat\mu^J,\mu^J}(\Vect{y_{[#{ind!}]}})$][#>} \\
+row*1 \\
+\vdots & col*4 \\
+row(2) \\
+row*1 \\
+\vdots & col*4 \\
+Loi ($n\geq 30$) & $\mathcal{N}(\mu^J,{\color{red}\sigma_{\widehat\mu^J}})$ & & $\mathcal{N}(0,{\color{red}\sigma_{\widehat\mu^J}})$ & {\color{blue}$\mathcal{N}(0,1)$}
+[#}
+{#make]table3[#mat]
+$\Vect{Y}$ & $\Est{\mu^{J}}{Y}$ & $\Est{\sigma_{J}}{Y}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{Y}$ & $\Est{\mu^{J}}{Y}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{Y})$ \\
+{#>]y31[$\Vect{y_{[#{ind2!}]}}$][#} &
+{#>]y32[$:r{round(resSJ[:{j-(j>2 ? 2 : 1)},#{ind2!}],2)}$][#} & 
+{#>]y33[$:r{round(resSJ[2,#{ind2!}]*sqrt(1000),4)}$][#} &
+{#>]y34[$:r{round(resSJ[:{j-(j>2 ? 2 : 1)},#{ind2!}],4)}$][#} & 
+col(2) & col*1 \\
+row*1 \\
+\vdots & col*5 \\
+\texttt{y} en \texttt{R} & {\tiny\texttt{mean(y)}} & {\tiny\texttt{sd(y)}} & {\tiny\texttt{seMean(y)}} &
+{\tiny\texttt{mean(y)-100}} & {\tiny\texttt{(mean(y)-100)/seMean(y)}}\\
+\vdots & col*5 \\
+row(2) \\
+row*1 \\
+mean & {#>]y35[$:r{round(mean(resSJ[:{j-(j>2 ? 2 : 1)},]),4)}$][#>} & 
+$:r{round(mean(resSJ[2,])*sqrt(1000),4)}$ & 
+col(2) & col*2\\
+sd & {#>]y36[$:r{round(sd(resSJ[:{j-(j>2 ? 2 : 1)},]),4)}$][#>} & 
+$:r{round(sd(resSJ[2,])*sqrt(1000),4)}$ &
+col(2) & col*2
+[#}
+[#%]The document here
+[#>]{#Slide][#nb]6[#titre]Mesure d'écart standardisé
+[#haut]{#only]:1[#>]\textbf{Objectif~:} Etude de la loi de l'écart $\Est{\theta^\bullet}{Y}-\theta^\bullet$ (potentiellement, fort utile pour construction d'outils statistiques)[#}|
+{#only]:2[#>]\textbf{Problème:} Loi de $\Est{\theta^\bullet}{Y}-\theta^\bullet$ généralement inconnue car dépendant d'un paramètre de nuisance inconnu ${\color{red}\sigma_{\widehat\theta^\bullet}}$.[#}|
+{#only]:3[#>]\textbf{La solution~:} La loi de l'écart standardisé (centrage et réduction)\\ 
+\centerline{$\displaystyle\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{Y}):=\frac{{\color{purple}\Est{\theta^\bullet}{Y}}-\theta^\bullet}{{\color{purple}\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}}\SuitApprox {\color{blue}\mathcal{N}(0,1)}$}[#}
+{#only]:4[#>]\textbf{La solution~:} La loi de l'écart standardisé (centrage et réduction)\\ 
+\centerline{$\displaystyle\delta_{\widehat\mu^J,\mu^J}(\Vect{Y}):=\frac{{\color{purple}\Est{\mu^J}{Y}}-\mu^J}{\color{purple}\Est{\sigma_{\widehat{\mu^J}}}{Y}}\SuitApprox {\color{blue}\mathcal{N}(0,1)}$ avec ${\color{purple}\Est{\sigma_{\widehat{\mu^J}}}{Y}}:=\displaystyle\frac{{\color{purple}\Est{\sigma_J}{Y}}}{\sqrt{n}}$}[#}|
+{#only]:5[#>]\textbf{Application~:} Salaire Juste avec population fictive fixée expérimentalement à $\mu^J=100$ et $\sigma_J=10$ avec taille d'échantillon $n=1000$.[#}|
+{#only]:6[#>]\textbf{Remarque~:} Chaque ligne du tableau serait un résultat possible pour le \textbf{jour~J}. Observez notamment la $1^{\grave ere}$ et $3^{\grave eme}$ colonnes (estimations des paramètres $\mu^J$ et $\sigma_J$ puis l'erreur standard pour $\mu^J$)![#}
+[#bas]
+{\small {#only]:1[#>]{#print]table1[#jmax]3[#imax]7[#hlines],1-3,,,,,,1-3,[#vlines]c|cccc[#}[#}|
+{#only]:2[#>]{#print]table1[#jmax]4[#hlines],1-4,,,,[#vlines]c|cccc[#}[#}|
+{#only]:3[#>]{#print]table1[#jmax]5[#hlines],1-5,,,,[#vlines]c|cccc[#}[#}|
+{#only]:4[#>]{#print]table2[#jmax]5[#hlines],1-5,,,,[#vlines]c|cccc[#}[#}|
+{#only]:5-6[#>]{#print]table3[#jmax]6[#hlines],1-6,,,,,,,1-6,[#vlines]c|ccccc[#}[#}
+}
+[#}
+[#when]alea2[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#>]{#BeamerFrame]Etude A.E.P. pour la mesure d'écart standardisé
+[#>]\textbf{Objectif~:} Construction outils statistiques facile si loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ connue\\
+$\Rightarrow$ loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ inconnue car dépend d'un paramètre de nuisance inconnu.
+
+{\small\begin{tabular}{c|cc|c|c}
+{#only]1[#>]$\Vect{Y}$ & $\Est{\theta^\bullet}{Y}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}$ & $\Est{\theta^\bullet}{Y}-\theta^\bullet$ & $\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{Y}):=\frac{\Est{\theta^\bullet}{Y}-\theta^\bullet}{\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}$[#}
+{#only]2-3[#>]$\Vect{Y}$ & $\Est{\mu^{J}}{Y}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{Y}$ & $\Est{\mu^{J}}{Y}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{Y})$[#}
+\\\hline
+[#rb<]cpt=0[#>]{#loop][#rb<]cpt+=1
+[#?]cpt>0[#>]cpt[:{cpt}][#?]cpt<0[#>]cpt[m:{cpt}][#?]cpt==0[#>]cpt[m][#?]end
+[#>] {#only]1[#>]$\Vect{y_{[#{cpt}]}}$ & $\Est{\theta^\bullet}{y_{[#{cpt}]}}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{y_{[#{cpt}]}}$ & $\Est{\theta^\bullet}{y_{[#{cpt}]}}-\theta^\bullet$ & $\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{y_{[#{cpt}]}})$[#}
+{#only]2[#>]$\Vect{y_{[#{cpt}]}}$ & $\Est{\mu^{J}}{y_{[#{cpt}]}}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{y_{[#{cpt}]}}$ & $\Est{\mu^{J}}{y_{[#{cpt}]}}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{y_{[#{cpt}]}})$[#}
+{#only]3[#>]$\Vect{y_{[#{cpt}]}}$ & $:r{round(resSJ[1,#{cpt}],2)}$ & $:r{round(resSJ[2,#{cpt}],4)}$& $:r{round(resSJ[3,#{cpt}],4)}$ & $:r{round(resSJ[4,#{cpt}],2)}$
+[#}
+\\
+[#break]cpt==0
+[#?]cpt==3[#rb<]cpt=-3[#r<]m<-ncol(resSJ)
+[#>]$\vdots$ & $\vdots$ &$\vdots$& $\vdots$ &$\vdots$\\
+[#loop}
+$\vdots$ & $\vdots$ &$\vdots$& $\vdots$ &$\vdots$\\\hline
+{#only]1[#>]Loi & $\mathcal{N}(\theta^\bullet,{\color{red}\sigma_{\widehat\theta^\bullet}})$ & & $\mathcal{N}(0,{\color{red}\sigma_{\widehat\theta^\bullet}})$ & {\color{blue}$\mathcal{N}(0,1)$}[#}
+{#only]2[#>]Loi & $\mathcal{N}(\mu^{J},{\color{red}\sigma_{\widehat\mu^{J}}})$ & & $\mathcal{N}(0,{\color{red}\sigma_{\widehat\mu^{J}}})$ & {\color{blue}$\mathcal{N}(0,1)$}[#}
+{#only]3[#>]mean & $:r{round(mean(resSJ[1,]),4)}$ & $:r{round(mean(resSJ[2,]),4)}$ & $:r{round(mean(resSJ[3,]),4)}$ & $:r{round(mean(resSJ[4,]),4)}$
+\\
+sd & $:r{round(sd(resSJ[1,]),4)}$ & $:r{round(sd(resSJ[2,]),4)}$ & $:r{round(sd(resSJ[3,]),4)}$ & $:r{round(sd(resSJ[4,]),4)}$
+[#}
+\\
+\end{tabular}}
+[#}
+[#when]alea3[#>]{#Slide][#nb]5[#titre]Mesure d'écart standardisé
+[#haut]\textbf{Objectif~:} Construction outils statistiques facile si loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ connue\\
+$\Rightarrow$ loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ inconnue car dépend d'un paramètre de nuisance inconnu.
+[#blck]bas[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#>]{\small\begin{tabular}{c|cc|c|c}
+{#only]:1-3[#>]$\Vect{Y}$ & $\Est{\theta^\bullet}{Y}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}$ & $\Est{\theta^\bullet}{Y}-\theta^\bullet$ & $\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{Y}):=\frac{\Est{\theta^\bullet}{Y}-\theta^\bullet}{\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}$[#}
+{#only]:4-5[#>]$\Vect{Y}$ & $\Est{\mu^{J}}{Y}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{Y}$ & $\Est{\mu^{J}}{Y}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{Y})$[#}
+\\\hline
+[#rb<]cpt=0[#>]{#loop][#rb<]cpt+=1
+[#?]cpt>0[#=]ind[:{cpt}][#?]cpt<0[#=]ind[m:{cpt}][#?]cpt==0[#=]ind[m][#?]end
+[#>] {#only]:1-3[#>]$\Vect{y_{[#{ind}]}}$ & $\Est{\theta^\bullet}{y_{[#{ind}]}}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{y_{[#{ind}]}}$ & $\Est{\theta^\bullet}{y_{[#{ind}]}}-\theta^\bullet$ & $\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{y_{[#{ind}]}})$[#}{#only]:4[#>]$\Vect{y_{[#{ind}]}}$ & $\Est{\mu^{J}}{y_{[#{ind}]}}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{y_{[#{ind}]}}$ & $\Est{\mu^{J}}{y_{[#{ind}]}}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{y_{[#{ind}]}})$[#}{#only]:5[#>]$\Vect{y_{[#{ind}]}}$ & $:r{round(resSJ[1,#{ind}],2)}$ & $:r{round(resSJ[2,#{ind}],4)}$& $:r{round(resSJ[3,#{ind}],4)}$ & $:r{round(resSJ[4,#{ind}],2)}$[#}
+\\
+[#break]cpt==0
+[#?]cpt==2[#rb<]cpt=-cpt[#r<]m<-ncol(resSJ)
+[#>]$\vdots$ & $\vdots$ &$\vdots$& $\vdots$ &$\vdots$\\[#?]end
+[#loop}
+$\vdots$ & $\vdots$ &$\vdots$& $\vdots$ {#only]:3-5[#>]&$\vdots$[#}\\\hline
+{#only]:2-5[#>]{#only]:2-3[#>]Loi & $\mathcal{N}(\theta^\bullet,{\color{red}\sigma_{\widehat\theta^\bullet}})$ & & $\mathcal{N}(0,{\color{red}\sigma_{\widehat\theta^\bullet}})$ & {\color{blue}$\mathcal{N}(0,1)$}[#}{#only]:4[#>]Loi & $\mathcal{N}(\mu^{J},{\color{red}\sigma_{\widehat\mu^{J}}})$ & & $\mathcal{N}(0,{\color{red}\sigma_{\widehat\mu^{J}}})$ & {\color{blue}$\mathcal{N}(0,1)$}[#}
+{#only]:5[#>]mean & $:r{round(mean(resSJ[1,]),4)}$ & $:r{round(mean(resSJ[2,]),4)}$ & $:r{round(mean(resSJ[3,]),4)}$ & $:r{round(mean(resSJ[4,]),4)}$
+\\
+sd & $:r{round(sd(resSJ[1,]),4)}$ & $:r{round(sd(resSJ[2,]),4)}$ & $:r{round(sd(resSJ[3,]),4)}$ & $:r{round(sd(resSJ[4,]),4)}$
+[#}
+\\[#}
+\end{tabular}}
+[#}
+[#when]aep[#%]tableau AEP!
+[#<]{#new]deltaSJ[#of]InstrProba[#y.AMP]\\Delta[#y.AEP]\\delta_{[\\cdot]}[#what]p-3[,p[-3;-1.5[,p[-1.5;-0.5],p[-0.5;0.5[[#}
+[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#>]{#Slide][#nb]1[#titre]A.E.P. ecart standardisé
+[#haut]\textbf{Expérimentation~:} Relation entre A.E.P. et A.M.P sur 
+\centerline{$\Delta:=\displaystyle\delta_{\widehat\mu^J,\mu^J}(\Vect{Y}):=\frac{{\color{purple}\Est{\mu^J}{Y}}-\mu^J}{\color{purple}\Est{\sigma_{\widehat{\mu^J}}}{Y}}\SuitApprox {\color{blue}\mathcal{N}(0,1)}$}
+[#bas]
+{\scriptsize 
+\begin{center}{#beginTab]deltaSJ[#}
+{#headAEP]deltaSJ[#}
+{#rowAEP]deltaSJ[#y][resSJ[4,]][#}
+{#headAMP]deltaSJ[#}
+{#rowAMP]deltaSJ[#y]\Delta[#valR]diff(pnorm(c(-Inf,-3,-1.5,-0.5,0.5)))[#}
+{#endTab]deltaSJ[#}\end{center}
+{#init]deltaSJ[#what]p[0.5;1.5[,p[1.5;3[,p[3,mean,sd[#}
+\begin{center}{#beginTab]deltaSJ[#}
+{#headAEP]deltaSJ[#}
+{#rowAEP]deltaSJ[#y][resSJ[4,]][#}
+{#headAMP]deltaSJ[#}
+{#rowAMP]deltaSJ[#y]\Delta[#valR]diff(pnorm(c(0.5,1.5,3,Inf))),0,1[#}
+{#endTab]deltaSJ[#}\end{center}
+}
+[#Slide}
+
+[#case}
+

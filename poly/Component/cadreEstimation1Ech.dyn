@@ -1,0 +1,19 @@
+%TODO : enlever les subsubsection
+Dans ce cadre, tout probl{\`e}me pratique doit se ramener {\`a} l'{\'e}tude d'une unique variable d'int{\'e}r{\^e}t not{\'e}e ici $Y$ (pouvant aussi {\^e}tre vue comme une future unique donn{\'e}e). %(hide)
+En pratique, nous disposerons d'un jeu de $n$ donn{\'e}es $\Vect{y}=(y_1,\ldots,y_n)$ (i.e. un vecteur ou ``paquet'' de $n$ observations ``ind{\'e}pendantes'' de $Y$) qui peut par cons{\'e}quent {\^e}tre vu comme un r{\'e}sultat possible d'un futur jeu de $n$ donn{\'e}es $\Vect{Y}=(Y_1,\ldots,Y_n)$. Afin d'expliciter le param{\`e}tre d'int{\'e}r{\^e}t intimement li{\'e} dans les probl{\'e}matiques du cours {\`a} la variable d'int{\'e}r{\^e}t $Y$, nous imaginerons disposer d'une infinit{\'e} de donn{\'e}es virtuelles $y_{[1]},\ldots,y_{[m]},\ldots$ dont la notation en indice entre crochet (i.e. ``$_{[\cdot]}$'') nous rappelle qu'il ne faut pas les confondre avec le jeu des $n$ donn{\'e}es $y_1,\ldots,y_n$ qui seront bien r{\'e}elles. Rappelons aussi que dans ce cours les tailles $n$ des donn{\'e}es \textbf{r{\'e}elles} et $m$ des donn{\'e}es \textbf{virtuelles} ont a priori des ordres de grandeur compl{\`e}tement diff{\'e}rents, {\`a} savoir $n$ plut{\^o}t raisonnablement grand  et $m$ aussi grand que possible voire infini.%(main) Les param{\`e}tres d'int{\'e}r{\^e}t {\'e}tudi{\'e}s seront soit des moyennes soit des variances.
+\subsubsection{Paramètres proportion et moyenne}
+ La moyenne not{\'e}e $\mu_Y$ ou plus simplement $\mu$ (plut{\^o}t appel{\'e}e esp{\'e}rance de $Y$ dans l'\textbf{A}pproche \textbf{M}athématique des \textbf{P}robabilités et not{\'e}e $\mathbb{E}(Y)$) s'exprime via l'\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités par~:\\
+\centerline{\fbox{${\displaystyle
+\meanEmp[m]{y_{[\cdot]}} = \frac1m \sum_{k=1}^m y_{[k]} \simeq \meanEmp[\infty]{y_{[\cdot]}} = \mu_Y = \EEE{Y}.
+}$}}
+
+Soulignons toutefois que si les donn{\'e}es sont exclusivement {\`a} valeurs 0 ou 1, la moyenne devient une proportion (ou probabilit{\'e}) et sera not{\'e}e $p$ plut{\^o}t que $\mu$. Rappelons qu'une future estimation $\Est{\mu_Y}{Y}$ de $\mu_Y$ est tout simplement $\overline{Y}_n=\displaystyle{\frac 1n\sum_{i=1}^nY_i}$ (not{\'e}e aussi $\overline{Y}$). 
+\subsubsection{Paramètre variance}
+La variance not{\'e}e $\sigma^2_Y$ ou plus simplement $\sigma^2$ (conservant la m{\^e}me d{\'e}nomination dans l'\textbf{A.M.P.} et not{\'e}e $\Var(Y)$) s'exprime via l'\textbf{A.E.P.} par~:\\ 
+\centerline{\fbox{${\displaystyle
+\left(\sdEmp[m]{y_{[\cdot]}}\right)^2 = \frac1m \sum_{k=1}^m \left(y_{[k]}-\meanEmp[m]{y_{[\cdot]}}\right)^2 \simeq \left(\sdEmp[\infty]{y_{[\cdot]}}\right)^2 = \sigma^2_Y = \VVV{Y} = \sigma(Y)^2.
+}$}}
+
+Dans le cadre de grands {\'e}chantillons (voir plus loin), il est plus qu'int{\'e}ressant de  noter que la variance est aussi une moyenne. En effet, nous pouvons {\'e}crire 
+$\sigma^2_Y=\mu_{\ddot{Y}}$ puisque $\Var(Y)=\mathbb{E}((Y-\mu_Y)^2)=\mathbb{E}(\ddot{Y}) $ o{\`u} $\ddot{Y}=(Y-\mu_Y)^2$ est le carr{\'e} de la variable al{\'e}atoire $Y$ pr{\'e}alablement centr{\'e}e. 
+Le vecteur des futures donn{\'e}es  $((Y_1-\mu_Y)^2,\ldots,(Y_n-\mu_Y)^2)$ {\'e}tant inaccessible puisque $\mu_Y$ est inconnu, nous le remplacerons par $\Vect{\ddot{Y}}=((Y_1-\overline{Y})^2,\ldots,(Y_n-\overline{Y})^2 )$. Ainsi, nous pourrions aussi proposer $\Est{\mu_{\ddot{Y}}}{\ddot{Y}}$ comme future estimation de $\sigma^2_Y=\mu_{\ddot{Y}}$ (plut{\^o}t lorsque la taille $n$ des donn{\'e}es sera suffisamment grande).\\

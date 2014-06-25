@@ -1,0 +1,63 @@
+[#require]Import/StatDevel/BeamerRedStdCours
+[#main][#<] Contexte
+{#new]dmuCopies[#of]ParamFrame[#in]dmuCopies[#,]dm[#,]a[#,].nom1Pb[A1][#,].nom2Pb[A2][#r<]
+attach('{#home#}/cqls/data/evalCopies.RData')
+yA1<-yA1
+yA2<-yA2
+detach()
+[#}
+{#new]dmuCopiesTest[#of]TestParam[#in]dmuCopies[#,]:dmuCopies[#,].theta0R[0][#,].side[>][#,].assertion[$C_1$ est plus souple que $C_2$][#}
+
+{#new]muDCopies[#of]ParamFrame[#in]muDCopies[#,]md[#,]a[#,].nom1Pb[A1][#,].nom2Pb[A1C2][#r<]
+attach('{#home#}/cqls/data/evalCopies.RData')
+yA1<-yA1
+yA1C2<-yA1C2
+detach()
+[#}
+{#new]muDCopiesTest[#of]TestParam[#in]muDCopies[#,]:muDCopies[#,].theta0R[0][#,].side[>][#,].assertion[$C_1$ est plus souple que $C_2$][#}
+
+{#new]muD2Copies[#of]ParamFrame[#in]muD2Copies[#,]m[#,]a[#,].nomPb[D][#r<]
+attach('{#home#}/cqls/data/evalCopies.RData')
+yAV<-yA1
+yAP<-yAP
+yD<-yAV-yAP
+detach()
+[#}
+{#new]muD2CopiesTest[#of]TestParam[#in]muD2Copies[#,]:muD2Copies[#,].theta0R[0][#,].side[!=][#,].assertion[la moyenne de la différence de notes est différente de zéro][#}
+
+{#new]varDCopies[#of]ParamFrame[#in]varDCopies[#,]v[#,]a[#,].nomPb[D][#r<]
+attach('{#home#}/cqls/data/evalCopies.RData')
+yD<-yA1-yAP
+detach()
+[#}
+{#new]varDCopiesTest[#of]TestParam[#in]varDCopies[#,]:varDCopies[#,].theta0R[0.25][#,].side[>][#,].assertion[la variance de la différence de notes est supérieure à 0.25][#}
+[#>]
+{#initScene]head[#}{#initScene]def[#}{#initScene]ex[#}
+{#RedStdBeamer]dmuCopiesTest[#,]cop1[#,]Copies Test - Question 1[#.indic]q[#}
+{#RedStdBeamer]muDCopiesTest[#,]cop2[#,]Copies Test - Question 2[#}
+{#RedStdBeamer]muD2CopiesTest[#,]cop3[#,]Copies Test - Question 3[#.indic]q[#}
+{#RedStdBeamer]varDCopiesTest[#,]cop4[#,]Copies Test - Question 4[#}
+[#>]
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shaded=true,lower=header]{}
+  @{beginScene(head)}
+  @{writeScene(head)}
+  @{endScene(head)}
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=magenta!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+@{beginScene(def)}
+@{writeScene(def)}
+@{endScene(def)}
+\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=cyan!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+@{beginScene(ex)}
+@{writeScene(ex)}
+@{endScene(ex)}
+\end{beamercolorbox}
+\end{frame}
+

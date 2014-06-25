@@ -1,0 +1,23 @@
+[#tag]cours1[#>]pdf[Cours1-print.pdf][#>]pages[2,3,6,9,10,11,12,16,18,21,23,26,28,31,33,35,40,43,46,49,52,53,56,57]
+[#tag]cours1-2009[#>]pdf[Cours1-2009.pdf][#>]pages[1,3,8,13,17,26,31,39,46,47,49,50,51,52,53,55,57,60,61,62,63,64,68,71,74,77,81,85,89]
+[#tag]cours2[#>]pdf[Cours2-print.pdf][#>]pages[1,2,3,4,5,7,8,9,13,15,16,17,18,19,23,36,43,48,53,55,57,59,60]
+[#tag]cours3[#>]pdf[Cours3-print.pdf][#>]pages[1,6,7,9,13,14,15,16,20,21,24,25,26,31,34,35,36,37,38,39,40,42,43]
+[#tag]cours4[#>]pdf[Cours4-print.pdf][#>]pages[1,3,5,7,9,10,12,14,16,18,19,22,24,26,28,30,32,33,34,35,37,38,39,41,43,45,47,49]
+[#tag]cours5[#>]pdf[Cours5-print.pdf][#>]pages[1,6,7,8,9,10,11,12,13,16,23,24,25,26,28,29,30,31,32,33,34]
+[#tag]cours6[#>]pdf[Cours6-print.pdf][#>]pages[1,3,4,10,12,13,15,16,17,19,20,21,22,29,32,31,33,40,43,42,45,44,46,56,55,57,67,66,68,69,70,71,72,73,83,82,84,94,93]
+[#tag]cours7[#>]pdf[Cours7-print.pdf][#>]pages[1,3,4,10,11,13,14,21,26,30,34,40,42,43,52,51,53,54,63,62,64,65,74,73,75,76,85,84,86,87,96,95,97,98,107,106,108,109,118,117,119,120,129,128,130,131,140,139]
+[#tag]cours8[#>]pdf[Cours8-print.pdf][#>]pages[]
+[#tag]end
+[#<]{#set]_DOCUMENTCLASS_![#>]article[#}
+[#rb<]_optclass_ << "a4paper" << "portrait"
+[#package]
+\usepackage{pdfpages}
+[#main][#>]ncol[3][#>]nrow[2]
+[#r<]
+nbfigs<-#{ncol}*#{nrow}
+pages<-c(#{pages})
+np<-0
+[#>]{#loop][#>]plage[:r{paste(pages[(nbfigs*np)+(1:(ifelse(np==length(pages)%/%nbfigs,length(pages)%%nbfigs,nbfigs)))],collapse=",")}][#r<]np<-np+1[#rb<]p #{=plage}
+[#>]\includepdf[pages={#{plage}},nup=#{nrow}x#{ncol},noautoscale=true,fitpaper=true,scale=0.7]{#{pdf}}
+[#break]:r{np==(length(pages)-1)%/%nbfigs+1}
+[#loop}

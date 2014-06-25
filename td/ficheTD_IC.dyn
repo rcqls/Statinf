@@ -1,0 +1,94 @@
+[#require]Import/StatDevel/HypoTest
+Std/OOP
+Tools/R/Fig
+Tools/R/Tools
+Import/Tools/RFigure
+Tex/Cqls
+Tex/LargeA4
+Import/StatDevel/HypoTest_PVal
+[#package]
+\usepackage{here}
+\usepackage{fichetd}
+\usepackage{mathenv}
+[#preamble]
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+\definecolor{beaubleu}{rgb}{0.26,0.31,0.61}
+\definecolor{beauvert}{rgb}{0.27,0.52,0.42}
+[#path]
+/export/WorkTree/Devel/dyndoc/StatInf/exoHypo
+[#main]
+[#r<]
+require(CqlsRandom)
+require(CqlsStat)
+[#<]{#opt]enonce[#opt}
+[#<<]SecEspICProdA/exoIC
+[#>]
+\begin{exercice}
+
+Avant le premier tour des élections, nous sommes souvent assaillis par de nombreux sondages. 
+Le 13 mars 2012, deux instituts de sondages (IFOP et SOFRES) publient leurs estimations  sur les intentions de votes pour deux candidats C1 et C2~:
+
+{#r]
+# Sondage IFOP avec n=1638
+(pC1EstIFOP <- 27/100)    # Candidat C1
+(pC2EstIFOP <- 28.5/100)  # Candidat C2
+IC1IFOP<-pC1EstIFOP+c(-1,1)*qnorm(.975)*sqrt(pC1EstIFOP*(1-pC1EstIFOP)/1638)
+IC2IFOP<-pC2EstIFOP+c(-1,1)*qnorm(.975)*sqrt(pC2EstIFOP*(1-pC2EstIFOP)/1638)
+# Sondages SOFRES avec n=1000
+(pC1EstSOFRES <- 30/100)    # Candidat C1
+(pC2EstSOFRES <- 28/100)    # Candidat C2
+IC1SOFRES<-pC1EstSOFRES+c(-1,1)*qnorm(.975)*sqrt(pC1EstSOFRES*(1-pC1EstSOFRES)/1000)
+IC2SOFRES<-pC2EstSOFRES+c(-1,1)*qnorm(.975)*sqrt(pC2EstSOFRES*(1-pC2EstSOFRES)/1000)
+[#}
+
+\begin{itemize}
+\item Sondage IFOP ($n=1638$): $\Est{p^{C1}}{y^{I}}=#r{pC1EstIFOP*100}\%$ et $\Est{p^{C2}}{y^{I}}=#r{pC2EstIFOP*100}\%$
+\item Sondage SOFRES ($n=1000$): $\Est{p^{C1}}{y^{S}}=#r{pC1EstSOFRES*100}\%$ et $\Est{p^{C2}}{y^{S}}=#r{pC2EstSOFRES*100}\%$
+\end{itemize}
+
+\begin{enumerate}
+\item A la lumière de ce cours, nous proposons les mêmes résultats présentés à partir des intervalles de confiance à 95\% de niveau de confiance~: 
+
+\begin{itemize}
+\item Sondage IFOP: $IC^{C1}(\Vect{y^{I}})=[#r{round(IC1IFOP[1]*100,2)}\%,#r{round(IC1IFOP[2]*100,2)}\%]$ et  $IC^{C2}(\Vect{y^{I}})=[#r{round(IC2IFOP[1]*100,2)}\%,#r{round(IC2IFOP[2]*100,2)}\%]$
+\item Sondage SOFRES:  $IC^{C1}(\Vect{y^{S}})=[#r{round(IC1SOFRES[1]*100,2)}\%,#r{round(IC1SOFRES[2]*100,2)}\%]$ et  $IC^{C2}(\Vect{y^{S}})=[#r{round(IC2SOFRES[1]*100,2)}\%,#r{round(IC2SOFRES[2]*100,2)}\%]$
+\end{itemize}
+
+ Fournir au choix~:
+ \begin{itemize}
+ \item la formule mathématique (générale) permettant d'obtenir l'intervalle de confiance d'une proportion $p$ s'exprimant en fonction de l'estimation $\Est{p}{y}$ et de la taille d'échantillon~$n$.
+ \item la vérification à la calculatrice de l'obtention de l'un des intervalles de confiance ci-dessus (détails des calculs à fournir).
+ \item la formule~\texttt{R} d'obtention d'un intervalle de confiance en fonction de \texttt{pEst} et \texttt{n} désignant respectivement l'intention de vote pour un candidat et la taille d'échantillon.
+ \end{itemize}
+
+[#tag]exam[#>]\Reponse{9cm}
+[#tag]reponse[#>]
+\begin{Correction}
+
+\end{Correction}
+[#tag]enonce[#>]
+
+
+\item Interpréter via l'approche expérimentale des probabilités les intervalles de confiance obtenus à la question précédente.
+
+[#tag]exam[#>]\Reponse{7cm}
+[#tag]reponse[#>]
+\begin{Correction}
+
+\end{Correction}
+[#tag]enonce[#>]
+
+ 
+\item La plupart des commentateurs politiques ont semblé troublés par de tels résultats apparemment contradictoires. A partir de la connaissance acquise dans ce cours et en supposant (de manière un peu abusive) que tous les intervalles de confiances précédents contiennent le vrai paramètre inconnu, pensez-vous qu'on puisse savoir lequel des candidats est en tête au premier tour~? Justifiez très simplement votre réponse en envisageant deux cas de figures bien choisis.   
+
+[#tag]exam[#>]\Reponse{5cm}
+[#tag]reponse[#>]
+\begin{Correction}
+
+\end{Correction}
+[#tag]enonce[#>]
+
+\end{enumerate}
+\end{exercice}
+

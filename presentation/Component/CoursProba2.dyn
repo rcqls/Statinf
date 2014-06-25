@@ -1,0 +1,39 @@
+\section[Histo]{Représentation graphique de loi de proba}
+{#initScene]head[#}{#initScene]def[#}{#initScene]ex[#}
+[#%]Produit  (intro) -> Intro[#<]
+{#Actor]head:histo_tit[#,]:1[#,]0.5,0.5[#align]center,center[#,]\textbf{\large Histogrammes discret et continu}[#}
+{#Actor]def:histo_obj_def[#,]:1[#,]0.5,1.0[#align]center,top[#minipage]11cm[#,]
+\textbf{Objectif}~: Représentation graphique des $m$ réalisations $(z_{[\cdot]})_{m}$ (voire d'une infinité $(z_{[\cdot]})_{\infty}$) d'une v.a. $Z$.[#}
+{#Actor]ex:histo_obj_ex[#,]:1[#,]0.5,1.0[#,]
+Message:
+Points communs: représentation par des briques de surface 1/m
+construction d'un mur de briques de surface 100\%
+
+Points différents:
+v.a. discrète: représente les valeurs
+=>
+v.a.: continue: représente sa classe d'appartenance pour une partition fixée.
+=> largeur variable
+[#}
+[#>]\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shaded=true,lower=header]{}
+  @{beginScene(head)}
+  @{writeScene(head)}
+  @{endScene(head)}
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=magenta!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+@{beginScene(def)}
+@{writeScene(def)}
+@{endScene(def)}
+\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=cyan!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+@{beginScene(ex)}
+@{writeScene(ex)}
+@{endScene(ex)}
+\end{beamercolorbox}
+\end{frame}

@@ -1,0 +1,188 @@
+\section[Proba]{Mini-cours de probabilités}
+{#initScene]head[#}{#initScene]def[#}{#initScene]ex[#}
+[#r<]
+require(CqlsRandom)
+pA<-.15
+plim<-.16
+n<-1000
+qtmp<-qbinom(c(.001,.999),n,pA)
+modtmp<-qtmp[1]:qtmp[2]
+Y1<-Norm(.1,sqrt(.1*.9/1000))
+Y2<-Norm(.2,sqrt(.2*.8/1000))
+Y14<-Norm(.14,sqrt(.14*.86/1000))
+Y15<-Norm(.15,sqrt(.15*.85/1000))
+ra<-c(plim,QQ(Y2,.999))
+[#rb<]
+plimPCT=#R{as.integer(plim*100)}
+plim5PCT=#R{round(qnorm(.95,.15,sqrt(.15*.85/1000))*100,2)}
+plimN=#R{as.integer(plim*n)}
+[#%]Expérience aléatoire (2) [#>]
+{#Actor]head:tit_exp[#,]:1-2[#,]0.5,0.5[#align]center,center[#,]
+\textbf{\large Expérience aléatoire $\mathcal{E}$} [#}
+{#Actor]def:exp[#,]:1-2[#,]0.5,0.5[#align]center,center[#minipage]11cm[#,]
+``Future" expérience non encore réalisée, ou \underline{plus généralement}, expérience dont on ne sait pas encore le résultat.[#}
+{#Actor]ex:ex_tit[#,]:1[#,]0.5,0.95[#align]center,top[#minipage]11cm[#,]
+\centerline{\textbf{Exemples classiques}}\vline
+[#}
+{#Actor]ex:ex_exp[#,]:1[#,]0.5,0.8[#,]
+$\mathcal{E}_1$=``lancer de dé"\\
+$\mathcal{E}_2$=``lancer d'une fléchette autour du centre d'une cible"[#}
+{#Actor]ex:ex_tit_stat[#,]:2[#,]0.5,0.95[#,]
+\centerline{\textbf{Exemples issus de la Statistique}}\vline
+[#}
+{#Actor]ex:ex_exp_stat[#,]:2[#,]0.5,0.8 [#,]
+$\mathcal{E}_i$=``Choix au hasard d'un individu $i$ dans une population"\\
+$\mathcal{E}_n$=``Choix au hasard de $n=1000$ individus dans une population"[#}
+{#incCpt]2[#}
+[#%]Evénement (2)[#>]
+{#Actor]head:tit_eve[#,]:1-2[#,]0.5,0.5[#,]\textbf{\large Evénement E}[#}
+{#Actor]def:eve[#,]:1-2[#,]0.5,0.5[#,]Prédiction relative à l'expérience aléatoire $\mathcal{E}$.[#}
+{#ActorWhen]ex_tit[#,]:1[#}
+{#Actor]ex:ex_eve[#,]:1[#,]0.5,0.8[#,]
+$E_1$=``face supérieure du dé inférieure à 2"\\
+$E_2$=``distance de la fléchette au centre d'une cible inférieure à 10cm"[#}
+{#ActorWhen]ex_tit_stat[#,]:2[#}
+{#Actor]ex:ex_eve_stat[#,]:2[#,]0.5,0.8[#,]
+$E_3$=``l'individu achète le produit"\\
+$E_4$=``au moins #R{as.integer(plim*n)} produits sont achetés"[#}
+{#incCpt]2[#}
+[#%]Proba (2)[#>]
+{#Actor]head:tit_prob[#,]:1-2[#,]0.5,0.5[#,]\textbf{\large Probabilité de E} [#}
+{#Actor]def:prob[#,]:1-2[#,]0.5,0.5[#,]
+\textit{Mesure des chances de réalisation de l'événement E~:} comprise entre 0 et 1, l'événement est certain, respectivement faux et vrai lorsque sa probabilité de réalisation vaut respectivement 0 et 1. Dans le cas contraire, l'événement est incertain.[#}
+{#ActorWhen]ex_tit[#,]:1[#}
+{#Actor]ex:ex_prob[#,]:1[#,]0.5,0.8[#,]
+$P(E_1)$=probabilité que la face supérieure du dé soit inférieure à 2\\
+$P(E_2)$=probabilité que la distance de la fléchette au centre d'une cible soit inférieure à 10cm[#}
+{#ActorWhen]ex_tit_stat[#,]:2[#}
+{#Actor]ex:ex_prob_stat[#,]:2[#,]0.5,0.8[#,]
+$P(E_3)$=probabilité que l'individu achète le produit\\
+$P(E_4)$=probabilité qu'au moins #R{as.integer(plim*n)} produits sont achetés[#}
+{#incCpt]2[#}
+[#%]Variable Aléatoire (4)[#>]
+{#Actor]head:tit_va[#,]:1-4[#,]0.5,0.5[#,]\textbf{\large Variable aléatoire réelle (v.a.)}[#}
+{#Actor]def:va[#,]:1-4[#,]0.5,0.5[#,]
+Variable mesurant une quantité relative à l'expérience aléatoire $\mathcal{E}$. On note en général les variables aléatoires en majuscules et leurs réalisations en minuscules.[#}
+{#ActorWhen]ex_tit[#,]:1-2[#}
+{#Actor]ex:ex_va[#,]:1-2[#,]0.5,0.8[#,]
+$Y_1$=face supérieure du dé\\
+$Y_2$=distance en cm de la fléchette au centre d'une cible\\
+@{ONLY(:2)}{
+
+$E_1$=``face supérieure du dé inférieure à 2"=$[Y_1\leq 2]$\\
+$E_2$=``distance de la fléchette au centre d'une cible inférieure à 10cm"=$[Y_2\leq 10]$
+}[#}
+{#ActorWhen]ex_tit_stat[#,]:3-4[#}
+{#Actor]ex:ex_va_stat[#,]:3-4[#,]0.5,0.8[#,]
+$Y^\bullet_i$=nbre de produit(s) $\bullet$ acheté(s) par l'individu $i$.\\
+$Z^\bullet_n=\sum_{i=1}^n Y^\bullet_i$=nbre de produits $\bullet$ achetés par les $n$ individus.\\
+$\Est{p^A}{\Vect{Y}^A}=\frac{Z^A_n}{n}$= proportion d'acheteur(s) potentiel(s) du produit~A.\\
+$\Est{\mu^B}{\Vect{Y}^B}=\frac{Z^B_n}{n}$= nbre moyen de produit(s) B acheté(s) par individu\\
+@{ONLY(:4)}{$E_3=[Y^\bullet_i=1]$\\
+$E_4=[Z^\bullet_n\geq #R{as.integer(plim*n)}]=[\Est{\mu^\bullet}{\Vect{Y}^\bullet}\geq #R{plim}]$}[#}
+{#incCpt]4[#}
+[#%]Loi de proba Gen(3)[#>]
+{#Actor]head:tit_loi[#,]:1-3[#,]0.5,0.5[#,]\textbf{\large Loi de probabilité d'une v.a.}[#}
+{#Actor]def:loi[#,]:1-3[#,]0.5,0.5[#,]
+Tout dire sur le comportement aléatoire (variabilité) d'une v.a. caractérisé par la connaissance de toutes les probabilités $P(Y\in E)$ (avec $E$ sous-ensemble quelconque, $E=]a,b]$ ou $E=]-\infty,b]$) relatives aux événements de la forme $[Y \in E]$.[#}
+{#Actor]ex:loi_disc[#,]:2[#,]0.5,1.0[#,]
+\textbf{v.a. discrète~:} loi caractérisée par la donnée de $P(Y=y)$ pour tout $y\in \Omega_Y$ (où $\Omega_Y$ ensemble des valeurs possibles appelées modalités de $Y$)~:
+\[
+P(Y\in E)=\sum_{y\in\Omega_Y\cap E}P(Y=y).
+\]
+En particulier, $\displaystyle\sum_{y\in\Omega_Y}P(Y=y)=1$[#}
+{#Actor]ex:loi_cont[#,]:3[#,]0.5,1.0[#,]
+\textbf{v.a. continue~:} En remarquant que $P(Y=y)=0$ pour tout $y\in \RR$, la loi est caractérisée par $f_Y(y)$ mesurant la densité de probabilité de réalisation de $Y$ autour de $y$~: 
+\[
+P(Y\in E)=\int_{E}\stackrel{P(Y\in[y,y+dy[)}{\overbrace{f_Y(y)dy}}.
+\]
+qui s'interprète par analogie avec le cas d'une v.a. discrète comme une somme continue de probabilités.
+En particulier, $\displaystyle\int_{\Omega_Y}f_Y(y)dy=1$.[#}
+{#incCpt]3[#}
+[#%]Loi de proba Ex Dé et Cible (4)[#>]
+{#ActorWhen]tit_loi[#,]:1-4[#}
+{#ActorWhen]loi[#,]:1-4[#}
+{#ImageR]ex:img/debaton.png[#,]4,4[#,]:1[#,]0.05,0[#,]
+plot(1:6,rep(1/6,6),type="h",xlab="",ylab="proba",ylim=c(0,.2),xlim=c(0.5,6.5),lwd=5,col="blue")[#}
+{#ImageR]ex:img/dehist.png[#,]4,4[#,]:1[#,]0.6,0[#,]
+HistDiscreteTh(1:6,rep(1/6,6),fill=T,ylim=c(0,.2),xlim=c(0.5,6.5),lwd=3,col="blue")[#}
+{#Actor]ex:prob_de_gen[#,]:1[#,]debaton:3.5,0.3[#align]center,bottom[#minipage]none[#,]\textbf{Diagramme en bâtons}[#}
+{#Actor]ex:prob_de_gen2[#,]:1[#,]dehist:3.5,0.3[#,]\textbf{Histogramme ``discret"}[#}
+{#ImageR]ex:img/de2baton.png[#,]4,4[#,]:2[#,]0.05,0[#,]
+plot(1:6,rep(1/6,6),type="h",xlab="",ylab="proba",ylim=c(0,.2),xlim=c(0.5,6.5),lwd=5,col="blue")
+lines(1:2,rep(1/6,2),type="h",xlab="",ylab="proba",ylim=c(0,.2),xlim=c(0.5,6.5),lwd=5,col="red")[#}
+{#ImageR]ex:img/de2hist.png[#,]4,4[#,]:2[#,]0.6,0[#,]
+HistDiscreteTh(1:6,rep(1/6,6),fill=T,ylim=c(0,.2),xlim=c(0.5,6.5),lwd=3,col="blue")
+HistDiscreteTh(1:2,rep(1/6,2),fill=T,ylim=c(0,.2),xlim=c(0.5,6.5),lwd=3,col="red",add=T)[#}
+{#Actor]ex:prob_de[#,]:2[#,]debaton:10,0.3[#,]$P(Y_1\leq 2)$=${\color{red}(2/6)}$[#}
+{#Actor]ex:prob_de2[#,]:2[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(debaton:10,0.3)})}{\pgfxy(@{xy(debaton:1.5,0.1)})}[#}
+{#Actor]ex:prob_de3[#,]:2[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(debaton:10,0.3)})}{\pgfxy(@{xy(dehist:1.5,0.1)})}[#}
+{#ImageR]ex:img/cible2.png[#,]4,4[#,]:3-4[#,]0.05,0[#,]
+ang<-seq(0,2*pi,l=100);plot(cos(ang),sin(ang),type="l")
+plot(20*cos(ang),20*sin(ang),type="n",xlab="",ylab="")
+polygon(20*cos(ang),20*sin(ang),density=10,col="blue")
+polygon(10*cos(ang),10*sin(ang),angle=0,density=10,col="red")[#}
+{#ImageR]ex:img/cible.png[#,]4,4[#,]:4[#,]0.6,0[#,]
+curve(2*x/400,0,20,xlab="",ylab="",col="red")
+polygon(c(0,10,10,0),c(0,0,.05,0),col="green")[#}
+{#Actor]ex:prob_cible[#,]:3-4[#,]cible:-12,0.15[#,]$P(Y_2\leq 10)$=${\color{red}(\pi\times 10^2)}/{\color{blue}(\pi\times 20^2)}$[#}
+{#Actor]ex:prob_cible2[#,]:4[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(cible:-12,.15)})}{\pgfxy(@{xy(cible:5,0.012)})}[#}
+{#incCpt]4[#}
+[#%]Loi Proba Ex Stat (4)[#>]
+{#ActorWhen]tit_loi[#,]:1-4[#}
+{#ActorWhen]loi[#,]:1-4[#}
+{#Actor]ex:ex_loi_stat[#,]:1-4[#,]0.5,1.0[#align]center,top[#minipage]11cm[#,]
+{\small
+$Y^A_i \leadsto \mathcal{B}(1,p^A)$ (loi de bernoulli)\\
+$P(Y^A_i=1)=p^A$ et $P(Y^A_i=0)=1-p^A$\\
+{@{COLOR(:1-2|blue)} $ Z^A_n \leadsto \mathcal{B}(n,p^A)$ (loi binômiale)}\\
+@{ONLY(:2-4)}{{@{COLOR(:2|magenta)} $Z^A_n \SuitApprox \mathcal{N}\left(np^A,\sqrt{np^A(1-p^A)}\right)$}\\}
+@{ONLY(:3-4)}{$\Est{p^A}{Y^A} \SuitApprox \mathcal{N}\left(p^A,\sqrt{\frac{p^A(1-p^A)}n}\right)$}
+}[#}
+{#ImageR]ex:img/binom.png[#,]5,5[#,]:1[#,]0.6,-0.05[#,]
+HistDiscreteTh(modtmp,dbinom(modtmp,n,pA),fill=T,col="blue",xlab="",ylab="")[#}
+{#ImageR]ex:img/binomNorm.png[#,]5,5[#,]:2[#,]0.6,-0.05[#,]
+HistDiscreteTh(modtmp,dbinom(modtmp,n,pA),fill=T,col="blue",xlab="",ylab="")
+curve(dnorm(x,n*pA,sqrt(n*pA*(1-pA))),add=T,col="magenta",lwd=5)[#}
+{#ImageR]ex:img/tclMoy.png[#,]5,5[#,]:3[#,]0.6,-0.05[#,]
+HistDiscreteTh(modtmp/n,dbinom(modtmp,n,pA),fill=T,col="blue",xlab="",ylab="")
+curve(dnorm(x,pA,sqrt(pA*(1-pA)/n)),add=T,lwd=5)[#}
+{#ImageR]ex:img/tclMoy2.png[#,]5,5[#,]:4[#,]0.6,-0.05[#,]
+HistDiscreteTh(modtmp/n,dbinom(modtmp,n,pA),fill=T,col="blue",xlab="",ylab="")
+curve(dnorm(x,pA,sqrt(pA*(1-pA)/n)),add=T,lwd=5)
+area(Norm(pA,sqrt(pA*(1-pA)/n)),c(plim,qtmp[2]/n),col="red")[#}
+{#Actor]ex:prob_stat[#,]:4[#,]tclMoy2:0.15,40[#align]center,bottom[#minipage]none[#,]{\small $P_{p^A=15\%}(\Est{p^A}{Y^A}\geq 16\%)$}[#}
+{#Actor]ex:prob_statBis[#,]:4[#,]tclMoy2:0.15,-10[#,]{\tiny $\mathtt{1-pnorm(plim,.15,sqrt(.15*.85/1000))}=#R{round(1-pnorm(plim,.15,sqrt(.15*.85/1000)),4)}$}[#}
+{#Actor]ex:prob_stat[#,]:4[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(tclMoy2:#R{plim},40)})}{\pgfxy(@{xy(tclMoy2:0.17,2)})}[#}
+{#incCpt]4[#}
+
+[#>]\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shaded=true,lower=header]{}
+  @{beginScene(head)}
+  @{writeScene(head)}
+  @{endScene(head)}
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=magenta!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+@{beginScene(def)}
+@{writeScene(def)}
+@{endScene(def)}
+\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=cyan!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+@{beginScene(ex)}
+@{writeScene(ex)}
+@{endScene(ex)}
+\end{beamercolorbox}
+\end{frame}

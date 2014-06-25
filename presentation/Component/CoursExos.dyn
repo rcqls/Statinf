@@ -1,0 +1,249 @@
+[#package]
+\usepackage{slashbox}
+[#require]Import/StatDevel/BeamerCours
+[#main]
+[#>]
+{#case]#{docs}
+[#when]initScene[#>]{#InitScene#}
+[#when]putScene[#>]{#PutScene#}
+
+[#when]chomData[#<]Contexte
+{#new]pChom[#of]ParamFrame[#in]pChom[#,]p[#,]asymp[#,].nomPb[C][#,].thetaEstR[16/200][#,].ny[200][#}
+
+
+{#new]pChomTest[#of]TestParam[#in]pChom[#,]:pChom[#,].theta0R[0.1][#,].theta0Tex[10\%][#,].side[<][#,].assertion[le taux de chômage en France serait cette année inférieur à $10\%$][#}
+
+[#when]chomSQ[#>]{#RedStdBeamer]pChomTest[#,]pchomsq[#,]Chomage (quantile)[#.indic]q[#}
+[#when]chomSP[#>]{#RedStdBeamer]pChomTest[#,]pchomsp[#,]Chomage (p-valeur)[#.indic]p[#}
+[#when]chomAQ[#>]{#redStdBeamer]pChomTest[#,]pchom[#,]Chomage (abr. quant)[#.indic]q[#}
+[#when]chomAP[#>]{#redStdBeamer]pChomTest[#,]pchom[#,]Chomage (abr. p-val)[#.indic]p[#}
+
+[#when]dietn10Data[#<] Contexte
+{#new]muAVAPDiet[#of]ParamFrame[#in]muAVAPDiet[#,]md[#,]g[#,].nom1Pb[AV][#,].nom2Pb[AP][#.y1R]AV[#.y2R]AP[#r<]
+attach("~/cqls/data/dieteticien.RData")
+attach(dieteticien)
+AV<-AV
+AP<-AP
+detach()
+detach()
+[#}
+
+{#new]muAVAPDietTest[#of]TestParam[#in]muAVAPDiet[#,]:muAVAPDiet[#,].theta0R[0][#,].side[>][#,].assertion[le régime alimentaire du diététicien permet une perte de poids][#}
+[#when]dietn10SQ[#>]{#RedStdBeamer]muAVAPDietTest[#,]muDietn10sq[#,]Diététicien (quantile)[#.indic]q[#}
+[#when]dietn10SP[#>]{#RedStdBeamer]muAVAPDietTest[#,]muDietn10sp[#,]Diététicien (p-valeur)[#.indic]p[#}
+[#when]dietn10AQ[#>]{#redStdBeamer]muAVAPDietTest[#,]muDietn10[#,]Diététicien (abr. quant)[#.indic]q[#}
+[#when]dietn10AP[#>]{#redStdBeamer]muAVAPDietTest[#,]muDietn10[#,]Diététicien (abr. p-val)[#.indic]p[#}
+
+[#when]dietn50Data[#<] Contexte
+{#new]muDDiet[#of]ParamFrame[#in]muDDiet[#,]m[#,]a[#,].nomPb[D][#r<]
+attach("~/cqls/data/dieteticien.RData")
+attach(dieteticien)
+yD<-yBis
+detach()
+detach()
+[#}
+
+{#new]muDDietTest[#of]TestParam[#in]muDDiet[#,]:muDDiet[#,].theta0R[4][#,].side[>][#,].assertion[le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine][#}
+[#when]dietn50SQ[#>]{#RedStdBeamer]muDDietTest[#,]muDietn50sq[#,]Diététicien (quantile)[#.indic]q[#}
+[#when]dietn50SP[#>]{#RedStdBeamer]muDDietTest[#,]muDietn50sp[#,]Diététicien (p-valeur)[#.indic]p[#}
+[#when]dietn50AQ[#>]{#redStdBeamer]muDDietTest[#,]muDietn50[#,]Diététicien (abr. quant)[#.indic]q[#}
+[#when]dietn50AP[#>]{#redStdBeamer]muDDietTest[#,]muDietn50[#,]Diététicien (abr. p-val)[#.indic]p[#}
+
+[#when]dictData[#<] Contexte
+{#new]muDictee[#of]ParamFrame[#in]muDictee[#,]m[#,]a[#,].nomPb[D][#r<]
+attach("{#curpath]data/dictee.RData[#}")
+yD<-y
+detach()
+[#}
+{#new]muDicteeTest[#of]TestParam[#in]muDictee[#,]:muDictee[#,].theta0R[6.3][#,].side[!=][#,].assertion[les nouvelles méthodes d'enseignement\ldots ont un effet sur le niveau en orthogrphe des bacheliers actuels][#}
+[#when]dictSQ[#>]{#RedStdBeamer]muDicteeTest[#,]muDictsq[#,]Dictée (quantile)[#.indic]q[#}
+[#when]dictSP[#>]{#RedStdBeamer]muDicteeTest[#,]muDictsp[#,]Dictée (p-valeur)[#.indic]p[#}
+[#when]dictAQ[#>]{#redStdBeamer]muDicteeTest[#,]muDict50[#,]Dictée (abr. quant)[#.indic]q[#}
+[#when]dictAP[#>]{#redStdBeamer]muDicteeTest[#,]muDict50[#,]Dictée (abr. p-val)[#.indic]p[#}
+
+[#when]alfredn20Data[#<] Contexte
+{#new]varAn20Techni[#of]ParamFrame[#in]varAn20Techni[#,]v[#,]g[#,].nomPb[A][#r<]
+attach('~/cqls/data/techniciens.RData')
+yA<-yA[1:20]
+detach()
+[#}
+{#new]varAn20TechniTest[#of]TestParam[#in]varAn20Techni[#,]:varAn20Techni[#,].theta0R[0.1][#,].side[<][#,].assertion[Alfred est compétent][#}
+[#when]alfredn20SQ[#>]{#RedStdBeamer]varAn20TechniTest[#,]alfredn20sq[#,]Alfred (quantile)[#.indic]q[#}
+[#when]alfredn20SP[#>]{#RedStdBeamer]varAn20TechniTest[#,]alfredn20sp[#,]Alfred (p-valeur)[#.indic]p[#}
+[#when]dalfredn20AQ[#>]{#redStdBeamer]varAn20TechniTest[#,]alfredn20[#,]Alfred (abr. quant)[#.indic]q[#}
+[#when]alfredn20AP[#>]{#redStdBeamer]varAn20TechniTest[#,]alfredn20[#,]Alfred (abr. p-val)[#.indic]p[#}
+[#when]alfredn50Data[#<] Contexte
+{#new]varAn50Techni[#of]ParamFrame[#in]varAn50Techni[#,]v[#,]a[#,].nomPb[A][#r<]
+attach('~/cqls/data/techniciens.RData')
+yA<-yA
+detach()
+[#}
+{#new]varAn50TechniTest[#of]TestParam[#in]varAn50Techni[#,]:varAn50Techni[#,].theta0R[0.1][#,].side[<][#,].assertion[Alfred est compétent][#}
+[#when]alfredn50SQ[#>]{#RedStdBeamer]varAn50TechniTest[#,]alfredn50sq[#,]Alfred (quantile)[#.indic]q[#}
+[#when]alfredn50SP[#>]{#RedStdBeamer]varAn50TechniTest[#,]alfredn50sp[#,]Alfred (p-valeur)[#.indic]p[#}
+[#when]alfredn50AQ[#>]{#redStdBeamer]varAn50TechniTest[#,]alfredn50[#,]Alfred (abr. quant)[#.indic]q[#}
+[#when]alfredn50AP[#>]{#redStdBeamer]varAn50TechniTest[#,]alfredn50[#,]Alfred (abr. p-val)[#.indic]p[#}
+[#when]chAffContexte[#>]
+{#BeamerFrame]Objectif et questions[#>]
+\begin{exampleblock}{Problématique associée à ce cours}
+On s'intéresse aux performances relatives de l'ensemble des petites et moyennes entreprises (PME) de deux pays fictifs notés P1 et P2 en 2004 et 2005 en analysant leurs chiffres d'affaires (exprimés dans une même unité). Ne pouvant pas interroger l'ensemble des PME, on ne pourra disposer que des chiffres d'affaires sur des échantillons de PME (les tailles d'échantillons seront précisées plus tard).
+\end{exampleblock}
+
+
+\begin{block}{Question 1}
+En 2005, le C.A. annuel moyen des PME du pays $P_1$ est-il de plus de 20 unités supérieur à celui du pays $P_2$~?
+\end{block}
+
+\begin{block}{Question 2}
+En 2005, le C.A. annuel moyen des PME du pays $P_1$ est-il de plus de 20\% supérieur à celui du pays $P_2$~?
+\end{block}
+
+[#}
+{#BeamerFrame]Questions (suite)[#>]
+
+\begin{block}{Question 3}
+En 2005, l'hétérogénéité (mesurée par la variance) des C.A. annuels des PME du pays $P_1$ est-elle différente de celle du pays $P_2$~?
+\end{block}
+ 
+\begin{block}{Question 4}
+En 2005, l'hétérogénéité des C.A. annuels des PME du pays $P_1$ est-elle de plus de 25\% supérieure à celle du pays $P_2$~?
+\end{block}
+
+\begin{block}{Question 5}
+{\small Le C.A. moyen des PME de P1 a-t-il augmenté de plus de 10 unités entre 2004 et 2005~?
+Pour traiter cette question, on disposera des chiffres d'affaires des mêmes $n$ PME en 2004 et 2005.}
+\end{block}
+[#}
+[#when]chAffH1[#>]
+{#BeamerFrame][#>]
+\begin{block}{Assertion d'intérêt pour Question 1}
+En 2005, le C.A. annuel moyen des PME du pays $P_1$ est-il de plus de 20 unités supérieur à celui du pays $P_2$~?\\
+\pause
+\textbf{Réponse}~:\\
+\centerline{$
+\mathbf{H_1}: \!\mu^{P1}>\mu^{P2}\!+\!20  \!\Longleftrightarrow\!$ \pause $\left\{\begin{array}{c} \!d_\mu:=\mu^{P1}\!-\!\mu^{P2} >20 \\
+\mbox{ou}\\
+ \!d_\mu:=\mu^{P2}\!-\!\mu^{P1} < -20
+\end{array}\right.
+$}
+\end{block}
+\pause
+\begin{block}{Assertion d'intérêt pour Question 2}
+En 2005, le C.A. annuel moyen des PME du pays $P_1$ est-il de plus de 20\% à celui du pays $P_2$~?\\
+\pause
+\textbf{Réponse}~: ({\small \underline{Attention}: différence de moyennes n'est pas possible!!})
+\centerline{$
+\mathbf{H_1}: \!\mu^{P1}\!>\!(1+20\%)\mu^{P2} \!\Longleftrightarrow \pause \left\{\begin{array}{c} r_\mu:=\frac{\mu^{P1}}{\mu^{P2}} >1.2\\\mbox{ou}\\r_\mu:=\frac{\mu^{P2}}{\mu^{P1}} < 1/1.2\end{array}\right.
+$}
+\end{block}
+[#}
+
+
+{#BeamerFrame][#>]
+\begin{block}{Assertion d'intérêt pour Question 3}
+En 2005, l'hétérogénéité (mesurée par la variance) des C.A. annuels des PME du pays $P_1$ est-elle différente de celle du pays $P_2$~?\\
+\pause
+\textbf{Réponse}~:
+\centerline{$
+\mathbf{H_1}: \!\sigma^2_{P1}\neq\sigma^2_{P2} \!\Longleftrightarrow\!$ \pause$ \left\{\begin{array}{c} d_{\sigma^2}:=\sigma^2_{P1}\!-\!\sigma^2_{P2} \neq 0 \; \Longleftrightarrow\! r_{\sigma^2}:=\frac{\sigma^2_{P1}}{\sigma^2_{P2}} \neq 1 \\\mbox{ou}\\d_{\sigma^2}:=\sigma^2_{P2}\!-\!\sigma^2_{P1} \neq 0 \; \Longleftrightarrow\! r_{\sigma^2}:=\frac{\sigma^2_{P2}}{\sigma^2_{P1}} \neq 1\end{array}\right.
+$}
+\end{block}
+
+\begin{block}{Assertion d'intérêt pour Question 4}
+En 2005, l'hétérogénéité des C.A. annuels des PME du pays $P_1$ est-elle de plus de 25\% supérieure à celle du pays $P_2$~?\\
+\pause
+\textbf{Réponse}~:
+\centerline{$
+\mathbf{H_1}: \!\sigma^2_{P1}\!>\!(1+25\%)\sigma^2_{P2} \!\Longleftrightarrow$  \pause $\left\{\begin{array}{c} \! r_{\sigma^2}:=\frac{\sigma^2_{P1}}{\sigma^2_{P2}} >1.25\\\mbox{ou}\\r_{\sigma^2}:=\frac{\sigma^2_{P2}}{\sigma^2_{P1}} < 1/1.25
+\end{array}\right.
+$}
+\end{block}
+[#}
+
+{#BeamerFrame][#>]
+\begin{block}{Assertion d'intérêt pour Question 5}
+{\small Le C.A. moyen des PME de P1 a-t-il augmenté de plus de 10 unités entre 2004 et 2005~?
+Pour traiter cette question, on disposera des chiffres d'affaires des mêmes $n$ PME en 2004 et 2005.}\\
+\pause
+\textbf{Réponse}~:
+\begin{itemize}
+\item test basé sur deux paramètres mais seulement sur un seul échantillon car les mêmes $n$ PME ont été interrogées.
+\item Construire la variable d'intérêt Différence de C.A.~:
+\centerline{$Y^D:=Y^{04}-Y^{05}$ ou $Y^D:=Y^{05}-Y^{04}$.}
+\item $\mu^D:=$ moy. de diff.=$\EEE{Y^D}$($=\mu^{04}-\mu^{05}$ ou $\mu^{05}-\mu^{04}$).\\\pause
+$\Longrightarrow$ ($\mu^D=$``{\small Moyenne de Différence}")$\neq$($d_\mu=$``{\small Différence de Moyennes}"!) 
+\end{itemize}
+\centerline{$
+\mathbf{H_1}: \!\mu^{05}\!>\! \mu^{04} +10 \Longleftrightarrow \pause \left\{\begin{array}{c} \mu^D:=\!\mu^{04}\!-\! \mu^{05} \!<\! -10 \\\mbox{ou}\\ \mu^D:=\!\mu^{05}\!-\! \mu^{04} \!>\! 10\end{array}\right.
+$}
+\end{block}
+[#}
+[#when]chAffData[#<]
+{#new]dmun20ChAff[#of]ParamFrame[#in]dmun20ChAff[#,]dm[#,]g[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+load('~/cqls/data/chAff.RData')
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+[#}
+{#new]dmun20ChAffTest[#of]TestParam[#in]dmun20ChAff[#,]:dmun20ChAff[#,].theta0R[20][#,].side[>][#,].assertion[le chiffre d'affaires annuel moyen des PME du pays P1 est de plus de 20 unités supérieur à celui du pays P2][#}
+
+{#new]dmuChAff[#of]ParamFrame[#in]dmuChAff[#,]dm[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+load('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+[#}
+{#new]dmuChAffTest[#of]TestParam[#in]dmuChAff[#,]:dmuChAff[#,].theta0R[20][#,].side[>][#,].assertion[le chiffre d'affaires annuel moyen des PME du pays P1 est de plus de 20 unités supérieur à celui du pays P2][#}
+
+{#new]rmuChAff[#of]ParamFrame[#in]rmuChAff[#,]rm[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+load('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+[#}
+{#new]rmuChAffTest[#of]TestParam[#in]rmuChAff[#,]:rmuChAff[#,].theta0R[1.2][#,].side[>][#,].assertion[le C.A. annuel moyen des PME du pays P1 est de plus de 20\% supérieur à celui du pays P2][#}
+
+{#new]rvarn20ChAff[#of]ParamFrame[#in]rvarn20ChAff[#,]rv[#,]g[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+load('~/cqls/data/chAff.RData')
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+[#}
+{#new]rvarn20ChAffTest[#of]TestParam[#in]rvarn20ChAff[#,]:rvarn20ChAff[#,].theta0R[1][#,].side[!=][#,].assertion[les hétérogénéités des chiffres d'affaires annuels des PME des deux pays diffèrent][#}
+
+{#new]rvarChAff[#of]ParamFrame[#in]rvarChAff[#,]rv[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+load('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+[#}
+{#new]rvarChAffTest[#of]TestParam[#in]rvarChAff[#,]:rvarChAff[#,].theta0R[1.25][#,].side[>][#,].assertion[l'hétérogénéité des C.A. annuels des PME de P1 est de plus de 25\% supérieure à celle de P2][#}
+
+{#new]dvarChAff[#of]ParamFrame[#in]dvarChAff[#,]dv[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
+load('~/cqls/data/chAff.RData')
+yP1<-yy05
+yP2<-yP2
+[#}
+{#new]dvarChAffTest[#of]TestParam[#in]dvarChAff[#,]:dvarChAff[#,].theta0R[0][#,].side[!=][#,].assertion[les hétérogénéités des chiffres d'affaires annuels des PME des deux pays diffèrent][#}
+
+{#new]muDn20ChAff[#of]ParamFrame[#in]muDn20ChAff[#,]md[#,]g[#,].nom1Pb[04][#,].nom2Pb[05][#r<]
+load('~/cqls/data/chAff.RData')
+y04<-yy04[1:20]
+y05<-yy05[1:20]
+[#}
+{#new]muDn20ChAffTest[#of]TestParam[#in]muDn20ChAff[#,]:muDn20ChAff[#,].theta0R[-10][#,].side[<][#,].assertion[le chiffre d'affaires annuel moyen des PME a augmenté entre 2004 et 2005 de 10 unités][#}
+
+{#new]muDChAff[#of]ParamFrame[#in]muDChAff[#,]md[#,]a[#,].nom1Pb[04][#,].nom2Pb[05][#r<]
+load('~/cqls/data/chAff.RData')
+y04<-yy04
+y05<-yy05
+[#}
+{#new]muDChAffTest[#of]TestParam[#in]muDChAff[#,]:muDChAff[#,].theta0R[-10][#,].side[<][#,].assertion[le chiffre d'affaires annuel moyen des PME a augmenté entre 2004 et 2005 de 10 unités][#}
+[#when]chAffq1a[#>]
+{#RedStdBeamer]dmun20ChAffTest[#,]caq1[#,]Chiffre Affaires - Question 1a[#.indic]q[#}
+[#when]chAffq1b[#>]
+{#RedStdBeamer]dmuChAffTest[#,]caq1b[#,]Chiffre Affaires - Question 1b[#}
+[#when]chAffq2[#>]{#RedStdBeamer]rmuChAffTest[#,]caq2[#,]Chiffre Affaires - Question 2[#.indic]q[#}
+[#when]chAffq3a[#>]{#RedStdBeamer]rvarn20ChAffTest[#,]caq3a[#,]Chiffre Affaires - Question 3a[#}
+[#when]chAffq3b[#>]{#RedStdBeamer]dvarChAffTest[#,]caq3b[#,]Chiffre Affaires - Question 3b[#}
+[#when]chAffq4a[#>]{#initH1]rvarn20ChAffTest[#theta0]1.25[#side]>[#}{#init]rvarn20ChAffTest[#,].assertion[l'hétérogénéité des C.A. annuels des PME de P1 est de plus de 25\% supérieure à celle de P2][#}
+{#RedStdBeamer]rvarn20ChAffTest[#,]caq4a[#,]Chiffre Affaires - Question 4a[#}
+[#when]chAffq4b[#>]{#RedStdBeamer]rvarChAffTest[#,]caq4b[#,]Chiffre Affaires - Question 4b[#}
+[#when]chAffq5a[#>]{#RedStdBeamer]muDn20ChAffTest[#,]caq5a[#,]Chiffre Affaires - Question 5a[#}
+[#when]chAffq5b[#>]{#RedStdBeamer]muDChAffTest[#,]caq5b[#,]Chiffre Affaires - Question 5b[#}
+[#case}

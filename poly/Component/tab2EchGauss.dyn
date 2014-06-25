@@ -1,0 +1,21 @@
+\begin{table}[H]
+\hspace*{-1.5cm}\begin{tabular}{|c|c|c|}\hline
+\multicolumn{3}{|c|}{}\\
+\multicolumn{3}{|c|}{\textbf{Param{\`e}tre d'int{\'e}r{\^e}t et estimation}}\\\hline
+Param{\`e}tre d'int{\'e}r{\^e}t $\theta$ & $d_{\mu}= \mu^{(1)}- \mu^{(2)}$ (d{\'e}faut $r=1$) & $r_{\sigma^2} = \sigma^2_{(1)}/ \sigma^2_{(2)}$ \\\hline
+Future estimation $\Est{\theta}{Y}$ & $\displaystyle{\Est{d_{\mu}}{Y}= \Est{\mu^{(1)}}{Y^{(1)}}- \Est{\mu^{(2)}}{Y^{(2)}}}$ & $\displaystyle{\Est{r_{\sigma^2}}{Y}= \Est{\sigma_{(1)}^2}{Y^{(1)}}/\Est{\sigma_{(2)}^2}{Y^{(2)}}}$ \\\hline 
+$\Est{\theta}{y}$ exprim{\'e} en \verb+R+ & \verb+mean(y1)-mean(y2)+ & \verb+var(y1)/var(y2)+  \\
+\hline\hline\multicolumn{3}{c}{}\\\hline
+\multicolumn{3}{|c|}{}\\
+\multicolumn{3}{|c|}{\textbf{Mesure d'{\'e}cart standardis{\'e}e}}\\\hline
+ $\delta_\theta(\Vect{Y})$ & {\small $\delta_{d_\mu}(\Vect{Y})={\frac{\Est{d_\mu}{Y}-d_\mu}{\sqrt{\Est{\sigma^2}{Y}\left(\frac{1}{n^{(1)}}+\frac{1}{n^{(2)}}  \right)}}   \leadsto\mathcal{S}t(\!n^{(1)}\!+\!n^{(2)}\!-\!2\!)}$} & $\delta_{r_{\sigma^2}}(\Vect{Y})={\frac{\Est{r_{\sigma^2}}{Y}}{r_0} \leadsto\mathcal{F}(n^{(1)}-1,n^{(2)}-1)  }$ \\
+&{ avec ${\Est{\sigma^2}{Y}=\frac{(n^{(1)}-1) \Est{\sigma^2_{(1)}}{Y^{(1)}} + (n^{(2)}-1) \Est{\sigma^2_{(2)}}{Y^{(2)}} }{n^{(1)}+n^{(2)}-2}    }   $}  & \\
+\hline\hline\multicolumn{3}{c}{}\\\hline
+\multicolumn{3}{|c|}{}\\
+\multicolumn{3}{|c|}{\textbf{Statistique de test ou Mesure d'{\'e}cart standardis{\'e}e de test}}\\\hline
+Valeur de r{\'e}f{\'e}rence $\theta_0$ & $d_0$ & $r_0$ \\\hline
+$\delta_{\theta_0}(\Vect{Y})$ & {\small $\delta_{d_0}(\Vect{Y})=\displaystyle{\frac{\Est{d_\mu}{Y}-d_0}{\sqrt{\Est{\sigma^2}{Y}\left(\frac{1}{n^{(1)}}+\frac{1}{n^{(2)}}\right)}}   \leadsto\mathcal{S}t(n^{(1)}+n^{(2)}-2)}$} & $\delta_{r_0}(\Vect{Y})=\displaystyle{\frac{\Est{r_{\sigma^2}}{Y}}{r_0} \leadsto\mathcal{F}(n^{(1)}-1,n^{(2)}-1)  }$  \\\hline
+\end{tabular}
+\caption{Tableau r{\'e}capitulatif au cas de deux {\'e}chantillons (dans un cadre gaussien).}
+\label{DeuxEchGaussien}
+\end{table}

@@ -1,0 +1,52 @@
+[#require][#>]beamertheme[Boadilla]
+[#>]Tex/Cqls
+Tex/Beamer
+Tex/Fr
+Tex/11pt
+Import/Tools/Beamer
+Import/Tools/RFigure
+Import/Tex/FilterR
+[#package]
+\usepackage{float}
+[#preamble]
+\setbeamercovered{invisible}
+\newcommand{\Sim}{{\star}}
+\newcommand{\ok}{ \textcolor{green}{\large$\surd$}}
+\newcommand{\nok}{ \textcolor{red}{\large X}}
+[#title]
+\title[Problématiques Produits A et B]
+{Cours de Statistiques Inférentielles}
+\author{CQLS~: cqls@upmf-grenoble.fr}
+\date{\today}
+[#main]
+\begin{frame}
+  \titlepage
+\end{frame}
+[#%]Initialisation de scene utilisables[#<]
+{#initCpt#}
+
+{#Scene]head[#,]0,0,6,0.5[#cpt]ok[#}
+{#Scene]def[#,]0,0,11,1.5[#cpt]ok[#}
+{#Scene]ex[#,]0,0,11,4.5[#cpt]ok[#}
+[#tag]cours:indus[#<<]Component/CoursPresIndus
+[#tag]cours:prob[#<<]Component/CoursProba1
+[#tag]cours:prob2[#<<]Component/CoursHypoTestIndusProba1
+[#tag]coursOld:prob2[#<<]Component/CoursProba
+[#tag]coursOld:hypoProd[#<<]Component/CoursHypoTestPrAEtB
+[#tag]coursOld:appProd[#<<]Component/CoursAppProdAetB
+[#tag]cours:versgen[#<<]Component/CoursVersGen
+[#tag]coursObsolete:proba2[#<<]Component/CoursProba2
+[#tag]cours:cadreasymp[#<<]Component/CoursCadreAsymp
+[#tag]coursOld:cadreasymp[#<<]Component/CoursCadreAsympOLD
+[#tag]cours:aep[#<<]Component/CoursProba2Indus
+[#tag]cours:2params[#<<]Component/CoursDeuxParam
+[#tag]cours:redstd[#<<]Component/CoursRedStd
+[#tag]cours:autreredstd[#<<]Component/CoursExosRappel
+[#tag]cours:2gauss[#<<]Component/CoursDeuxGauss
+[#tag]cours:prescadre[#<<]Component/CoursPresCadre
+[#tag]cours:prescadre2[#<<]Component/CoursPresCadre2
+[#tag]cours:prescadretmp[#<<]Component/CoursPresCadreTMP
+[#tag]cours:pval[#<<]Component/CoursPValeur
+[#tag]cours:histo[#<<]Component/CoursAEPHisto
+[#tag]cours:ic[#<<]Component/CoursIC
+[#tag]cours:risk2esp[#<<]Component/CoursSecEspATMP

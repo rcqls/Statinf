@@ -1,0 +1,343 @@
+[#package]
+\usepackage{slashbox}
+[#main]
+\section[Problématique]{Tableaux récapitulatifs}
+
+\begin{frame}
+\frametitle{Rédaction standard}
+
+\begin{minipage}{11cm}
+
+\centerline{\fbox{ \large \textit{  R{\'e}daction standard d'un test d'hypoth{\`e}ses param{\'e}trique  }} }\vspace*{.2cm}  
+
+\fbox{
+\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Hypoth{\`e}ses de test~:} 
+$$\mathbf{H_0}: \theta=\theta_0\mbox{ versus }\mathbf{H_1}:\left\{
+\begin{array}{ll} 
+\theta>\theta_0 & \mbox{\textbf{(a)}: {\it unilatéral droit}}\\ 
+\theta<\theta_0 & \mbox{\textbf{(b)}: {\it unilatéral gauche}} \\ 
+\theta\neq\theta_0 & \mbox{\textbf{(c)}: {\it bilatéral}}
+\end{array}\right.
+$$
+
+\noindent \textbf{Statistique de test sous $\mathbf{H_0}$}~:
+$$\Est{\delta_{\theta,\theta_0}}{Y}\leadsto\mathcal{L}_0 \mbox{ ({\`a} pr{\'e}ciser selon probl{\'e}matique)}$$ 
+
+\noindent \textbf{R{\`e}gle de d{\'e}cision~:}
+on accepte $\mathbf{H_1}$ si\\
+$\left\{ 
+\begin{array}{l} 
+\mbox{\textbf{(a): }} 
+\Est{\delta_{\theta,\theta_0}}{y}>\delta^{+}_{\lim,\alpha} \mbox{ ou p-valeur(gauche)}<\alpha \\ 
+\mbox{\textbf{(b): }} 
+\Est{\delta_{\theta,\theta_0}}{y}<\delta^{-}_{\lim,\alpha}\mbox{ ou p-valeur(droite)}<\alpha \\ 
+ \mbox{\textbf{(c): }}  
+\left( \Est{\delta_{\theta,\theta_0}} {y} < \delta^{-}_{\lim,\alpha/2} \mbox{ ou } \Est{\delta_{\theta,\theta_0}} {y} > \delta^{+}_{\lim,\alpha/2} \right)\mbox{ ou  p-valeur(bi)}<\alpha
+\end{array}\right.$
+}
+\end{minipage}}\end{minipage}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Un autre tableau récapitulatif}
+{\small \hspace*{-.3cm} \begin{tabular}{|c|c|c|}
+\hline \hline
+ \multicolumn{3}{|c|}{\color{blue} \large Assertion d'intérêt} \\ 
+$\mathbf{H_1}: \theta<\theta_0$ & $\mathbf{H_1}: \theta>\theta_0$&$\mathbf{H_1}: \theta\neq\theta_0$ \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Statistique de test sous $H_0$} \\
+\multicolumn{3}{|c|}{$\Est{\delta_{\theta,\theta_0}}{Y} \leadsto \mathcal{L}_0 \NotR \mathtt{loi}$} \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Le jour J avec les données $\Vect{y}$} \\ \multicolumn{3}{|c|}{$\Est{\delta_{\theta,\theta_0}}{y} \NotR \mathtt{deltaEst.H0}$} \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Quantile(s)} \\
+$\delta_{lim,\alpha}^- \NotR \mathtt{qloi(\alpha,...)}$ &  $\delta_{lim,\alpha}^+ \NotR \mathtt{qloi(1-\alpha,...)}$& $\delta_{lim,\frac{\alpha}2}^- \NotR \mathtt{qloi(\alpha,...)}$\\
+&& $\delta_{lim,\frac{\alpha}2}^+ \NotR \mathtt{qloi(1-\alpha/2,...)}$\\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large P$-$valeur}\\
+p$-$val(gauche)$\NotR$&p$-$val(droite)$\NotR$ & p$-$val(bi)$\NotR$ \\
+{\scriptsize$\mathtt{ploi(deltaEst.H0,...)}$}&{\scriptsize $\mathtt{1-ploi(deltaEst.H0,...)}$} & 
+{\tiny$ \mathtt{2*ploi(deltaEst.H0,...)}$ si p$-$val(g)$<$p$-$val(d)} \\
+&& {\tiny$ \mathtt{2*(1-ploi(deltaEst.H0,...))}$ sinon}\\
+\hline
+\end{tabular}}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+  
+[#rb<]
+nPar=2
+nPar1=nPar+1
+nPar2=nPar1+4
+nEch=nPar2+1
+nEch1=nEch+1
+nEch2=nEch1+5
+nLast=nEch2+4
+lY=1
+[#>]
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+  \pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+   \onslide<#Rb{nPar}-#Rb{nPar1+3},#Rb{nLast}>{
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,#Rb{8-2*lY})}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+}
+ \onslide<#Rb{nPar},#Rb{nPar2}->{
+    \pgfnodebox{Par2}[stroke]{\pgfxy(7.5,#Rb{8-lY})}{2 paramètres}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par2}{-90}{90}{0.5cm}{0.5cm}
+} 
+\onslide<#Rb{nEch}->{
+ \pgfnodebox{CritEch}[stroke]{\pgfxy(7.5,#Rb{8-2*lY})}{\color[rgb]{0,0,1}Nbre d'échantillons~?}{2pt}{2pt}
+ \pgfnodeconncurve{Par2}{CritEch}{-90}{90}{0.5cm}{0.5cm}
+}  
+\onslide<#Rb{nEch1}-#Rb{nEch1+4},#Rb{nLast}>{
+\pgfnodebox{Ech1}[stroke]{\pgfxy(6,#Rb{8-3*lY})}{1 échantillon}{2pt}{2pt}
+ \pgfnodeconncurve{CritEch}{Ech1}{-90}{90}{0.5cm}{0.5cm}
+}
+\onslide<#Rb{nEch1},#Rb{nEch2}->{
+   \pgfnodebox{Ech2}[stroke]{\pgfxy(9,#Rb{8-3*lY})}{2 échantillons}{2pt}{2pt}
+     \pgfnodeconncurve{CritEch}{Ech2}{-90}{90}{0.5cm}{0.5cm}
+}
+\onslide<#Rb{nPar1+1},#Rb{nPar1+2},#Rb{nEch1+2}-#Rb{nEch1+3},#Rb{nEch2+1}-#Rb{nEch2+2},#Rb{nLast}>{
+  \pgfnodebox{Asympt}[stroke]{\pgfxy(3,#Rb{8-4.5*lY})}{\color[rgb]{0,0.6,0}Asymptotique}{2pt}{2pt}
+}
+ \onslide<#Rb{nPar1+1},#Rb{nPar1+3},#Rb{nEch1+2},#Rb{nEch1+4},#Rb{nEch2+1},#Rb{nEch2+3},#Rb{nLast}>{  
+\pgfnodebox{Gauss}[stroke]{\pgfxy(8,#Rb{8-4.5*lY})}{\color[rgb]{0,0.6,0}Gaussien}{2pt}{2pt}
+} 
+ \only<#Rb{nPar1+1},#Rb{nPar1+2},#Rb{nLast}>{       
+\pgfnodeconncurve{Par1}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+}\only<#Rb{nPar1+1},#Rb{nPar1+3},#Rb{nLast}>{
+\pgfnodeconncurve{Par1}{Gauss}{-90}{90}{2cm}{0.5cm}
+}\only<#Rb{nEch1+2},#Rb{nEch1+3},#Rb{nLast}>{ 
+     \pgfnodeconncurve{Ech1}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+}\only<#Rb{nEch1+2}, #Rb{nEch1+4},#Rb{nLast}>{ 
+     \pgfnodeconncurve{Ech1}{Gauss}{-90}{90}{0.5cm}{0.5cm}
+}\only<#Rb{nEch2+1},#Rb{nEch2+2},#Rb{nLast}>{
+     \pgfnodeconncurve{Ech2}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+}\only< #Rb{nEch2+1},#Rb{nEch2+3},#Rb{nLast}>{ 
+     \pgfnodeconncurve{Ech2}{Gauss}{-90}{90}{0.5cm}{0.5cm}
+}
+%%% 1 param et asympt
+\only< #Rb{nPar1+2}>{ 
+\pgfputat{\pgfxy(0.5,#Rb{8-5.5*lY})}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $p$, $\mu$ et $\sigma^2$}}
+}%%% 1 param et gaussien
+\only< #Rb{nPar1+3}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $\mu$ et $\sigma^2$}}
+}%%% 2 params, 1 ech et asympt
+\only< #Rb{nEch1+3}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y^D}=\Vect{Y^{(1)}}-\Vect{Y^{(2)}}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètre~:} $\mu^D=\mu^{(1)}-\mu^{(2)}$}}
+}%%% 2 params, 1 ech et asympt
+\only< #Rb{nEch1+4}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y^D}=\Vect{Y^{(1)}}-\Vect{Y^{(2)}}$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètre~:} $\mu^D=\mu^{(1)}-\mu^{(2)}$}}
+}%%% 2 params, 2 ech et asympt
+\only< #Rb{nEch2+2}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}=\left(\Vect{Y^{(1)}},\Vect{Y^{(2)}}\right)$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $d_\mu=\mu^{(1)}-\mu^{(2)}$, $r_\mu=\mu^{(1)}/\mu^{(2)}$}}
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[left,top]{\phantom{\textbf{Paramètre~:}} $d_{\sigma^2}=\sigma^2_{(1)}-\sigma^2_{(2)}$,  $r_{\sigma^2}=\sigma^2_{(1)}/\sigma^2_{(2)}$}}
+}%%% 2 params, 2 ech et gaussien
+\only< #Rb{nEch2+3}>{ 
+ \pgfputat{\pgfxy(0.5,2.5)}{\pgfbox[left,top]{\textbf{Données~:} $\Vect{Y}=\left(\Vect{Y^{(1)}},\Vect{Y^{(2)}}\right)$}}
+\pgfputat{\pgfxy(0.5,1.5)}{\pgfbox[left,top]{\textbf{Paramètres~:} $d_\mu=\mu^{(1)}-\mu^{(2)}$}}
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[left,top]{\phantom{\textbf{Paramètre~:}} $r_{\sigma^2}=\sigma^2_{(1)}/\sigma^2_{(2)}$}}
+}
+\end{pgfpicture}
+\end{frame}
+
+
+\begin{frame}[label=ech,t]
+\frametitle{Tableau des problématiques}
+ \begin{block}{}
+\begin{tabular}{|c|c|c|}\hline
+\backslashbox{\textbf{Nbre éch.}}{\textbf{Cadre}} & 
+\begin{minipage}{3cm}
+\centerline{\textbf{Asymptotique}}
+\textbf{Définition~:}\\
+\centerline{\fbox{$n\geq30$}} 
+\textbf{Intérêt~:} \\$Y\leadsto \mathcal{L}_0$ arbitraire
+\end{minipage}  & 
+\begin{minipage}{3.2cm}
+\centerline{\textbf{Gaussien}}
+\textbf{Définition~:}\\
+\centerline{\fbox{$Y\leadsto \mathcal{N}(\mu^\bullet,\sigma_\bullet)$}}
+\textbf{Intérêt~:}\\  Utile lorsque $n< 30$
+\end{minipage}
+\\\hline
+\textbf{1 échantillon} & 
+\begin{minipage}{3cm}
+\begin{center}
+proportion $p$\\
+ moyenne $\mu$\\
+variance $\sigma^2$\\
+\vspace*{.1cm}
+\end{center}
+\end{minipage} 
+ & 
+\begin{minipage}{3cm}
+\begin{center}
+moyenne $\mu$\\
+variance $\sigma^2$
+\end{center} 
+\end{minipage}
+\\\hline
+\textbf{2 échantillons} & 
+\begin{minipage}{3cm}
+\begin{center}
+diff. moyennes $d_\mu$\\
+rapp. moyennes $r_\mu$\\
+diff. variances $d_{\sigma^2}$\\
+rapp. variances $r_{\sigma^2}$ 
+\end{center} 
+\end{minipage}
+& 
+\begin{minipage}{3cm}
+\begin{center}
+diff. moyennes $d_\mu$\\
+rapp. variances $r_{\sigma^2}$
+\end{center} 
+\end{minipage}
+\\\hline
+\end{tabular}
+\end{block}
+\end{frame}
+
+
+
+
+
+
+\section{Partie préliminaire d'un test basé sur deux paramètres}
+\begin{frame}
+\frametitle{Partie préliminaire d'un test basé sur deux paramètres}
+
+{\small 
+\begin{block}{Position du problème sur un exemple}
+Reprenons la problématique du cours précédent (C.A. de PME) Une des questions traitées était~: le C.A. moy. des PME du pays $P_1$ est-il supérieur de plus de 20 unités à celui des PME de $P_2$~? L'assertion s'écrit
+\centerline{$\mathbf{H_1:} \mu^{P1} > \mu^{P2} + 20
+\Longleftrightarrow \mu^{P1} - \mu^{P2} > 20
+\Longleftrightarrow \mu^{P2}- \mu^{P1} <- 20$}
+Il s'agit d'un test de différences de moyennes!
+\end{block}
+
+\begin{alertblock}{Problème : comment définir le paramètre $d_\mu$~?}
+\centerline{$d_\mu:=\mu^{P1} - \mu^{P2}$ ou $d_\mu:=\mu^{P2} - \mu^{P1}$}
+Ce problème est important car il conditionne le sens de l'assertion d'intérêt et donc la rédaction du test!
+\end{alertblock}
+
+\begin{exampleblock}{Solution}
+Les indications \texttt{R} fournies permettent de déduire la bonne définition du paramètre d'intérêt. \\
+\underline{Méthodologie générale}~: essayer les deux solutions et observer avec les données que l'une d'entre elle amène une contradiction.
+\end{exampleblock}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Indications R avec \texttt{deltaEst.H0}}
+[#r<]
+require(CqlsStat)
+attach("~/cqls/data/chAff.RData")
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+[#>]
+{\scriptsize
+\begin{block}{}
+\texttt{> c(length(yP1),length(yP2),mean(yP1),mean(yP2))\\
+$[1]$ #r{length(yP1)} #r{length(yP2)} #r{mean(yP1)} #r{mean(yP2)} \\
+> deltaEst.H0\\
+$[1]$ #r{(mean(yP1)-mean(yP2)-20)/seDMeanG(yP1,yP2)} }
+\end{block}}
+{\small
+\begin{alertblock}{$\mathbf{H_1}\!:\! d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}\!>\!20$}
+$\Est{\delta_{d_\mu,20}}{y^{P1},y^{P2}}$ de même signe que\\ \pause $\Est{\mu^{P1}}{y^{P1}}\!-\!\Est{\mu^{P2}}{y^{P2}}\!-\!20\!\NotR\! \texttt{mean(yP1)-mean(yP2)-20}\!\simeq\! #r{mean(yP1)-mean(yP2)-20}>0$
+\end{alertblock}
+\pause
+\begin{alertblock}{$\mathbf{H_1}: \!d_\mu:=\mu^{P2} \!-\! \mu^{P1}\!<\!-20$}
+$\Est{\delta_{d_\mu,-20}}{y^{P2},y^{P1}}$ de même signe que\\ \pause $\Est{\mu^{P2}}{y^{P2}}\!-\!\Est{\mu^{P1}}{y^{P1}}\!-\!(-20)\!\NotR\!
+\texttt{mean(yP2)-mean(yP1)+20}\!\simeq\! #r{mean(yP2)-mean(yP1)+20}\!<\!0\!$
+\end{alertblock}
+Or, \texttt{deltaEst.H0} est positif, par conséquent une seule solution possible:\\
+\fbox{\centerline{$\mathbf{H_1}: d_\mu:=\mu^{P1} - \mu^{P2}>20$}}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Relation générale entre le signe de \texttt{deltaEst.H0} et \texttt{ploi(deltaEst.H0,...)}}
+
+{\small Lorsque $\mathcal{L}_0=\mathcal{N}(0,1)$ ou $\mathcal{S}t(...)\NotR$, i.e. en \texttt{R} si \texttt{loi}=\texttt{norm} ou \texttt{t}, 
+on a les équivalences suivantes:\\
+\begin{itemize}
+\item {\texttt{deltaEst.H0}$<0 \!\Longleftrightarrow\!$ \texttt{ploi(deltaest.H0,...)}\pause $\!< \!50\%$} \pause
+\item{\texttt{deltaEst.H0}$>0 \!\Longleftrightarrow\!$ \texttt{ploi(deltaest.H0,...)}\pause $\!>\!50\%$}
+\end{itemize}
+
+\pause 
+\textbf{Illustration}:
+}
+[#=]new[FALSE]
+[#r<]
+require(CqlsRandom)
+Y<-Norm()
+[#>]
+
+{#FigureSimple]img[img/cours6Fig1.png] [#,] include[false][#,]rcode[
+plot(Y)
+abline(v=-1.5,lwd=2,col="blue")
+area(Y,c(-4,-1.5),col="green")
+abline(v=0,h=0,lwd=2)
+] [#}
+
+{#FigureSimple]img[img/cours6Fig2.png] [#,] include[false][#,]rcode[
+plot(Y)
+abline(v=1.5,lwd=2,col="blue")
+area(Y,c(-4,1.5),col="green")
+abline(h=0,v=0,lwd=2)
+] [#}
+
+[#=]width[5cm][#=]height[5cm]
+[#>]
+\begin{tabular}{ll}
+\includegraphics[width=#{width},height=#{height}]{img/cours6Fig1}& \includegraphics[width=#{width},height=#{height}]{img/cours6Fig2}
+\end{tabular}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Retour sur les PME avec indications R= p$-$valeur(gauche)}
+[#r<]
+require(CqlsStat)
+attach("~/cqls/data/chAff.RData")
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+[#>]
+{\scriptsize
+\begin{block}{}
+\texttt{> c(length(yP1),length(yP2),mean(yP1),mean(yP2))\\
+$[1]$ #r{length(yP1)} #r{length(yP2)} #r{mean(yP1)} #r{mean(yP2)} \\
+> pt(deltaEst.H0,length(yP1)+length(yP2)-2)\\
+$[1]$ #r{pt((mean(yP1)-mean(yP2)-20)/seDMeanG(yP1,yP2),length(yP1)+length(yP2)-2)} }
+\end{block}}
+\pause
+
+{\small
+\begin{alertblock}{$\mathbf{H_1}\!:\! d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}\!>\!20$}
+$\Est{\delta_{d_\mu,20}}{y^{P1},y^{P2}}$ de même signe que\\ $\Est{\mu^{P1}}{y^{P1}}\!-\!\Est{\mu^{P2}}{y^{P2}}\!-\!20\!\NotR\! \texttt{mean(yP1)-mean(yP2)-20}\!\simeq\! #r{mean(yP1)-mean(yP2)-20}>0$
+\end{alertblock}
+\begin{alertblock}{$\mathbf{H_1}: \!d_\mu:=\mu^{P2} \!-\! \mu^{P1}\!<\!-20$}
+$\Est{\delta_{d_\mu,-20}}{y^{P2},y^{P1}}$ de même signe que\\ $\Est{\mu^{P2}}{y^{P2}}\!-\!\Est{\mu^{P1}}{y^{P1}}\!-\!(-20)\!\NotR\!
+\texttt{mean(yP2)-mean(yP1)+20}\!\simeq\! #r{mean(yP2)-mean(yP1)+20}\!<\!0\!$
+\end{alertblock}
+Or, p$-$valeur(g)$>50\%\Leftrightarrow$\texttt{deltaEst.H0}$>0$, par conséquent~:\\
+\fbox{\centerline{$\mathbf{H_1}: d_\mu:=\mu^{P1} - \mu^{P2}>20$}}
+}
+\end{frame}

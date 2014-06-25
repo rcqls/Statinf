@@ -1,0 +1,301 @@
+[#require]Import/Tools/TabAEP
+[#main]
+[#>]{#case]#{docs}
+[#when]section[#>]\section[I. C.]{Intervalle de confiance}
+[#when]motiv[#>]
+\begin{frame}{}
+\begin{alertblock}{Motivation}
+\pause
+\begin{enumerate}[<+->]
+\item Quelle confiance accordez-vous à deux estimations obtenues à partir de 2 echantillons de tailles respectives $n=5$ et $n=1000$~?
+\item Plus généralement, quelle confiance doit-on accorder à une estimation $\Est{\theta^\bullet}{y}$ le \textbf{jour~J} selon son erreur standard $\Est{\sigma_{\widehat{\theta^\bullet}}}{y}$ plus ou moins grande. 
+\item Interprétation des résultats d'un sondage avant le premier tour des élections présidentielles 2002~: Votre attitude aurait-elle été influencée si à la place d'une estimation $\Est{p^J}{y}$ (autour de $17\%$) pour le candidat Jospin, on vous avait fourni une ``fourchette" $[#R{paste(round(.17+c(-1,1)*1.96*sqrt(.17*.83/1000),4)*100,"\\%",sep="")}]$.
+Il paraît que cette information ne nous est pas fourni car les Français ne sauraient pas interpréter ce type de résultats. Qu'en pensez-vous~?    
+\end{enumerate}
+\end{alertblock}
+\end{frame}
+
+[#when]création
+[#rb<]
+ech=1
+est=ech+1
+delta=est+2
+inter=delta+4
+demo=inter+1
+exp=demo+4+1
+[#<]{#rpng]
+curve(dnorm(x),-3,3,lwd=3,xlab="",ylab="",col="blue")
+abline(h=0,v=0)
+[#img]img/normale.png[#,]newR[TRUE][#widthR]30[#optR]type="cairo-png",bg="#ffffffcc"[#}
+{#rpng]
+curve(dnorm(x),-3,3,lwd=3,xlab="",ylab="",col="blue")
+abline(h=0,v=0)
+abline(v=c(-1.96,1.96),lwd=3,col="purple")
+[#img]img/normale2.png[#,]newR[TRUE][#widthR]30[#optR]type="cairo-png",bg="#ffffffcc"[#}
+[#>]\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{normale}{img/normale}
+\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{normale2}{img/normale2}
+
+\begin{frame}[label=ic,t]
+\frametitle{Construction Intervalle de Confiance et  \textbf{A. E. P.}}
+ 
+\hspace*{0.7cm}\begin{pgfpictureboxed}{0cm}{0cm}{11cm}{5cm}
+\pgfsetendarrow{\pgfarrowto}
+  \pgfnodebox{Y}[stroke]{\pgfxy(0.5,4.5)}{\small$\Vect{Y}$}{2pt}{2pt}
+%\onslide
+\only<#Rb{exp}->{ \pgfnodebox{y1}[stroke]{\pgfxy(0.5,3.5)}{\small$\Vect{y_{[1]}}$}{2pt}{2pt}}
+%\onslide
+\only<#Rb{exp+2}->{ \pgfnodebox{y2}[stroke]{\pgfxy(0.5,2.5)}{\small$\Vect{y_{[2]}}$}{2pt}{2pt}}
+%\onslide
+\only<#Rb{exp+4}->{
+  \pgfputat{\pgfxy(0.5,2)}{\pgfbox[center,center]{$\vdots$}}
+  \pgfnodebox{ym}[stroke]{\pgfxy(0.5,1.25)}{\small$\Vect{y_{[m]}}$}{2pt}{2pt}
+}
+%\onslide
+\only<#Rb{exp+6}>{ \pgfputat{\pgfxy(0.5,0.75)}{\pgfbox[center,center]{$\vdots$}}}
+\only<#Rb{exp}->{\pgfnodeconncurve{Y}{y1}{180}{180}{0.5cm}{0.5cm}}
+\only<#Rb{exp},#Rb{exp+1}>{\pgfnodelabel{Y}{y1}[0.75][-40pt]{\pgfbox[left,base]{$1^{\grave eme}$ réalisation}}
+}
+\only<#Rb{exp+2}->{\pgfnodeconncurve{Y}{y2}{180}{180}{1cm}{0.5cm}}
+\only<#Rb{exp+2},#Rb{exp+3}>{\pgfnodelabel{Y}{y2}[0.9][-40pt]{\pgfbox[left,base]{$2^{\grave eme}$ réalisation}}
+}
+\only<#Rb{exp+4}->{\pgfnodeconncurve{Y}{ym}{180}{180}{2cm}{0.5cm}}
+\only<#Rb{exp+4},#Rb{exp+5}>{\pgfnodelabel{Y}{ym}[0.95][-40pt]{\pgfbox[left,base]{$m^{\grave eme}$ réalisation}}
+}
+\only<#Rb{est}->{
+\pgfnodebox{Est}[stroke]{\pgfxy(2.75,4.5)}{\small${\color<#Rb{delta+1}>{blue}\Est{\theta^\bullet}{Y}}$,${\color<#Rb{delta+2}>{blue}\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}$}{2pt}{2pt}
+\pgfnodeconncurve{Y}{Est}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+1}->{
+\pgfnodebox{est1}[stroke]{\pgfxy(2.75,3.5)}{\small$\Est{\theta^\bullet}{y_{[1]}}$,$\Est{\sigma_{\widehat{\theta^\bullet}}}{y_{[1]}}$}{2pt}{2pt}
+\pgfnodeconncurve{y1}{est1}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+3}->{
+\pgfnodebox{est2}[stroke]{\pgfxy(2.75,2.5)}{\small$\Est{\theta^\bullet}{y_{[2]}}$,$\Est{\sigma_{\widehat{\theta^\bullet}}}{y_{[2]}}$}{2pt}{2pt}
+\pgfnodeconncurve{y2}{est2}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+5}->{
+\pgfputat{\pgfxy(2.75,2)}{\pgfbox[center,center]{$\vdots$}}
+\pgfnodebox{estm}[stroke]{\pgfxy(2.75,1.25)}{\small$\Est{\theta^\bullet}{y_{[m]}}$,$\Est{\sigma_{\widehat{\theta^\bullet}}}{y_{[m]}}$}{2pt}{2pt}
+\pgfnodeconncurve{ym}{estm}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+6}>{
+\pgfputat{\pgfxy(2.75,0.75)}{\pgfbox[center,center]{$\vdots$}}
+}
+
+\only<#Rb{delta}->{
+\pgfnodebox{Delta}[stroke]{\pgfxy(5.75,4.5)}{\small${\delta_{\widehat{\theta^\bullet},\theta^\bullet}}\From {Y}$}{2pt}{2pt}
+\pgfnodeconncurve{Est}{Delta}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+1}->{
+\pgfnodebox{delta1}[stroke]{\pgfxy(5.75,3.5)}{ \small${\delta_{\widehat{\theta^\bullet},\theta^\bullet}}\From{y_{[1]}}$}{2pt}{2pt}
+\pgfnodeconncurve{est1}{delta1}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+3}->{
+\pgfnodebox{delta2}[stroke]{\pgfxy(5.75,2.5)}{\small$ {\delta_{\widehat{\theta^\bullet},\theta^\bullet}}\From{y_{[2]}}$}{2pt}{2pt}
+\pgfnodeconncurve{est2}{delta2}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+5}->{
+\pgfputat{\pgfxy(5.75,2)}{\pgfbox[center,center]{$\vdots$}}
+\pgfnodebox{deltam}[stroke]{\pgfxy(5.75,1.25)}{\small$ {\delta_{\widehat{\theta^\bullet},\theta^\bullet}}\From{y_{[m]}}$}{2pt}{2pt}
+\pgfnodeconncurve{estm}{deltam}{0}{180}{0cm}{0.5cm}
+}
+\only<#Rb{exp+6}>{
+\pgfputat{\pgfxy(5.75,0.75)}{\pgfbox[center,center]{$\vdots$}}
+}
+\only<#Rb{inter}->{
+\pgfnodebox{IC}[stroke]{\pgfxy(9,4.5)}{\small$[\Int{\theta^\bullet}{inf}{Y},\Int{\theta^\bullet}{sup}{Y}]$}{2pt}{2pt}
+\pgfnodeconncurve{Est}{IC}{90}{90}{0.2cm}{0.2cm}
+}
+\only<#Rb{exp+1}->{
+\pgfnodebox{ic1}[stroke]{\pgfxy(9,3.5)}{\small$[\Int{\theta^\bullet}{inf}{y_{[1]}},\Int{\theta^\bullet}{sup}{y_{[1]}}]$}{2pt}{2pt}
+\pgfnodeconncurve{est1}{ic1}{90}{90}{0.2cm}{0.2cm}
+}
+\only<#Rb{exp+3}->{
+\pgfnodebox{ic2}[stroke]{\pgfxy(9,2.5)}{\small$[\Int{\theta^\bullet}{inf}{y_{[2]}},\Int{\theta^\bullet}{sup}{y_{[2]}}]$}{2pt}{2pt}
+\pgfnodeconncurve{est2}{ic2}{90}{90}{0.2cm}{0.2cm}
+}
+\only<#Rb{exp+5}->{
+\pgfputat{\pgfxy(9,2)}{\pgfbox[center,center]{$\vdots$}}
+\pgfnodebox{icm}[stroke]{\pgfxy(9,1.25)}{\small$[\Int{\theta^\bullet}{inf} {y_{[m]}},\Int{\theta^\bullet}{sup}{y_{[m]}}]$ }{2pt}{2pt}
+\pgfnodeconncurve{estm}{icm}{90}{90}{0.2cm}{0.2cm}
+}
+\only<#Rb{exp+6}>{
+\pgfputat{\pgfxy(9,0.75)}{\pgfbox[center,center]{$\vdots$}}
+}
+
+%%% images
+\only<:{delta+3},:{delta+4}>{
+\pgfputat{\pgfxy(5.5,0.0)}{\pgfbox[center,bottom]{\pgfuseimage{normale}}}
+}
+\only<#Rb{delta+5},:{delta+6}>{
+\pgfputat{\pgfxy(5.5,0.0)}{\pgfbox[center,bottom]{\pgfuseimage{normale2}}}
+}
+\end{pgfpictureboxed} 
+%%%%%%%%%block
+\begin{block}{} 
+\only<#Rb{ech}>{
+Un Futur échantillon $\Vect{Y}$!
+}\only<#Rb{est},#Rb{est+1}>{
+Une future estimation $\Est{\theta^\bullet}{Y}
+\onslide<#Rb{est+1}>{\SuitApprox\mathcal{N}(\theta^\bullet,{\color{red}\sigma_{\widehat{\theta^\bullet}}})$ {\color{red}\textbf{inconnue}}}\\
+Sa future erreur standard  $\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}
+\onslide<#Rb{est+1}>{\SuitApprox\mathcal{N}({\color{red}\sigma_{\widehat{\theta^\bullet}}},{\color{red}\sigma_{\widehat{\sigma_{\widehat{\theta^\bullet}}}}})$ {\color{red}\textbf{inconnue}}}
+}\only<#Rb{delta}-#Rb{delta+4}>{
+Future mesure d'écart standardisée~:\\
+
+
+\centerline{$\displaystyle \delta_{\widehat{\theta^\bullet},\theta^\bullet}\From{Y}=\frac{{\color<#Rb{delta+1}>{blue}\Est{\theta^\bullet}{Y}}-{\color<#Rb{delta+1}-#Rb{delta+2}>{red}\theta^\bullet}}{\color<#Rb{delta+2}>{blue}\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}} \onslide<#Rb{delta+3},#Rb{delta+4}>{\SuitApprox \color{blue}\mathcal{N}(0,1) \mbox{ connue~!}} 
+$}
+\onslide<#Rb{delta+4}>{$\to$ détermination  de $[\Int{\theta^\bullet}{inf} {Y},\Int{\theta^\bullet}{sup}{Y}]$~?}
+}\only<#Rb{demo}>{
+\[
+1-\alpha\simeq\Prob{-{\color{blue}\delta^+_{lim,\frac{\alpha}2}}\leq \delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{Y})
+\leq{\color{blue}\delta^+_{lim,\frac{\alpha}2}}}\mbox{ avec }{\color{blue}\delta^+_{lim,\frac{\alpha}2}}\left\{\begin{array}{l}=q_{1-\frac\alpha2}(\mathcal{N}(0,1))\\ \simeq {\color{purple}1.96} \mbox{ si }{\color{purple}\alpha=5\%}\end{array}\right.
+\]
+}\only<#Rb{demo+1}>{
+\[
+1-\alpha\simeq\Prob{{\color{blue}-\delta^+_{lim,\frac{\alpha}2}}\leq
+\frac{{\color{blue}\Est{\theta^\bullet}{Y}}-{\color{red}\theta^\bullet}}{\color{blue}\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}
+\leq{\color{blue}\delta^+_{lim,\frac{\alpha}2}}}
+\]
+}\only<#Rb{demo+2}>{
+\[
+1-\alpha\simeq\Prob{-\delta^+_{lim,\frac{\alpha}2}\times {\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}\leq
+\Est{\theta^\bullet}{Y}-{\color{red}\theta^\bullet}
+\leq\delta^+_{lim,\frac{\alpha}2}\times {\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}
+}
+\]
+}\only<#Rb{demo+3}>{
+\[
+1-\alpha\simeq\Prob{-\delta^+_{lim,\frac{\alpha}2}\times {\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}\leq
+{\color{red}\theta^\bullet}-\Est{\theta^\bullet}{Y}
+\leq\delta^+_{lim,\frac{\alpha}2}\times {\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}
+}
+\]
+}\only<#Rb{demo+4}>{
+\[
+1-\alpha\simeq \mathbb{P} \Big(
+\underbrace{{\color{blue}\Est{\theta^\bullet}{Y}}\!-\!{\color{blue}\delta^+_{lim,\frac{\alpha}2}}\!\times\!
+{\color{blue}\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}}_{\color{purple}\Int{\theta^\bullet}{\inf}{Y}}\!\leq\!{\color{red}\theta^\bullet}\!\leq\!\underbrace{{\color{blue}\Est{\theta^\bullet}{Y}}\!+\!{\color{blue}\delta^+_{lim,\frac{\alpha}2}}\times
+{\color{blue}\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}}_{\color{purple}\Int{\theta^\bullet}{\sup}{Y}} \Big)
+\]
+}\only<#Rb{exp}>{
+Construisons un premier échantillon $\Vect{y_{[1]}}$ !
+}\only<#Rb{exp+1}>{\small L'intervalle de confiance calculé à partir de $\Vect{y_{[1]}}$ est \textbf{``bon"} dans sa mission ssi\\
+\centerline{\fbox{$\theta^\bullet\in[\Int{\theta^\bullet}{\inf}{y_{[1]}},\Int{\theta^\bullet}{\sup}{y_{[1]}}]$}
+ $\Leftrightarrow$ \fbox{$\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{y_{[1]}})\in [-\delta^+_{lim,\frac{\alpha}2},\delta^+_{lim,\frac{\alpha}2}]$}
+}}\only<#Rb{exp+2}>{
+Construisons un deuxième échantillon $\Vect{y_{[2]}}$ !
+}\only<#Rb{exp+3}>{\small L'intervalle de confiance calculé à partir de $\Vect{y_{[2]}}$ est \textbf{``bon"} dans sa mission ssi\\
+\centerline{\fbox{$\theta^\bullet\in[\Int{\theta^\bullet}{\inf}{y_{[2]}},\Int{\theta^\bullet}{\sup}{y_{[2]}}]$}
+ $\Leftrightarrow$ \fbox{$\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{y_{[2]}})\in [-\delta^+_{lim,\frac{\alpha}2},\delta^+_{lim,\frac{\alpha}2}]$}
+}}\only<#Rb{exp+4}>{
+Construisons un $m^{\grave eme}$ échantillon $\Vect{y_{[m]}}$ !
+}\only<#Rb{exp+5}>{\small L'intervalle de confiance calculé à partir de $\Vect{y_{[m]}}$ est \textbf{``bon"} dans sa mission ssi\\
+\centerline{\fbox{$\theta^\bullet\in[\Int{\theta^\bullet}{\inf}{y_{[m]}},\Int{\theta^\bullet}{\sup}{y_{[m]}}]$}
+ $\Leftrightarrow$ \fbox{$\delta_{\widehat{\theta^\bullet},\theta^\bullet}(\Vect{y_{[m]}})\in [-\delta^+_{lim,\frac{\alpha}2},\delta^+_{lim,\frac{\alpha}2}]$}
+}}\only<#Rb{exp+6}>{
+\textbf{\underline Interprétation par l'A.E.P.}~: nous imaginons disposer d'une {\color{red}infinité d'intervalles de confiance} dont une proportion ($\simeq$) {\color{purple}$1-\alpha$} (i.e. niveau de confiance) sont {\color{purple}``bons"}, i.e. contiennent le paramètre $\theta^\bullet$ inconnu.\\ 
+\textbf{\underline{Obtention de $[\Int{\theta^\bullet}{\inf}{y},\Int{\theta^\bullet}{\sup}{y}]$ le jour~J}}~: équivalent à un choix au hasard d'{\color{blue}un unique intervalle de confiance} parmi cette infinité!!!
+}
+
+\end{block}
+\end{frame}
+[#when]qualité
+[#r<]
+require(CqlsRandom)
+require(asympTest)
+load("~/cqls/data/statinf/ic.RDataSim")
+#URNE UB0.2
+YB<-Norm(.2,sqrt(sum((0:3-.2)^2*c(1660000,300000,20000,20000)/2000000)/1000))
+YA<-Norm(.2,sqrt(.2*.8/1000))
+IC<-function(i,n=1000,alpha=.05) {
+yy<-yy.sim[[i]][1:n]
+mean(yy)+c(-1,1)*qnorm(1-alpha/2)*seMean(yy)->ic
+ if(ic[1]<=.2 & .2<=ic[2]) paste("{\\color<5>{red}",paste(round(ic,3),collapse=","),"}",sep="")
+  else paste(round(ic,3),collapse=",")
+}
+ex<-c(1,2,3)
+[#>]
+
+\begin{frame}
+\frametitle{Qualité d'un I.C.~: bon niveau de confiance $+$ assez petit }
+\vspace*{-.2cm}
+\begin{exampleblock}{}
+\pause
+\begin{enumerate}
+\item<2-> {\small niveau de confiance $1-\alpha={\color{blue}100\%}$~: }
+\only<2>{\small \begin{itemize}
+\item $n=10$~: $[?,?]$, $[?,?]$, $[?,?]$,$\cdots$
+\item $n=100$~: $[?,?]$, $[?,?]$, $[?,?]$,$\cdots$
+\item $n=1000$~: $[?,?]$, $[?,?]$, $[?,?]$,$\cdots$
+\end{itemize}
+}\only<3->{\small \begin{itemize}
+\item $n=10$~: $[{\color<5>{red}0,+\infty}]$, $[{\color<5>{red}0,+\infty}]$,$[{\color<5>{red}0,+\infty}]$ ,$\cdots$
+\item $n=100$~:   $[{\color<5>{red}0,+\infty}]$, $[{\color<5>{red}0,+\infty}]$,$[{\color<5>{red}0,+\infty}]$ ,$\cdots$
+\item $n=1000$~:  $[{\color<5>{red}0,+\infty}]$, $[{\color<5>{red}0,+\infty}]$,$[{\color<5>{red}0,+\infty}]$ ,$\cdots$
+\end{itemize}
+}
+\item<4->  {\small niveau de confiance $1-\alpha={\color{blue}95\%}$~: 
+\begin{itemize}
+\item $n=10$~: $[#R{IC(ex[1],10)}]$, $[#R{IC(ex[2],10)}]$, $[#R{IC(ex[3],10)}]$,$\cdots$
+\item $n=100$~: $[#R{IC(ex[1],100)}]$, $[#R{IC(ex[2],100)}]$, $[#R{IC(ex[3],100)}]$,$\cdots$
+\item $n=1000$~: $[#R{IC(ex[1],1000)}]$, $[#R{IC(ex[2],1000)}]$, $[#R{IC(ex[3],1000)}]$,$\cdots$
+\end{itemize}
+}
+\item<4->  {\small niveau de confiance $1-\alpha={\color{blue}50\%}$~: 
+\begin{itemize}
+ \item $n=10$~: $[#R{IC(ex[1],10,.5)}]$, $[#R{IC(ex[2],10,.5)}]$, $[#R{IC(ex[3],10,.5)}]$,$\cdots$
+\item $n=100$~: $[#R{IC(ex[1],100,.5)}]$, $[#R{IC(ex[2],100,.5)}]$, $[#R{IC(ex[3],100,.5)}]$,$\cdots$
+\item $n=1000$~: $[#R{IC(ex[1],1000,.5)}]$, $[#R{IC(ex[2],1000,.5)}]$, $[#R{IC(ex[3],1000,.5)}]$,$\cdots$
+\end{itemize}
+}
+\item<4->  {\small niveau de confiance $1-\alpha={\color{blue}10\%}$~: 
+\begin{itemize}
+ \item $n=10$~: $[#R{IC(ex[1],10,.9)}]$, $[#R{IC(ex[2],10,.9)}]$, $[#R{IC(ex[3],10,.9)}]$,$\cdots$
+\item $n=100$~: $[#R{IC(ex[1],100,.9)}]$, $[#R{IC(ex[2],100,.9)}]$, $[#R{IC(ex[3],100,.9)}]$,$\cdots$
+\item $n=1000$~: $[#R{IC(ex[1],1000,.9)}]$, $[#R{IC(ex[2],1000,.9)}]$, $[#R{IC(ex[3],1000,.9)}]$,$\cdots$
+\end{itemize}
+}
+\end{enumerate}
+\end{exampleblock}
+\end{frame}
+
+[#when]vérifAEP
+[#r<]load("~/cqls/data/statinf/simEchCoursIC.RData") [#>]
+
+
+\begin{frame}
+\frametitle{Vérification expérimentale}
+\hspace*{-0.2cm}\only<1>{
+{#TabIC] value[10] [#}
+}\only<2>{
+{#TabIC] value[7234] [#}
+}\only<3->{
+{#TabIC] value[#R{ii<-(which(exOrder==10)+1)}] [#}
+
+\noindent \textbf{\only<3-4,6,8>{Question}\only<5,7,9>{Réponse}}~: $\mathbb{P}\Big(\mu^\bullet \in [\only<3-4>{{\color{red}#R{round(tmp[ii]+c(-1,1)*tmp2[ii],3)}}}\only<5>{\!\underbrace{\Int{\mu^\bullet}{\inf}{\color{purple}y_{[#R{as.integer(ii)}]}}}_{\color{red}#R{round(tmp[ii]-tmp2[ii],3)}}\!,\!\underbrace{\Int{\mu^\bullet}{\sup}{\color{purple}y_{[#R{as.integer(ii)}]}}}_{\color{red}#R{round(tmp[ii]+tmp2[ii],3)}}\!}\only<6-7>{\!\Int{\mu^\bullet}{\inf}{\color<7>{purple}y}\!,\!\Int{\mu^\bullet}{\sup}{\color<7>{purple}y}\!}\only<8-9>{\!\Int{\mu^\bullet}{\inf}{\color<9>{purple}Y}\!,\!\Int{\mu^\bullet}{\sup}{\color<9>{purple}Y}\!}]\Big)=\only<3,6,8>{\mbox{ }?}\only<4>{95\%?}\only<5>{ {\color{red}100\%}}\only<7>{{\color{purple}0\%} \mbox{  ou } {\color{purple}100\%}}\only<9>{\color{purple}95\%}$
+}
+\end{frame}
+[#when]saljusIC[#>]
+{#BeamerFrame]Application: Salaire Juste
+[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/dataSJ.RData")
+require(CqlsStat)
+[#>]Considérons (le \textbf{jour~J}) disposer d'un échantillon $\Vect{y}$ des Salaires Justes de $n$ individus du Pays. Ce jeu de données est noté \texttt{yJ} en \texttt{R}. Les formules des {\color<2-3>{purple}intervalle}s de {\color<2-3>{purple}confiance à $95\%$} pour {\color<2>{purple}$\mu^{J}$} et {\color<3>{purple}$\sigma^2_{J}$} s'obtiennent très facilement~:
+
+{#only]2[#>]\begin{eqnarray*}
+\left\{ \begin{array}{c}\Int{\mu^{J}}{\inf}{y}\\\Int{\mu^{J}}{\sup}{y}\end{array}\right.
+&=& {\color{blue}\Est{\mu^{J}}{y}}+{\color{purple}\left\{\begin{array}{c}-1\\1 \end{array}\right\}} 
+\times{\color{red}\delta^+_{lim,\alpha/2}}{\color{blue}\Est{\sigma_{\widehat\mu^{J}}}{y}}\\
+&\NotR&\mathtt{{\color{blue}mean(yJ)}+{\color{purple}c(-1,1)}*{\color{red}qnorm(.975)}*{\color{blue}seMean(yJ)}}\\
+&\simeq& [:r{round(mean(yJ)+c(-1,1)*qnorm(.975)*seMean(yJ),2)}]
+\end{eqnarray*}[#}
+{#only]3[#>]\begin{eqnarray*}
+\left\{ \begin{array}{c}\Int{\sigma^2_{J}}{\inf}{y}\\\Int{\sigma^2_{J}}{\sup}{y}\end{array}\right.
+&=& {\color{blue}\Est{\sigma^2_{J}}{y}}+{\color{purple}\left\{\begin{array}{c}-1\\1 \end{array}\right\}} 
+\times{\color{red}\delta^+_{lim,\alpha/2}}{\color{blue}\Est{\sigma_{\widehat{\sigma^2_{J}}}}{y}}\\
+&\NotR&\mathtt{{\color{blue}var(yJ)}+{\color{purple}c(-1,1)}*{\color{red}qnorm(.975)}*{\color{blue}seVar(yJ)}}\\
+&\simeq& [:r{round(var(yJ)+c(-1,1)*qnorm(.975)*seVar(yJ),2)}]
+\end{eqnarray*}[#}
+[#}
+[#case}

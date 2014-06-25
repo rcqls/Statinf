@@ -1,0 +1,275 @@
+[#preamble]
+\definecolor{darkgreen}{rgb}{0,.4,.0}
+[#main]
+\section{P-valeur}
+{#initScene]head[#}{#initScene]def[#}{#initScene]ex[#}
+[#r<]
+require(CqlsRandom)
+require(CqlsStat)
+YDiet<-Norm(0,1)
+YAlf<-Chi2(19)
+attach("~/cqls/data/dieteticien.RData")
+(mean(dieteticien[["yBis"]])-4)/seMean(dieteticien[["yBis"]])->deltaEst.H0.diet
+attach("~/cqls/data/techniciens.RData")
+deltaEst.H0.alf<-19*var(yA[1:20])/.1
+attach("~/cqls/data/dicteen25.RData")
+deltaEst.H0.dict<-(mean(y)-6.3)/seMean(y)
+YDict<-St(24)
+attach("~/cqls/data/notes.RData")
+deltaEst.H0.hetero<-(var(notes[["yExamC"]])-var(notes[["yExamD"]]))/seDVar(notes[["yExamC"]],notes[["yExamD"]])
+YNotes<-Norm(0,1)
+[#%]Pb1[#<]
+{#Actor]head:tit_pb1[#,]:1-5[#,]0.5,0.5[#align]center,center[#,]
+\textbf{\large Exemple diététicien}[#}
+{#Actor]def:risk_surf[#,]:1-5[#,]0.5,1.2[#align]center,top[#minipage]11cm[#,]
+@{VIEW(:1-5)}{\textbf{Assertion d'intérêt}~: Le régime permet une perte de poids de 2 kilos par semaine $\Leftrightarrow$ $\mathbf{H_1}:\mu^D>4$ (en 2 semaines)}\\
+@{ONLY(:2-4)}{\textbf{Décision} ({\small au vu des $\!n\!=\!50\!$ données})~: Accepter $\mathbf{H_1}$  si $\!{@{COLOR(:2-4|orange)}\Est{\delta_{\mu^D,4}}{y^D}}\!>\!{@{COLOR(:2-4|darkgreen)}\delta_{lim,\alpha}^+}\!$\\}
+@{ONLY(:2-4)}{\textbf{Question}~: Conclure pour $\alpha=@{ONLY(:2)}{5}@{ONLY(:3)}{10}@{ONLY(:4)}{1}\%$~?}
+@{ONLY(:5)}{\textbf{Question}~: Quel est le plus petit $\alpha$ (i.e. risque maximal de décider 
+à tort $\mathbf{H_1}$) à encourir pour accepter $\mathbf{H_1}$ (i.e. l'assertion d'intérêt) au vu des $n=50$ données~?}[#}
+[#>]{#ImageR]ex:img/diet.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(YDiet,xlim=c(QQ(YDiet,.001),QQ(YDiet,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)[#}
+{#ImageR]ex:img/diet2.png[#,]11,5[#,]:2[#,]0,-0.05[#,]
+plot(YDiet,xlim=c(QQ(YDiet,.001),QQ(YDiet,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+area(YDiet,c(qnorm(.95),qnorm(.999)),col="blue")
+abline(v=qnorm(.95),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.diet,lwd=3,col="orange")[#}
+{#ImageR]ex:img/diet3.png[#,]11,5[#,]:3[#,]0,-0.05[#,]
+plot(YDiet,xlim=c(QQ(YDiet,.001),QQ(YDiet,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+area(YDiet,c(qnorm(.9),qnorm(.999)),col="blue")
+abline(v=qnorm(.9),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.diet,lwd=3,col="orange")[#}
+{#ImageR]ex:img/diet4.png[#,]11,5[#,]:4-5[#,]0,-0.05[#,]
+plot(YDiet,xlim=c(QQ(YDiet,.001),QQ(YDiet,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+area(YDiet,c(qnorm(.99),qnorm(.999)),col="blue")
+abline(v=qnorm(.99),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.diet,lwd=3,col="orange")[#}
+{#Actor]ex:tit_plot_diet[#,]:1-5[#,]diet:0,0.46[#align]center,center[#,]
+\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} [#}
+{#Actor]ex:line_diet[#,]:2-3[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(diet:2.5,0.2)})}{\pgfxy(@{xy(diet:1.8,0.04)})}[#}
+{#Actor]ex:line_diet[#,]:4-5[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(diet:2.5,0.2)})}{\pgfxy(@{xy(diet:2.5,0.005)})}[#}
+{#Actor]ex:alpha_diet_5[#,]:2[#,]diet2:2.5,0.2[#align]center,bottom[#,]$\alpha=5\%$[#}
+{#Actor]ex:alpha_diet_10[#,]:3[#,]diet2:2.5,0.2[#align]center,bottom[#,]$\alpha=10\%$[#}
+{#Actor]ex:alpha_diet_1[#,]:4-5[#,]diet2:2.5,0.2[#align]center,bottom[#,]$\alpha=1\%$[#}
+{#Actor]ex:deltaEst_plot_5[#,]:2[#,]diet2:0,-0.1[#align]center,center[#,]
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=#R{round(deltaEst.H0.diet,3)}}}$>${\color{darkgreen}$\delta_{lim,5\%}^+\stackrel{R}{=}$\texttt{qnorm(.95)=#R{round(qnorm(.95),3)}}}}[#}
+{#Actor]ex:deltaEst_plot_10[#,]:3[#,]diet2:0,-0.1[#align]center,center[#,]
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=#R{round(deltaEst.H0.diet,3)}}}$>${\color{darkgreen}$\delta_{lim,10\%}^+\stackrel{R}{=}$\texttt{qnorm(.9)=#R{round(qnorm(.9),3)}}}}[#}
+{#Actor]ex:deltaEst_plot_1[#,]:4[#,]diet2:0,-0.1[#align]center,center[#,]
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=#R{round(deltaEst.H0.diet,3)}}}$\ngtr${\color{darkgreen}$\delta_{lim,1\%}^+\stackrel{R}{=}$\texttt{qnorm(.99)=#R{round(qnorm(.99),3)}}}}[#}
+{#incCpt]5[#}
+{#ActorWhen]tit_pb1[#,]:1[#}
+{#Actor]def:pval[#,]:1[#,]0.5,1.2[#align]center,top[#minipage]11cm[#,]
+\textbf{Assertion d'intérêt}~: Le régime permet une perte de poids de 2 kilos par semaine $\Leftrightarrow$ $\mathbf{H_1}:\mu^D>4$ (en 2 semaines)\\
+\textbf{Réponse}~: \textbf{\color{orange}p$-$valeur}= \textbf{\color{orange}le} plus petit \textbf{\color{orange}risque} maximal de décider 
+à tort $\mathbf{H_1}$ à encourir \textbf{\color{orange}pour accepter $\mathbf{H_1}$} (i.e. l'assertion d'intérêt).[#}
+{#ImageR]ex:img/diet5.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(YDiet,xlim=c(QQ(YDiet,.001),QQ(YDiet,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+abline(v=deltaEst.H0.diet,lwd=3,col="orange")[#}
+{#ImageR]ex:img/diet6.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(YDiet,xlim=c(QQ(YDiet,.001),QQ(YDiet,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+abline(v=deltaEst.H0.diet,lwd=6,col="orange")
+abline(v=deltaEst.H0.diet,col="darkgreen",lwd=2)
+area(YDiet,c(deltaEst.H0.diet,qnorm(.999)),col="blue")
+area(YDiet,c(deltaEst.H0.diet,qnorm(.999)),col="orange",angle=135,density=10,lwd=3)[#}
+{#Actor]ex:tit_plot_diet[#,]:1[#,]diet:0,0.46[#align]center,center[#,]
+\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} [#}
+{#Actor]ex:line_diet[#,]:1[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(diet:2.5,0.2)})}{\pgfxy(@{xy(diet:2.2,0.01)})}[#}
+{#Actor]ex:pval[#,]:1[#,]diet5:2.5,0.2[#align]center,bottom[#,]p$-$valeur[#}
+{#Actor]ex:pvalR[#,]:1[#,]diet5:0,-0.1[#align]center,center[#,]
+{\scriptsize {\color{orange}p$-$valeur(droite)$\stackrel{R}{=}$ \texttt{1-pnorm((mean(yD)-4)/seMean(yD))=#R{round((1-pnorm(deltaEst.H0.diet))*100,2)}\%}  }}[#}
+{#incCpt]1[#}
+{#Actor]head:tit_pb1[#,]:1[#,]0.5,0.5[#align]center,center[#,]\textbf{\large Exemple diététicien (fin)}[#}
+{#Actor]def:rd_pval[#,]:1[#,]0.5,1.2[#align]center,top[#minipage]11cm[#,]
+\textbf{Assertion d'intérêt}~: Le régime permet une perte de poids de 2 kilos par semaine $\Leftrightarrow$ $\mathbf{H_1}:\mu^D>4$ (en 2 semaines)\\
+\textbf{Décision} (au vu des $\!n\!=\!50\!$ données)~: Accepter $\mathbf{H_1}$  si $\!{@{COLOR(:1|orange)}\bf p-valeur}\!<\!{@{COLOR(:1|darkgreen)}\alpha}\!$\\
+i.e. si {\color{orange}\bf le risque pour accepter $\mathbf{H_1}$} est {\color{darkgreen}\bf raisonnablement petit}[#}
+{#ImageR]ex:img/diet7.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(YDiet,xlim=c(QQ(YDiet,.001),QQ(YDiet,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+abline(v=deltaEst.H0.diet,lwd=3,col="orange")
+abline(v=qnorm(.95),lwd=3,col="darkgreen")
+area(YDiet,c(qnorm(0.95),qnorm(0.999)),col="blue")
+area(YDiet,c(deltaEst.H0.diet,qnorm(.999)),col="orange",angle=135,density=10,lwd=3)[#}
+{#Actor]ex:tit_plot_diet[#,]:1[#,]diet:0,0.46[#align]center,center[#,]\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} [#}
+{#Actor]ex:lines_diet[#,]:1[#,]nil[#,]
+\pgfsetendarrow{\pgfarrowto}
+\pgfline{\pgfxy(@{xy(diet:2.5,0.2)})}{\pgfxy(@{xy(diet:2.2,0.01)})}
+\pgfline{\pgfxy(@{xy(diet:1.9,0.3)})}{\pgfxy(@{xy(diet:1.75,0.065)})}[#}
+{#Actor]ex:pval[#,]:1[#,]diet7:2.5,0.2[#align]center,bottom[#,]p$-$valeur[#}
+{#Actor]ex:alpha_diet_5[#,]:1[#,]diet7:1.8,0.3[#align]center,bottom[#,]$\alpha=5\%$[#}
+{#Actor]ex:pvalalphaR[#,]:1[#,]diet7:0,-0.1[#align]center,center[#,]
+{\scriptsize {\color{orange}p$-$valeur(droite)$\stackrel{R}{=}$ \texttt{1-pnorm((mean(yD)-4)/seMean(yD))=#R{round((1-pnorm(deltaEst.H0.diet))*100,2)}\%}  $<${\color{darkgreen}$\alpha=5\%$}  }}[#}
+{#incCpt]1[#}
+[#%]Pb2[#>]
+{#Actor]head:tit_pb2[#,]:1-4[#,]0.5,0.5[#align]center,center[#,]\textbf{\large Exemple compétence Alfred}[#}
+{#ImageR]ex:img/alf2.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(YAlf,xlim=c(QQ(YAlf,.001),QQ(YAlf,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=19,lwd=3)
+area(YAlf,qchisq(c(.0,.05),19),col="blue")
+abline(v=qchisq(.05,19),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.alf,lwd=3,col="orange")[#}
+{#ImageR]ex:img/alf7.png[#,]11,5[#,]:2-3[#,]0,-0.05[#,]
+plot(YAlf,xlim=c(QQ(YAlf,.001),QQ(YAlf,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=19,lwd=3)
+area(YAlf,qchisq(c(.0,.05),19),col="blue")
+area(YAlf,c(qchisq(.0,19),deltaEst.H0.alf),col="orange",angle=135,density=10,lwd=3)
+abline(v=qchisq(.05,19),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.alf,lwd=3,col="orange")[#}
+{#ImageR]ex:img/alf8.png[#,]11,5[#,]:4[#,]0,-0.05[#,]
+plot(YAlf,xlim=c(QQ(YAlf,.001),QQ(YAlf,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=19,lwd=3)
+abline(v=qchisq(0.95,19),lwd=3,col="darkgreen")
+area(YAlf,qchisq(c(.95,.999),19),col="blue")
+area(YAlf,c(deltaEst.H0.alf,qchisq(.999,19)),col="orange",angle=135,density=10,lwd=3)
+abline(v=deltaEst.H0.alf,lwd=3,col="orange")[#}
+{#Actor]ex:tit_plot_alf[#,]:1-4[#,]alf2:25,0.08[#align]center,center[#,]
+\textbf{Loi de $\Est{\delta_{\sigma^2_A,0.1}}{Y^A}$ sous $\mathbf{H}_0:\sigma_A^2=0.1\Leftrightarrow \delta_{\sigma_A^2,0.1}=19$} [#}
+{#Actor]ex:deltaEst_plot_alf[#,]:1-3[#,]alf2:25,-0.015[#align]center,center[#,]
+{\scriptsize @{ONLY(:1)}{{\color{orange}$\Est{\delta_{\sigma^2_A,0.1}}{y^A}\stackrel{R}{=}$\texttt{19*var(yA)/0.1=#R{round(deltaEst.H0.alf,3)}}}$\nless${\color{darkgreen}$\delta_{lim,5\%}^-\stackrel{R}{=}$\texttt{qchisq(.05,19)=#R{round(qchisq(.05,19),3)}}}}
+@{ONLY(:2-3)}{{\color{orange}$p-valeur (gauche)\stackrel{R}{=}$\texttt{pchisq(19*var(yA)/0.1,19)=#R{round(pchisq(deltaEst.H0.alf,19)*100,2)}\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}[#}
+{#Actor]ex:deltaEst_plot_alf[#,]:4[#,]alf2:25,-0.015[#align]center,center[#,]
+{\scriptsize  {\color{orange}$p-valeur (droite)\stackrel{R}{=}$\texttt{1-pchisq(19*var(yA)/0.1,19)=#R{round((1-pchisq(deltaEst.H0.alf,19))*100,2)}\%}}$\nless${\color{darkgreen}$\alpha=5\%$}
+}[#}
+{#Actor]def:rd_alf[#,]:1-2[#,]0.5,1.0[#align]center,top[#minipage]11cm[#,]
+\textbf{Assertion d'intérêt}~: Alfred est compétent $\Leftrightarrow$ $\mathbf{H_1}:\sigma_A^2<0.1$.\\
+\textbf{Décision} (au vu des $n=20$ données)~: \\
+\hspace*{1cm}Accepter $\mathbf{H_1}$  si
+@{ONLY(:1)}{${@{COLOR(:1|orange)}\Est{\delta_{\sigma_A^2,0.1}}{y^A}}<{@{COLOR(:1|darkgreen)}\delta_{lim,\alpha}^-}$}
+@{ONLY(:2)}{${@{COLOR(:2|orange)}p-valeur(gauche)}<{@{COLOR(:2|darkgreen)}\alpha}$}[#}
+{#Actor]def:rd_alf_contraire[#,]:3-4[#,]0.5,1.0[#,]
+\textbf{Question}~: Peut-on pour autant plutôt penser au vu de ce même jeu de données qu'Alfred n'est pas compétent (i.e. $\mathbf{H_1}:\sigma^2_A>0.1$)~?\\
+\textbf{Réponse}~: p-valeur droite = @{ONLY(:3)}{?}@{ONLY(:4)}{1-(p-valeur gauche)=1-#R{round(pchisq(deltaEst.H0.alf,19)*100,2)}\%=#R{round(100*(1-pchisq(deltaEst.H0.alf,19)),2)}\%}\\
+@{VIEW(:4)}{car \textbf{la somme des p-valeurs droite et gauche est égale à 1!}}[#}
+{#incCpt]4[#}
+[#%]Pb3[#>]
+{#Actor]head:tit_pb3[#,]:1-2[#,]0.5,0.5[#align]center,center[#,]\textbf{\large Problématique de la dictée}[#}
+{#ImageR]ex:img/dict.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(YDict,xlim=c(QQ(YDict,.001),QQ(YDict,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+area(YDict,QQ(YDict,c(.001,.025)),col="blue")
+area(YDict,QQ(YDict,c(.975,.999)),col="blue")
+abline(v=QQ(YDict,c(.025,0.975)),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.dict,lwd=3,col="orange")[#}
+{#ImageR]ex:img/dict2.png[#,]11,5[#,]:2[#,]0,-0.05[#,]
+plot(YDict,xlim=c(QQ(YDict,.001),QQ(YDict,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+area(YDict,QQ(YDict,c(.001,.025)),col="blue")
+area(YDict,QQ(YDict,c(.975,.999)),col="blue")
+area(YDict,c(QQ(YDict,.001),deltaEst.H0.dict),col="orange",angle=135,density=10,lwd=3)
+area(YDict,c(-deltaEst.H0.dict,QQ(YDict,.999)),col="orange",angle=135,density=10,lwd=3)
+abline(v=QQ(YDict,c(.025,0.975)),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.dict,lwd=3,col="orange")
+abline(v=-deltaEst.H0.dict,lwd=3,col="orange",lty=2)[#}
+{#Actor]ex:tit_plot_dict[#,]:1-2[#,]dict:0,0.46[#align]center,center[#,]
+\textbf{Loi de $\Est{\delta_{\mu^D,6.3}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=6.3\Leftrightarrow \delta_{\mu^D,6.3}=0$} [#}
+{#Actor]ex:deltaEst_plot_dict[#,]:1-2[#,]dict:0,-0.1[#align]center,center[#,]
+{\scriptsize @{ONLY(:1)}{{\color{orange}$\Est{\delta_{\mu^D,6.3}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-6.3)/seMean(yD)=#R{round(deltaEst.H0.dict,3)}}}
+$\left\{\begin{array}{l}
+\nless{\color{darkgreen}\delta_{lim,2.5\%}^-\simeq #r{QQ(YDict,.025)}}\\
+\ngtr{\color{darkgreen}\delta_{lim,2.5\%}^+\simeq #r{QQ(YDict,.975)}}
+\end{array}\right.$
+}
+@{ONLY(:2)}{{\color{orange}$p-valeur (bi)\stackrel{R}{=}$ \texttt{2*pt((mean(yD)-6.3)/seMean(yD),24) =#R{round(200*pt(deltaEst.H0.dict,24),2)}\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}[#}
+{#Actor]def:rd_dict[#,]:1-2[#,]0.5,1.0[#align]center,top[#minipage]11.3cm[#,]
+\textbf{Assertion d'intérêt}~: Il y a un effet sur le niveau des bacheliers en orthographe $\Leftrightarrow$ $\mathbf{H_1}:\mu^D \neq 6.3$.\\
+\textbf{Décision} (au vu des $n=25$ données)~: \\
+Accepter $\mathbf{H_1}$  si
+{\small
+@{ONLY(:1)}{${@{COLOR(:1|orange)}\Est{\delta_{\mu^D,6.3}}{y^D}}<{@{COLOR(:1|darkgreen)}\delta_{lim,\alpha/2}^-}$ ou ${@{COLOR(:1|orange)}\Est{\delta_{\mu^D,6.3}}{y^D}}>{@{COLOR(:1|darkgreen)}\delta_{lim,\alpha/2}^+}$ }
+@{ONLY(:2)}{${@{COLOR(:2|orange)}\mbox{p-valeur (bi)}\!=\!2\!\times\!\mbox{min(p-valeur gauche,p-valeur droite)}}\!<\!{@{COLOR(:2|darkgreen)}\alpha}$}
+}[#}
+{#hide]
+[#%]Pb4[#>]
+{#Actor]head:tit_pb4[#,]:1-2[#,]0.5,0.5[#align]center,center[#,]\textbf{\large Hétérogénéité des notes}[#}
+{#ImageR]ex:img/hetero2.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+plot(YNotes,xlim=c(QQ(YNotes,.001),QQ(YNotes,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+area(YNotes,qnorm(c(.001,.025)),col="blue")
+area(YNotes,qnorm(c(.975,.999)),col="blue")
+abline(v=qnorm(c(.025,0.975)),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.hetero,lwd=3,col="orange")[#}
+{#ImageR]ex:img/hetero7.png[#,]11,5[#,]:2[#,]0,-0.05[#,]
+plot(YNotes,xlim=c(QQ(YNotes,.001),QQ(YNotes,.999)),xlab="",ylab="",col="blue",lwd=3)
+abline(h=0)
+abline(v=0,lwd=3)
+area(YNotes,qnorm(c(.001,.025)),col="blue")
+area(YNotes,qnorm(c(.975,.999)),col="blue")
+area(YNotes,c(qnorm(.001),-deltaEst.H0.hetero),col="orange",angle=135,density=10,lwd=3)
+area(YNotes,c(deltaEst.H0.hetero,qnorm(.999)),col="orange",angle=135,density=10,lwd=3)
+abline(v=qnorm(c(.025,0.975)),lwd=3,col="darkgreen")
+abline(v=deltaEst.H0.hetero,lwd=3,col="orange")
+abline(v=-deltaEst.H0.hetero,lwd=3,col="orange",lty=2)[#}
+{#Actor]ex:tit_plot_hetero[#,]:1-2[#,]hetero2:0,0.46[#align]center,center[#,]
+\textbf{Loi de $\Est{\delta_{d_{\sigma^2},0}}{Y^C,Y^D}$ sous $\mathbf{H}_0:\sigma_C^2=\sigma^2_D\Leftrightarrow \delta_{d_{\sigma^2},0}=0$} [#}
+{#Actor]ex:deltaEst_plot_hetero[#,]:1-2[#,]hetero2:0,-0.1[#align]center,center[#,]
+{\scriptsize @{ONLY(:1)}{{\color{orange}$\Est{\delta_{d_{\sigma^2},0}}{y^C,y^D}\stackrel{R}{=}$\texttt{(var(yC)-var(yD))/seDVar(yC,yD)=#R{round(deltaEst.H0.hetero,3)}}}
+$\left\{\begin{array}{l}
+\nless{\color{darkgreen}\delta_{lim,2.5\%}^-\simeq -1.96}\\
+\ngtr{\color{darkgreen}\delta_{lim,2.5\%}^+\simeq 1.96}
+\end{array}\right.$
+}
+@{ONLY(:2)}{{\color{orange}$p-valeur (bi)\stackrel{R}{=}$ \texttt{2*(1-pnorm(var(yC)-var(yD))/seDVar(yC,yD))=#R{round(200*(1-pnorm(deltaEst.H0.hetero)),2)}\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}[#}
+{#Actor]def:rd_hetero[#,]:1-2[#,]0.5,1.0[#align]center,top[#minipage]11.3cm[#,]
+\textbf{Assertion d'intérêt}~: Les variances des notes entre les sections C et D sont différentes $\Leftrightarrow$ $\mathbf{H_1}:d_{\sigma^2}\neq 0.$\\
+\textbf{Décision} (au vu des données)~: \\
+Accepter $\mathbf{H_1}$  si
+{\small
+@{ONLY(:1)}{${@{COLOR(:1|orange)}\Est{\delta_{d_{\sigma^2},0}}{y^C,y^D}}<{@{COLOR(:1|darkgreen)}\delta_{lim,\alpha/2}^-}$ ou ${@{COLOR(:1|orange)}\Est{\delta_{d_{\sigma^2},0}}{y^C,y^D}}>{@{COLOR(:1|darkgreen)}\delta_{lim,\alpha/2}^+}$ }
+@{ONLY(:2)}{${@{COLOR(:2|orange)}\mbox{p-valeur (bi)}\!=\!2\!\times\!\mbox{min(p-valeur gauche,p-valeur droite)}}\!<\!{@{COLOR(:2|darkgreen)}\alpha}$}
+}[#}
+[#hide}
+[#>]
+
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shaded=true,lower=header]{}
+  @{beginScene(head)}
+  @{writeScene(head)}
+  @{endScene(head)}
+\end{beamerboxesrounded}
+
+
+
+\setbeamercolor{postex}{fg=black,bg=cyan!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+@{beginScene(ex)}
+@{writeScene(ex)}
+@{endScene(ex)}
+\end{beamercolorbox}
+
+\setbeamercolor{postit}{fg=black,bg=magenta!20!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+@{beginScene(def)}
+@{writeScene(def)}
+@{endScene(def)}
+\end{beamercolorbox}
+\end{frame}

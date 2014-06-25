@@ -1,0 +1,124 @@
+\section[Gaussien]{Test d'hypothèses (Cadre Gaussien)}
+\begin{frame}
+\begin{exampleblock}{Enoncé exercice 3 (conduite)}
+Un expérimentateur veut savoir si les femmes conduisent mieux que les hommes au vu de $n^H=9$ notes (sur 60) de conduite pour les hommes et de $n^F=11$ notes pour les femmes. Les données sont stockées dans deux vecteurs notés \texttt{yH} et \texttt{yF}. Peut-on plutôt penser que l'expérimentateur a raison au seuil de 5\%~?
+\end{exampleblock}
+
+\begin{alertblock}<1->{}
+\begin{itemize}
+\item Assertion d'intérêt : \pause 
+{\color{red}$\mathbf{H_1}: d_\mu=\mu^H-\mu^F<0$}
+\pause \item tailles échantillon : \pause \fbox{$n^H=9, n^F=11$}
+\pause \item Hypothèse 1: \pause \fbox{$Y^H \leadsto \mathcal{N}(\mu^H, \sigma_H)$.} et \fbox{$Y^F \leadsto \mathcal{N}(\mu^F, \sigma_F)$.}
+\pause \item Hypothèse 2: égalité des variances \fbox{$\sigma_H^2= \sigma_F^2$} \\
+Ici, on ne souhaite pas confirmer {\color{red}$\mathbf{H_1}: r_{\sigma^2}={\sigma^2_H}/{\sigma^2_F}\neq 1$}
+\end{itemize}
+\end{alertblock}
+
+\end{frame}
+
+
+[#r<]
+require(CqlsRandom)
+require(CqlsStat)
+attach('~/cqls/data/conduite.RData')
+attach(conduite)
+deltaDMean <- (mean(yH)-mean(yF))/seDMeanG(yH,yF)
+deltaRVar <- var(yH)/var(yF)
+[#>]{#FigureSimple]img[img/St18.png][#include]false[#rcode]
+plot(St(18),lwd=3,xlab="",ylab="",col='red')
+area(St(18),prob=c(0,0.05),col='red3',angle=-40,dens=10)
+abline(v=qt(.05,18),col='green',lwd=2)
+abline(h=0,v=0)[#}
+{#FigureSimple]img[img/St18conduite.png][#include]false[#rcode]
+plot(St(18),lwd=3,xlab="",ylab="",col='red')
+area(St(18),prob=c(0,0.05),col='red3',angle=-40,dens=10)
+abline(v=qt(.05,18),col='green',lwd=2)
+abline(h=0,v=0)
+abline(v=deltaDMean,col='blue',lwd=2)[#}
+{#FigureSimple]img[img/St18conduitePval.png][#include]false[#rcode]
+plot(St(18),lwd=3,xlab="",ylab="",col='red')
+area(St(18),prob=c(0,0.05),col='red3',angle=-40,dens=10)
+abline(v=qt(.05,18),col='green',lwd=2)
+abline(h=0,v=0)
+abline(v=deltaDMean,col='blue',lwd=2)
+area(St(18),x=c(-5,deltaDMean),angle=40,dens=10,col='blue')[#}
+{#FigureSimple]img[img/Fish8-10.png][#include]false[#rcode]
+plot(Fisher(8,10),lwd=3,xlab="",ylab="",col='red')
+area(Fisher(8,10),prob=c(0,0.025),col='red3',angle=-40,dens=10)
+area(Fisher(8,10),prob=c(0.975,1),col='red3',angle=-40,dens=10)
+abline(v=qf(c(.025,.975),8,10),col='green',lwd=2)
+abline(h=0,v=c(0,10/8))[#}
+{#FigureSimple]img[img/Fish8-10conduite.png][#include]false[#rcode]
+plot(Fisher(8,10),lwd=3,xlab="",ylab="",col='red')
+area(Fisher(8,10),prob=c(0,0.025),col='red3',angle=-40,dens=10)
+area(Fisher(8,10),prob=c(0.975,1),col='red3',angle=-40,dens=10)
+abline(v=qf(c(.025,.975),8,10),col='green',lwd=2)
+abline(h=0,v=c(0,10/8))
+abline(v=deltaRVar,col='blue',lwd=2)[#}
+{#FigureSimple]img[img/Fish8-10conduitePval.png][#include]false[#rcode]
+plot(Fisher(8,10),lwd=3,xlab="",ylab="",col='red')
+area(Fisher(8,10),prob=c(0,0.025),col='red3',angle=-40,dens=10)
+area(Fisher(8,10),prob=c(0.975,1),col='red3',angle=-40,dens=10)
+abline(v=qf(c(.025,.975),8,10),col='green',lwd=2)
+abline(h=0,v=c(0,10/8))
+abline(v=deltaRVar,lwd=2,col='blue')
+tmp<-qf((1-pf(deltaRVar,8,10)),8,10)
+abline(v=tmp,lwd=2,col='blue',lty=2)
+area(Fisher(8,10),x=c(deltaRVar,8),angle=40,dens=10,col='blue')
+area(Fisher(8,10),x=c(0,qf((1-pf(deltaRVar,8,10)),8,10)),angle=40,dens=10,col='blue')[#}
+[#rb<]pfig=4[#>]
+\begin{frame}
+\frametitle{Résumé des deux problématiques}
+\vspace*{-0.3cm}
+\hspace*{-0.5cm}\begin{tabular}{|c|c|}
+\hline 
+\multicolumn{2}{|c|}{Hypothèses de test} \\ 
+\pause \begin{minipage}{5.5cm}{\scriptsize ($H_0: d_{\mu}=0$ contre) $\mathbf{H_1}: d_\mu<0$} \end{minipage}&
+\begin{minipage}{5.5cm}{\scriptsize($H_0: r_{\sigma^2}=1$ contre) $\mathbf{H_1}: r_{\sigma^2}<1$} 
+\end{minipage}\\
+\hline
+\multicolumn{2}{|c|}{Hypothèses dues aux cadre de travail} \\ 
+\multicolumn{2}{|c|}{\scriptsize $Y^H \leadsto \mathcal{N}(\mu^H, \sigma_H)$,  $Y^F \leadsto \mathcal{N}(\mu^F, \sigma_F)$ }  
+\\
+{\scriptsize $\sigma_H^2=\sigma^2_F$}& \\
+\hline
+\multicolumn{2}{|c|}{Statistique de test sous $H_0$} 
+\pause \\ 
+{\scriptsize $\Est{\delta_{d_\mu,0}}{Y}=\frac{\Est{d_\mu}{Y}}{ \Est{\sigma_{d_\mu}}{Y}  } \leadsto \mathcal{S}t(18)$ }& 
+{\scriptsize $\Est{\delta_{r_{\sigma^2},1}}{Y} =  \Est{r_{\sigma^2}}{Y} \leadsto \mathcal{F}(8,10)$}
+  \\ \hline
+\multicolumn{2}{|c|}{Règles de décision} \\ \begin{minipage}{5.5cm}
+\only<1-#Rb{pfig-1}>{\phantom{\includegraphics[width=5cm,height=2.8cm]{img/St18}}
+}\only<#Rb{pfig}>{\includegraphics[width=5cm,height=2.8cm]{img/St18} }\only<#Rb{pfig+1}>{\includegraphics[width=5cm,height=2.8cm]{img/St18conduite} }\only<#Rb{pfig+2}>{\includegraphics[width=5cm,height=2.8cm]{img/St18conduitePval} }
+ \end{minipage}& \begin{minipage}{5.5cm}
+\only<1-#Rb{pfig-1}>{\phantom{\includegraphics[width=5cm,height=2.8cm]{img/Fish8-10}}
+}\only<#Rb{pfig}>{\includegraphics[width=5cm,height=2.8cm]{img/Fish8-10} }\only<#Rb{pfig+1}>{\includegraphics[width=5cm,height=2.8cm]{img/Fish8-10conduite} }\only<#Rb{pfig+2}>{\includegraphics[width=5cm,height=2.8cm]{img/Fish8-10conduitePval} }
+ \end{minipage}
+ \\ 
+{\scriptsize \only<1-#Rb{pfig-1}>{ \phantom{p-val $\stackrel{R}{=}$ \texttt{1-pt(mean(yD)/seMean(yD))}}
+}\only<#Rb{pfig}>{$\delta_{lim,5\%}^+ \stackrel{R}{=}$ \texttt{qt(0.05,18)}
+}\only<#Rb{pfig+1}-#Rb{pfig+2}>{\tiny \texttt{seGauss<-sqrt((8*var(yH)+10*var(yF))/18*(1/9+1/11))}
+
+}}
+& 
+{\scriptsize \only<1-#Rb{pfig-1}>{\phantom{ }
+}\only<#Rb{pfig}>{$\delta_{lim,2.5\%}^- \stackrel{R}{=}$ \texttt{qf(0.025,8,10)}
+}\only<#Rb{pfig+1}>{$\Est{\delta_{r_{\sigma^2},1}}{y} \stackrel{R}{=}$ \texttt{var(yH)/var(yF)}
+}\only<#Rb{pfig+2}>{p-val $\stackrel{R}{=}$ \texttt{2*(1-pf(var(yH)/var(yF),8,10)}
+}} \\ 
+{\scriptsize \only<1-#Rb{pfig-1}>{ \phantom{p-val $\stackrel{R}{=}$ \texttt{1-pt(mean(yD)/seMean(yD))}}
+}\only<#Rb{pfig}>{
+}\only<#Rb{pfig+1}>{\tiny$\Est{\delta_{d_\mu,0}}{y} \stackrel{R}{=}$ \texttt{(mean(yH)-mean(yF))/seDMeanGauss}
+}\only<#Rb{pfig+2}>{\tiny pval $\stackrel{R}{=}$ \texttt{pt((mean(yH)-mean(yF))/seDMeanGauss,18)}
+}}
+&
+{\scriptsize \only<1-#Rb{pfig-1}>{
+}\only<#Rb{pfig}>{$\delta_{lim,2.5\%}^+ \stackrel{R}{=}$ \texttt{qf(0.975,8,10)}
+}\only<#Rb{pfig+1}>{
+}\only<#Rb{pfig+2}>{
+}} \\ \hline
+\end{tabular}
+
+\end{frame}
+

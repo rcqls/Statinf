@@ -1,0 +1,299 @@
+[#package]
+\usepackage{slashbox}
+[#require]Import/StatDevel/BeamerCours
+[#main]
+[#>]
+{#case]#{docs}
+[#when]rédaction[#>]
+\section{Rédaction standard}
+\begin{frame}
+\frametitle{Rédaction standard}
+
+\begin{minipage}{11cm}
+
+\centerline{\fbox{ \large \textit{  R{\'e}daction standard d'un test d'hypoth{\`e}ses param{\'e}trique  }} }\vspace*{.2cm}  
+
+\fbox{
+\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Hypoth{\`e}ses de test~:} 
+$$\mathbf{H_0}: \theta=\theta_0\mbox{ versus }\mathbf{H_1}:\left\{
+\begin{array}{ll} 
+\theta>\theta_0 & \mbox{\textbf{(a)}: {\it unilatéral droit}}\\ 
+\theta<\theta_0 & \mbox{\textbf{(b)}: {\it unilatéral gauche}} \\ 
+\theta\neq\theta_0 & \mbox{\textbf{(c)}: {\it bilatéral}}
+\end{array}\right.
+$$
+
+\noindent \textbf{Statistique de test sous $\mathbf{H_0}$}~:
+$$\Est{\delta_{\theta,\theta_0}}{Y}\leadsto\mathcal{L}_0 \mbox{ ({\`a} pr{\'e}ciser selon probl{\'e}matique)}$$ 
+
+\noindent \textbf{R{\`e}gle de d{\'e}cision~:}
+on accepte $\mathbf{H_1}$ si\\
+$\left\{ 
+\begin{array}{l} 
+\mbox{\textbf{(a): }} 
+\Est{\delta_{\theta,\theta_0}}{y}>\delta^{+}_{\lim,\alpha} \mbox{ ou p-valeur(droite)}<\alpha \\ 
+\mbox{\textbf{(b): }} 
+\Est{\delta_{\theta,\theta_0}}{y}<\delta^{-}_{\lim,\alpha}\mbox{ ou p-valeur(gauche)}<\alpha \\ 
+ \mbox{\textbf{(c): }}  
+\left( \Est{\delta_{\theta,\theta_0}} {y} < \delta^{-}_{\lim,\alpha/2} \mbox{ ou } \Est{\delta_{\theta,\theta_0}} {y} > \delta^{+}_{\lim,\alpha/2} \right)\mbox{ ou  p-valeur(bi)}<\alpha
+\end{array}\right.$
+}
+\end{minipage}}\end{minipage}
+\end{frame}
+[#when]testInstrR[#>]
+\begin{frame}
+\frametitle{Un tableau récapitulatif pour les instructions \texttt{R}}
+{\small \hspace*{-.3cm} \begin{tabular}{|c|c|c|}
+\hline
+ \multicolumn{3}{|c|}{\color{blue} \large Assertion d'intérêt} \\ 
+$\mathbf{H_1}: \theta<\theta_0$ & $\mathbf{H_1}: \theta>\theta_0$&$\mathbf{H_1}: \theta\neq\theta_0$ \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Statistique de test sous $H_0$} \\
+\multicolumn{3}{|c|}{$\Est{\delta_{\theta,\theta_0}}{Y} \leadsto \mathcal{L}_0 \NotR \mathtt{{\color{purple}loi}({\color{purple}...})}$} \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Le jour J avec les données $\Vect{y}$} \\ \multicolumn{3}{|c|}{$\Est{\delta_{\theta,\theta_0}}{y} \NotR \mathtt{deltaEst.H0}$} \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Quantile(s)} \\
+$\delta_{lim,\alpha}^- \NotR \mathtt{q{\color{purple}loi}(\alpha,{\color{purple}...})}$ &  $\delta_{lim,\alpha}^+ \NotR \mathtt{q{\color{purple}loi}(1-\alpha,{\color{purple}...})}$& $\delta_{lim,\frac{\alpha}2}^- \NotR \mathtt{q{\color{purple}loi}(\alpha,{\color{purple}...})}$\\
+&& $\delta_{lim,\frac{\alpha}2}^+ \NotR \mathtt{q{\color{purple}loi}(1-\alpha/2,{\color{purple}...})}$\\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large P$-$valeur}\\
+p$-$val(gauche)$\NotR$&p$-$val(droite)$\NotR$ & p$-$val(bi)$\NotR$ \\
+{\scriptsize$\mathtt{p{\color{purple}loi}(deltaEst.H0,{\color{purple}...})}$}&{\scriptsize $\mathtt{1-p{\color{purple}loi}(deltaEst.H0,{\color{purple}...})}$} & 
+{\tiny$ \mathtt{2*p{\color{purple}loi}(deltaEst.H0,{\color{purple}...})}$ si p$-$val(g)$<$p$-$val(d)} \\
+&& {\tiny$ \mathtt{2*(1-p{\color{purple}loi}(deltaEst.H0,{\color{purple}...}))}$ sinon}\\
+\hline
+\end{tabular}}
+\end{frame}
+
+[#when]pbs1[#>]
+\section{Problématiques avec 1 paramètre}
+{#paramSlide]pb?p[#}
+{#paramSlide]pb1p[#}
+{#paramSlide]pb1p?[#}
+{#paramSlide]pb1pa[#}
+{#paramSlide]pb1pg[#}
+[#when]pbs2[#>]
+\section{Problématiques avec 2 paramètres}
+{#paramSlide]pb?p[#}
+{#paramSlide]pb2p[#}
+{#paramSlide]pb2p?e[#}
+{#paramSlide]pb2p1e[#}
+{#paramSlide]pb2p1ea[#}
+{#paramSlide]pb2p1eg[#}
+
+{#paramSlide]pb2p2e[#}
+{#paramSlide]pb2p2ea[#}
+{#paramSlide]pb2p2eg[#}
+[#when]pbs[#>]
+\section{Présentation problématiques}
+{#paramSlide]pb?p[#}
+{#paramSlide]pb1p[#}
+{#paramSlide]pb1p?[#}
+{#paramSlide]pb1pa[#}
+{#paramSlide]pb1pg[#}
+
+{#paramSlide]pb2p[#}
+{#paramSlide]pb2p?e[#}
+{#paramSlide]pb2p1e[#}
+{#paramSlide]pb2p1ea[#}
+{#paramSlide]pb2p1eg[#}
+
+{#paramSlide]pb2p2e[#}
+{#paramSlide]pb2p2ea[#}
+{#paramSlide]pb2p2eg[#}
+{#paramSlide#}
+
+[#when]tabPbs[#>]
+\begin{frame}[label=ech,t]
+\frametitle{Tableau des problématiques}
+\begin{center}
+\begin{tabular}{|c|c|c|}\hline
+\backslashbox{\textbf{Nbre éch.}}{\textbf{Cadre}} & 
+\begin{minipage}{3cm}
+\centerline{\textbf{Asymptotique}}
+\textbf{Définition~:}\\
+\centerline{\fbox{$n\geq30$}} 
+\textbf{Intérêt~:} \\$Y\leadsto \mathcal{L}_0$ arbitraire
+\end{minipage}  & 
+\begin{minipage}{3.2cm}
+\centerline{\textbf{Gaussien}}
+\textbf{Définition~:}\\
+\centerline{\fbox{$Y\leadsto \mathcal{N}(\mu^\bullet,\sigma_\bullet)$}}
+\textbf{Intérêt~:}\\  Utile lorsque $n< 30$
+\end{minipage}
+\\\hline
+\textbf{1 échantillon} & 
+\begin{minipage}{3cm}
+\begin{center}
+proportion $p$\\
+ moyenne $\mu$\\
+variance $\sigma^2$\\
+\vspace*{.1cm}
+\end{center}
+\end{minipage} 
+ & 
+\begin{minipage}{3cm}
+\begin{center}
+moyenne $\mu$\\
+variance $\sigma^2$
+\end{center} 
+\end{minipage}
+\\\hline
+\textbf{2 échantillons} & 
+\begin{minipage}{3cm}
+\begin{center}
+diff. moyennes $d_\mu$\\
+rapp. moyennes $r_\mu$\\
+diff. variances $d_{\sigma^2}$\\
+rapp. variances $r_{\sigma^2}$ 
+\end{center} 
+\end{minipage}
+& 
+\begin{minipage}{3cm}
+\begin{center}
+diff. moyennes $d_\mu$\\
+rapp. variances $r_{\sigma^2}$
+\end{center} 
+\end{minipage}
+\\\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+[#when]prélim[#>]
+\section{Partie préliminaire d'un test basé sur deux paramètres}
+\begin{frame}
+\frametitle{Partie préliminaire d'un test basé sur deux paramètres}
+
+{\small 
+\begin{block}{Position du problème sur un exemple}
+Reprenons la problématique du cours précédent (C.A. de PME) Une des questions traitées était~: le C.A. moy. des PME du pays $P_1$ est-il supérieur de plus de 20 unités à celui des PME de $P_2$~? L'assertion s'écrit
+\centerline{$\mathbf{H_1:} \mu^{P1} > \mu^{P2} + 20
+\Longleftrightarrow \mu^{P1} - \mu^{P2} > 20
+\Longleftrightarrow \mu^{P2}- \mu^{P1} <- 20$}
+Il s'agit d'un test de différences de moyennes!
+\end{block}
+
+\begin{alertblock}{Problème : comment définir le paramètre $d_\mu$~?}
+\centerline{$d_\mu:=\mu^{P1} - \mu^{P2}$ ou $d_\mu:=\mu^{P2} - \mu^{P1}$}
+Ce problème est important car il conditionne le sens de l'assertion d'intérêt et donc la rédaction du test!
+\end{alertblock}
+
+\begin{exampleblock}{Solution}
+Les indications \texttt{R} fournies permettent de déduire la bonne définition du paramètre d'intérêt. \\
+\underline{Méthodologie générale}~: essayer les deux solutions et observer avec les données que l'une d'entre elle amène une contradiction.
+\end{exampleblock}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Indications R avec \texttt{deltaEst.H0}}
+[#r<]
+require(CqlsStat)
+attach("~/cqls/data/chAff.RData")
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+[#>]
+{\scriptsize
+\begin{block}{}
+\texttt{> c(length(yP1),length(yP2),mean(yP1),mean(yP2))\\
+$[1]$ #r{length(yP1)} #r{length(yP2)} #r{mean(yP1)} #r{mean(yP2)} \\
+> deltaEst.H0\\
+$[1]$ #r{(mean(yP1)-mean(yP2)-20)/seDMeanG(yP1,yP2)} }
+\end{block}}
+{\small
+\begin{alertblock}{$\mathbf{H_1}\!:\! d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}\!>\!20$}
+$\Est{\delta_{d_\mu,20}}{y^{P1},y^{P2}}$ de même signe que\\ \pause $\Est{\mu^{P1}}{y^{P1}}\!-\!\Est{\mu^{P2}}{y^{P2}}\!-\!20\!\NotR\! \texttt{mean(yP1)-mean(yP2)-20}\!\simeq\! #r{mean(yP1)-mean(yP2)-20}>0$
+\end{alertblock}
+\pause
+\begin{alertblock}{$\mathbf{H_1}: \!d_\mu:=\mu^{P2} \!-\! \mu^{P1}\!<\!-20$}
+$\Est{\delta_{d_\mu,-20}}{y^{P2},y^{P1}}$ de même signe que\\ \pause $\Est{\mu^{P2}}{y^{P2}}\!-\!\Est{\mu^{P1}}{y^{P1}}\!-\!(-20)\!\NotR\!
+\texttt{mean(yP2)-mean(yP1)+20}\!\simeq\! #r{mean(yP2)-mean(yP1)+20}\!<\!0\!$
+\end{alertblock}
+Or, \texttt{deltaEst.H0} est positif, par conséquent une seule solution possible:\\
+\fbox{\centerline{$\mathbf{H_1}: d_\mu:=\mu^{P1} - \mu^{P2}>20$}}
+}
+\end{frame}
+
+[#when]signeDelta[#>]
+
+{#BeamerFrame]Relation générale entre le signe de \texttt{deltaEst.H0} et \texttt{ploi(deltaEst.H0,...)}[#>]
+{\small Lorsque $\mathcal{L}_0\NotR\mathtt{{\color{purple}loi}({\color{purple}...})}$ est soit une $\mathcal{N}(0,1)\NotR \mathtt{{\color{purple}norm}()}$ soit une $\mathcal{S}t(...)\NotR\mathtt{{\color{purple}t}({\color{purple}...})}$,
+on a les équivalences suivantes:\\
+\begin{itemize}
+\item {\texttt{{\color{blue}deltaEst.H0}}$<0 \!\Longleftrightarrow\!$ \texttt{{\color{darkgreen}p}{\color{purple}loi}({\color{blue}deltaEst.H0},{\color{purple}...})} {#only]1[#>]$\left\{\begin{array}{c} < \\ > \end{array}\right\}$ ???[#}{#only]2-[#>]$\!< \!50\%$}[#} 
+\item {{#view]3-[#>]\texttt{{\color{blue}deltaEst.H0}}$>0 \!\Longleftrightarrow\!$ \texttt{{\color{darkgreen}p}{\color{purple}loi}({\color{blue}deltaEst.H0},{\color{purple}...})}[#}{#only]3[#>]$\left\{\begin{array}{c} < \\ > \end{array}\right\}$ ???[#}{#only]4[#>] $\!>\!50\%$[#}}
+\end{itemize}
+
+\textbf{Illustration graphique}:
+}
+[#=]new[FALSE]
+[#r<]
+require(CqlsRandom)
+Y<-Norm()
+[#>]
+
+{#FigureSimple]img[img/cours6Fig1.png] [#,] include[false][#,]rcode[
+plot(Y)
+abline(v=-1.5,lwd=2,col="blue")
+area(Y,c(-4,-1.5),col="green")
+abline(v=0,h=0,lwd=2)
+] [#}
+
+{#FigureSimple]img[img/cours6Fig2.png] [#,] include[false][#,]rcode[
+plot(Y)
+abline(v=1.5,lwd=2,col="blue")
+area(Y,c(-4,1.5),col="green")
+abline(h=0,v=0,lwd=2)
+] [#}
+
+[#=]width[5cm][#=]height[4cm]
+[#>]
+\begin{tabular}{ll}
+\includegraphics[width=#{width},height=#{height}]{img/cours6Fig1}& {#view]3-[#>]\includegraphics[width=#{width},height=#{height}]{img/cours6Fig2}[#}
+\end{tabular}
+[#}
+[#-]width,height
+[#when]prelim2[#>]
+
+{#BeamerFrame][#r<]
+require(CqlsStat)
+attach("~/cqls/data/chAff.RData")
+yP1<-yy05[1:20]
+yP2<-yP2[1:20]
+[#>]
+{\small
+\begin{block}{Choix du paramètre $d_\mu$ pour assertion d'intérêt $\mathbf{H_1}$: $\mu^{P1} > \mu^{P2}+20$ ?}
+\begin{itemize}
+\item Indications~\texttt{R}:\\
+\texttt{\scriptsize> c(length(yP1),length(yP2),mean(yP1),mean(yP2))\\
+$[1]$ #r{length(yP1)} #r{length(yP2)} #r{mean(yP1)} #r{mean(yP2)} \\
+> pt(deltaEst.H0,length(yP1)+length(yP2)-2)\\
+$[1]$ #r{pt((mean(yP1)-mean(yP2)-20)/seDMeanG(yP1,yP2),length(yP1)+length(yP2)-2)}  \# p-valeur gauche}\pause
+\item Deux choix possibles pour le paramètre $d_\mu$ et l'assertion d'intérêt~$\mathbf{H}_1$~:\\
+{\scriptsize \begin{tabular}{|c|c|c|}\hline
+paramètre & $d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}$ & $d_\mu:=\mu^{P2} \!-\! \mu^{P1}$\\\hline
+$\mathbf{H_1}$ & $d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}\!>\!20$ & $\!d_\mu:=\mu^{P2} \!-\! \mu^{P1}\!<\!-20$ \\\hline
+$\mathtt{deltaEst.H0}$ & $\Est{\delta_{d_\mu,20}}{y^{P1},y^{P2}}$ & $\Est{\delta_{d_\mu,-20}}{y^{P2},y^{P1}}$ \\\hline
+$\mathtt{deltaEst.H0}$ & $\Est{d_\mu}{y^{P1},y^{P2}}\!-\!20\!$ & $\Est{d_\mu}{y^{P2},y^{P1}}\!-(-\!20\!)$\\
+du signe de & $=\Est{\mu^{P1}}{y^{P1}}\!-\!\Est{\mu^{P2}}{y^{P2}}\!-\!20\!$ & $=\Est{\mu^{P2}}{y^{P2}}\!-\!\Est{\mu^{P1}}{y^{P1}}\!-(-\!20\!)$ \\\hline
+\end{tabular}}\pause
+\item {\scriptsize $\mathtt{deltaEst.H0}$ et $\Est{d_\mu}{y^{P1},y^{P2}}\!-\!20\!$ $\left\{\begin{array}{ccl} 
+\mbox{mêmes signes} & \Rightarrow & \mathbf{H_1}: d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}\!>\!20\\
+\mbox{signes opposés} &\Rightarrow &  \mathbf{H_1}: d_\mu\!:=\!\mu^{P2} \!-\! \mu^{P1}\!<\!-20
+\end{array}\right.$
+}\pause
+\end{itemize}
+\end{block}
+}
+{\small
+\begin{block}{}
+\textbf{Application Numérique}~: $\mathtt{deltaEst.H0}>0$ puisque $p$-valeur$>50\%$ \pause et 
+$\Est{\mu^{P1}}{y^{P1}}\!-\!\Est{\mu^{P2}}{y^{P2}}\!-\!20\!\NotR\! \texttt{mean(yP1)-mean(yP2)-20}\!\simeq\! #r{mean(yP1)-mean(yP2)-20}>0$.\\\pause
+Mêmes signes $\Rightarrow$  \fbox{$\mathbf{H_1}$: $d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}\!>\!20$}
+\end{block}}
+[#}
+[#case}

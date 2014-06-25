@@ -1,0 +1,566 @@
+
+\documentclass[10pt]{report}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{fichetd}
+\usepackage{mathenv}
+\usepackage{tikz}
+\usepackage[a4paper,pdftex=true]{geometry}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\rightmargin -2cm
+\leftmargin -1cm
+\topmargin -2cm
+\textheight 25cm
+
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+
+%Styles
+
+%Title
+
+\begin{document}
+
+
+
+
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Objectif}~: Dans la fiche d'introduction, le cadre de ce cours de Statistique Inférentielle a été posé. En question préliminaire, nous aurons, pour chaque problématique considérée, à identifier le paramètre d'intérêt (noté $\theta$ en général lorsque la problématique n'est pas encore précisée) et à bien prendre conscience que ce dernier est \textbf{inconnu}. A partir d'un échantillon $\Vect{y}$ récolté le \textbf{jour J} (cette appellation sera utilisée tout au long de ce cours), nous aurons alors comme objectif de proposer une estimation, notée $\Est{\theta}{y}$ (pour bien exprimer la dépendance en l'échantillon $\Vect{y}$), afin d'avoir une idée sur l'ordre de grandeur de $\theta$ (inconnu). Dans un deuxième temps, nous réaliserons que ce type d'estimation ponctuelle (i.e. un paramètre inconnu estimé par une unique valeur estimée) n'est pas satisfaisant en termes de confiance que l'on peut apporter à l'estimation. Le statisticien se doit alors de proposer à partir du même échantillon $\Vect{y}$, un niveau de qualité de l'estimation  $\Est{\theta}{y}$. L'\textbf{erreur standard} (``standard error" en anglais) est alors introduite s'exprimant comme une estimation de l'écart-type (i.e. indicateur de variabilité) de la ``future" estimation $\Est{\theta}{Y}$ (à partir du futur échantillon $\Vect{Y}$) ayant pour réalisation $\Est{\theta}{y}$ le \textbf{jour J}. En appliquant le système notation Norme CQLS (voir polycopié de cours), cette erreur standard se note $\Est{\sigma_{\widehat{\theta}}}{y}$.
+La meilleure façon de proposer une estimation tenant compte du couple d'informations $(\Est{\theta}{y},\Est{\sigma_{\widehat{\theta}}}{y})$ disponible le \textbf{jour J} est de construire un intervalle de confiance $IC_{\theta,1-\alpha}(\Vect{y}):=[\Int{\theta}{\inf}{y},\Int{\theta}{\sup}{y}]$ à $1-\alpha$ de niveau de confiance. Grâce à la l'\textbf{A.E.P.}, nous aurons comme mission prioritaire de bien interpréter la notion de niveau de confiance. 
+\item \textit{Loi de probabilité de l'écart standardisé}~: Les paramètres d'intérêt considérés dans ce cours sont de manière plus ou moins directe tous reliés à la moyenne. Ainsi, dans un cadre asymptotique où nous supposerons disposer d'un nombre suffisant de données, nous pourrons hériter pleinement de la puissance du Théorème de la limite centrale que nous avons étudié précédemment (notamment dans la fiche T.D.~\ref{TdProb} mais aussi dans la fiche Annexe~\ref{TdAEPGraph} consacrée aux représentations graphiques des lois de probabilité). Dans le contexte de l'estimation d'un paramètre $\theta$ traité dans ce cours, il s'exprime par ($n$ supposé suffisamment grand)~:
+\[
+ \widehat{\Theta}_n:=\Est{\theta}{Y}\SuitApprox \mathcal{N}\left(\theta,\sigma_{\widehat{\theta}}\right) \Leftrightarrow \Delta_n:=\frac{\Est{\theta}{Y} -\theta }{\sigma_{\widehat{\theta}} } \SuitApprox \mathcal{N}(0,1).
+\]
+où $\sigma_{\widehat{\theta}}:=\sigma\left(\Est{\theta}{Y}\right)=\sqrt{\VVV{\Est{\theta}{Y}}}$ est l'écart-type de la ``future" estimation  $\Est{\theta}{Y}$. Cependant, en général, le paramètre $\sigma_{\widehat{\theta}}$ est lui-même inconnu et doit être estimé par $\Est{\sigma_{\widehat{\theta}}}{y})$ correspondant à  l'erreur standard. Un résultat applicable dans le cas où $\sigma_{\widehat{\theta}}$ est inconnu, est le suivant~:
+\[
+  \Delta_{\widehat{\theta},\theta}:=\delta_{\widehat{\theta},\theta}(\Vect{Y}):=\frac{\Est{\theta}{Y} -\theta }{\Est{\sigma_{\widehat{\theta}}}{Y} } \SuitApprox \mathcal{N}(0,1).
+\]
+
+\item \textit{La probabilité comme une extension de la logique}~: Nous insistons sur le fait qu'une probabilité d'un \underline{événement} égale à \textbf{0} ou \textbf{1} signifie respectivement de manière équivalente que l'\underline{événement} (dit \textbf{certain}) est \textbf{Faux} ou \textbf{Vrai}.
+C'est en ce sens que la ``probabilité" est une extension de la ``logique" (en tant que théorie mathématique). Un événement \textbf{incertain} a donc une probabilité strictement comprise entre 0 et 1 et exprime donc qu'il est peut-être Vrai ou peut-être Faux, la probabilité de l'événement étant d'autant plus grande (resp. petite) que l'événement a de plus en plus de chance d'être Vrai (resp. Faux). Dans le contexte statistique, un événement s'exprime à partir d'une statistique $T:=t(\Vect{Y})$ sous la forme  $\left(T\in E\right)\Leftrightarrow\left(t(\Vect{Y})\in E\right)$ où $E$ est un sous-ensemble de modalités de $T:=t(\Vect{Y})$. Ainsi, connaissant la loi de probabilité de $T:=t(\Vect{Y})$, nous serons en mesure d'évaluer $\PPP{T\in E}=\PPP{t(\Vect{Y})\in E}$ comprise strictement entre 0 et 1 puisque $\Vect{Y}$ est intrinsèquement aléatoire. Une erreur très courante est de confondre, le \textbf{Jour J}, $\PPP{t(\Vect{y})\in E}$ avec $\PPP{t(\Vect{Y})\in E}$ alors que  \fbox{$\PPP{t(\Vect{y})\in E}\in\{0,1\}$}$\neq$\fbox{$\PPP{t(\Vect{Y})\in E}\in]0,1[$} puisque $\Vect{y}$ est déterministe (i.e. strictement non aléatoire) en tant que réalisation de $\Vect{Y}$.
+\end{IndicList}
+
+
+\begin{exercice}[Salaire Juste - Estimation (ponctuelle)] ${ }$
+
+Une équipe de sociologues propose de réunir un comité d'experts pour la création d'un indicateur, appelé \textbf{Salaire Juste}, mesuré pour toute personne active et qui permettra de transformer les ressources individuelles réelles (généralement mesurées par un salaire) en tenant compte de critères aussi importants que les ressources locales, le partage de ces ressources, la pénibilité du travail, le niveau d'expérience, d'expertise et bien d'autres encore...
+Cet indicateur est conçu de sorte qu'en théorie il devrait être équivalent (en fait égal à une valeur étalon 100) pour toute personne active dans le monde. En conséquence directe, le Salaire Juste moyen dans le monde devrait être égal à 100.
+Après quelques mois de travail, un premier prototype (très perfectible) du \textbf{Salaire Juste} est élaboré par la fine équipe d'experts.
+Les sociologues s'accordent à dire qu'un pays peut se dire non civilisé s'il vérifie aux 2 critères de discriminations suivants~:
+\begin{list}{} 
+\item \textbf{Discrimination Mondiale}~: le Salaire Juste moyen dans le pays est très supérieur à  la valeur 100 de base. Un Salaire Juste moyen excédant un seuil de 150 est considéré comme intolérable.
+\item \textbf{Discrimination Intérieure}~: les Salaires Justes dans le pays sont très dispersés. La variance des Salaires Justes dans le pays supérieur à 30 est considérée comme excessive et donc anormale.
+\end{list}
+Par la suite, $\mathcal{Y}_i$ ($i=1,\cdots,N$) désigne le Salaire Juste de la $i^{\grave eme}$ personne actives du pays.
+\begin{enumerate}
+\item Définir mathématiquement les paramètres (d'intérêt), notés $\mu^J$ et $\sigma^2_J$, permettant éventuellement d'établir des discriminations mondiale et intérieure.  Quelle est la nature de ces paramètres~?
+\item Soit $Y^J$ la variable aléatoire (v.a.) correspondant au Salaire Juste d'un individu choisi au hasard dans la population des $N$ personnes actives du pays. Etablir la relation entre les paramètres $\mu^J$ et $\sigma^2_J$ et la v.a. $Y^J$
+\item Rappeler alors les estimateurs proposés par les mathématiciens obtenus à partir d'un ``futur" échantillon $\Vect{Y^J}$ (en utilisant la Norme CQLS).
+\item Quelles sont les ``bonnes" propriétés de ces estimateurs désirées par les mathématiciens~?
+Interrogez-vous sur comment les interpréter via l'A.M.P.~?  
+\item Proposer à présent leur interprétation via l'A.E.P. en prenant soin au préalable
+d'introduire les notations nécessaires (Norme CQLS). Proposer alors une description littérale pour chacune de ces ``bonnes" propriétés.
+\item Une étude est menée par un expérimentateur.  Il se fixe l'ensemble des Salaires Justes sur un pays fictif de $N=1000000$ personnes actives dont il est le seul à en connaître les valeurs. Voici les résultats présentés dans les tableaux ci-dessous~:\\   
+\begin{center}\begin{tabular}{c|ccccc}
+        $\Vect{Y}$
+         & 
+    
+        $\Est{\mu^{J}}{Y}$
+         & 
+    
+        $\Est{\sigma_{J}}{Y}$
+         & 
+    
+        $\Est{\sigma_{\widehat{\mu^{J}}}}{Y}$
+         & 
+    
+        $\Est{\mu^{J}}{Y}-\mu^{J}$
+         & 
+    
+        $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{Y})$
+        
+    \\ \cline{1-6}
+
+    
+        $\Vect{y_{[1]}}$
+         & 
+    
+        $99.91$
+         & 
+    
+        $10.0231$
+         & 
+    
+        $0.317$
+         & 
+    
+        $-0.09$
+         & 
+    
+        $-0.29$
+        
+    \\ 
+
+    
+        $\Vect{y_{[2]}}$
+         & 
+    
+        $99.65$
+         & 
+    
+        $9.2615$
+         & 
+    
+        $0.2929$
+         & 
+    
+        $-0.35$
+         & 
+    
+        $-1.19$
+        
+    \\ 
+
+    
+        $\Vect{y_{[3]}}$
+         & 
+    
+        $100.84$
+         & 
+    
+        $10.448$
+         & 
+    
+        $0.3304$
+         & 
+    
+        $0.84$
+         & 
+    
+        $2.54$
+        
+    \\ 
+
+    
+        \vdots
+         & 
+    
+        \vdots
+         & 
+    
+        \vdots
+         & 
+    
+        \vdots
+         & 
+    
+        \vdots
+         & 
+    
+        \vdots
+        
+    \\ 
+
+    
+        $\Vect{y_{[9998]}}$
+         & 
+    
+        $99.58$
+         & 
+    
+        $9.3785$
+         & 
+    
+        $0.2966$
+         & 
+    
+        $-0.42$
+         & 
+    
+        $-1.43$
+        
+    \\ 
+
+    
+        $\Vect{y_{[9999]}}$
+         & 
+    
+        $100.2$
+         & 
+    
+        $9.9372$
+         & 
+    
+        $0.3142$
+         & 
+    
+        $0.2$
+         & 
+    
+        $0.63$
+        
+    \\ 
+
+    
+        $\Vect{y_{[10000]}}$
+         & 
+    
+        $99.94$
+         & 
+    
+        $9.7991$
+         & 
+    
+        $0.3099$
+         & 
+    
+        $-0.06$
+         & 
+    
+        $-0.21$
+        
+    \\ \cline{1-6}
+
+    
+        Moyenne
+         & 
+    
+        $100.0043$
+         & 
+    
+        $10.034$
+         & 
+    
+        $0.3173$
+         & 
+    
+        $0.0043$
+         & 
+    
+        $-0.0294$
+        
+    \\ 
+
+    
+        Ecart-type
+         & 
+    
+        $0.3178$
+         & 
+    
+        $0.63$
+         & 
+    
+        $0.0199$
+         & 
+    
+        $0.3178$
+         & 
+    
+        $1.0058$
+        
+    \\ 
+
+    \end{tabular}
+\end{center}
+
+\item En notant \texttt{yy} un échantillon correspondant à une ligne du tableau ci-dessous (par exemple, la $3^{\grave eme}$), fournir les instructions~\texttt{R} qui a permis à l'expérimentateur d'obtenir les valeurs du tableau précédent (\textit{Indication~:} étant ici à la place de l'expérimentateur, n'oubliez pas que vous disposez exceptionnellement les valeurs de $\mu^J$ et $\sigma^2_J$).
+\item Proposer les notations mathématiques correspondant aux 2 dernières lignes du tableau qui, nous l'espérons, permet de comprendre à quoi elles correspondent et comment elles ont été obtenues.
+\item Quelles valeurs du tableau sont sensées mesurer (approximativement) les qualités de l'estimateur $\Est{\mu^J}{Y^J}$~? Comment les noter dans l'A.M.P.~? Sont-elles accessibles le jour~J~? Mêmes questions pour l'estimateur $\Est{\sigma^2_J}{Y^J}$.
+\item Comment obtient-on les estimations des qualités mesurées par les écarts-type des estimateurs $\Est{\mu^J}{Y^J}$ et $\Est{\sigma^2_J}{Y^J}$. Comment sont-elles appelées~?
+\item A partir de maintenant, on s'imagine être le jour~J. Pour cela, on suppose ne disposer que du $3^{\grave eme}$ échantillon dans le tableau ci-dessus. Comment doit-on noter ce jeu de données. Proposer à partir du tableau toutes les estimations intéressantes relativement aux problèmes de discriminations mondiale et intérieure. N'en manque-t-il pas une ou plusieurs~?  Retrouvez-les ou complétez-les à partir de la sortie~\texttt{R} suivante~:
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> length(yy)
+[1] 1000
+> mean(yy)
+[1] 100.8388
+> sd(yy)
+[1] 10.44798
+> var(yy)
+[1] 109.1603
+> seMean(yy)
+[1] 0.3303941
+> sd(yy)/sqrt(length(yy))
+[1] 0.3303941
+> seVar(yy)
+[1] 9.475496
+\end{Verbatim}
+ 
+\item Voici les sorties \texttt{R}, correspondant aux mêmes informations mais sur l'échantillon des n=100 premiers individus~: 
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> mean(yy[1:100])
+[1] 101.7301
+> sd(yy[1:100])
+[1] 12.13053
+> var(yy[1:100])
+[1] 147.1498
+> seMean(yy[1:100])
+[1] 1.213053
+> sd(yy)/sqrt(100)
+[1] 1.044798
+> seVar(yy[1:100])
+[1] 32.54073
+\end{Verbatim}
+
+Comparer ces résultats à ceux obtenus à partir de l'échantillon initial de taille n=1000. Quelle type d'estimation vaut-il mieux préconiser lorsqu'on désire intégrer l'erreur standard~?
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Salaire Juste - Estimation par intervalle de confiance]${ }$
+\begin{enumerate}
+\item A partir de votre formulaire, rappeler les expressions des ``futurs"  intervalles de confiance à $95\%$ (généralement noté $1-\alpha$) de niveau de confiance pour les paramètres $\mu^J$ et $\sigma^2_J$. Rappeler à partir de quel résultat mathématique (probabiliste) ont-ils été construits~?
+Evaluer la probabilité $\PPP{|\delta_{\widehat\theta,\theta}(\Vect{Y^J})| \leq 1.96}=\PPP{-1.96 \leq \delta_{\widehat\theta,\theta}(\Vect{Y^J}) \leq 1.96}$ où $\theta$ désigne indifféremment $\mu^J$ et $\sigma^2_J$. L'interpréter via l'A.E.P. notamment avec le tableau précédent.
+\item \textit{Question optionnelle (pour ceux qui ne sont pas rebutés par de simples calculs mathématiques)~:} Construire mathématiquement les futurs intervalles de confiance ci-dessus. 
+\item Fournir l'instruction~\texttt{R} permettant de les obtenir le jour~J (\textit{Indication~:} en \texttt{R}, $\mathtt{qnorm(.975)}\simeq$1.96) et le calculer éventuellement en utilisant votre machine à calculer. Déduire un intervalle de confiance à $95\%$ pour $\sigma_J$.
+\item Voici sur les résultats expérimentaux pour les intervalles de confiance $IC_{\mu^J}(\Vect{Y^J})$ et $IC_{\sigma^2_J}(\Vect{Y^J})$ de $\mu^J$ et $\sigma^2_J$. Interpréter via l'approche expérimentale
+\begin{center}\begin{tabular}{c|cc|cc}
+        $\Vect{Y}$
+         & 
+    
+        $IC_{\mu^J}(\Vect{Y^J})$
+         & 
+    
+        $\mu^J\in IC_{\mu^J}(\Vect{Y^J})$
+         & 
+    
+        $IC_{\sigma^2_J}(\Vect{Y^J})$
+         & 
+    
+        $\sigma^2_J\in IC_{\sigma^2_J}(\Vect{Y^J})$
+        
+    \\ \cline{1-5}
+
+    
+        $\Vect{y_{[1]}}$
+         & 
+    
+        $[99.29,100.53]$
+         & 
+    
+        $1$
+         & 
+    
+        $[61.61,139.31]$
+         & 
+    
+        $1$
+        
+    \\ 
+
+    
+        $\Vect{y_{[2]}}$
+         & 
+    
+        $[99.08,100.23]$
+         & 
+    
+        $1$
+         & 
+    
+        $[71.6,99.95]$
+         & 
+    
+        $0$
+        
+    \\ 
+
+    
+        $\Vect{y_{[3]}}$
+         & 
+    
+        $[100.19,101.49]$
+         & 
+    
+        $0$
+         & 
+    
+        $[90.59,127.73]$
+         & 
+    
+        $1$
+        
+    \\ 
+
+    
+        \vdots
+         & 
+    
+        \vdots
+         & 
+    
+        \vdots
+         & 
+    
+        \vdots
+         & 
+    
+        \vdots
+        
+    \\ 
+
+    
+        $\Vect{y_{[9998]}}$
+         & 
+    
+        $[99,100.16]$
+         & 
+    
+        $1$
+         & 
+    
+        $[72.18,103.74]$
+         & 
+    
+        $1$
+        
+    \\ 
+
+    
+        $\Vect{y_{[9999]}}$
+         & 
+    
+        $[99.58,100.81]$
+         & 
+    
+        $1$
+         & 
+    
+        $[82.57,114.93]$
+         & 
+    
+        $1$
+        
+    \\ 
+
+    
+        $\Vect{y_{[10000]}}$
+         & 
+    
+        $[99.33,100.54]$
+         & 
+    
+        $1$
+         & 
+    
+        $[77.91,114.13]$
+         & 
+    
+        $1$
+        
+    \\ \cline{1-5}
+
+    
+        Moyenne
+         & 
+    
+        
+         & 
+    
+        $94.86\%$
+         & 
+    
+        
+         & 
+    
+        $92.02\%$
+        
+    \\ 
+
+    \end{tabular}
+\end{center}
+\item Evaluer les probabilités suivantes~:\\
+$\PPP{\mu^J \in IC_{\mu^J}(\Vect{y^J})}=\PPP{\mu^J\in [100.19,101.49]}$ et $\PPP{\sigma^2_J\in IC_{\sigma^2_J}(\Vect{y^J})}=\PPP{\sigma^2_J\in [90.59,127.73]}$
+
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice} (taille étudiants)
+
+Pour mettre en pratique ce qu'il a appris dans son cours de Statistique Inf{\'e}rentielle, un {\'e}tudiant souhaite utiliser l'\textbf{Approche Exp{\'e}rimentale} pour comprendre la notion d'intervalle de confiance. Son but est d'estimer par intervalle de confiance  \textbf{la taille moyenne}, not{\'e}e $\mu$, des $N=300$ {\'e}tudiants de sa promotion. 
+
+1) Il construit un premier {\'e}chantillon (avec remise) de taille $n=30$ (i.e. pour se placer dans le cadre asymptotique), qu'il note $\Vect{y_{[1]}}$, dans la population des $N=300$ {\'e}tudiants de sa promotion~:
+
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> y1
+ [1] 165 179 171 178 171 168 166 171 182 178 177 165 174 164 175 178 167 168 185
+[20] 166 162 180 167 174 159 159 184 154 172 157
+\end{Verbatim}
+
+
+Proposez l'instruction \texttt{R} ayant permis d'obtenir le résultat ci-dessous correspondant à un intervalle de confiance au niveau de confiance de 80\% de $\mu$~:
+
+\IndicR
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> # IC <- (instruction R à fournir dans la rédaction)
+> IC
+[1] 168.6308 172.4359
+\end{Verbatim}
+
+
+
+
+
+2) Ne sachant pas comment interpr{\'e}ter ce r{\'e}sultat, il construit 19 autres {\'e}chantillons de taille $n=30$ dans la population des {\'e}tudiants de sa promotion que l'on notera respectivement $\Vect{y_{[2]}},\ldots,\Vect{y_{[20]}}$. Il repr{\'e}sente alors sur un m{\^e}me graphique ces 20 diff{\'e}rents intervalles de confiance de $\mu$ {\`a} $80\%$ de niveau de confiance~:
+\begin{center}
+\includegraphics[width=10cm,height=10cm]{/export/prjCqls/share/rsrc/exoHypo/TailleEtud/img/Inter80} 
+\end{center}
+
+Afin de confronter ses r{\'e}sultats exp{\'e}rimentaux avec la r{\'e}alit{\'e}, l'{\'e}tudiant d{\'e}cide d'interroger tous les {\'e}tudiants de sa promotion (notez que ceci est possible car $N=300$). Il peut alors calculer la valeur de $\mu$, {\`a} savoir $168.45$. Elle est repr{\'e}sent{\'e}e par le trait vertical (en trait plein) sur le graphique pr{\'e}c{\'e}dent. Sur les 20 intervalles de confiance calcul{\'e}s, combien contiennent $\mu$~? Est-ce surprenant~? 
+
+
+
+
+3) Que se passerait-il si l'{\'e}tudiant construisait une infinit{\'e} d'intervalles de confiance de $\mu$ {\`a} $80\%$ de niveau de confiance sur des {\'e}chantillons de taille $n=30$~? \\
+
+
+
+\end{exercice}
+
+\begin{exercice} (élection présidentielle) 
+Entre les deux tours d'une {\'e}lection pr{\'e}sidentielle, on souhaite estimer par intervalle de confiance {\`a} 95\% les proportions d'intentions de vote des deux candidats finalistes. Avant m{\^e}me d'effectuer un sondage sur une sous-population de taille $n=1000$, quelle serait la plus grande longueur des deux intervalles de confiance (en utilisant la formule approch{\'e}e)? \\
+
+\IndicR
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> 2*qnorm(0.975)*sqrt(0.5*0.5/1000)
+[1] 0.0619795
+\end{Verbatim}
+
+
+Quelle doit {\^e}tre la taille de l'{\'e}chantillon $n$  pour {\^e}tre certain que
+la longueur de l'intervalle de confiance au niveau $95\%$ n'exc{\`e}de pas
+$0.04\%$~? \\
+
+
+\IndicR
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> (2*qnorm(.975)*sqrt(.5^2)/.0004)^2
+[1] 24009118
+> (qnorm(.975)/.0004)^2
+[1] 24009118
+\end{Verbatim}
+
+
+\end{exercice}
+
+
+
+
+
+
+\end{document}
+
+

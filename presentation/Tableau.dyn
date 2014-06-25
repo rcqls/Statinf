@@ -1,0 +1,45 @@
+[#<]{#def]row[#,]name[][#,]code[][#,]protxt[true]
+[#?]#{0?code} and #{protxt}[#=]code[:{@protected_txt}][#?]end
+[#rb<]@cols={} unless @cols
+@cols[#{=name}]=#{=code}.split("&").map{|e| e.strip}
+[#def}
+
+{#def]Row[#,]name[][#,]columns[]
+[#?]#{0?columns}[#rb>]columns[(0..(@cols[#{=name}].length)).to_a.join(",")][#?]end
+[#rb<]row_content=[#{columns}].map{|i| @cols[#{=name}][i-1]}
+_cpt_row_=-1
+[#yield]default
+[#>]{#loop][#rb<]_cpt_row_+=1
+[#>][{#dyn]:{row_content[_cpt_row_]}[#}]
+[#?]_cpt_row_< row_content.length-1[#>][ & ]
+[#break]_cpt_row_==row_content.length-1[#}
+[#}
+
+{#def]Tabular[#,]format[][#,]rows[][#,]cols[]
+[#rb<]rows=#{=rows}.strip.split("\n")
+[#>]cols[:r{c(#{cols})}]
+[#>]\begin{tabular}{#{format}}
+[#rb<]cpt=-1[#>]{#loop][#rb<]row=rows[cpt+=1];puts "cpt="+cpt.to_s
+[#?]row.include? "&"[#rb>]row
+[#?]else[#rb<]name,row_ind,col_ind=row.split(" ");col_ind=#{=cols} unless col_ind
+[#rb<]row_ind=[:r{c(:{row_ind})}]
+[#rb<]cpt2=-1[#>]{#loop][#rb<]cpt2+=1;puts "cpt2="+cpt2.to_s
+[#>]{#Row]:{name}[#col]:{col_ind}[#cpt]:{row_ind[cpt2]}[#}
+[#break]cpt2==row_ind.length-1[#loop}
+[#break]cpt==rows.length-1[#loop}
+[#?]end
+[#>]\end{tabular}
+[#}
+
+{#row]lgn[#,]{#txt]x_{#{cpt}} & y_{#{cpt}} & z_{#{cpt}}[#}[#}
+{#row]lgn2[#,]x_{cpt} & y_{cpt} & z_{cpt}[#}
+[#>]{#Row]lgn[#col]1,3[#cpt]1[#}
+{#Row]lgn2[#col]1,3[#cpt]1[#}
+
+{#Tabular]cc
+[#cols]1,3
+[#rows]
+lgn 1:2,4
+& & & &  
+lgn2 1:2
+[#}

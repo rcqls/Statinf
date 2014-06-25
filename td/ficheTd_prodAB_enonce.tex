@@ -1,0 +1,1064 @@
+
+\documentclass[10pt]{report}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{fichetd}
+\usepackage{mathenv}
+\usepackage{tikz}
+\usepackage[a4paper,pdftex=true]{geometry}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\rightmargin -2cm
+\leftmargin -1cm
+\topmargin -2cm
+\textheight 25cm
+
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+
+\setcounter{chapter}{3}
+%Styles
+
+%Title
+
+\begin{document}
+
+
+
+
+\chapter{Traitement\\ des problématiques \\des produits A et B}\label{TdProdAB}
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Objectif}~: En pratique, on peut être spécialement intéressé par une prise de décision qui dépend de la comparaison du \textbf{paramètre d'intérêt} $\theta$ inconnu par rapport à une \textbf{valeur de référence} $\theta_0$ (fixée selon la problématique). Cette comparaison sera par la suite appelée \textbf{assertion d'intérêt}.
+Ne disposant que d'une estimation $\Est{\theta}{y}$ la décision conduisant à conclure que l'assertion d'intérêt est vraie à partir de l'échantillon $\Vect{y}$ du \textbf{jour J}  ne peut pas être complètement fiable. L'objectif est de construire un outil d'aide à la décision nous garantissant un risque d'erreur de se tromper dans notre décision de valider l'assertion d'intérêt n'excédant pas une valeur que nous nous sommes fixée (généralement autour des 5\%).
+\item \textit{Paramètre d'écart standardisé}~: Comparer la paramètre d'intérêt $\theta$ à une valeur de référence $\theta_0$ est strictement équivalent à comparer leur différence ou leur rapport à 0 ou 1. Dans le cadre asymptotique, l'assertion d'intérêt pourra toujours se réécrire en fonction d'un paramètre d'écart standardisé $\delta_{\theta,\theta_0}:=\frac{\cqlsbm{\theta-\theta_0}} {\sigma_{\widehat{\theta}}}$. Il est important d'apprendre à lire cette expression où le numérateur $\theta-\theta_0$ a été mis en \textbf{gras} pour souligner son rôle plus important (en termes d'information pour l'utilisateur) par rapport au dénominateur $\sigma_{\widehat{\theta}}$ ayant été introduit principalement pour des raisons techniques (mais toutefois indispensables dans la construction de l'outil d'aide à la décision).  Il est alors direct de voir que~:
+\[
+\mbox{\textbf{Assertion d'intérêt}}\Longleftrightarrow \left\{\begin{array}{ccccc}
+  \theta<\theta_0&\Longleftrightarrow &\theta-\theta_0<0 &\Longleftrightarrow &\delta_{\theta,\theta_0}<0\\ 
+  \theta>\theta_0&\Longleftrightarrow&\theta-\theta_0>0 &\Longleftrightarrow  &\delta_{\theta,\theta_0}>0\\
+  \theta\neq\theta_0&\Longleftrightarrow&\theta-\theta_0\neq0 &\Longleftrightarrow  &\delta_{\theta,\theta_0}\neq0\\
+  \end{array}\right\}
+\]
+En commentaire non prioritaire, on peut tout de même remarquer que l'interprétation du $\sigma_{\widehat{\theta}}$ dans l'expression de $\delta_{\theta,\theta_0}$ est assez naturelle~: plus l'estimation de $\theta$ est fiable, se traduisant par un $\sigma_{\widehat{\theta}}$ d'autant plus faible, plus le paramètre d'écart standardisé $\delta_{\theta,\theta_0}$ est grand et ainsi plus facile à comparer à 0.
+\item \textit{Estimation du paramètre d'écart standardisé}~: Dépendant du paramètre d'intérêt $\theta$ inconnu, le paramètre d'écart standardisé $\delta_{\theta,\theta_0}$ est lui-même inconnu (en fait doublement inconnu puisque dépendant aussi de $\sigma_{\widehat{\theta}}$ inconnu). Il est facilement estimable à partir de l'échantillon $\Vect{y}$ du \textbf{jour J}. Nous l'exprimons ci-dessous à partir du ``futur" échantillon $\Vect{Y}$~:
+\[
+\Est{\delta_{\theta,\theta_0}}{Y}:=\frac{\Est{\theta}{Y}-\theta_0}{\Est{\sigma_{\widehat{\theta}}}{Y}}
+\]
+Pour mesurer les risques d'erreur de décision, nous serons tout particulièrement intéressés par la loi de probabilité de  $\Est{\delta_{\theta,\theta_0}}{Y}$ lorsque $\theta=\theta_0$. Dans ce cas très particulier, nous remarquons que lorsque $n$ est suffisamment grand~:
+\[
+\Est{\delta_{\theta,\theta_0}}{Y}:=\frac{\Est{\theta}{Y}-\mbox{\fbox{$\theta_0$}}}{\Est{\sigma_{\widehat{\theta}}}{Y}}=\frac{\Est{\theta}{Y}-\mbox{\fbox{$\theta$}}}{\Est{\sigma_{\widehat{\theta}}}{Y}}=:\delta_{\widehat{\theta},\theta}(\Vect{Y})\SuitApprox \mathcal{N}(0,1)
+\]
+où $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ a été introduit au début de la fiche T.D.~\ref{TdEst}.
+\end{IndicList}
+
+
+
+
+\begin{exercice}[Forme des Règles de Décision pour produits~A et B] $ $
+\begin{enumerate}
+\item Exprimer les assertions d'intérêt pour les produits~A et~B correspondant aux lancements des produits sur le marché en fonction des paramètres d'intérêts.
+\item Reécrire ces assertions d'intérêt à partir des paramètres d'écart standardisé fournis dans le formulaire de cours.
+\item Proposer les formes des Règles de décision associées aux expressions précédentes des assertions d'intérêts (via paramètres d'intérêt et d'écart standardisé).   
+\item  Selon ces Règles de Décision, est-il possible pour l'industriel de ne pas se tromper dans sa décision quant au lancement de chaque produit~? 
+
+\item Exprimez les erreurs de décision éventuelles en les illustrant par des exemples de situations réelles envisageables.
+
+Il en ressort qu'il y a 2 risques d'erreurs de décision~: 
+\begin{itemize}
+\item Risque d'erreur I (ou première espèce)~: risque de décider à tort l'assertion d'intérêt.
+\item Risque d'erreur II (ou deuxième expèce)~: risque de ne pas décider à tort l'assertion d'intérêt.
+\end{itemize}
+Comment les reformuleriez-vous dans les problématiques de l'industriel~? Lequel parmi ces 2 types d'erreurs est-il plus important de controler~?
+
+\item Un statisticien informe l'industriel que la règle de décision (connue de tous les statisticiens) est de lancer le produit~A si $\Est{p^A}{y^A}>16.8573\%$. L'industriel pensant que son produit est tel que $p^A\geq 20\%$ se dit que cette règle de décision sera donc toujours acceptée. Qu'en pensez-vous~? 
+
+\end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}[Etudes expérimentales pour produits~A et B] $ $
+
+L'expérimentateur désire mener une étude sur les outils d'aide à la décision pour les problématiques des produits~A et B. Il se propose alors de construire 6 urnes $U^A_p$ (avec $p=10\%$, $14\%$, $15\%$, $15.1\%$, $16\%$ et $20\%$) et 6 urnes $U^B_\mu$ (avec $\mu=0.1$, $0.14$, $0.15$, $0.151$, $0.16$ et $0.2$). Pour chacune des 12 urnes il construit $m=10000$ échantillons (notés $\Vect{y_{[k]}}$, $k=1,\cdots,m$) de taille $n=1000$. Voici les caractéristiques de ces urnes~:
+une urne $U^\bullet_\mu$ ($\mu\geq0$ et $\bullet$=$A$ ou $B$) contient N=2000000 boules numérotées de 0 à 3. $N^\bullet_i$ désignant le nombre de boules dont le numéro est $i$ ($i=0,\cdots,3$), les répartitions de ces urnes sont fixées de la manière suivante~:
+\begin{itemize}
+\item $U^A_p$ ($\mu=p\in [0,1]$)~: $N^A_1=N\times p$ et $N^A_2=N^A_3=0$ de sorte qu'il y a une proportion $p$ de boules numérotées 1. La moyenne et la variance des numéros sont respectivement égaux à $\mu=p$ et $\sigma^2=p(1-p)$
+\item $U^B_\mu$ ($\mu\geq0$)~: $N^B_1=N\times \mu -100000$, $N^B_2=N^B_3=20000$ de sorte que la moyenne des numéros est égale à $\mu$. La variance est égale à $\sigma^2=\mu(1-\mu)+\frac{2}{25}$.
+\end{itemize}
+Notons que $N^\bullet_0=N-(N^\bullet_1+N^\bullet_2+N^\bullet_3)$.
+
+\noindent \textbf{Résultats expérimentaux pour le produit~A~:}
+L'expérimentateur décide d'éprouver les Règles de Décision suivantes sur tous les $m=10000$ échantillons des 6 urnes~$U^A_p$~:
+\begin{center}
+Décider de lancer le produit~A si \fbox{$\Est{p^A}{y}>p^+_{lim}$}
+\end{center} 
+avec $p^+_{lim}$ pouvant prendre les 4 valeurs du tableau ci-dessous choisies sous le conseil du mathématicien. Voici les résultats fournis via la quantité $\gamma_m(p)=\overline{\Big(\Est{p^A}{y_{[.]}}>p^+_{lim}\Big)_m}$ correspondant à la proportion d'échantillons parmi les $m=10000$ conduisant au lancement du produit. Les valeurs entre parenthèses dans le tableau, fournies par le mathématicien, correspondent aux différentes valeurs de $\gamma_{+\infty}(p)$ (i.e. $m=+\infty$) qui, via la relation entre l'A.E.P. et l'A.M.P, est égal à $\gamma(p):=\PPP{\Est{p^A}{Y}>p^+_{lim}}$. 
+
+\begin{center}
+\begin{tabular}{|c|rl|rl|rl|rl|}\cline{1-9}
+        \multirow{2}{*}{$p$}
+         & 
+    \multicolumn{8}{c|}{$p^+_{lim}$}
+    
+    
+    
+    
+    
+    
+    
+    \\ \cline{2-9}
+
+    
+        
+         & 
+    \multicolumn{2}{c|}{$15\%$}
+     & 
+    \multicolumn{2}{c|}{$16.4471\%$}
+     & 
+    \multicolumn{2}{c|}{$16.8573\%$}
+     & 
+    \multicolumn{2}{c|}{$17.6268\%$}
+    
+    \\ \cline{1-9}
+
+    
+        $10\%$
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+        
+    \\ 
+
+    
+        $14\%$
+         & 
+    
+        $16.57\%$
+         & 
+    
+        ($\simeq18.11\%$)
+         & 
+    
+        $1.45\%$
+         & 
+    
+        ($\simeq1.29\%$)
+         & 
+    
+        $0.52\%$
+         & 
+    
+        ($\simeq0.46\%$)
+         & 
+    
+        $0.05\%$
+         & 
+    
+        ($\simeq0.05\%$)
+        
+    \\ 
+
+    
+        $15\%$
+         & 
+    
+        $48.06\%$
+         & 
+    
+        ($\simeq50\%$)
+         & 
+    
+        $10.07\%$
+         & 
+    
+        ($\simeq10\%$)
+         & 
+    
+        $5.17\%$
+         & 
+    
+        ($\simeq5\%$)
+         & 
+    
+        $0.86\%$
+         & 
+    
+        ($\simeq1\%$)
+        
+    \\ 
+
+    
+        $15.1\%$
+         & 
+    
+        $51.52\%$
+         & 
+    
+        ($\simeq53.52\%$)
+         & 
+    
+        $11.93\%$
+         & 
+    
+        ($\simeq11.71\%$)
+         & 
+    
+        $6.18\%$
+         & 
+    
+        ($\simeq6.03\%$)
+         & 
+    
+        $1.37\%$
+         & 
+    
+        ($\simeq1.28\%$)
+        
+    \\ 
+
+    
+        $16\%$
+         & 
+    
+        $78.95\%$
+         & 
+    
+        ($\simeq80.58\%$)
+         & 
+    
+        $34.42\%$
+         & 
+    
+        ($\simeq34.99\%$)
+         & 
+    
+        $22.89\%$
+         & 
+    
+        ($\simeq22.98\%$)
+         & 
+    
+        $7.75\%$
+         & 
+    
+        ($\simeq8.03\%$)
+        
+    \\ 
+
+    
+        $20\%$
+         & 
+    
+        $99.99\%$
+         & 
+    
+        ($\simeq100\%$)
+         & 
+    
+        $99.84\%$
+         & 
+    
+        ($\simeq99.75\%$)
+         & 
+    
+        $99.35\%$
+         & 
+    
+        ($\simeq99.35\%$)
+         & 
+    
+        $96.67\%$
+         & 
+    
+        ($\simeq96.97\%$)
+        
+    \\ \cline{1-9}
+
+    \end{tabular}
+
+\end{center}
+
+\noindent Le tableau ci-dessous est l'équivalent du précédent pour les Règles de Décision de la forme~:
+\begin{center}
+Décider de lancer le produit~A si \fbox{$\Est{\delta_{p^A,15\%}}{y}>\delta^+_{lim}$}.
+\end{center} 
+Les valeurs (resp. entre parenthèses) du tableaux correspondent à $\gamma^\prime_m(p)=\overline{\Big(\Est{\delta_{p^A,15\%}}{y_{[.]}}>\delta^+_{lim}\Big)_m}$ (resp. à $\gamma^\prime_{+\infty}(p)=\gamma^\prime(p):=\PPP{\Est{\delta_{p^A,15\%}}{Y}>\delta^+_{lim}}$).
+\begin{center}
+\begin{tabular}{|c|rl|rl|rl|rl|}\cline{1-9}
+        \multirow{2}{*}{$p$}
+         & 
+    \multicolumn{8}{c|}{$\delta^+_{lim}$}
+    
+    
+    
+    
+    
+    
+    
+    \\ \cline{2-9}
+
+    
+        
+         & 
+    \multicolumn{2}{c|}{$0$}
+     & 
+    \multicolumn{2}{c|}{$1.281552$}
+     & 
+    \multicolumn{2}{c|}{$1.644854$}
+     & 
+    \multicolumn{2}{c|}{$2.326348$}
+    
+    \\ \cline{1-9}
+
+    
+        $10\%$
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+        
+    \\ 
+
+    
+        $14\%$
+         & 
+    
+        $16.57\%$
+         & 
+    
+        ($\simeq18.11\%$)
+         & 
+    
+        $1.45\%$
+         & 
+    
+        ($\simeq1.29\%$)
+         & 
+    
+        $0.52\%$
+         & 
+    
+        ($\simeq0.46\%$)
+         & 
+    
+        $0.05\%$
+         & 
+    
+        ($\simeq0.05\%$)
+        
+    \\ 
+
+    
+        $15\%$
+         & 
+    
+        $48.06\%$
+         & 
+    
+        ($\simeq50\%$)
+         & 
+    
+        $10.07\%$
+         & 
+    
+        ($\simeq10\%$)
+         & 
+    
+        $5.17\%$
+         & 
+    
+        ($\simeq5\%$)
+         & 
+    
+        $0.86\%$
+         & 
+    
+        ($\simeq1\%$)
+        
+    \\ 
+
+    
+        $15.1\%$
+         & 
+    
+        $51.52\%$
+         & 
+    
+        ($\simeq53.52\%$)
+         & 
+    
+        $11.93\%$
+         & 
+    
+        ($\simeq11.71\%$)
+         & 
+    
+        $6.18\%$
+         & 
+    
+        ($\simeq6.03\%$)
+         & 
+    
+        $1.37\%$
+         & 
+    
+        ($\simeq1.28\%$)
+        
+    \\ 
+
+    
+        $16\%$
+         & 
+    
+        $78.95\%$
+         & 
+    
+        ($\simeq80.58\%$)
+         & 
+    
+        $34.42\%$
+         & 
+    
+        ($\simeq34.99\%$)
+         & 
+    
+        $22.89\%$
+         & 
+    
+        ($\simeq22.98\%$)
+         & 
+    
+        $7.75\%$
+         & 
+    
+        ($\simeq8.03\%$)
+        
+    \\ 
+
+    
+        $20\%$
+         & 
+    
+        $99.99\%$
+         & 
+    
+        ($\simeq100\%$)
+         & 
+    
+        $99.84\%$
+         & 
+    
+        ($\simeq99.75\%$)
+         & 
+    
+        $99.35\%$
+         & 
+    
+        ($\simeq99.35\%$)
+         & 
+    
+        $96.67\%$
+         & 
+    
+        ($\simeq96.97\%$)
+        
+    \\ \cline{1-9}
+
+    \end{tabular}
+
+\end{center}
+
+\noindent \textbf{Résultats expérimentaux pour le produit~B~:}
+il expérimente les Règles de Décision suivantes sur tous les $m=10000$ échantillons des 6 urnes~$U^B_\mu$~:
+\begin{center}
+Décider de lancer le produit~B si \fbox{$\Est{\mu^B}{y}>\mu^+_{lim}$}
+\end{center} 
+avec $\mu^+_{lim}$ pouvant prendre les 4 valeurs du tableau ci-dessous fournissant les différentes quantités $\gamma_m(\mu)=\overline{\Big(\Est{\mu^B}{y_{[.]}}>\mu^+_{lim}\Big)_m}$ (et $\gamma_{+\infty}(\mu)=\gamma(\mu):=\overline{\Big(\Est{\mu^B}{Y}>\mu^+_{lim}\Big)_m}$).
+\begin{center}
+\begin{tabular}{|c|rl|rl|rl|rl|}\cline{1-9}
+        \multirow{2}{*}{$\mu$}
+         & 
+    \multicolumn{8}{c|}{$\mu^+_{lim}$}
+    
+    
+    
+    
+    
+    
+    
+    \\ \cline{2-9}
+
+    
+        
+         & 
+    \multicolumn{2}{c|}{$0.15$}
+     & 
+    \multicolumn{2}{c|}{$0.168461$}
+     & 
+    \multicolumn{2}{c|}{$0.173694$}
+     & 
+    \multicolumn{2}{c|}{$0.183511$}
+    
+    \\ \cline{1-9}
+
+    
+        $0.1$
+         & 
+    
+        $0.01\%$
+         & 
+    
+        ($\simeq0.01\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq0\%$)
+        
+    \\ 
+
+    
+        $0.14$
+         & 
+    
+        $23.39\%$
+         & 
+    
+        ($\simeq24\%$)
+         & 
+    
+        $2.55\%$
+         & 
+    
+        ($\simeq2.22\%$)
+         & 
+    
+        $1.13\%$
+         & 
+    
+        ($\simeq0.87\%$)
+         & 
+    
+        $0.14\%$
+         & 
+    
+        ($\simeq0.11\%$)
+        
+    \\ 
+
+    
+        $0.15$
+         & 
+    
+        $47.92\%$
+         & 
+    
+        ($\simeq50\%$)
+         & 
+    
+        $9.95\%$
+         & 
+    
+        ($\simeq10\%$)
+         & 
+    
+        $5.35\%$
+         & 
+    
+        ($\simeq5\%$)
+         & 
+    
+        $1.29\%$
+         & 
+    
+        ($\simeq1\%$)
+        
+    \\ 
+
+    
+        $0.151$
+         & 
+    
+        $50.72\%$
+         & 
+    
+        ($\simeq52.77\%$)
+         & 
+    
+        $10.95\%$
+         & 
+    
+        ($\simeq11.27\%$)
+         & 
+    
+        $5.61\%$
+         & 
+    
+        ($\simeq5.76\%$)
+         & 
+    
+        $1.25\%$
+         & 
+    
+        ($\simeq1.2\%$)
+        
+    \\ 
+
+    
+        $0.16$
+         & 
+    
+        $74.24\%$
+         & 
+    
+        ($\simeq75.27\%$)
+         & 
+    
+        $27.85\%$
+         & 
+    
+        ($\simeq28.17\%$)
+         & 
+    
+        $17.56\%$
+         & 
+    
+        ($\simeq17.48\%$)
+         & 
+    
+        $5.99\%$
+         & 
+    
+        ($\simeq5.42\%$)
+        
+    \\ 
+
+    
+        $0.2$
+         & 
+    
+        $99.96\%$
+         & 
+    
+        ($\simeq99.94\%$)
+         & 
+    
+        $98.43\%$
+         & 
+    
+        ($\simeq97.91\%$)
+         & 
+    
+        $96.45\%$
+         & 
+    
+        ($\simeq95.53\%$)
+         & 
+    
+        $86.35\%$
+         & 
+    
+        ($\simeq85.64\%$)
+        
+    \\ \cline{1-9}
+
+    \end{tabular}
+
+\end{center}
+
+\noindent Le tableau ci-dessous est l'équivalent du précédent pour les Règles de Décision de la forme~:
+\begin{center}
+Décider de lancer le produit~B si \fbox{$\Est{\delta_{\mu^B,0.15}}{y}>\delta^+_{lim}$}.
+\end{center} 
+Il fournit toutes les quantités $\gamma^\prime_m(\mu)=\overline{\Big(\Est{\delta_{\mu^A,0.15}}{y_{[.]}}>\delta^+_{lim}\Big)_m}$ (ainsi que $\gamma^\prime_{+\infty}(\mu)=\gamma^\prime(\mu):\overline{\Big(\Est{\delta_{\mu^A,0.15}}{Y}>\delta^+_{lim}\Big)_m}$).
+
+\begin{center}
+\begin{tabular}{|c|rl|rl|rl|rl|}\cline{1-9}
+        \multirow{2}{*}{$\mu$}
+         & 
+    \multicolumn{8}{c|}{$\delta^+_{lim}$}
+    
+    
+    
+    
+    
+    
+    
+    \\ \cline{2-9}
+
+    
+        
+         & 
+    \multicolumn{2}{c|}{$0$}
+     & 
+    \multicolumn{2}{c|}{$1.281552$}
+     & 
+    \multicolumn{2}{c|}{$1.644854$}
+     & 
+    \multicolumn{2}{c|}{$2.326348$}
+    
+    \\ \cline{1-9}
+
+    
+        $0.1$
+         & 
+    
+        $0.01\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $0\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+        
+    \\ 
+
+    
+        $0.14$
+         & 
+    
+        $23.39\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $12.86\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $10.15\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $6.71\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+        
+    \\ 
+
+    
+        $0.15$
+         & 
+    
+        $47.92\%$
+         & 
+    
+        ($\simeq 50\%$)
+         & 
+    
+        $8.31\%$
+         & 
+    
+        ($\simeq 10\%$)
+         & 
+    
+        $3.66\%$
+         & 
+    
+        ($\simeq 5\%$)
+         & 
+    
+        $0.51\%$
+         & 
+    
+        ($\simeq 1\%$)
+        
+    \\ 
+
+    
+        $0.151$
+         & 
+    
+        $50.72\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $9.02\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $3.81\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $0.54\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+        
+    \\ 
+
+    
+        $0.16$
+         & 
+    
+        $74.24\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $59.05\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $53.52\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $45.56\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+        
+    \\ 
+
+    
+        $0.2$
+         & 
+    
+        $99.96\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $98.57\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $96.46\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+         & 
+    
+        $85.37\%$
+         & 
+    
+        ($\simeq \mbox{ ????? }$)
+        
+    \\ \cline{1-9}
+
+    \end{tabular}
+
+\end{center}
+
+\begin{enumerate}
+\item En vous rappelant que pour un paramètre de moyenne $\mu$, la loi de probabilité de son estimateur $\Est{\mu}{Y}$ est $N(\mu,\frac{\sigma}{\sqrt{n}})$, donner les instructions~\texttt{R} qui ont permis au mathématicien de déterminer les valeurs de $\gamma(p)$ et $\gamma(\mu)$ dans les tableaux relatifs aux paramètres d'intérêt $p^A$ et $\mu^B$.
+\item A quoi correspondent les instructions suivantes~:
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> p<-c(.1,.14,.15,.151,.16,.2)
+> 100*pnorm(.169,p,sqrt(p*(1-p)/1000))
+[1] 100.0000000  99.5890332  95.3780337  94.4054974  78.1221075   0.7127646
+> mu<-p
+> 100*pnorm(.169,mu,sqrt((mu*(1-mu)+2/25)/1000))
+[1] 99.999994 97.974752 90.641532 89.388901 73.060810  2.269396
+\end{Verbatim}
+
+\item En vous appuyant sur les résultats du formulaire de cours, indiquer les instructions~\texttt{R} permettant de déterminer les valeurs de $\gamma(15\%)$ et $\gamma(0.15)$ pour les tableaux relatifs aux paramètres d'écart standardisé $\delta_{p^A,15\%}$ et $\delta_{\mu^B,0.15}$.
+\item A quoi correspond l'instruction suivante~:
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> 100*pnorm(1.645)
+[1] 95.00151
+\end{Verbatim}
+
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Finalisation des Règles de Décision] $ $
+
+A partir des résultats expérimentaux de l'exercice précédent, on se propose de finaliser les Règles de Décision ($\mu$ pouvant être remplacé par $p$ pour le produit~A). Les quantités $p^+_{lim}$, $\mu^+_{lim}$ et $\delta^+_{lim}$ sont ici appelés \underline{seuils limites}.
+\begin{enumerate}
+\item Evaluer (approximativement en fonction de $\gamma_m(\mu)$) les risques d'erreurs de décision de type~I (notés $\alpha(\mu))$ et de type~II (notés $\beta(\mu)$). Exprimez-les en fonction de $\gamma(\mu)$ ou $\gamma^\prime(\mu)$.
+\item Quelle est la plus grande valeur possible de la somme des deux risques de type~I~et~II~?
+Peut-on proposer une Règle de Décision permettant de controler simultanément tous les risques d'erreurs~I~et~II~? Quel risque sera alors à controler~?
+\item Quelles sont les situations (i.e. valeurs de $\mu$) à envisager pour générer une erreur de décision de type~I~? Elles seront appelées \textbf{Mauvaises situations} en opposition aux \textbf{Bonnes situations} qui correspondent aux valeurs de $\mu$ pour lesquelles l'assertion d'intérêt est vraie.
+\item Pour quelle valeur de $\mu$ le risque de type~I est-il maximal~? 
+Quelle est alors la \textbf{pire des (mauvaises) situations} qui permet de controler simultanément tous les risques de type~I~? Les urnes $U^\bullet_\mu$ correspondant à cette pire des situations sont-elles uniques~? 
+\item Proposer des Règles de Décision associées à un risque maximal de type~I, noté $\alpha$, fixé à (ou n'excédant pas) $5\%$. Même question pour $\alpha=1\%$, $\alpha=10\%$.
+\item Dans la pire des situations, combien en proportion d'estimations (du paramètre d'intérêt ou du paramètre d'écart standardisé selon le cas étudié) sont plus petit que les seuils limites.    
+Comment peut-on alors définir directement ces seuils limites~? En déduire les instructions~\texttt{R} permettant de les obtenir.   
+\item Dans le cas où la pire des situations correspond à plusieurs urnes, est-il possible de finaliser une unique Règle de Décision associée à $\alpha=5\%$ basée sur le paramètre d'intérêt~?Même question pour la Règle de Décision basée sur le paramètre d'écart standardisé. Quelles conclusions en tirez-vous sur les différentes Règles de Décision proposées précédemment~?    
+\end{enumerate}
+
+\end{exercice}
+
+
+\begin{exercice}[Rédaction standard et abrégée]$ $\\
+L'industriel est disposé à acheter deux échantillons $\Vect{y^A}$ et $\Vect{y^B}$ pour lesquels il obtient \texttt{mean(yA)=0.204}, \texttt{mean(yB)=0.172}, \texttt{sd(yB)=0.5610087}. Nous proposons les \textbf{rédactions standard} des corrections pour les questions~:
+\begin{center}
+Est-ce que le produit est rentable au risque maximal de type~I fixé à $\alpha=5\%$~?
+\end{center}
+En vous appuyant sur la construction des outils d'aide à la décision proposés dans les exercices précédents, expliquer les différents ingrédients de ces rédactions standard. Notamment, à quoi correspondent $\mathbf{H_1}$, non $\mathbf{H_1}$ et $\mathbf{H_0}$~?
+Ces rédactions représentent-elles de bons résumés des principales informations relatives aux outils d'aide à la décision pour les produits~A et~B~?
+
+\noindent \fbox{Rédaction Standard pour Produit~A}\hrulefill
+
+\noindent \textbf{Hypothèses de test} : $\mathbf{H}_0:$ $p^{A}=15\%$ vs {\large $\mathbf{H}_1:$ $p^{A}>15\%$}\\
+\textbf{Statistique de test sous $\mathbf{H}_0$} :
+  $$
+  \Est{\delta_{p^{A},15\%}}{Y^{A}}= {\displaystyle \frac{\Est{p^{A}}{Y^{A}}-15\%}{
+\sqrt{\frac{15\%\times (1-15\%)} {1000}}
+}} 
+  \SuitApprox \mathcal{N}(0,1)
+  $$
+\textbf{Règle de décision} : Accepter $\mathbf{H}_1$ si 
+  $\Est{\delta_{p^{A},15\%}}{y^{A}} > \delta^+_{lim,5\%}$\\
+\noindent \textbf{Conclusion} :
+puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{p^{A},15\%}}{y^{A}} &\NotR&\mathtt{(mean(yA)-0.15)/sqrt(0.15*(1-0.15)/length(yA))}\simeq 4.78232\\& >  & \delta^+_{lim,5\%} \NotR \mathtt{qnorm(1-.05)}\simeq1.644854
+\end{eqnarray*}
+  
+on peut plutôt penser (avec un risque de 5\%) que le produit~A est rentable.
+
+\noindent \fbox{Rédaction Standard pour Produit~B}\hrulefill
+
+\noindent \textbf{Hypothèses de test} : $\mathbf{H}_0:$ $\mu^{B}=0.15$ vs {\large $\mathbf{H}_1:$ $\mu^{B}>0.15$}\\
+\textbf{Statistique de test sous $\mathbf{H}_0$} :
+  $$
+  \Est{\delta_{\mu^{B},0.15}}{Y^{B}}= {\displaystyle \frac{\Est{\mu^{B}}{Y^{B}}-0.15}{
+\Est{\sigma_{\cqlshat{\mu^{B}}}}{Y^{B}}
+}} 
+  \SuitApprox \mathcal{N}(0,1)
+  $$
+\textbf{Règle de décision} : Accepter $\mathbf{H}_1$ si 
+  $\Est{\delta_{\mu^{B},0.15}}{y^{B}} > \delta^+_{lim,5\%}$\\
+\noindent \textbf{Conclusion} :
+puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{\mu^{B},0.15}}{y^{B}} &\NotR&\mathtt{(mean(yB)-0.15)/seMean(yB)}\simeq 1.24009\\&\ngtr & \delta^+_{lim,5\%} \NotR \mathtt{qnorm(1-.05)}\simeq1.644854
+\end{eqnarray*}
+  
+on ne peut pas plutôt penser (avec un risque de 5\%) que le produit~B est rentable.
+
+\noindent \textbf{Rédactions Abrégées~:} commenter les rédactions abrégées plus axées sur la pratique~:
+
+\noindent \fbox{Rédaction Abrégée pour Produit~A}\hrulefill
+
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $p^{A}>15\%$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{p^{A},15\%}}{y^{A}} &\NotR&\mathtt{(mean(yA)-0.15)/sqrt(0.15*(1-0.15)/length(yA))}\simeq 4.78232\\& >  & \delta^+_{lim,5\%} \NotR \mathtt{qnorm(1-.05)}\simeq1.644854
+\end{eqnarray*}
+  
+on peut plutôt penser (avec un risque de 5\%) que le produit~A est rentable.
+
+\noindent \fbox{Rédaction Abrégée pour Produit~B}\hrulefill
+
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $\mu^{B}>0.15$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{\mu^{B},0.15}}{y^{B}} &\NotR&\mathtt{(mean(yB)-0.15)/seMean(yB)}\simeq 1.24009\\&\ngtr & \delta^+_{lim,5\%} \NotR \mathtt{qnorm(1-.05)}\simeq1.644854
+\end{eqnarray*}
+  
+on ne peut pas plutôt penser (avec un risque de 5\%) que le produit~B est rentable.
+\end{exercice}
+
+
+
+
+
+
+\end{document}
+
+

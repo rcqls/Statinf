@@ -1,0 +1,231 @@
+[#require]Import/Tools/TabAEP
+[#main][#r<]
+require(CqlsRandom)
+load("~/cqls/data/statinf/simEchCoursIC.RData")
+muEst.tmp<-muEst.sim[exOrder,2]
+YB<-Norm(.15,sqrt(sum((0:3-.15)^2*c(1760000,200000,20000,20000)/2000000)/1000))
+YA<-Norm(.15,sqrt(.15*.85/1000))
+[#>]
+
+\section[A.E.P.]{Approche Expérimentale des Probabilités}
+
+\begin{frame}<1->[label=aep]
+\frametitle<1->{\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités : l'Expérimentateur versus le Matheux}
+\begin{columns}
+\begin{column}{5cm}
+      \begin{enumerate}
+     \item[] \textbf{L'Expérimentateur ~:} 
+        \item<1-10| alert@1-4>
+         Réaliser $m$ expériences
+        \item<5-10| alert@5-8>
+          Répartition des $\Est{\mu^\bullet}{y^\bullet_{[j]}}$ {\small représentées par $m$ briques de surface $1/m$ et de largeur $1/n$ empilées l'une après l'autre en les centrant en abscisse en leur valeur.}
+          {#hide]\hyperlink{aep<11>}{\beamergotobutton{Histo}}[#hide})
+  \item<9-10>[] \textbf{Le Matheux :}      
+  \item<9-10| alert@9>
+          Je le savais \textbf{à l'avance} pour $m\to+\infty$
+           \item<10| alert@10>
+           $\Est{\mu^\bullet}{Y^\bullet}\SuitApprox \mathcal{N}(\mu^\bullet,\frac{\sigma_\bullet}{\sqrt{n}})$
+      \end{enumerate}
+     
+\end{column}    
+\begin{column}{6.5cm}
+[#=]new[FALSE]
+[#>]{#FigureSimple]img[img/hist100A15.png] [#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:100],xlab="m=100",ylab="",xlim=c(.11,.19),ylim=c(0,45),discr=TRUE)[#}
+{#FigureSimple]img[img/hist1000A15.png] [#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:1000],xlab="m=1000",ylab="",xlim=c(.11,.19),ylim=c(0,45))[#}
+{#FigureSimple]img[img/hist5000A15.png][#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=5000",ylab="",xlim=c(.11,.19),ylim=c(0,45))[#}
+{#FigureSimple]img[img/hist10000A15.png] [#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:10000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45))[#}
+{#FigureSimple]img[img/hist10000A15Norm.png][#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:10000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45))
+plot(Norm(.15,sqrt(.15*.85/1000)),add=TRUE,lwd=3,col="blue")[#}
+{#FigureSimple]img[img/hist10000A15NormContour.png][#scale].3[#include]false[#rcode]Hist.EAP( muEst.tmp[1:10000],rect=FALSE,xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45))
+plot(Norm(.15,sqrt(.15*.85/1000)),add=TRUE,lwd=3,col="blue")[#}
+
+\begin{pgfpicture}{-0.5cm}{0cm}{6cm}{6cm}
+      \only<2-10>{\pgfputat{\pgfxy(0,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[1]*100,2)}\%$}}}
+       \only<3-10>{\pgfputat{\pgfxy(2,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[3]*100,2)}\%$}}}
+       \only<4-5>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[100]*100,2)}\%$}}}
+      \only<6>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[1000]*100,2)}\%$}}}
+      \only<7>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[5000]*100,2)}\%$}}}
+      \only<8>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$#R{round(muEst.tmp[10000]*100,2)}\%$}}}
+      \only<9-10>{\pgfputat{\pgfxy(5.5,4.4)}{\pgfbox[center,center]{$\cdots$}}}
+     \pgfnodebox{EstY}[stroke]{\pgfxy(3,6.3)}{Future $\Est{\mu^\bullet}{Y^\bullet}$}{2pt}{2pt}
+      \only<2-10>{\pgfnodebox{esty1}[stroke]{\pgfxy(0,5)}{$\Est{\mu^\bullet}{y^\bullet_{[1]}}$}{2pt}{2pt}}
+       \only<3-10>{\pgfnodebox{esty2}[stroke]{\pgfxy(2,5)}{$\Est{\mu^\bullet}{y^\bullet_{[2]}}$}{2pt}{2pt}}
+     \only<4-10>{\pgfputat{\pgfxy(3.75,5)}{\pgfbox[center,center]{$\cdots\cdots$}}
+        \pgfnodebox{estym}[stroke]{\pgfxy(5.5,5)}{$\Est{\mu^\bullet}{y^\bullet_{[m]}}$}{2pt}{2pt}}
+  \pgfsetendarrow{\pgfarrowto}
+\only<2,5-10>{\pgfnodeconncurve{EstY}{esty1}{-90}{90}{0.5cm}{0.5cm}}
+\only<2>{\pgfnodelabel{EstY}{esty1}[0.5][-3pt]{\pgfbox[right,base]{$1^{\grave eme}$ réalisation}}
+}
+\only<3,5-10>{\pgfnodeconncurve{EstY}{esty2}{-90}{90}{0.5cm}{0.5cm}}
+\only<3>{\pgfnodelabel{EstY}{esty2}[0.5][-3pt]{\pgfbox[center,base]{$2^{\grave eme}$ réalisation}}
+}
+\only<4-10>{\pgfnodeconncurve{EstY}{estym}{-90}{90}{0.5cm}{0.5cm}}
+\only<4>{\pgfnodelabel{EstY}{estym}[0.5][-3pt]{\pgfbox[center,base]{$m^{\grave eme}$ réalisation}}
+}
+\only<5>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image1}{img/hist100A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image1}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=100$}}
+}
+\only<6>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image2}{img/hist1000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image2}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=1000$}}
+}
+\only<7>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image3}{img/hist5000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image3}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=5000$}}
+}
+\only<8>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image4}{img/hist10000A15}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image4}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=10000$}}
+}
+\only<9>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image5}{img/hist10000A15Norm}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image5}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=+\infty$}}
+}
+\only<10>{
+\pgfdeclareimage[interpolate=true,height=5cm]{image6}{img/hist10000A15NormContour}
+\pgfputat{\pgfxy(3,1.5)}{\pgfbox[center,center]{\pgfuseimage{image6}}}
+\pgfputat{\pgfxy(3.5,3.75)}{\pgfbox[center,center]{$m=10000$ vs $m=+\infty$}}
+}
+\end{pgfpicture}
+\end{column}
+    
+\end{columns} 
+\end{frame}
+
+\begin{frame}[label=recap]
+\frametitle<1-3>{Réalisation d'une future estimation par l'\textbf{Expérimentateur}}
+\frametitle<4-6>{Réalisation d'une future estimation par le \textbf{Matheux}}
+[#r<] exBrique<-c(4153,2108,3731) [#>]
+\begin{columns}
+\begin{column}{5cm}
+\begin{center}
+\only<1,4>{
+{#TabChoixUrne]value[#R{exBrique[1]}][#}
+}\only<2,5>{
+{#TabChoixUrne]value[#R{exBrique[2]}][#}
+}\only<3,6>{
+{#TabChoixUrne]value[#R{exBrique[3]}][#}
+}
+\end{center}
+\end{column}
+[#=]new[FALSE]
+[#>]\begin{column}{5cm}
+{#FigureSimple]img[img/brique1.png] [#scale].4[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[1])[#}
+{#FigureSimple]img[img/brique2.png] [#scale].4[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[2])[#}
+{#FigureSimple]img[img/brique3.png] [#scale].4[#include]false [#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[3])[#}
+{#FigureSimple]img[img/point1.png][#scale].4[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[1])
+plot(YA,add=TRUE,col="blue",lwd=3)
+points(x<-muEst.tmp[exBrique[1]],y<-(sum(muEst.tmp[1:exBrique[1]]==muEst.tmp[exBrique[1]])*1000/5000-1/10),cex=1.5)
+lines(c(x,x),c(0,y),lty=2)[#}
+{#FigureSimple]img[img/point2.png] [#scale].4[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[2])
+plot(YA,add=TRUE,col="blue",lwd=3)
+points(x<-muEst.tmp[exBrique[2]],y<-(sum(muEst.tmp[1:exBrique[2]]==muEst.tmp[exBrique[2]])*1000/5000-1/10),cex=1.5)
+lines(c(x,x),c(0,y),lty=2)[#}
+{#FigureSimple]img[img/point3.png] [#scale].4[#include]false[#rcode]Hist.EAP( muEst.tmp[1:5000],xlab="m=10000",ylab="",xlim=c(.11,.19),ylim=c(0,45),when=exBrique[3])
+plot(YA,add=TRUE,col="blue",lwd=3)
+points(x<-muEst.tmp[exBrique[3]],y<-(sum(muEst.tmp[1:exBrique[3]]==muEst.tmp[exBrique[3]])*1000/5000-1/10),cex=1.5)
+lines(c(x,x),c(0,y),lty=2)[#}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{6cm}
+\only<1>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique1}{img/brique1}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique1}}}
+}
+\only<2>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique2}{img/brique2}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique2}}}
+}
+\only<3>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{brique3}{img/brique3}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{brique3}}}
+}
+\only<4>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point1}{img/point1}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point1}}}
+}
+\only<5>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point2}{img/point2}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point2}}}
+}
+\only<6>{
+\pgfdeclareimage[interpolate=true,height=7.5cm]{point3}{img/point3}
+\pgfputat{\pgfxy(2.5,3)}{\pgfbox[center,center]{\pgfuseimage{point3}}}
+}
+\end{pgfpicture}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment l'industriel doit-il utiliser ces informations~?}
+\begin{exampleblock}{Réalisation d'une future estimation}
+\begin{itemize}[<+-| alert@+>]
+\item[$\to$] L'industriel s'imagine être le \textbf{jour~J} dans la situation où $\mu^\bullet=0.15$ (juste pas le marché)
+\item[$\to$] Il prend alors conscience que ce qui peut lui arriver \textbf{le jour~J}, c'est équivalent (ou presque) à~:
+\begin{enumerate}
+\item Choisir au hasard une brique (i.e un $\Est{\mu^\bullet}{y_{[j]}}$ parmi les $m$)
+\item Choisir au hasard un point sous la ``courbe $\mathcal{N}(\mu^\bullet,\frac{\sigma_\bullet}{\sqrt{n}})$'' associé à son abscisse représentant une réalisation au hasard de $\Est{\mu^\bullet}{Y}$ choisie parmi une infinité. 
+\end{enumerate}
+\item[$\Rightarrow$] Il voit clairement  la ``courbe $\mathcal{N}(\mu^\bullet,\frac{\sigma_\bullet}{\sqrt{n}})$'' comme un empilement d'une infinité de briques (``devenues des points'') associées à une infinité de réalisations possibles  de $\Est{\mu^\bullet}{Y}$.
+\end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+
+{#initScene]head[#}{#initScene]def[#}{#initScene]ex[#}
+[#%]ProduitA  (proba2) -> Intro[#>]
+{#Actor]head:pbA_prob2_tit[#,]:1-3[#,]0.5,0.5[#align]center,center[#,]
+\textbf{\large Produit~A~: Risque 1ère espèce}[#}
+{#Actor]def:pbA_prod2_def1[#,]:1-3[#,]0.5,1.2[#align]center,top[#minipage]11cm[#,]
+{\small
+$\begin{array}{l}
+@{ONLY(:2-3)}{{\color{red}P(\Est{p^A}{Y^A}> 16.9\%)}}@{ONLY(:2)}{=}@{ONLY(:3)}{\simeq}{\color{blue}\meanEmp[@{ONLY(:1,3)}{m}@{ONLY(:2)}{\infty}]{\Est{p^A}{y^A_{[\cdot]} } >16.9\%}}@{ONLY(:1)}{=\mbox{Prop. des $\Big(\Est{p^A}{y^A_{[\cdot]} }\Big)_{@{ONLY(:1,3)}{10000}@{ONLY(:2)}{\infty} } $ supérieurs à 16.9\%}}\\
+=@{ONLY(:2)}{\displaystyle\lim_{m\to\infty}}\frac1m\times\Big(\mbox{Nbre des $\Big(\Est{p^A}{y^A_{[\cdot]}}\Big)_{@{ONLY(:1,3)}{m}@{ONLY(:2)}{\infty}}$ supérieurs à 16.9\%}\Big)\\
+@{ONLY(:1,3)}{=}@{ONLY(:2)}{\simeq} \mbox{Surface des @{ONLY(:1,3)}{\textbf{briques} associées}@{ONLY(:2)}{\textbf{points} associés}  aux $\Big(\Est{p^A}{y^A_{[\cdot]}}\Big)_{@{ONLY(:1,3)}{m}@{ONLY(:2)}{\infty}}$ supérieurs à 16.9\%}
+\end{array}$}[#}
+{#ImageR]ex:img/quant.png[#,]11,5[#,]:1[#,]0,-0.05[#,]
+Hist.EAP(muEst.tmp,xlab="m=10000",ylab="",when=muEst.tmp>=.169,,xlim=c(.11,.19))
+abline(v=.169,lwd=3)[#}
+{#ImageR]ex:img/quantNorm.png[#,]11,5[#,]:2[#,]0,-0.05[#,]
+#Hist.EAP(muEst.tmp,xlab="m=10000",ylab="",when=muEst.tmp>=.169)
+plot(Y<-Norm(0.15,sqrt(.15*.85/1000)),lwd=3,ylab="",xlab="m est infini",col="blue",xlim=c(.11,.19))
+area(Y,prob=c(.95,1),col="green")
+abline(h=0)
+abline(v=QQ(Y,.95),col="blue",lwd=3,lty=2)[#}
+{#ImageR]ex:img/quantExpNorm.png[#,]11,5[#,]:3[#,]0,-0.05[#,]
+Hist.EAP( muEst.tmp,xlab="",ylab="",when=muEst.tmp>=.169,xlim=c(.11,.19))
+plot(Y<-Norm(0.15,sqrt(.15*.85/1000)),lwd=3,ylab="",xlab="m est infini",col="blue",add=TRUE)
+area(Y,prob=c(.95,1),col="green")
+abline(v=.169,lwd=1)
+abline(v=QQ(Y,.95),col="blue",lwd=2,lty=2)[#}
+{#incCpt]3[#}
+[#>]
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shaded=true,lower=header]{}
+  @{beginScene(head)}
+  @{writeScene(head)}
+  @{endScene(head)}
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=magenta!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+@{beginScene(def)}
+@{writeScene(def)}
+@{endScene(def)}
+\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=cyan!40!white}
+\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+@{beginScene(ex)}
+@{writeScene(ex)}
+@{endScene(ex)}
+\end{beamercolorbox}
+\end{frame}

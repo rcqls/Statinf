@@ -1,0 +1,85 @@
+[#require]
+Tex/Cqls
+Tex/10pt
+Tex/LargeA4
+[#package]
+\usepackage[a4paper,right=2.5cm,pdftex=true]{geometry}
+\usepackage{array}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{syntax}
+\usepackage[francais]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{lscape}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{float}
+[#preamble]
+\input tcilatex
+[#title]
+\title{Tests d'hypoth{\`e}ses via une \textbf{A}pproche \textbf{E}xp{\'e}rimentale des \textbf{P}robabilités}
+\author{CQLS : cqls@upmf-grenoble.fr \\ http://cqls.upmf-grenoble.fr}
+\date{ }
+[#main]
+\section{Introduction et g{\'e}n{\'e}ralit{\'e}s} \label{introGen}
+
+\subsection{Cadre d'estimation à un échantillon}
+[#<<]Component/cadreEstimation1Ech[#>]
+
+\subsection{Cadre d'estimation {\`a} deux {\'e}chantillons (ind{\'e}pendants)}
+[#<<]Component/cadreEstimation2Ech[#>]
+
+
+\subsection{Les deux cadres usuels : asymptotique et gaussien} \label{cadreEstim}
+  \begin{list}{$\to$}{}
+\item \textbf{Cadre asymptotique ou  grand(s) échantillon(s)} : par grand {\'e}chantillon, on entend dans ce cours une taille de donn{\'e}es $n\geq30$  pour le cas un seul {\'e}chantillon et  des tailles $n^{(1)}\geq30$ et $n^{(2)}\geq30$ pour celui de deux {\'e}chantillons. 
+\item \textbf{Cadre gaussien} : si une variable d'int{\'e}r{\^e}t est suppos{\'e}e suivre une loi Normale on dit que l'{\'e}chantillon associ{\'e} est gaussien.
+Ce cadre d'{\'e}tude n'est a priori int{\'e}ressant que s'il est possible de v{\'e}rifier ({\'e}ventuellement {\`a} partir d'un outil statistique) cette hypoth{\`e}se de Normalit{\'e} de la variable d'int{\'e}r{\^e}t. Alors qu'il faudrait disposer d'un grand {\'e}chantillon pour cette v{\'e}rification, l'usage dans la litt{\'e}rature statistique est d'utiliser ce cadre d'{\'e}tude m{\^e}me pour des petits {\'e}chantillons. Les r{\'e}sultats reposent alors sur la validit{\'e} de l'a priori que la variable d'int{\'e}r{\^e}t suit une loi Normale. Cependant, certains ph{\'e}nom{\`e}nes {\'e}tudi{\'e}s peuvent laisser penser que cette hypoth{\`e}se sur la (ou les) variable(s) d'int{\'e}r{\^e}t ne doit  pas {\^e}tre aberrante. 
+%%%Par cons{\'e}quent, nous pr{\'e}sentons ce cadre d'{\'e}tude tr{\`e}s couramment enseign{\'e} et proposons ci-dessous les principaux r{\'e}sultats sous forme de tableaux. Dans ce cours, ils ne seront  utilis{\'e}s que dans le cas d'{\'e}chantillon(s) de taille pas suffisamment grande.
+\end{list}
+
+\subsection{Comparaison entre A.M.P., A.E.P. et Pratique }
+
+[#<<]Component/tabAEP[#>]
+
+{#hide]\subsection{Paramètres d'écart}
+
+[#<<]Component/paramEcart[#hide}
+\newpage
+
+\section{Test d'hypoth{\`e}ses}\label{sec-gen-hypo}
+
+[#<<]Component/testMetho[#>]
+
+\vspace*{1cm}
+\noindent\textbf{Tableaux récapitulatifs} :
+
+Il sera aussi suppos{\'e} que les donn{\'e}es ont {\'e}t{\'e} saisies dans le logiciel \verb+R+ soit sous le nom \verb+y+ (pour un unique {\'e}chantillon) soit sous les noms \verb+y1+ et \verb+y2+ (pour deux {\'e}chantillons ind{\'e}pendants).
+\pagebreak
+[#<<]Component/tabTestHypo[#>]
+
+\section{Intervalle de confiance}
+
+\subsection{Généralités}
+[#<<]Component/icGen[#>]
+
+\subsection{Cadre asymptotique}
+[#<<]Component/icAsympt[#>]
+
+\subsection{Cadre gaussien}
+[#<<]Component/icGaussien[#>]
+
+%\newpage
+\section{Langage mathématique et Systèmes de notation}
+[#<<]Component/normeNotation[#>]
+\newpage
+\thispagestyle{empty}
+\nopagebreak
+{\scriptsize
+\nopagebreak
+[#<<]Component/loisCont[#>]
+}
+%\nopagebreak

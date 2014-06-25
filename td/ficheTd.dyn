@@ -1,0 +1,215 @@
+[#require]
+Tex/10pt
+Tex/Cqls
+Tex/Fr
+Tex/Report
+Import/StatDevel/HypoTest
+Import/Tools/RFigure
+Tex/LargeA4
+[#package]
+\usepackage{float}
+\usepackage{fichetd}
+\usepackage{mathenv}
+\usepackage{tikz}
+[#preamble]
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+[#main]
+[#path]
+/export/prjCqls/share/dyndoc/exoHypo
+[#main][#r<]
+require(CqlsRandom)
+require(asympTest)
+[#%]LE CONTENU PAR TD!
+[#=]tdPres[titrePres,indicPres,PresIC,PresProdAB,PresProcEch,PresICSuite]
+[#=]tdProb[titreProb,indicProb,Prob,finProb]
+[#=]tdEst[titreEst,indicEst,Est,ICTailleEtud,ICElection]
+[#=]tdProdAB[titreProdAB,indicProdAB,ProdABIndic,ProdAB] [#%][Outils,ProdABLoiY,ProdABTraitement]
+[#=]tdHypo[titreHypo,Hypo]
+[#=]tdExosGen[titreExosGen,ExosGen]
+[#=]tdAEPGraph[titreAEPGraph,indicAEPGraph,AEPGraph]
+[#%]SELECTION DES DOCUMENTS!
+[#tag]td:pres[#=]tdNum[1][#=]td[titreTd,#{tdPres}]
+[#tag]td:prob[#=]tdNum[2][#=]td[titreTd,#{tdProb}]
+[#tag]td:est[#=]tdNum[3][#=]td[titreTd,#{tdEst}]
+[#tag]td:prodAB[#=]tdNum[4][#=]td[titreTd,#{tdProdAB}]
+[#tag]td:hypo[#=]tdNum[5][#=]td[titreTd,#{tdHypo}]
+[#tag]td:exosgen[#=]tdNum[7][#=]td[titreTd,#{tdExosGen}]
+[#tag]td:aep:graph[#=]tdNum[6][#=]td[titreTd,#{tdAEPGraph}]
+[#tag]td:indic[#=]tdNum[1][#=]td[titre,indicGen,titrePres,indicPres,titreProb,indicProb,finProb,titreEst,indicEst,titreProdAB,indicProdAB,titreAEPGraph,indicAEPGraph]
+[#tag]tds[#=]td[titre,indicGen,#{tdPres},#{tdProb},#{tdEst},#{tdProdAB},#{tdHypo},#{tdAEPGraph}]
+[#tag]end
+[#rb<]p "#{td}"
+[#%]LE TRAVAIL EST ICI![#>]
+{#case]#{td}
+[#when]newpage[#>]\newpage
+[#when]newline[#>]
+[#when]titre[#<]{#document][#title]
+\title{\huge Fiches Travaux Dirigés\\Statistiques inférentielles}
+\author{CQLS \\ cqls@upmf-grenoble.fr \\
+\texttt{http://cqls.upmf-grenoble.fr/}}
+\date{ }
+[#}
+[#when]titreTd[#<]{#document][#preamble]\setcounter{chapter}{:{#{tdNum}-1}}[#}
+[#when]titrePres[#>]\chapter{Présentation des\\ différents~outils}\label{TdPres}
+[#when]titreProb[#>]\chapter{Introduction\\ aux~probabilités}\label{TdProb}
+[#when]titreEst[#>]\chapter{\mbox{Estimation~ponctuelle}\\ et par intervalle\\ de confiance}\label{TdEst}
+[#when]titreProdAB[#>]\chapter{Traitement\\ des problématiques \\des produits A et B}\label{TdProdAB}
+[#when]titreAEPGraph[#>]\appendix\chapter{Représentations\\graphiques~dans~l'A.E.P.}\label{TdAEPGraph}
+[#when]indicGen[#>]{#Compose]Tds/aide:genéral[#}
+[#when]indicPres[#>]{#Compose]Tds/aide:pres[#}
+[#when]PresIC[#<<]PresIC/exoPresIC
+[#when]PresProdAB[#<<]ProdAetB/exoPresentation
+[#when]PresProcEch[#<<]ProdAetB/exoProcedeEch
+[#when]PresICSuite[#<<]PresIC/exoPresICsuite
+[#when]indicProb[#>]{#Compose]Tds/aide:prob[#}
+[#when]finProb[#>]{#Compose]Tds/aide:finProb[#}
+[#when]Prob[#>]
+{#Compose]Tds/Prob/exosProb:unDé,deuxDés,uneUnif,deuxUnif,moyenne[#}
+[#when]indicEst[#>]{#Compose]Tds/aide:est[#}
+[#when]Est[#>]
+{#Compose]Tds/EstIC/exoSalaireJuste:bExEst,enonce,bEnum,param,est,propEst,aep,eEnum,eEx[#}
+{#Compose]Tds/EstIC/exoSalaireJuste:bExIC,bEnum,IC,eEnum,eEx[#}
+{#Compose]TailleEtud/exo[#}
+{#Compose]Election/exo[#}
+[#when]indicProdAB[#>]{#Compose]Tds/aide:prodAB[#}
+[#when]ProdAB[#>]
+{#Compose2]Tds/ProdAB/info[#}
+{#Compose2]Tds/ProdAB/exoProdAetB:presOutils,dataTMP,filter,dataAB,dataAEP,#loi_Y,#loi_est,#loi_deltaEst,rd_pA,rd_muB,rd_delta_muB,rd_delta_pA[#}
+{#Compose]Tds/ProdAB/exoProdAetB:prodIntro,expAEP,prodAEP,prodJourJ,expAEPFin[#}
+[#when]indicAEPGraph[#>]{#Compose]Tds/aide:AEPGraph[#}
+[#when]AEPGraph[#>]
+{#Compose]Tds/Prob/exosProb:graphMoyenneDeuxUnifs,graphMoyenneDeuxDés,graphMoyennes[#}
+[#when]titreHypo[#>]\chapter{Tests d'hypothèses}\label{TdHypo}
+\noindent \fbox{\begin{minipage}{14.5cm}
+\textbf{Avertissement~:} Dans la plupart des exercices ci-dessous traitant des tests d'hypothèses, les indications~\texttt{R} sont fournies à la fois pour le quantile et la p-valeur. Dans le cadre d'un examen, notez qu'un seul type d'indication~\texttt{R} est généralement fourni.
+\end{minipage}}\\
+
+\noindent \textbf{Quelques quantiles pour la loi $\mathcal{N}(0,1)$~:}
+{#rverb]qnorm(c(0.8,0.9,0.95,0.975,0.99,0.995))[#}
+
+\bigskip
+[#when]Hypo[#>]
+{#Compose]Chomage/exo[#}
+{#Compose]ConnaissanceProdA/exo[#}
+{#Compose]PrimeProdA/exo[#}
+{#Compose]Competence/exo[#}
+{#Compose]Dieteticien/exo[#}
+{#Compose]Pilote/exo[#}
+{#Compose]Techniciens/exo[#}
+{#Compose]Conduite/exo[#}
+{#Compose]PremTour/exo[#}
+{#Compose]AdjVerbe/exo[#}
+{#Compose]Dictee/exo[#}
+{#Compose]Machine/exo[#}
+{#Compose]MenuRestau/exo[#}
+{#Compose]Notes/exo[#}
+{#Compose]Vacances/exo2[#}
+{#Compose]ChiffreAffaires/exo[#}
+{#Compose]EvalCopies/exo[#}
+{#Compose]ProdBFrAll/exo[#}
+[#when]Chomage[#<<]Chomage/exo
+[#when]ConnaissanceProdA[#<<]ConnaissanceProdA/exo
+[#when]Dieteticien[#<<]Dieteticien/exo
+[#when]Pilote[#<<]Pilote/exo
+[#when]Technicien[#<<]Techniciens/exo
+[#when]Conduite[#<<]Conduite/exo
+[#when]PremierTour[#<<]PremTour/exo
+[#when]AdjVerbe[#<<]AdjVerbe/exo
+[#when]PrimeProdA[#<<]PrimeProdA/exo
+[#when]Competence[#<<]Competence/exo
+[#when]Dictee[#<<]Dictee/exo
+[#when]Machine[#<<]Machine/exo
+[#when]MenuRestau[#<<]MenuRestau/exo
+[#when]Notes[#<<]Notes/exo
+[#when]Vacances[#<<]Vacances/exo2
+[#when]ChiffreAffaires[#<<]ChiffreAffaires/exo
+[#when]EvalCopies[#<<]EvalCopies/exo
+[#when]ProdBFrAll[#<<]ProdBFrAll/exo
+[#when]titreSecEsp[#>]\chapter{Exos spécifiques à l'étude du risque d'erreur de seconde espèce}
+[#when]SecEspProdA[#<<]SecEspProdA/exo
+[#when]Jeans[#<<]Jeans/exo
+[#when]ControlQual[#<<]ControleQual/exo
+
+[#when]titreExosGen[#>]\chapter{Exos généraux}
+[#when]ExosGen[#>]
+{#Compose]SecTour/exo[#}
+{#Compose]DeuxCandidats/exo[#}
+{#Compose]TroisCandidats/exo[#}
+{#Compose]AssembleeGenerale/exo[#}
+{#Compose]PremTour07/exo[#}
+{#Compose]SecEspICProdA/exo[#}
+[#when]SecTour[#<<]SecTour/exo
+[#when]DeuxCandidats[#<<]DeuxCandidats/exo
+[#when]TroisCandidats[#<<]TroisCandidats/exo
+[#when]AssembleeGenerale[#<<]AssembleeGenerale/exo
+[#when]PremTour07[#<<]PremTour07/exo
+[#when]SecEspICProdA[#<<]SecEspICProdA/exo
+[#case}
+{#hide]
+\chapter{Notion de loi de probabilités via l'AEP}
+
+Idée est de mettre les exos en appliquant l'AEP2 
+
+Exo: Explication de l'hypothèse de gaussianité! 
+[#hide}
+{#hide]
+    | Intro à la stat:
+    |  -> Paramètre via des problématiques relatives à des populations finies
+    |  -> Echantillon représentatif ou le plus représentatif => notion de hasard
+    | Proba Générale:
+    |  -> Protocole de reconnaissance du hasard: expérience aléatoire
+    |  -> Proba d''un événement pour mesurer les chances de réalisation
+    |  -> Insister sur la notion d''événements certains de proba 0 ou 1
+    |     correspondant à un événement soit faux soit vrai.
+    |     Ne pas confondre événement réalisé inconnu (certain) avec événement non encore réalisé!
+    |  -> Mettre en place un protocole d''identification de la composante aléatoire
+    |     dans une formule de la forme P(...)=??%
+    |  -> Formalisation d''un événement via une variable aléatoire
+    | Mesure des chances via Approche Expérimentale (des Probas):
+    |  -> Mis en place des notations supplémentaires
+    |  -> Relation (en tant que vérification expérimentale) avec Approche Théorique (des Probas)
+    | Loi de proba de variable aléatoire:
+    |  -> via l''AMP (soit par la donnée des probas soit via "suit en loi")
+    |  -> via l''AEP1 (i.e. sans graphique)
+    |  -> Relation entre paramètres et certaines caractéristiques de variable(s) aléatoire(s)
+    | Estimation de type moyenne
+    |  -> formule estimation (avec introduction de notations)
+    |  -> erreur standard (qualité d''estimation)
+    | Traitement intervalle de confiance:
+    |  -> Interprétation
+    |  -> Obtention en R
+    |  -> Application à proportion, moyenne et variance (via tableau I en haut)
+    | Test d''hypothèses:
+    |  -> Traitement problématiques des produits A et B:
+    |  -> Construction de RD avec quantile via AP1 puis AMP
+    |  -> Application à proportion, moyenne et variance (via tableau II en bas)
+    |     cadre asymptotique et test droit, gauche et bilatéral
+    | Représentations graphiques des lois de proba de variables aléatoires
+    |  -> Histogrammes discret et continu via AEP2 (i.e. avec graphique)
+    |  -> Densité de proba (AMP)
+    |  -> Application à la distribution de future estimation et d''écart standardisé
+    |  -> Echantillonage particulier: cadre gaussien
+    | Retour au test d''hypothèses
+    |  -> Représentation graphique du risque de 1ère espèce
+    |  -> RD via P-Valeur
+    |  -> Cadre Gaussien à finaliser
+    |  -> Application sur proportion, moyenne et variance cadre asymptotique et gaussien
+    | Tests d''hypothèses à deux paramètres:
+    |  -> Moyenne de différence et différence de moyennes
+    |  -> Différence de paramètres
+    |  -> Rapport de paramètres
+    |  -> Détermination de l''ordre des échantillons
+    | Risque de 2ème espèce:
+    |  -> Intérêt à construire l''échantillon
+    |  -> Taille d''échantillonage
+    |  -> Fonction puissance pour éventuellement comparer 2 tests.
+    | Traitements des exos dans un formalisme totalement différent de celui du cours
+[#hide}
+[#tag]message[#>] Paramètre d'intérêt, assertion d'intérêt, echantillon (non nécessairement aléatoire), estimation.
+{#hide]
+    | Intro à la stat:
+    |  -> Paramètre via des problématiques relatives à des populations finies
+    |  -> Echantillon représentatif ou le plus représentatif => notion de hasard
+[#hide}
+[#tag]end

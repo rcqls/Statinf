@@ -1,0 +1,479 @@
+
+\documentclass[10pt]{report}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{fichetd}
+\usepackage{mathenv}
+\usepackage{tikz}
+\usepackage[a4paper,pdftex=true]{geometry}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\rightmargin -2cm
+\leftmargin -1cm
+\topmargin -2cm
+\textheight 25cm
+
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+
+\setcounter{chapter}{1}
+%Styles
+
+%Title
+
+\begin{document}
+
+
+
+
+\chapter{Introduction\\ aux~probabilités}\label{TdProb}
+
+
+
+\begin{exercice}[Lancer d'un dé] ${ }$\label{ex:des}
+
+\begin{enumerate}
+\item Proposer le Schéma de Formalisation pour la variable aléatoire correspondant à un futur lancer de dé.\\
+\begin{Correction}
+\begin{itemize}
+\item \textbf{Expérience $\mathcal{E}$~:} Lancer un dé
+\item \textbf{Variable d'intérêt~:} $Y$ la face supérieure du dé
+\item \textbf{Loi de proba~:} $\PPP{Y=k}=1/6$ avec $k=1,\cdots,6$ (si le dé est équilibré).
+\end{itemize}
+\end{Correction} 
+
+\item Quelle expérimentation mettriez-vous en oeuvre pour vérifier qu'un dé est rigoureusement non pipé (i.e. parfaitement équilibré)~? Pensez-vous qu'il existe un tel type de dé~?
+
+\begin{Correction}En théorie, il faudrait lancer une infinité de fois un dé. On pourrait cependant s'imaginer lancer un très très grand nombre de fois le dé afin de vérifier expérimentalement que la fréquence empirique de chaque face est proche de $1/6$. Nous ne pensons pas qu'il existe un tel dé car au bout d'un certain nombre de lancers (peut-être inimaginablement grand), on se convaincrait que les  fréquences d'apparition de toutes les faces possibles ne sont pas exactement les mêmes et donc que le dé n'est pas parfaitement physiquement équilibré.
+\end{Correction}
+
+\item \textbf{Application~:} Un expérimentateur propose l'expérience suivante avec un dé (en théorie vendu) équilibré et un autre dont il a volontairement légèrement déséquilibré une ou plusieurs de ses faces. Les résultats des deux dés sont fournis dans un ordre arbitraire dans les tableaux ci-dessous. Sauriez-vous reconnaître les deux dés et, en particulier, déterminer les probabilités d'apparition des faces (sachant que, pour chaque dé, il n'y a en théorie pas plus de 2 choix possibles pour celles-ci)~? A partir de combien de lancers ($m$) êtes-vous en mesure de faire votre choix~?
+
+\hspace*{-.5cm}\begin{tabular}{|c|c|c|c|c|c|c|c|}\hline
+$m$ &\phantom{$\Big($}$\meanEmp[m]{y=1}$&\phantom{$\Big($}$\meanEmp[m]{y=2}$&\phantom{$\Big($}$\meanEmp[m]{y=3}$&\phantom{$\Big($}$\meanEmp[m]{y=4}$&\phantom{$\Big($}$\meanEmp[m]{y=5}$&\phantom{$\Big($}$\meanEmp[m]{y=6}$&\phantom{$\Big($}$\meanEmp[m]{y}$
+\\\hline
+100 &\phantom{$\Big($}$21\%$&\phantom{$\Big($}$14\%$&\phantom{$\Big($}$15\%$&\phantom{$\Big($}$22\%$&\phantom{$\Big($}$16\%$&\phantom{$\Big($}$12\%$&\phantom{$\Big($}$3.34$
+\\\hline
+1000 &\phantom{$\Big($}$15.5\%$&\phantom{$\Big($}$16.8\%$&\phantom{$\Big($}$17.3\%$&\phantom{$\Big($}$17.1\%$&\phantom{$\Big($}$15.9\%$&\phantom{$\Big($}$17.4\%$&\phantom{$\Big($}$3.533$
+\\\hline
+10000 &\phantom{$\Big($}$16.46\%$&\phantom{$\Big($}$16.43\%$&\phantom{$\Big($}$16.45\%$&\phantom{$\Big($}$17.23\%$&\phantom{$\Big($}$16.46\%$&\phantom{$\Big($}$16.97\%$&\phantom{$\Big($}$3.5171$
+\\\hline
+100000 &\phantom{$\Big($}$16.4\%$&\phantom{$\Big($}$16.52\%$&\phantom{$\Big($}$16.28\%$&\phantom{$\Big($}$17.05\%$&\phantom{$\Big($}$16.83\%$&\phantom{$\Big($}$16.92\%$&\phantom{$\Big($}$3.5214$
+\\\hline
+1000000 &\phantom{$\Big($}$16.47\%$&\phantom{$\Big($}$16.52\%$&\phantom{$\Big($}$16.49\%$&\phantom{$\Big($}$16.85\%$&\phantom{$\Big($}$16.77\%$&\phantom{$\Big($}$16.89\%$&\phantom{$\Big($}$3.5161$
+\\\hline
+\end{tabular}
+
+\hspace*{-.5cm}\begin{tabular}{|c|c|c|c|c|c|c|c|}\hline
+$m$ &\phantom{$\Big($}$\meanEmp[m]{y=1}$&\phantom{$\Big($}$\meanEmp[m]{y=2}$&\phantom{$\Big($}$\meanEmp[m]{y=3}$&\phantom{$\Big($}$\meanEmp[m]{y=4}$&\phantom{$\Big($}$\meanEmp[m]{y=5}$&\phantom{$\Big($}$\meanEmp[m]{y=6}$&\phantom{$\Big($}$\meanEmp[m]{y}$
+\\\hline
+100 &\phantom{$\Big($}$13\%$&\phantom{$\Big($}$13\%$&\phantom{$\Big($}$16\%$&\phantom{$\Big($}$21\%$&\phantom{$\Big($}$23\%$&\phantom{$\Big($}$14\%$&\phantom{$\Big($}$3.7$
+\\\hline
+1000 &\phantom{$\Big($}$16.1\%$&\phantom{$\Big($}$18.1\%$&\phantom{$\Big($}$15.6\%$&\phantom{$\Big($}$17.3\%$&\phantom{$\Big($}$18.6\%$&\phantom{$\Big($}$14.3\%$&\phantom{$\Big($}$3.471$
+\\\hline
+10000 &\phantom{$\Big($}$16.92\%$&\phantom{$\Big($}$17\%$&\phantom{$\Big($}$16.47\%$&\phantom{$\Big($}$16.91\%$&\phantom{$\Big($}$17.13\%$&\phantom{$\Big($}$15.57\%$&\phantom{$\Big($}$3.4704$
+\\\hline
+100000 &\phantom{$\Big($}$16.73\%$&\phantom{$\Big($}$16.64\%$&\phantom{$\Big($}$16.53\%$&\phantom{$\Big($}$16.59\%$&\phantom{$\Big($}$16.88\%$&\phantom{$\Big($}$16.63\%$&\phantom{$\Big($}$3.5015$
+\\\hline
+1000000 &\phantom{$\Big($}$16.68\%$&\phantom{$\Big($}$16.66\%$&\phantom{$\Big($}$16.68\%$&\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$16.71\%$&\phantom{$\Big($}$16.61\%$&\phantom{$\Big($}$3.499$
+\\\hline
+\end{tabular}
+\item  Fournir les instructions~\texttt{R} ayant permis de déterminer les résultats des tableaux précédents.
+\item Ayant à présent identifié (du moins nous l'espérons!) le dé équilibré, sauriez vous compléter le tableau suivant correspondant à l'éventuelle dernière ligne du tableau précédent lui correspondant~:\\
+\hspace*{-.5cm}\begin{tabular}{|c|c|c|c|c|c|c|c|}\hline
+$m$ &\phantom{$\Big($}$\meanEmp[m]{y=1}$&\phantom{$\Big($}$\meanEmp[m]{y=2}$&\phantom{$\Big($}$\meanEmp[m]{y=3}$&\phantom{$\Big($}$\meanEmp[m]{y=4}$&\phantom{$\Big($}$\meanEmp[m]{y=5}$&\phantom{$\Big($}$\meanEmp[m]{y=6}$&\phantom{$\Big($}$\meanEmp[m]{y}$
+\\\hline
+$\infty$ &\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$3.5$
+\\\hline
+\end{tabular}
+
+Comment noteriez-vous ces quantités via l'A.M.P.~? 
+\item Considérons le dé (théoriquement) équilibré. Observons les expressions dans le tableau ci-dessous obtenues par le mathématicien (A.M.P.). Sauriez-vous les calculer (\textit{N.B.~: c'est une question personnelle et il est donc possible de répondre NON})~? On rappelle (pour votre culture) les formules d'obtentions de la moyenne (ou espérance) de $Y$~:
+$$
+\EEE{Y}=\sum_{k=1}^6 k\times\PPP{Y=k}
+$$
+ainsi que celle de la variance
+$$
+\VVV{Y}=\sum_{k=1}^6 (k-\EEE{Y})^2\times\PPP{Y=k}=\EEE{Y^2}-\EEE{Y}^2=\sum_{k=1}^6 k^2\times\PPP{Y=k}-\EEE{Y}^2
+$$
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+\phantom{$\Big($}$\PPP{Y\in [2,4[}$&\phantom{$\Big($}$\EEE{Y}$&\phantom{$\Big($}$\VVV{Y}$&\phantom{$\Big($}$\sigma(Y)$&\phantom{$\Big($}$\quant{Y}{5\%}$&\phantom{$\Big($}$\quant{Y}{50\%}$&\phantom{$\Big($}$\quant{Y}{95\%}$
+\\\hline
+\phantom{$\Big($}$33.33\%$&\phantom{$\Big($}$3.5$&\phantom{$\Big($}$2.9167$&\phantom{$\Big($}$1.7078$&\phantom{$\Big($}$1$&\phantom{$\Big($}$3.5$&\phantom{$\Big($}$6$
+\\\hline
+\end{tabular}
+
+
+\noindent \textbf{Remarque (pour les amateurs)}~: Puisque $\PPP{Y=k}=\frac16$, les valeurs du tableau pour $\EEE{Y}$, $\VVV{Y}$ et $\quant{Y}{p}$ ($p=$5\%, 50\% et 95\% ) ont simplement été obtenues en appliquant les formules de Statistique Descriptive pour la série de chiffres $1,2,3,4,5,6$. 
+
+\item Comprenons comment ces quantités peuvent être obtenues (ou intreprétées) par l'expérimentateur en les confrontant à ses  résultats sur $m=1000000$ lancers (A.E.P.). Proposez aussi les instructions~\texttt{R} ayant permis de les construire sachant que ces résultats ont été stockés dans le vecteur \texttt{yy} en \texttt{R}.\\
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+\phantom{$\Big($}$\meanEmp[m]{y\in [2,4[}$&\phantom{$\Big($}$\meanEmp[m]{y}$&\phantom{$\Big($}$\Big(\sdEmp[m]{y}\Big)^2$&\phantom{$\Big($}$\sdEmp[m]{y}$&\phantom{$\Big($}$\quantEmp[m]{y}{5\%}$&\phantom{$\Big($}$\quantEmp[m]{y}{50\%}$&\phantom{$\Big($}$\quantEmp[m]{y}{95\%}$
+\\\hline
+\phantom{$\Big($}$33.34\%$&\phantom{$\Big($}$3.499$&\phantom{$\Big($}$2.9145$&\phantom{$\Big($}$1.7072$&\phantom{$\Big($}$1$&\phantom{$\Big($}$3$&\phantom{$\Big($}$6$
+\\\hline
+\end{tabular}
+
+\item Quelle approche (A.M.P. ou A.E.P.) vous semble être la plus facile à appréhender~? Comprenez-vous les intérêts  propres à chacune d'entre elles~?
+\end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}[Somme de deux dés]\label{ex:sommeDes} ${ }$\label{ex:sommeDes}
+
+
+\begin{enumerate}
+\item Soient $Y_V$ et $Y_R$ deux variables aléatoires correspondant aux faces de 2 dés (Vert et Rouge) à lancer. Définissons $S=Y_V+Y_R$ correspondant à la somme de deux faces.
+Proposez le Schéma de Formalisation pour $S$. \\
+\begin{Correction}
+\begin{itemize}
+\item \textbf{Expérience $\mathcal{E}$~:} Lancer de 2 dés
+\item \textbf{Variable d'intérêt~:} $S$ la somme des faces supérieures des 2 dés
+\item \textbf{Loi de proba~:} $\PPP{S=k}=???$ avec $k=2,\cdots,12$.
+\end{itemize}
+\end{Correction}
+
+\item Comparez $\PPP{S=2}$, $\PPP{S=12}$ et $\PPP{S=7)}$. Sauriez-vous les évaluer~?
+
+\begin{Correction}Une erreur courante est de penser que toutes modalités sont équiprobables. Pourtant, il est assez intuitif de penser le contraire car il y a 6 possibilités (1 et 6, 2 et 5, 3 et 4, 4 et 3, 5 et 2, 6 et 1) pour obtenir la somme 7 et seulement une pour obtenir soit 2 soit 12. On est alors tenté de penser que le résultat 7 est 6 fois plus probable que 2 ou 12. Comme il y a 36 ($6\times6$) possibilités différentes pour les résultats des 2 dés (en tenant compte de leur couleur). On peut affirmer que~: $\PPP{S=2}=\PPP{S=12}=\frac1{36}$ et $\PPP{S=7}=\frac6{36}=\frac16$ 
+Pour les évaluations des probas, voir le calcul ci-après proposé par le mathématicien.
+\end{Correction}
+
+\item Que peut-on espérer en moyenne sur la valeur de $S$~? (cette quantité rappelons-le est notée $\EEE{S}$).
+
+\begin{Correction}
+On peut espèrer la valeur $7$.
+\end{Correction}
+
+
+\item Un joueur se propose de lancer $m=5000$ fois deux dés. A chaque lancer, il note la somme et stocke l'ensemble des informations dans un vecteur noté \texttt{s} en \texttt{R}. Voici quelques résultats d'instructions~\texttt{R}~:
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> s
+   [1]  8  8  8  9  5  4  4  4  3  6  7  2  3 10  6  2  6  9  2  9 12  7 10 12
+  [25]  3  5  9  6  6  7  7  6  7  8  9  8  7  3  4  9  8 10  5  8  7  6  8  8
+...
+[4969]  6 10  9  9  9 11  7  7 10  6  6 12  4  9  7  9 10  2  8  9  7  7  7  4
+[4993]  8  7 12  8 10 11  6  9
+> mean(s==2)
+[1] 0.0314
+> mean(s==12)
+[1] 0.0278
+> mean(s==7)
+[1] 0.1698
+> mean(s)
+[1] 7.0062
+> var(s)
+[1] 5.872536
+> sd(s)
+[1] 2.423332
+\end{Verbatim}
+
+\noindent Pourriez-vous proposer les notations mathématiques (\textit{norme CQLS}) correspondant aux résultats obtenus dans la sortie~\texttt{R} ci-dessus~?
+
+\item Cette approche expérimentale confirme-t-elle le résultat du mathématicien affirmant que pour toute modalité $k=2,\cdots,12$ de $S$,
+$$
+\PPP{S=k} = \left\{ \begin{array}{ll}
+\frac{k-1}{36} & \mbox{ si } k\leq 7 \\
+\frac{13-k}{36} & \mbox{ si } k \geq 7
+\end{array} \right.
+$$
+Voici les résultats de l'\textbf{A.M.P.} présentés dans le tableau suivant (que vous pouvez vérifier si vous avez l'âme d'un mathématicien)~:
+
+\begin{tabular}{|c|c|c|c|c|}\hline
+\phantom{$\Big($}$\PPP{S=2}$&\phantom{$\Big($}$\PPP{S=12}$&\phantom{$\Big($}$\PPP{S=7}$&\phantom{$\Big($}$\EEE{S}$&\phantom{$\Big($}$\VVV{S}$
+\\\hline
+\phantom{$\Big($}$2.78\%$&\phantom{$\Big($}$2.78\%$&\phantom{$\Big($}$16.67\%$&\phantom{$\Big($}$7$&\phantom{$\Big($}$5.8333$
+\\\hline
+\end{tabular}
+
+
+\begin{Correction}
+Les instructions des lignes 16 à 18 (resp. des lignes 19 à 21) proposent les évaluations de $\meanEmp[5000]{y_{[\cdot]}=k}$ (resp. $P(Y=k)$) pour $k=2,\ldots,12$. On retrouve le résultat
+$$
+\meanEmp[5000]{y_{[\cdot]}=k} \simeq \meanEmp[\infty]{y_{[\cdot]}=k} = P(Y=k).
+$$
+\end{Correction}
+
+\item Pourriez-vous aussi vérifier la validité des formules sur l'espérance et variance de la somme de variables aléatoires réelles fournies au début de cette fiche. 
+
+\begin{Correction}
+$\EEE{S}=\EEE{Y_1+Y_2}=\EEE{Y_1}+\EEE{Y_2}=7\simeq \mathtt{mean(s)=7.0062}$\\
+$\VVV{S}=\VVV{Y_1+Y_2}=\VVV{Y_1}+\VVV{Y_2}=5.833333\simeq \mathtt{var(s)=5.872536}$
+puisque les 2 dés sont naturellement indépendants entre eux.
+\end{Correction}
+
+\end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}[Loi uniforme sur l'intervalle unité]\label{ex:unif}
+\begin{enumerate}
+\item Soit $Y_1$ une variable aléatoire suivant une loi uniforme sur $[0,1]$ (en langage math., $Y_1\leadsto \mathcal{U}([0,1])$), correspondant au choix ``au hasard'' d'un réel dans l'intervalle $[0,1]$. L'objectif est l'évaluation (exacte ou approximative) des probabilités suivantes $\PPP{Y_1=0.5}$ et $\PPP{0<Y_1<0.5}$, le chiffre moyen $\EEE{Y_1}$ (espéré), l'écart-type $\sigma(Y_1)$ ainsi que la variance $\VVV{Y_1}$~? Parmi ces quantités, lequelles sauriez-vous intuitivement (i.e. sans calcul) déterminer~?
+
+\ReponseC{Intuitivement, il est possible de dire que $\PPP{Y_1=0.5}=0$, $\PPP{0<Y_1<0.5}=1/2$ et $\EEE{Y_1}=1/2$.}
+
+\item Via \textbf{A.E.P.}~: Un expérimentateur réalise cette expérience en choisissant 10000 réels au hasard (par exemple en tapant 10000 fois sur la touche RAND d'une calculatrice). Il stocke les informations dans son logiciel préféré (libre et gratuit) \texttt{R} dans un vecteur noté \texttt{y1}. Déterminez approximativement les quantités de la première question.
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> y1
+    [1] 0.6739665526 0.7397576035 0.7916111494 0.6937727907 0.6256426109
+    [6] 0.4411222513 0.8918520729 0.4331923584 0.4213763773 0.6879929998
+...
+ [9991] 0.3117644335 0.1422109089 0.4964213229 0.6349032705 0.3718051254
+ [9996] 0.2839202243 0.7170524562 0.7066086838 0.9236146978 0.7250815830
+> mean(y1)
+[1] 0.4940455
+> mean(y1==0.5)
+[1] 0
+> mean(0.25 <y1 & y1<0.5)
+[1] 0.254
+> var(y1)
+[1] 0.08296901
+> sd(y1)
+[1] 0.2880434
+> sd(y1)^2
+[1] 0.08296901
+\end{Verbatim}
+
+
+\begin{Correction}
+On observe\\
+$\meanEmp[1000]{0.25<y_{1,[\cdot]}<0.5} =0.254 \simeq \meanEmp[\infty]{0.25<y_{1,[\cdot]}<0.5} =P(0.25<Y_1<0.5)=0.5-0.25=0.25$ \\
+et
+$\meanEmp[1000]{y_{1,[\cdot]}} =0.4940455 \simeq \meanEmp[\infty]{y_{1,[\cdot]}} =\EEE{Y_1}=0.5$.
+\end{Correction}
+
+\item Via \textbf{A.M.P.}~: Un mathématicien obtient par le calcul les résultats suivant pour une variable aléatoire $Y$ représentant un chiffre au hasard dans l'intervalle $[a,b]$ (i.e. $Y\leadsto\mathcal{U}([a,b])$)~: 
+\begin{enumerate}
+\item pour tout $a\leq t_1 \leq t_2\leq b$, $\PPP{t_1\leq Y \leq t_2}=\frac{t_2-t_1}{b-a}$ .
+\item $\EEE{Y}=\frac{a+b}2$
+\item $\VVV{Y}=\frac{(b-a)^2}{12}$
+\end{enumerate}
+\noindent \textit{Question optionnelle~:} lesquels de ces résultats sont intuitifs (i.e. déterminables sans calcul)~?
+Déterminez exactement les quantités de la première question.
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> 1/12
+[1] 0.08333333
+> sqrt(1/12)
+[1] 0.2886751
+\end{Verbatim}
+
+
+\begin{Correction}
+Ce résultat correspond au calcul de
+$\left(\sdEmp[1000]{y_{1,[\cdot]}}\right)^2 =0.08296901 \simeq \left(\sdEmp[\infty]{y_{1,[\cdot]}} \right)^2=\VVV{Y_1}=1/12\simeq 0.0833$.
+\end{Correction}
+
+\item L'\textbf{A.E.P.} confirme-t'elle les résultats théoriques de l'\textbf{A.M.P.}~?
+\end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}[Somme de deux uniformes]\label{ex:sommeUnifs}
+\begin{enumerate}
+\item On se propose maintenant d'étudier la variable $S=Y_1+Y_2$ où $Y_1$ et $Y_2$ sont deux variables aléatoires indépendantes suivant une loi uniforme sur $[0,1]$. Quel est l'ensemble des valeurs possibles (ou modalités) de $S$~? Pensez-vous que la variable $S$ suive une loi uniforme~?
+Nous nous proposons d'évaluer (excatement ou approximativement) les probabilités $\PPP{0< S \leq \frac12}$, $\PPP{\frac34< S \leq \frac54}$, $\PPP{\frac32< S \leq 2}$, la moyenne $\EEE{S}$, l'écart-type $\sigma(S)$ et la variance $\VVV{S}$.  Lesquelles parmi ces quantités sont déterminables intuitivement ou via un simple calcul mental~? Etes-vous capable de comparer les trois probabilités précédentes~?
+
+\begin{Correction} Sans développement mathématique trop compliqué, on peut affirmer que~:
+\begin{itemize}
+\item $\EEE{S}=\EEE{Y_1}+\EEE{Y_2}=2\times 0.5=1$, 
+\item $\VVV{S}=\VVV{Y_1}+\VVV{Y_2}=2\times \frac1{12}=\frac16$,
+\item $\sigma(S)=\sqrt{\VVV{S}}=\frac1{\sqrt{6}}$, 
+\item $\PPP{0< S \leq \frac12}$ et $\PPP{\frac32< S \leq 2}$ sont les mêmes tandis que  $\PPP{\frac34< S \leq \frac54}$ est la plus grande des probabilités d'appartenance de $S$ à un intervalle de longueur $\frac12$.
+\end{itemize} 
+\end{Correction}
+
+
+\item Via \textbf{A.E.P.}~: Un expérimentateur réalise à nouveau l'expérience de choisir 1000 réels entre 0 et 1. Les informations sont stockées dans le vecteur \texttt{y2}. Déterminez approximativement les quantités de la premire question.
+\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
+> y2
+    [1] 7.050965e-01 7.167117e-01 8.085787e-01 5.334738e-01 1.126156e-01
+...
+ [9996] 8.175774e-01 5.379471e-01 4.259207e-01 7.629429e-01 9.217997e-01
+> s<-y1+y2
+> mean(0<s & s <=1/2)
+[1] 0.1361
+> mean(3/4<s & s<=5/4)
+[1] 0.4262
+> mean(3/2<s & s<=2)
+[1] 0.1244
+> mean(s)
+[1] 0.9907449
+> var(s)
+[1] 0.1709682
+> sd(s)
+[1] 0.413483
+> 1/sqrt(6)
+[1] 0.4082483
+> 7/16
+[1] 0.4375
+\end{Verbatim}
+
+
+\begin{Correction}
+On observe
+\begin{itemize}
+\item $\PPP{0<S\leq\frac12}=\meanEmp[\infty]{0<s_{[\cdot]}<\frac12}\simeq\meanEmp[1000]{0<s_{[\cdot]}\leq\frac12}\NotR$ \verb!mean(0<s & s<=1/2)!$=0.1361$
+ \item $\PPP{\frac34<S\leq\frac54}=\meanEmp[\infty]{\frac34<s_{[\cdot]}<\frac54}\simeq\meanEmp[1000]{\frac34<s_{[\cdot]}\leq\frac54}\NotR$ \verb!mean(3/4<s & s<=5/4)!$=0.4262$
+\item $\PPP{\frac32<S\leq2}=\meanEmp[\infty]{\frac32<s_{[\cdot]}<2}\simeq\meanEmp[1000]{\frac32<s_{[\cdot]}\leq2}\NotR$ \verb!mean(3/2<s & s<=2)!$=0.1244$
+\item $\EEE{S}=\meanEmp[\infty]{s_{[\cdot]}}\simeq\meanEmp[1000]{s_{[\cdot]}}\NotR$\verb!mean(s)!$=0.9907449$ ($\simeq 1=\EEE{S}$).
+\item $\sigma(S)=\sdEmp[\infty]{s_{[\cdot]}}\simeq\sdEmp[1000]{s_{[\cdot]}}\NotR$\verb!sd(s)!$=0.413483$ ($\simeq \sqrt{\VVV{S}}=\frac1{\sqrt6}\simeq0.4082483$).
+\end{itemize}
+\end{Correction}
+
+\item Via l'\textbf{A.M.P.}~: Par des développements plutôt avancés, le mathématicien obtient pour tout réel $t$~: 
+$$
+\PPP{S\leq t}= \left\{ \begin{array}{ll}
+0 & \mbox{ si } t\leq 0 \\
+\frac{t^2}2 & \mbox{ si } 0\leq t\leq 1 \\
+2t-1-\frac{t^2}2& \mbox{ si } 1\leq t \leq 2 \\
+1 & \mbox{ si } t\geq 2 
+\end{array} \right..
+$$ Etes-vous en mesure de déterminer les valeurs exactes de la première question~?
+
+\begin{Correction}
+$\PPP{0<S\leq\frac12}= \PPP{S\leq \frac12}= \frac{(\frac12)^2}2 = \frac18$ \\
+$\PPP{3/2<S\leq2}= \PPP{S\leq 2} - \PPP{S\leq \frac32}= 3 - 2 - (2 - \frac98)= \frac18$\\
+$\PPP{3/4<S\leq5/4}= \PPP{S\leq 5/4} - \PPP{S\leq 3/4}= (\frac32-\frac{25}{32}) -\frac9{32}=\frac{7}{16}.$ 
+\end{Correction}
+
+\item L'\textbf{A.E.P.} confirme-t'elle les résultats théoriques de l'\textbf{A.M.P.}~? 
+
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Loi d'une moyenne] ${ }$\label{ex:loiMoyenne}
+Cet exercice est à lire attentivement à la maison. Il permet d'appréhender via l'approche expérimentale le résultat suivant central en Statistique Inférentielle~:
+\begin{center}
+\fbox{\begin{minipage}{13cm}Une moyenne d'un grand nombre de variables aléatoires i.i.d. (indépendantes et identiquement distribuées, i.e. ayant la même loi de probabilité) se comporte approximativement selon la loi Normale (qui tire son nom de ce comportement universel).
+\end{minipage}}
+\end{center}
+Rappelons que les paramètres d'une loi Normale sont sa moyenne et son écart-type (les matheux préférant sa variance). Notons aussi que ce résultat s'applique dans un cadre assez général excluant tout de même le cas de moyenne de variables aléatoires n'ayant pas de variance finie (et oui, tout arrive!!!).
+\begin{enumerate}
+\item A partir des exercices~\ref{ex:sommeDes}~et~\ref{ex:sommeUnifs}, pouvez-vous intuiter les comportements aléatoires des moyennes de 2 faces de dés et de 2 uniformes sur $[0,1]$.\\
+\begin{Correction}
+De manière expérimentale, il suffit de diviser par  2 les vecteurs \texttt{s} en \texttt{R} pour obtenir les quantités d'intérêts désirées. Via l'A.M.P., on obtient très facilement la fonction de répartition de $M_2$ pour tout réel $t$~: $\PPP{M_2 \leq t}=\PPP{S/2 \leq t}=\PPP{S\leq 2\times t}$.\\
+Les moyenne, variance et écart-type de $M_2$ se déduisent très facilement de ceux de $S$~:\\
+$\EEE{M_2}=\EEE{S/2}=\EEE{S}/2$, $\VVV{M_2}=\VVV{S/2}=\VVV{S}/4$ et $\sigma(M_2)=\sigma(S)/2$.
+\end{Correction}
+\item On constate sur ces deux exemples que les modalités centrales (autour de la moyenne) sont plus probables pour la moyenne $M_2:=(Y_1+Y_2)/2$ que sur l'une ou l'autre des variables aléatoires $Y_1$ et $Y_2$.  Pensez-vous que ce phénomène reste vrai pour n'importe quelle paire de variables aléatoires  i.i.d. selon $Y$~? (C'est votre avis qui est demandé!)
+\item Un expérimentateur, convaincu que ce principe est vrai, observe que la moyenne de 4 v.a. i.i.d. se décompose aussi comme une moyenne de 2 v.a. i.i.d. comme le montre la formule suivante~:
+$$
+M_n:=\frac{Y_1+Y_2+Y_3+Y_4}4=\frac{\frac{Y_1+Y_2}2+\frac{Y_3+Y_4}2}2
+$$
+Il en déduit alors que les valeurs centrales (autour de la moyenne des $Y$) de la moyenne de 4 v.a. i.i.d. selon $Y$ sont plus probables que celles de la moyenne de 2 v.a. i.i.d. selon $Y$ qui sont elles-mêmes plus probables que  celles de $Y$.    
+Itérant ce processus, il constate que les moyennes $M_n$ de $n=2^k$ (avec $k$ un entier aussi grand qu'on le veut) v.a. i.i.d. s'écrit aussi comme une moyenne de 2 v.a. i.i.d. étant elles-mêmes des moyennes de $2^{k-1}$ v.a. i.i.d. elles-mêmes s'écrivant comme des moyennes de 2 v.a. i.i.d. \ldots.
+En conclusion, il postule que les probabilités d'apparition des modalités centrales de $Y$ augmentent pour la moyenne $M_n$ de $n$ v.a. i.i.d. selon $Y$ lorsque $n$ augmente. 
+Qu'en pensez-vous au vu de son protocole expérimental suivant (les réalisations de $M_n$ sont notées $\mu_{n,[k]}$ et correspondent aux moyennes des lancers de $n$ dés)~? \\
+\hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+$n$ &\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in [1,2[}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in [2,3[}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in [3,4]}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in ]4,5]}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in ]5,6]}$
+\\\hline
+1 &\phantom{$\Big($}$16.92\%$&\phantom{$\Big($}$17\%$&\phantom{$\Big($}$33.38\%$&\phantom{$\Big($}$17.13\%$&\phantom{$\Big($}$15.57\%$
+\\\hline
+2 &\phantom{$\Big($}$8.46\%$&\phantom{$\Big($}$19.42\%$&\phantom{$\Big($}$44.63\%$&\phantom{$\Big($}$19.65\%$&\phantom{$\Big($}$7.84\%$
+\\\hline
+4 &\phantom{$\Big($}$2.69\%$&\phantom{$\Big($}$20.96\%$&\phantom{$\Big($}$52.59\%$&\phantom{$\Big($}$21.05\%$&\phantom{$\Big($}$2.71\%$
+\\\hline
+8 &\phantom{$\Big($}$0.4\%$&\phantom{$\Big($}$17.22\%$&\phantom{$\Big($}$64.83\%$&\phantom{$\Big($}$17.1\%$&\phantom{$\Big($}$0.45\%$
+\\\hline
+16 &\phantom{$\Big($}$0.01\%$&\phantom{$\Big($}$10.76\%$&\phantom{$\Big($}$78.32\%$&\phantom{$\Big($}$10.91\%$&\phantom{$\Big($}$0\%$
+\\\hline
+32 &\phantom{$\Big($}$0\%$&\phantom{$\Big($}$4.27\%$&\phantom{$\Big($}$91.45\%$&\phantom{$\Big($}$4.28\%$&\phantom{$\Big($}$0\%$
+\\\hline
+64 &\phantom{$\Big($}$0\%$&\phantom{$\Big($}$0.7\%$&\phantom{$\Big($}$98.43\%$&\phantom{$\Big($}$0.87\%$&\phantom{$\Big($}$0\%$
+\\\hline
+\end{tabular}
+\item L'expérimentateur demande à son ami mathématicien s'il peut justifier sur un plan théorique (via A.M.P.) ces résultats. A sa grande surprise, le mathématicien lui annonce que ce résultat est central en statistique sous le nom de Théorème de la limite centrale (central limit theorem en anglais). Il s'énonce dans le cadre de la moyenne sous la forme suivante~: pour toute v.a. $Y$ et lorsque $n$ est suffisamment grand (en général, $n\geq 30$)
+$$
+M_n:=\frac1n\sum_{i=1}^n Y_i \SuitApprox \mathcal{N}\Big(\EEE{M_n},\sqrt{\frac{\VVV{Y_1}}n}\Big)
+$$
+où $Y_1,\cdots,Y_n$ désignent $n$ v.a. i.i.d. selon $Y$. La loi Normale tire son nom de ce résultat étonnant et combien important dans le sens où beaucoup de phénomènes réels peuvent être vus comme des moyennisations. Le premier paramètre d'une loi Normale correspond à l'espérance $\EEE{M_n}$ de $M_n$ et le second à l'écart-type de $M_n$. Le fait marquant est que ce résultat 
+est vrai indépendemment de la loi de $Y$. Afin de comparer ces résultats à ceux qu'il a déjà effectué sur la loi uniforme, il transforme toutes les réalisations des lois uniformes sur $[0,1]$ en les multipliant par 5 puis en les additionnant à 1 de sorte que toutes les nouvelles réalisations à moyenner soient celles d'une loi uniforme sur $[1,6]$. L'ensemble des modalités ainsi que celui du dés sont comprises entre 1 et 6. Ainsi, il lui semble possible de comparer les probabilités dans les deux exemples puisque les supports sont les mêmes ainsi que leurs espérances égales à 3.5.\\
+\hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+$n$ &\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in [1,2[}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in [2,3[}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in [3,4]}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in ]4,5]}$&\phantom{$\Big($}$\meanEmp[m]{\mu_{n,[\cdot]}\in ]5,6]}$
+\\\hline
+1 &\phantom{$\Big($}$16.92\%$&\phantom{$\Big($}$17\%$&\phantom{$\Big($}$33.38\%$&\phantom{$\Big($}$17.13\%$&\phantom{$\Big($}$15.57\%$
+\\\hline
+2 &\phantom{$\Big($}$8.28\%$&\phantom{$\Big($}$23.81\%$&\phantom{$\Big($}$35.54\%$&\phantom{$\Big($}$23.99\%$&\phantom{$\Big($}$8.38\%$
+\\\hline
+4 &\phantom{$\Big($}$1.75\%$&\phantom{$\Big($}$23.48\%$&\phantom{$\Big($}$49.27\%$&\phantom{$\Big($}$23.57\%$&\phantom{$\Big($}$1.93\%$
+\\\hline
+8 &\phantom{$\Big($}$0.12\%$&\phantom{$\Big($}$16.08\%$&\phantom{$\Big($}$67.25\%$&\phantom{$\Big($}$16.33\%$&\phantom{$\Big($}$0.22\%$
+\\\hline
+16 &\phantom{$\Big($}$0\%$&\phantom{$\Big($}$8.19\%$&\phantom{$\Big($}$83.46\%$&\phantom{$\Big($}$8.35\%$&\phantom{$\Big($}$0\%$
+\\\hline
+32 &\phantom{$\Big($}$0\%$&\phantom{$\Big($}$2.3\%$&\phantom{$\Big($}$95.08\%$&\phantom{$\Big($}$2.62\%$&\phantom{$\Big($}$0\%$
+\\\hline
+64 &\phantom{$\Big($}$0\%$&\phantom{$\Big($}$0.24\%$&\phantom{$\Big($}$99.46\%$&\phantom{$\Big($}$0.3\%$&\phantom{$\Big($}$0\%$
+\\\hline
+\end{tabular}
+
+Qu'en pensez-vous~? Observez-vous à nouveau que le procédé de moyennisation concentre les probabilités vers les modalités centrales (en fait autour de l'espérance)~?
+
+\item Le mathématicien lui fait cependant remarquer qu'a priori les variances ne sont pas rigoureusement les mêmes (certainement assez proches) et qu'il n'est donc pas en mesure de comparer les résultats expérimentaux sur les 2 exemples. Pour comparer les résultats pour différentes v.a. $Y$, il faut au préalable les uniformiser (les contraindre à avoir les mêmes moyennes et variances). Une solution est  de les centrer (soustraire l'espérance $\EEE{M_n}$) et les réduire (diviser ensuite par $\sqrt{\VVV{M_n}}=\sqrt{\frac{\VVV{Y_1}}n}$) de sorte à ce que les v.a. résultantes soient toutes d'espérances 0 et de variances 1 (et ainsi comparables). Cette transformation pourra plus tard (via une représentation graphique) être comparé au travail d'un photographe lors d'une photo de groupe qui demande d'abord à l'ensemble des photographiés de se recentrer (i.e. centrage) puis utilise son zoom (i.e. réduction ou plutôt changement d'échelle dans ce cas précis) pour bien les cadrer. Aidé par le mathémacien, il compare donc ses résultats en effectuant la dite transformation. Le mathématicien l'informe donc du nouveau résultat suivant~:
+$$
+\Delta_n:=\frac{M_n-\EEE{M_n}}{\sqrt{\VVV{M_n}}}=\frac{M_n-\EEE{M_n}}{\sqrt{\frac{\VVV{Y_1}}n}} \SuitApprox \mathcal{N}(0,1)
+$$
+\textbf{N.B.:} Ce résultat n'est valide que lorsque les notions d'espérance et de variance ont un sens! Il existe en effet des v.a. (suivant une loi de Cauchy, par exemple) n'ayant pas d'espérance et variances finies!\\
+Voici les résultats expérimentaux pour $n=64$ (i.e. la valeur de $n$ la plus grande) et $m=10000$  pour consécutivement les exemples du dé (i.e. $Y\leadsto \mathcal{U}(\{1,\cdots,6\})$), de la loi uniforme sur $[0,1]$ (i.e. $Y\leadsto \mathcal{U}([0,1])$) et sur sa loi transformée  uniforme sur $[1,6]$ (i.e. $5Y+1 \leadsto \mathcal{U}([1,6])$). Les tableaux ci-dessous sont complétés par les résultats via l'A.M.P. correspondant (théoriquement) à $m=+\infty$.
+\\
+\hspace*{-1.5cm}\begin{tabular}{|c|c|c|c|c|}\hline
+loi de $Y$ &\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}<-3}$&\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}\in [-3,-1.5[}$&\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}\in [-1.5,-0.5]}$&\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}\in [-0.5,0.5[}$
+\\\hline
+$\mathcal{U}(\{1,\cdots,6\})$ &\phantom{$\Big($}$0.11\%$&\phantom{$\Big($}$6.4\%$&\phantom{$\Big($}$25.16\%$&\phantom{$\Big($}$36.76\%$
+\\\hline
+$\mathcal{U}([0,1])$ &\phantom{$\Big($}$0.11\%$&\phantom{$\Big($}$6.85\%$&\phantom{$\Big($}$24.12\%$&\phantom{$\Big($}$37.63\%$
+\\\hline
+$\mathcal{U}([1,6])$ &\phantom{$\Big($}$0.11\%$&\phantom{$\Big($}$6.85\%$&\phantom{$\Big($}$24.12\%$&\phantom{$\Big($}$37.63\%$
+\\\hline\hline
+loi de $\Delta_n$ &\phantom{$\Big($}$\PPP{\Delta_n<-3}$&\phantom{$\Big($}$\PPP{\Delta_n\in [-3,-1.5[}$&\phantom{$\Big($}$\PPP{\Delta_n\in [-1.5,-0.5]}$&\phantom{$\Big($}$\PPP{\Delta_n\in [-0.5,0.5[}$
+\\\hline
+$\mathcal{N}(0,1)$ &\phantom{$\Big($}$0.13\%$&\phantom{$\Big($}$6.55\%$&\phantom{$\Big($}$24.17\%$&\phantom{$\Big($}$38.29\%$
+\\\hline
+\end{tabular}
+\hspace*{-.8cm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+loi de $Y$ &\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}\in [0.5,1.5[}$&\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}\in [1.5,3[}$&\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}\geq3}$&\phantom{$\Big($}$\meanEmp[m]{\delta_{n,[\cdot]}}$&\phantom{$\Big($}$\sdEmp[m]{\delta_{n,[\cdot]}}$
+\\\hline
+$\mathcal{U}(\{1,\cdots,6\})$ &\phantom{$\Big($}$24.66\%$&\phantom{$\Big($}$6.74\%$&\phantom{$\Big($}$0.17\%$&\phantom{$\Big($}$-8e-04$&\phantom{$\Big($}$0.9953$
+\\\hline
+$\mathcal{U}([0,1])$ &\phantom{$\Big($}$24.66\%$&\phantom{$\Big($}$6.53\%$&\phantom{$\Big($}$0.1\%$&\phantom{$\Big($}$0.0021$&\phantom{$\Big($}$1.0036$
+\\\hline
+$\mathcal{U}([1,6])$ &\phantom{$\Big($}$24.66\%$&\phantom{$\Big($}$6.53\%$&\phantom{$\Big($}$0.1\%$&\phantom{$\Big($}$0.0021$&\phantom{$\Big($}$1.0036$
+\\\hline\hline
+loi de $\Delta_n$ &\phantom{$\Big($}$\PPP{\Delta_n\in [0.5,1.5[}$&\phantom{$\Big($}$\PPP{\Delta_n\in [1.5,3[}$&\phantom{$\Big($}$\PPP{\Delta_n\geq3}$&\phantom{$\Big($}$\EEE{\Delta_n}$&\phantom{$\Big($}$\sigma(\Delta_n)$
+\\\hline
+$\mathcal{N}(0,1)$ &\phantom{$\Big($}$24.17\%$&\phantom{$\Big($}$6.55\%$&\phantom{$\Big($}$0.13\%$&\phantom{$\Big($}$0$&\phantom{$\Big($}$1$
+\\\hline
+\end{tabular}
+
+Commentez ces résultats et expliquez en particulier pourquoi les 2 lignes correspondant aux 2 exemples des lois uniformes (non transformée et transformée) sont identiques~?
+\item Fournir les instructions~R permettant d'obtenir les probabilités des tableaux précédents pour $m=+\infty$.\\
+\begin{Correction} Pour tout $a<b$,
+$$\PPP{\Delta_n \in [a,b[}=F_{\mathcal{N}(0,1)}(b)-F_{\mathcal{N}(0,1)}(a)\NotR\mathtt{pnorm(b)-pnorm(a)}$$
+puisque $F_{\mathcal{N}(0,1)}$ est obtenu en \texttt{R} en utilisant la fonction \texttt{pnorm}.
+\end{Correction}
+\end{enumerate}
+\end{exercice}
+
+
+
+
+
+
+
+
+\end{document}
+
+

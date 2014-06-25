@@ -1,0 +1,159 @@
+
+\documentclass[10pt]{report}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{fichetd}
+\usepackage{mathenv}
+\usepackage{tikz}
+\usepackage[a4paper,pdftex=true]{geometry}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\rightmargin -2cm
+\leftmargin -1cm
+\topmargin -2cm
+\textheight 25cm
+
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+
+\setcounter{chapter}{0}
+%Styles
+
+%Title
+
+\begin{document}
+
+
+
+
+\chapter{Présentation des\\ différents~outils}\label{TdPres}
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Proportion}~: Une proportion d'individus ayant une caractéristique (d'intérêt) parmi une population de N individus est le nombre d'individus ayant la caractéristique divisé par la taille N de la population.
+\item \textit{Moyenne}~: La moyenne de l'ensemble des N données $\textbf{z}:=(z_1,z_2,\cdots,z_N)$ correspond à la somme des ces données divisée par le nombre total N de données. Elle est usuellement notée et définie par $\overline{z}:=\displaystyle\frac1N\sum_{i=1}^N z_i$.    
+\item \textit{Proportion comme une moyenne}~: La proportion d'individus ayant une caractéristique parmi une population de N individus peut être vue comme la moyenne $\overline{z}$ des $\textbf{z}=(z_1,z_2,\cdots,z_N)$ où $z_i$ vaut 1 lorsque l'individu i a la caractéristique et 0 sinon. Autrement dit, une moyenne de valeurs ne valant que 0 ou 1 est une proportion. 
+\item \textit{Nombre moyen}~: Soit $z_i$ un nombre (d'objets) associé à tout individu i de la population. Un nombre (d'objets) moyen (par individu de la population) est alors défini comme la moyenne $\overline{z}$ des nombres (d'objets) $\textbf{z}$.
+\item \textit{Echantillon}~: Indépendament de son procédé de construction, un échantillon de taille n est un ``paquet" de n individus extrait parmi l'ensemble de la population totale des N individus. Lorsqu'en particulier, on n'est intéressé que par une variable $\mathcal{Y}$ relative à la population des N indvidus, de manière un peu abusive mais simplifiée, on appelle \underline{population} l'ensemble des N valeurs $\POP[]:=(\mathcal{Y}_1,\mathcal{Y}_2,\cdots,\mathcal{Y}_N)$ et un \underline{échantillon} (de $\mathcal{Y}$) l'ensemble des n valeurs $\Vect{y}:=(y_1,\cdots,y_n)$ correspondant aux valeurs de $\mathcal{Y}$ pour les individus extraits de la population. 
+\item \textit{Estimation}~: une estimation d'un paramètre inconnu $\theta$ sur un échantillon $\Vect{y}$ est noté $\Est{\theta}{y}$ s'exprimant littéralement par ``estimation (ou plus généralement remplaçant) du paramètre (inconnu) $\theta$ calculée à partir du jeu de données $\Vect{y}$" après avoir appliqué les conventions de notation suivantes~: \begin{enumerate}
+\item ``$\widehat{\quad}$" signifie (usuellement en Statistique) estimation (ou plus généralement, remplaçant) de la quantité sur laquelle il se trouve, ici le paramètre inconnu $\theta$ à estimer.
+\item ``$(\Vect{y})$" exprime la dépendance fonctionnelle (i.e. symbolisée dans le langage mathématique par les parenthèses qui servent à encadrer une valeur d'entrée à appliquer à une fonction afin de retourner une valeur de sortie) pouvant être traduite littéralement par ``calculée à partir de l'échantillon $\Vect{y}$". Le ``$\widehat{\theta}$" est alors vu comme une fonction retournant  en sortie l'estimation de $\theta$ lorsqu'en entrée il lui est donné un échantillon~$\Vect{y}$.
+\end{enumerate}
+\end{IndicList}
+
+\begin{exercice}
+
+Entre les deux tours d'une élection présidentielle, un candidat, Max, souhaiterait ``rapidement'' avoir un a priori sur la proportion d'intentions de vote en sa faveur. On notera $\POP[Max]=\left( \mathcal{Y}_1^{Max},\ldots, \mathcal{Y}_N^{Max}\right)$ l'ensemble des réponses des $N$ électeurs (où $\mathcal{Y}_i^{Max}$ vaut 1 si l'individu $i$ a l'intention de voter pour Max et 0 sinon).
+
+\begin{enumerate}
+\item Déterminez en fonction de $\POP[Max]$, le nombre puis la proportion d'intentions de vote en faveur de Max, notée respectivement $N^{Max}$ et $p^{Max}$.
+
+\item $N$ étant très grand, quel serait une solution réalisable permettant d'obtenir un remplaçant (i.e. estimation) de $p^{Max}$. Proposez les notations adéquates.
+
+\item Deux personnes se proposent d'interroger chacun $n=1000$ électeurs. On notera $\Vect{y}_{[1]}$ et $\Vect{y}_{[2]}$ ces deux jeux de données recueillis. Les estimations correspondantes sont respectivement de 47\% et 52\%. Comment interpréter la différence des résultats qui, si on leur fait une confiance aveugle, conduit à deux conclusions différentes?
+
+\item Connaissez-vous d'autres applications nécessitant une estimation d'un paramètre inconnu~?
+
+\end{enumerate}
+\end{exercice}
+\newpage\begin{exercice}[Présentation des problématiques des produits A et B]${ }$
+
+\fbox{\begin{minipage}{14cm} %\begin{center}
+Un industriel veut lancer sur le march{\'e} deux produits que l'on nommera \PR{A} et \PR{B}. Le \PR{A} est achet{\'e} au plus une fois par mois tandis que le \PR{B} peut être acheté autant de fois que désiré. Apr{\`e}s une {\'e}tude financi{\`e}re, les services comptables indiquent {\`a} cet industriel que pour que le lancement de chacun de ces produits soit rentable, il faut qu'il soit vendu {\`a} plus de 300000 exemplaires par mois. La population cibl{\'e}e par l'industriel est une population de taille $N=2000000$. L'industriel se demande s'il doit ou non lancer le(s) \textit{Produit(s) A et/ou B}. 
+%\end{center} 
+\end{minipage}}
+
+Commençons par introduire quelques notations permettant de décrire le choix d'achat des individus de la population totale (ciblée par l'industriel). Les deux études des \PR{A} et \PR{B} étant plutôt similaires, nous noterons donc dans un cadre général  $\bullet$ aussi bien à la place de $A$ ou $B$. Ainsi  
+$\mathcal{Y}^{\bullet}_i$ représente le nombre de produit(s) $\bullet$ acheté(s) par le $i^{\grave eme}$ ($i=1,\cdots,N$) individu de la population totale. L'ensemble des choix d'achat des $N$ individus $\left(\mathcal{Y}_i\right)_{i=1,\cdots,N}$ sera noté \POP. $N^{\bullet}$ désignera le nombre d'exemplaires de \PR{$\bullet$} achetés par les N individus de la population. 
+
+\begin{enumerate}
+\item Exprimez $N^A$ (resp. $N^B$) en fonction des  \POP[A] (resp. \POP[B]). Exprimez la rentabilité du \PR{A} (resp. \PR{B}) en fonction du nombre total $N^A$ (resp. $N^B$) d'exemplaires du \PR{A} (resp. \PR{B}) vendus.
+
+\item Même question mais en fonction du nombre moyen (par individu de la population) $\mu^A$ (resp. $\mu^B$) d'exemplaires du \PR{A} (resp. \PR{B}) en ayant au préalable établi la relation entre $\mu^A$ et $N^A$ (resp. $\mu^B$ et $N^B$) et ainsi entre $\mu^A$ et \POP[A] (resp. $\mu^B$ et \POP[B]). Quelle relation y a-t-il donc entre $\mu^A$ et $\overline{\mathcal{Y}^A}$ (resp. entre $\mu^B$ et $\overline{\mathcal{Y}^B}$)~?\\
+\centerline{\fbox{Les quantités $\mu^A$ et $\mu^B$ seront appelées \textbf{paramètres d'intérêt}.}}
+
+\item Est-il possible pour l'industriel de ne pas se tromper dans sa décision quant au lancement de chaque produit~? Si oui, comment doit-il procéder~? Cette solution est-elle réalisable~? 
+
+\item Est-il alors possible d'évaluer (exactement) les paramètres d'intérêt~? Comment les qualifieriez-vous par la suite~?
+
+\item Une solution r{\'e}alisable est alors de n'interroger qu'une sous-population de taille raisonnable $n<<N$ (ex $n=1000$). On notera alors $\Vect{y}^\bullet$ le jeu de données (appelé aussi échantillon), i.e. le vecteur des $n$ nombres d'achat $\left(y_i^\bullet\right)_{i=1,\cdots,n}$ du produit~$\bullet$ des $n$ ($n<<N$) individus interrogés.
+ 
+
+
+Comment l'industriel pourra-t-il évaluer un remplaçant de $\mu^\bullet$ à partir de son échantillon $\Vect{y}^\bullet$~? 
+
+
+
+(quelle est la relation entre $\overline{y^\bullet}$, représentant la moyenne empirique des $\left(y_i^\bullet\right)_{i=1,\ldots,n}$, et l'estimation $\Est{\mu^\bullet}{y^\bullet}$~?)
+
+\item Quelle est la nature du paramètre d'intérêt $\mu^A$ dans le cas où les données ne sont que des~0 et~1~? Désormais cette moyenne, puisqu'elle bénéficiera d'un traitement particulier, sera notée \fbox{$p^A=\mu^A$}.
+
+\end{enumerate}
+\end{exercice}
+\begin{exercice}
+Dans le but d'estimer un paramètre d'intérêt inconnu, on dispose d'un échantillon. Nous nous proposons maintenant de préciser plus en détail son procédé de construction.
+\begin{enumerate}
+\item Proposez des critères de qualité d'un tel échantillon.
+\item A quoi correspond la notion de représentativité~?
+
+\item Est-il possible de construire un échantillon représentatif d'une (ou plusieurs) caractéristique(s) donnée(s)~?
+
+\item Même question sans aucun a priori (i.e. aucune caractéristique fixée).
+\item Proposez un critère de qualité  qui permettra de construire un échantillon le plus représentatif sans aucun a priori.
+
+\item Fournissez un (ou plusieurs) procédé(s) d'échantillonnage satisfaisant au critère suivant de représentativité (maximale) sans a priori (RSAP)~:\\
+\centerline{
+\fbox{\begin{minipage}{12cm}
+\bf Tous les individus de la population totale ont la même chance d'être choisi dans l'échantillon. 
+\end{minipage}}}
+
+\item Si on répète le procédé d'échantillonnage suivant le critère RSAP et que pour chaque échantillon on évalue l'estimation du paramètre d'intérêt, pensez-vous que les résultats seront toujours les mêmes~? Comment qualifie-t-on alors la nature du procédé d'échantillonnage~?
+
+\end{enumerate}
+\end{exercice}
+\begin{exercice}[Outil pour la problématique des élections] ${}$
+
+On se propose d'estimer le paramètre d'intérêt en fournissant un intervalle (ou fourchette, encadrement) obtenu à partir des données. Cet intervalle, appelé intervalle de confiance, est centré en la valeur de l'estimation et sa largeur dépend d'un niveau de confiance que l'on se fixe (généralement plutôt grand, par exemple, $95\%$). 
+\begin{enumerate}
+
+\item Pensez-vous qu'il soit possible qu'une estimation $\Est{p}{y}$ soit égale au paramètre estimé? Pouvez-vous savoir l'ordre de grandeur de l'écart entre l'estimation et le paramètre inconnu?
+Quel niveau de confiance accordez-vous à la valeur d'une estimation (dans notre exemple, 47\% et 52\% sur deux échantillons)?
+
+\item Si on vous annonce qu'un statisticien sait généralement fournir en plus de l'estimation du paramètre, l'estimation de sa fiabilité mesurée en terme de variabilité attendue, quel est la mission principale d'un intervalle de confiance~? Quelles sont les qualités souhaitées d'un intervalle de bonne confiance (95\% par exemple) du paramètre d'intérêt (inconnu)~? 
+
+\item Compléter les phrases suivantes~:
+\begin{enumerate}
+\item PLUS le niveau de confiance est fort, .... l'intervalle de confiance est petit.
+\item Vue comme un intervalle de confiance de largeur 0, une estimation peut donc être associé à un niveau de confiance ...\%.
+\end{enumerate} 
+
+\item Un statisticien construit les intervalles à $95\%$ de confiance (via une formule d'obtention étudiée plus tard dans le cours ne faisant pas l'objet) et informe le candidat que les intervalles associés aux estimations 47\% et 52\% sont respectivement $[43.90655\%,50.09345\%]$ et $[48.90345\%,55.09655\%]$. Les élections effectuées, on évalue $p^{Max}=51.69\%$, qu'en pensez-vous~?
+
+\item Si vous avez des difficultés à traduire ce que signifie le niveau de confiance d'un intervalle, comparez-le avec celui que vous accorderiez à une personne qui serait censée dire la vérité avec un niveau de confiance fixé à 95\%. Dans le cas de cette personne, comment traduiriez-vous (ou expliqueriez-vous) le concept de niveau de confiance~? \\
+\ReponseC{Parmi toutes les assertions énoncées par cette personne (dont on peut vérifier la véracité ou fiabilité), 95\% (en moyenne) seraient censées être justes ou fiables.}
+
+\end{enumerate}
+
+\begin{Indication}{Remarque} Cet exemple nous aide à appréhender la notion de niveau de confiance ou plus généralement de probabilité d'un événement en l'exprimant comme la proportion parmi toutes (en théorie, on peut imaginer en faire une infinité) réalisations de l'expérience (a priori supposée aléatoire) qui conduisent à ce que l'événement soit vérifié. Ceci nous conduit naturellement vers la notion d'Approche Expérimentale des Probabilités qui sera présentée dans la fiche de Td suivante en complément de l'Approche Mathématique des Probabilités (qui est classiquement présentée dans les cours de Probabilités et Statistique).
+\end{Indication}
+
+\end{exercice}
+
+
+
+
+
+\end{document}
+
+

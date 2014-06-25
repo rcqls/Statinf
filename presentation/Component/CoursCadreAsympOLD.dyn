@@ -1,0 +1,85 @@
+[#>]
+\section[Test hypothèses]{Test d'hypothèses (Cadre asymptotique)}
+\begin{frame}[label=param]
+\frametitle{Paramètres d'intérêt et d'écart standardisé}
+\begin{alertblock}{}
+[#=]alert[7][#=]alert2[9] [#=]alert3[14][#=]alert4[15][#=]alert5[18] 
+[#>]
+\begin{enumerate}
+\item \textbf{\color<#{alert}>[rgb]{1,0,0}Paramètre d'intérêt :} \pause ${\color<#{alert}>[rgb]{1,0,0}\theta}$ (et $\theta^\bullet$ le \textbf{jour~J}) \pause
+\item \textbf{Future estimation de $\theta$ :} \pause \fbox{$\Est{\theta}{Y}\SuitApprox \mathcal{N}({\color<#{alert}>[rgb]{1,0,0}\theta},{\color<#{alert2}>[rgb]{0,0,1}\sigma_{\widehat{\theta}}})$}\pause
+\item \textbf{Qualité de $\Est{\theta}{Y}$ :} \\\pause
+Moyenne d'une infinité de $\Est{\theta}{y_{[j]}}=\mathbb{E}(\Est{\theta}{Y})\simeq$\pause \fbox{$ \color<#{alert}>[rgb]{1,0,0}\theta$}\\\pause
+Variance d'une infinité de $\Est{\theta}{y_{[j]}}=\mathbb{V}ar(\Est{\theta}{Y})$\pause=\fbox{${\color<#{alert2}>[rgb]{0,0,1}\sigma^2_{\widehat{\theta}}}$}\pause
+\item \textbf{Erreur Standard :} \pause $\Est{\sigma_{\widehat{\theta}}}{Y}$ future estimation de $\sigma_{\widehat{\theta}}$\pause
+\item \textbf{{\color<#{alert3}>[rgb]{1,0,0}Paramètre d'écart} {\color<#{alert4}>[rgb]{0,0,1}standardisé} :} \pause \fbox{$\displaystyle \delta_{\theta,\theta_0}=\frac{\color<#{alert3}>[rgb]{1,0,0}{\color<#{alert5}>[rgb]{1,0,0}\theta}-\theta_0}{\color<#{alert4},#{alert5}>[rgb]{0,0,1}\sigma_{\widehat{\theta}}}$}\pause\pause\pause
+\item  \textbf{Future estimation de $\delta_{\theta,\theta_0}$ :} \pause \fbox{$\displaystyle \Est{\delta_{\theta,\theta_0}}{Y}=\frac{{\color<#{alert5}>[rgb]{1,0,0}\Est{\theta}{Y}}-\theta_0}{\color<#{alert5}>[rgb]{0,0,1}\Est{\sigma_{\widehat{\theta}}}{Y}}$}
+\end{enumerate}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assertion d'intérêt et Règle de décision}
+\vspace*{-.2cm}
+\begin{exampleblock}{}
+\begin{tabular}{|c|c|c|}\hline
+ \multicolumn{3}{|c|}{\textbf{Assertion d'intérêt} ou \textbf{Bonnes situations} notée {\Large $\mathbf{H_1}$}}\\
+\multicolumn{3}{|c|}{\color[rgb]{1,0,0}à confirmer avec les données sans trop se tromper}\\\hline
+$\theta^\bullet<\theta_0$ &  $\theta^\bullet\neq\theta_0$ & $\theta^\bullet>\theta_0$ \\\hline
+ $\delta_{\theta^\bullet,\theta_0}<0$ &  $\delta_{\theta^\bullet,\theta_0}\neq0$ & $\delta_{\theta^\bullet,\theta_0}>0$\pause\\\hline
+ \multicolumn{3}{|c|}{\textbf{Mauvaises situations} (\color[rgb]{1,0,0} non confirmables avec les données)}\\\hline
+ $\theta^\bullet\geq\theta_0$ &  $\theta^\bullet=\theta_0$ & $\theta^\bullet\leq\theta_0$ \pause\\\hline
+\multicolumn{3}{|c|}{\textbf{Règle de Décision : Accepter $\mathbf{H_1}$ au vu des données}}\\\hline
+$\Est{\theta^\bullet}{y}<\theta^{-}_{lim,\alpha}$ & 
+\begin{minipage}[c]{4cm}
+$\left\{\begin{array}{c}
+\Est{\theta^\bullet}{y}<\theta^{-}_{lim,\frac{\alpha}{2}}\\
+\mbox{ou}\\
+\Est{\theta^\bullet}{y}>\theta^{+}_{lim,\frac{\alpha}{2}}
+\end{array}\right.$
+\end{minipage}
+&$\Est{\theta^\bullet}{y}>\theta^{+}_{lim,\alpha}$ \pause\\\hline 
+$\Est{\delta_{\theta^\bullet,\theta_0}}{y}<\delta^{-}_{lim,\alpha}$ & 
+\begin{minipage}[c]{4cm}
+$\left\{\begin{array}{c}
+\Est{\delta_{\theta^\bullet,\theta_0}}{y}<\delta^{-}_{lim,\frac{\alpha}{2}}\\
+\mbox{ou}\\
+\Est{\delta_{\theta^\bullet,\theta_0}}{y}>\delta^{+}_{lim,\frac{\alpha}{2}}
+\end{array}\right.$
+\end{minipage}
+&$\Est{\delta_{\theta^\bullet,\theta_0}}{y}>\delta^{+}_{lim,\alpha}$ \pause\\\hline
+\multicolumn{3}{|c|}{\textbf{Pire des (mauvaises) situations }notée {\small$\mathbf{H_0} : \theta^\bullet=\theta_0$}} \\\hline
+\end{tabular}
+\end{exampleblock}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\begin{alertblock}{}
+\begin{tabular}{|c|c|}\hline
+\multicolumn{2}{|c|}{\bf\color[rgb]{0,0,1} Qualité de $\Est{\theta}{Y}$ sous $\mathbf{H_0}$ (pire des situations)\pause}\\\hline
+\color<2,5,10>[rgb]{1,0,0}$\sigma_{\widehat{\theta}}$ connu & \color<3,6,11>[rgb]{1,0,0}$\sigma_{\widehat{\theta}}$ inconnu\pause\pause\\\hline
+\multicolumn{2}{|c|}{\bf\color[rgb]{0,0,1}Loi de $\Est{\theta}{Y}$ sous $\mathbf{H_0}$ (pire des situations)\pause}\\\hline
+$\Est{\theta}{Y} \SuitApprox{\color<13>[rgb]{1,0,0} \mathcal{N}(\theta_0,{\color<5,6>[rgb]{1,0,0}\sigma_{\widehat{\theta}}})}$ & $\Est{\theta}{Y} \SuitApprox \mbox{\color<6,13>[rgb]{1,0,0}Loi inconnue}$ \pause\pause\\\hline
+\multicolumn{2}{|c|}{\bf\color[rgb]{0,0,1}Quantiles $\theta_{lim,\alpha}$\pause}\\\hline
+\begin{minipage}[c]{5.5cm}
+$\theta^{-}_{lim,\alpha}$=quantile $\alpha$ de $\mathcal{N}(\theta_0,\sigma_{\widehat{\theta}})$\\
+$\theta^{+}_{lim,\alpha}$=quantile $1\!-\!\alpha$ de $\mathcal{N}(\theta_0,\sigma_{\widehat{\theta}})$
+\end{minipage}
+& inconnus \pause\\\hline
+\multicolumn{2}{|c|}{\bf\color[rgb]{0,0,1}Future estimation du paramètre d'écart standardisé\pause}\\\hline
+$\Est{\delta_{\theta,\theta_0}}{Y}=\frac{\Est{\theta}{Y}-\theta_0}{\color<10>[rgb]{1,0,0}\sigma_{\widehat{\theta}}}$ & $\Est{\delta_{\theta,\theta_0}}{Y}=\frac{\Est{\theta}{Y}-\theta_0}{\color<11>[rgb]{1,0,0}\Est{\sigma_{\widehat{\theta}}}{Y}}$ \pause\pause\\\hline
+\multicolumn{2}{|c|}{\bf\color[rgb]{0,0,1}Loi de $\Est{\delta_{\theta,\theta_0}}{Y}$ sous $\mathbf{H_0}$ (pire des situations)\pause}\\\hline
+\multicolumn{2}{|c|}{$\Est{\delta_{\theta,\theta_0}}{Y}\SuitApprox{\color<13>[rgb]{1,0,0} \mathcal{N}(0,1)}$\pause}\\\hline
+\multicolumn{2}{|c|}{\bf\color[rgb]{0,0,1}Quantiles $\delta_{lim,\alpha}$\pause}\\\hline
+\multicolumn{2}{|c|}{\begin{minipage}[c]{10cm}
+${\color<15>[rgb]{1,0,0}\delta^{-}_{lim,\alpha}}$=quantile d'ordre $\alpha$ de $\mathcal{N}(0,1)\color<15>[rgb]{1,0,0}\NotR$\color<15>[rgb]{1,0,0}\texttt{qnorm($\alpha$)}\pause\\
+${\color<16>[rgb]{1,0,0}\delta^{+}_{lim,\alpha}}$=quantile d'ordre $1-\alpha$ de $\mathcal{N}(0,1)\color<16>[rgb]{1,0,0}\NotR$\color<16>[rgb]{1,0,0}\texttt{qnorm($1-\alpha$)}\pause
+\end{minipage}
+}\\\hline
+\end{tabular}
+\end{alertblock}
+\end{frame}

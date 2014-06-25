@@ -1,0 +1,205 @@
+
+\documentclass[10pt]{report}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{fichetd}
+\usepackage{mathenv}
+\usepackage{tikz}
+\usepackage[a4paper,pdftex=true]{geometry}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\rightmargin -2cm
+\leftmargin -1cm
+\topmargin -2cm
+\textheight 25cm
+
+\newcommand{\redabr}{\textit{(rédaction abrégée) }}
+\newcommand{\redstd}{\textit{(rédaction standard) }}
+
+%Styles
+
+%Title
+
+\title{\huge Fiches Travaux Dirigés\\Statistiques inférentielles}
+\author{CQLS \\ cqls@upmf-grenoble.fr \\
+\texttt{http://cqls.upmf-grenoble.fr/}}
+\date{ }
+
+\begin{document}
+\maketitle
+
+
+
+\pagestyle{empty}
+\begin{IndicList}{Remarques autour du cours}
+\item {\small\textbf{Points-clés de ce cours}~:  Voici quelques éléments qui font l'originalité de ce cours qui s'adresse tout particulièrement à des étudiants n'ayant pas nécessairement un bagage mathématique très imposant~:
+\begin{enumerate}
+\item \textit{Le \textbf{langage mathématique} (utile pour interpréter les résultats des mathématiciens) avant les \textbf{techniques mathématiques} (utiles pour développer de nouveaux résultats mathématiques)} 
+\item \textit{Une \textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités (plus intuitive) introduite pour mieux décoder les résultats de l'\textbf{A}pproche \textbf{M}athématique des \textbf{P}robabilités classiquement enseignée} 
+\item \textit{Le \textbf{cadre asymptotique} (i.e. nombre de données observées suffisamment grand) bien plus réaliste en pratique avant le \textbf{cadre Gaussien} (i.e. l'origine des données est d'un type connu mais particulier)}
+\item Outil d'aide à la décision présenté sous sa forme la plus pratique et universelle à savoir la \textbf{p-valeur}.
+\end{enumerate}}
+\item {\small\textbf{Esprit du cours}~:  Nous avons conscience qu'avoir fait le choix d'introduire un système de notation plutôt lourd mais avant tout précis, est un point qui peut effrayer l'étudiant lors des premiers cours et séances de T.D.. Cependant, il faut souligner qu'un cours alternatif classique (que nous avons déjà expérimenté avant la mise en place de celui-ci) s'appuie essentiellement sur l'\textbf{A}pproche \textbf{M}athématique des \textbf{P}robabilités nécessitant un niveau mathématique bien supérieur à celui requis dans ce cours.
+Le cours classique de Probabilités et Statistique était alors beaucoup plus orienté sur les Probabilités et la partie Statistique était principalement évoquée sur un plan méthodologique (avec pour conséquence un très grand risque de mauvaise utilisation). La raison principale est que techniquement parlant les probabilités concernant les variables aléaloires discrètes sont plus accessibles que celles concernant les variables aléatoires continues. Et pourtant, ce sont ces dernières qui sont le plus souvent intéressantes dans un contexte Statistitique.
+Bien connue des développeurs d'outils statistiques (que nous sommes), l'\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités n'est pas souvent enseignée alors qu'elle est accessible (même pour un étudiant ``non matheux") puisqu'elle s'appuie sur le sens intuitif des probabilités dont nous semblons tous disposer (dans cette société où les jeux de hasard sont très appréciés).
+Dans ce contexte, il n'y a notamment aucune différence de traitement dans la façon d'aborder le comportement aléatoire d'une variable aléatoire qu'elle soit discrète ou continue (à la différence de l'approche classique).  
+De plus, les difficultés mathématiques utilisées dans cette approche se limitent tout au plus à celles rencontrées lors du cours de Statistique Descriptive (enseigné généralement l'année précédente). Grâce à ces facilités, nous avons pu atteindre notre d'objectif de présenter la règle de décision d'un test d'hypothèses (nom donné par les matheux à l'outil d'aide à la décision) en fonction de la notion fondamentale sur un plan pratique de \textbf{p-valeur} ou valeur-p (traduction de p-value en anglais). Au niveau du langage mathématique, nous avons introduit un système de notation afin de rendre accessible cette approche aux étudiants. Si un étudiant nous fait confiance, il pourra se fixer comme objectif principal de maîtriser dans un premier temps ces nouvelles notations alourdies volontairement dans un but de précision puis dans un second temps de les simplifier (comme le font la plupart des mathématiciens) dès lors que son niveau de compréhension sera satisfaisant.
+Soulignons que l'\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités est spécifiquement adaptée à l'utilisation de l'ordinateur. Nous nous appuierons sur le logiciel \texttt{R} (libre, gratuit et accessible sous toutes les plateformes).
+Pour conclure, nous espérons que ce cours se fera malgré tout avec le \textit{sourire} et \textit{plein de bonne humeur}.} 
+\item {\small \textbf{Les documents de cours}~: Il y a trois documents proposés dans ce cours~:
+\begin{enumerate}
+\item Les supports de cours en amphithéatre (version courte \underline{imprimable} et version longue à ne consulter qu'en mode présentation).
+\item Le document de T.D. qui s'articule avec les supports de cours.
+\item Le polycopié de cours rassemblant les informations importantes du cours. 
+\end{enumerate}
+Tous les documents sont disponibles sur le site~:\\
+\centerline{\fbox{\verb!http://cqls.upmf-grenoble.fr!}}\\
+à l'onglet \texttt{Stat Inf}.} 
+\item {\small \textbf{Organisation des documents}~: Les séances de T.D. et les cours en amphithéatre s'enchaînent dans l'ordre décrit dans le tableau suivant (bien entendu à adapter selon ses préférences)~:\\
+\begin{center}\begin{tabular}{|c|c|c|c|}\hline
+Sujet & Cours & T.D. & Nbre séances\\\hline
+Présentation problématiques &  & Fiche~\ref{TdPres} & 1 \\\hline
+Introduction A.E.P. & Cours~1 & Fiche~\ref{TdProb} & 1 \\\hline
+Estimation ponctuelle & Cours~2 & Fiche~\ref{TdEst} & 1 \\\hline
+Intervalle de confiance & Cours~3 & Fiche~\ref{TdEst} & 1\\\hline
+Test d'hypothèses (construction) & Cours 4 & Fiche~\ref{TdProdAB} & 1 \\\hline
+A.E.P. en graphique (p-valeur)  & Cours 5 & Fiche~\ref{TdAEPGraph} & 1 \\\hline 
+Test d'hypothèses (méthodologie) & Cours 6-8 &  Fiche~\ref{TdHypo} & 3 \\\hline
+\end{tabular}\end{center}}
+\end{IndicList}
+
+\chapter{Présentation des\\ différents~outils}\label{TdPres}
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Proportion}~: Une proportion d'individus ayant une caractéristique (d'intérêt) parmi une population de N individus est le nombre d'individus ayant la caractéristique divisé par la taille N de la population.
+\item \textit{Moyenne}~: La moyenne de l'ensemble des N données $\textbf{z}:=(z_1,z_2,\cdots,z_N)$ correspond à la somme des ces données divisée par le nombre total N de données. Elle est usuellement notée et définie par $\overline{z}:=\displaystyle\frac1N\sum_{i=1}^N z_i$.    
+\item \textit{Proportion comme une moyenne}~: La proportion d'individus ayant une caractéristique parmi une population de N individus peut être vue comme la moyenne $\overline{z}$ des $\textbf{z}=(z_1,z_2,\cdots,z_N)$ où $z_i$ vaut 1 lorsque l'individu i a la caractéristique et 0 sinon. Autrement dit, une moyenne de valeurs ne valant que 0 ou 1 est une proportion. 
+\item \textit{Nombre moyen}~: Soit $z_i$ un nombre (d'objets) associé à tout individu i de la population. Un nombre (d'objets) moyen (par individu de la population) est alors défini comme la moyenne $\overline{z}$ des nombres (d'objets) $\textbf{z}$.
+\item \textit{Echantillon}~: Indépendament de son procédé de construction, un échantillon de taille n est un ``paquet" de n individus extrait parmi l'ensemble de la population totale des N individus. Lorsqu'en particulier, on n'est intéressé que par une variable $\mathcal{Y}$ relative à la population des N indvidus, de manière un peu abusive mais simplifiée, on appelle \underline{population} l'ensemble des N valeurs $\POP[]:=(\mathcal{Y}_1,\mathcal{Y}_2,\cdots,\mathcal{Y}_N)$ et un \underline{échantillon} (de $\mathcal{Y}$) l'ensemble des n valeurs $\Vect{y}:=(y_1,\cdots,y_n)$ correspondant aux valeurs de $\mathcal{Y}$ pour les individus extraits de la population. 
+\item \textit{Estimation}~: une estimation d'un paramètre inconnu $\theta$ sur un échantillon $\Vect{y}$ est noté $\Est{\theta}{y}$ s'exprimant littéralement par ``estimation (ou plus généralement remplaçant) du paramètre (inconnu) $\theta$ calculée à partir du jeu de données $\Vect{y}$" après avoir appliqué les conventions de notation suivantes~: \begin{enumerate}
+\item ``$\widehat{\quad}$" signifie (usuellement en Statistique) estimation (ou plus généralement, remplaçant) de la quantité sur laquelle il se trouve, ici le paramètre inconnu $\theta$ à estimer.
+\item ``$(\Vect{y})$" exprime la dépendance fonctionnelle (i.e. symbolisée dans le langage mathématique par les parenthèses qui servent à encadrer une valeur d'entrée à appliquer à une fonction afin de retourner une valeur de sortie) pouvant être traduite littéralement par ``calculée à partir de l'échantillon $\Vect{y}$". Le ``$\widehat{\theta}$" est alors vu comme une fonction retournant  en sortie l'estimation de $\theta$ lorsqu'en entrée il lui est donné un échantillon~$\Vect{y}$.
+\end{enumerate}
+\end{IndicList}
+
+\chapter{Introduction\\ aux~probabilités}\label{TdProb}
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Objectif}~: L'originalité de ce cours réside essentiellement dans l'axe qui a été choisi pour présenter les probabilités. Dans un cours classique, les développements mathématiques (de nature plutôt technique) sont proposés en priorité en laissant peu de place à l'interprétation des concepts théoriques véhiculés. Cette approche pour introduire les concepts de probabilités sera par la suite appelée \textbf{A.M.P.} pour désigner \textbf{A}pproche \textbf{M}athématique des \textbf{P}robabilités. La Statistique (Inférentielle ou Inductive, celle présentée dans ce cours) repose largement sur la théorie des Probabilités, mais de part sa vocation à être largement utilisée  par les praticiens sous une forme plutôt méthodologique, il s'ensuit souvent une difficulté pour ces utilisateurs à appréhender les conditions d'applicabilité et les points-clés des outils statistiques qui bien souvent s'expriment en fonction des concepts probabilistes pas toujours faciles à assimiler (compte tenu de leurs aspects mathématiques). Afin de remédier à cet incovénient, nous avons choisi de proposer une approche complémentaire, appelée  \textbf{A.E.P.} pour désigner \textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités, qui nous semble plus intuitive car basée sur l'expérimentation et dont la difficulté technique se limite aux outils de Statistique Desciptive présentés en première année (faciles à appréhender par les praticiens motivés surtout lorsqu'ils en ont l'utilité). L'objectif de cette fiche T.D. est essentiellement de faire le lien entre les deux approches \textbf{A.M.P.} et \textbf{A.E.P.}. Notamment, il sera essentiel de comprendre comment les praticiens pourrons être éclairés via  l'\textbf{A.E.P.}  sur les résultats techniques obtenus grâce à l'\textbf{A.M.P.} par les mathématiciens. 
+\item \textit{L'\textbf{A.E.P.} en complément de l'\textbf{A.M.P.}}~: Soit $Y$ une variable aléatoire réelle dont on suppose disposer (via l'\textbf{A.E.P.}) d'un vecteur $\textbf{y}_{[m]}:=(y_{[\cdot]})_m:=(y_{[1]},y_{[2]},\cdots,y_{[m]})$ de $m$ (a priori très grand) réalisations indépendantes entre elles. En théorie, on pourra aussi imaginer disposer du vecteur $\textbf{y}_{[+\infty]}:=(y_{[\cdot]})_{+\infty}$ qui est l'analogue de $\textbf{y}_{[m]}$ avec $m\rightarrow +\infty$. Supposons  aussi que $m=10000$ expériences aient été réalisées et les $m$ composantes de $\textbf{y}_{[m]}$ aient été stockées dans \texttt{R} sous le vecteur nommé \texttt{yy}.
+
+\begin{tabular}{|c|ccccccc|}\hline
+\textbf{Quantité} & \textbf{A.M.P.}&&\textbf{A.E.P.} ($+\infty$) && \textbf{A.E.P.}  && \textbf{Traitement \texttt{R}} \\\hline\hline
+Probabilité \phantom{\rule{1pt}{0.5cm}}& $\PPP{Y = a}$ &$=$& $\meanEmp[+\infty]{y_{[\cdot]}=a}$ &$\simeq$&$\meanEmp[m]{y_{[\cdot]}=a}$ &$\NotR$& \verb!mean(yy==a)! \\
+Probabilité \phantom{\rule{1pt}{0.5cm}}& $\PPP{Y \in ]a, b]}$ &$=$& $\meanEmp[+\infty]{y_{[\cdot]}\in ]a, b]}$ &$\simeq$&$\meanEmp[m]{y_{[\cdot]}\in ]a, b]}$ &$\NotR$& \verb!mean(a<yy & yy<=b)! \\
+Moyenne & $\EEE{Y}$ &$=$&$\meanEmp[+\infty]{y_{[\cdot]}}$ &$\simeq$&$\meanEmp[m]{y_{[\cdot]}}$ &$\NotR$& \verb!mean(yy)!\\
+Variance & $\VVV{Y}$  &$=$& $\sdEmp[+\infty]{y_{[\cdot]}}^2$ &$\simeq$&$\sdEmp[m]{y_{[\cdot]}}^2$ &$\NotR$& \verb!var(yy)=sd(yy)^2!\\
+Quantile & $\quant{\alpha}{Y}$ &$=$& $\quantEmp[+\infty]{y_{[\cdot]}}{\alpha}$  &$\simeq$&$\quantEmp[m]{y_{[\cdot]}}{\alpha}$ &$\NotR$& \verb!quantile(yy,alpha)! \\\hline
+\end{tabular}
+\\[0.2cm]
+\noindent Les formules d'obtention des quantités ci-dessus pour les colonnes \textbf{A.M.P.} et \textbf{A.E.P.} n'ont pas été fournies. Celles concernant l'\textbf{A.M.P.} requiert un niveau plutôt avancé en mathématiques et diffèrent selon la nature (discrète ou continue) de $Y$. Un point fort de l'\textbf{A.E.P.} est que les formules d'obtentions  ne dépendent pas de la nature de $Y$ et sont normalement déjà connues en 1ère année dans le cours de Statistique Descriptive (pour rappel, voir polycopié de notre cours).\\
+\noindent \textbf{IMPORTANT}~: L'objectif principal de la fiche T.D. est l'assimilation des concepts décrits dans le tableau ci-dessus. 
+\item \textit{Quelques résultats sur \textbf{A.M.P.}}~: Soient $Y$, $Y_1$ et $Y_2$ trois variables aléatoires réelles (v.a.r.) et $\lambda$ un réel.\\
+  \hspace*{.5cm}\textit{Fonction de répartition $F_Y(y):=\PPP{Y\leq y}$}~: Dans l'\textbf{A.M.P.}, elle permet de calculer,  pour tout $a \leq b$~:\\ 
+\centerline{$\PPP{a< Y \leq b} = \PPP{Y\leq b} - \PPP{Y\leq a}=F_Y(b)-F_Y(a)$.}\\
+\hspace*{.5cm}\textit{Moyenne (théorique)}~:
+$\EEE{\lambda\times Y}=\lambda\times\EEE{Y}$ et $\EEE{Y_1+Y_2}=\EEE{Y_1}+\EEE{Y_2}$\\
+\hspace*{.5cm}\textit{Variance}~: $\VVV{\lambda\times Y}=\lambda^2 \times \VVV{Y}$ et 
+$\VVV{Y_1+Y_2}=\VVV{Y_1}+\VVV{Y_2}$ \\
+\hspace*{.5cm}où $Y_1$ et $Y_2$ sont en plus supposées indépendantes.
+\end{IndicList}
+
+\begin{IndicList}{Quelques commentaires} 
+\item Un étudiant suivant ce cours n'est pas censé comprendre comment les résultats de l'\textbf{A.M.P.} ont été mathématiquement obtenus. Ils sont généralement proposés sans démonstration.
+Sa mission est en revanche de savoir comment les vérifier via l'\textbf{A.E.P.} en prenant soin de bien les interpréter. Autrement dit, l'\textbf{A.E.P.} permet à un praticien de mieux comprendre les tenants et les aboutissants des outils statistiques (qu'il utilise) développés dans le contexte de l'\textbf{A.M.P.}.
+\item Afin d'éviter de surcharger l'étude de l'\textbf{A.E.P.}, il a été décidé dans ce cours d'étaler son introduction en deux étapes. La première qui vous a été présentée dans cette fiche est naturellement complétée par une deuxième étape qui s'appuie sur la représentation graphique des répartitions de $\Vect{y}_{[m]}:=\dataEmp[m]{y_{[\cdot]}}$ (avec $m$ généralement très grand).
+Cette étape est présentée en Annexe. Un étudiant motivé pourra à sa guise choisir de compléter sa connaissance sur l'\textbf{A.E.P.} en lisant dès à présent la fiche Annexe~\ref{TdAEPGraph} en Annexe consacrée à l'\textbf{A.E.P.} dans sa version ``graphique". Il est toutefois important de rappeler que les 2 fiches T.D.~\ref{TdEst}~et~\ref{TdProdAB} suivantes ne s'appuient que sur les outils présentées dans la fiche T.D. présentée ici.      
+\item Dans la suite du cours (nous en avons déjà eu un aperçu dans la fiche introductive précédente), la plupart des variables aléatoires d'intérêt, appelées \underline{statistiques}, seront de la forme $T:=t(\Vect{Y})$ où $t$ est une fonction s'appliquant à $\Vect{Y}=(Y_1,\cdots,Y_n)$ qui représente le ``futur" échantillon, seule source d'aléatoire dans la variable aléatoire $t(\Vect{Y})$. C'est en effet le cas pour  l'estimation d'un paramètre inconnu $\theta$ qui s'écrit $\Est{\theta}{y}$ lorsqu'il est évalué à partir de l'échantillon que l'on obtient le \textbf{Jour J} (i.e. jour d'obtention des données) et qui est la réalisation de $\Est{\theta}{Y}$ représentant le procédé d'obtention de l'estimation à partir du ``futur" échantillon $\Vect{Y}$. L'étude \textbf{A.E.P.} consistera alors à construire $m$ échantillons $\dataEmp[m]{\Vect{y}_{[\cdot]}}$ où $\Vect{y}_{[k]}:=(y_{1,[k]},\cdots,y_{n,[k]})$ représente le $k^{\grave eme}$ échantillon de taille $n$ construit parmi les $m$. Le comportement aléatoire d'une statistique $T:=t(\Vect{Y})$ sera donc appréhendé via  l'\textbf{A.E.P.} en proposant $m$ réalisations indépendantes $\dataEmp[m]{t_{[\cdot]}}:=\dataEmp[m]{t(\Vect{y}_{[\cdot]})}$ avec $t_{[k]}:=t(\Vect{y}_{[k]})$ la $k^{\grave eme}$ réalisation de $T$ parmi les $m$.
+\end{IndicList}
+
+\chapter{\mbox{Estimation~ponctuelle}\\ et par intervalle\\ de confiance}\label{TdEst}
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Objectif}~: Dans la fiche d'introduction, le cadre de ce cours de Statistique Inférentielle a été posé. En question préliminaire, nous aurons, pour chaque problématique considérée, à identifier le paramètre d'intérêt (noté $\theta$ en général lorsque la problématique n'est pas encore précisée) et à bien prendre conscience que ce dernier est \textbf{inconnu}. A partir d'un échantillon $\Vect{y}$ récolté le \textbf{jour J} (cette appellation sera utilisée tout au long de ce cours), nous aurons alors comme objectif de proposer une estimation, notée $\Est{\theta}{y}$ (pour bien exprimer la dépendance en l'échantillon $\Vect{y}$), afin d'avoir une idée sur l'ordre de grandeur de $\theta$ (inconnu). Dans un deuxième temps, nous réaliserons que ce type d'estimation ponctuelle (i.e. un paramètre inconnu estimé par une unique valeur estimée) n'est pas satisfaisant en termes de confiance que l'on peut apporter à l'estimation. Le statisticien se doit alors de proposer à partir du même échantillon $\Vect{y}$, un niveau de qualité de l'estimation  $\Est{\theta}{y}$. L'\textbf{erreur standard} (``standard error" en anglais) est alors introduite s'exprimant comme une estimation de l'écart-type (i.e. indicateur de variabilité) de la ``future" estimation $\Est{\theta}{Y}$ (à partir du futur échantillon $\Vect{Y}$) ayant pour réalisation $\Est{\theta}{y}$ le \textbf{jour J}. En appliquant le système notation Norme CQLS (voir polycopié de cours), cette erreur standard se note $\Est{\sigma_{\widehat{\theta}}}{y}$.
+La meilleure façon de proposer une estimation tenant compte du couple d'informations $(\Est{\theta}{y},\Est{\sigma_{\widehat{\theta}}}{y})$ disponible le \textbf{jour J} est de construire un intervalle de confiance $IC_{\theta,1-\alpha}(\Vect{y}):=[\Int{\theta}{\inf}{y},\Int{\theta}{\sup}{y}]$ à $1-\alpha$ de niveau de confiance. Grâce à la l'\textbf{A.E.P.}, nous aurons comme mission prioritaire de bien interpréter la notion de niveau de confiance. 
+\item \textit{Loi de probabilité de l'écart standardisé}~: Les paramètres d'intérêt considérés dans ce cours sont de manière plus ou moins directe tous reliés à la moyenne. Ainsi, dans un cadre asymptotique où nous supposerons disposer d'un nombre suffisant de données, nous pourrons hériter pleinement de la puissance du Théorème de la limite centrale que nous avons étudié précédemment (notamment dans la fiche T.D.~\ref{TdProb} mais aussi dans la fiche Annexe~\ref{TdAEPGraph} consacrée aux représentations graphiques des lois de probabilité). Dans le contexte de l'estimation d'un paramètre $\theta$ traité dans ce cours, il s'exprime par ($n$ supposé suffisamment grand)~:
+\[
+ \widehat{\Theta}_n:=\Est{\theta}{Y}\SuitApprox \mathcal{N}\left(\theta,\sigma_{\widehat{\theta}}\right) \Leftrightarrow \Delta_n:=\frac{\Est{\theta}{Y} -\theta }{\sigma_{\widehat{\theta}} } \SuitApprox \mathcal{N}(0,1).
+\]
+où $\sigma_{\widehat{\theta}}:=\sigma\left(\Est{\theta}{Y}\right)=\sqrt{\VVV{\Est{\theta}{Y}}}$ est l'écart-type de la ``future" estimation  $\Est{\theta}{Y}$. Cependant, en général, le paramètre $\sigma_{\widehat{\theta}}$ est lui-même inconnu et doit être estimé par $\Est{\sigma_{\widehat{\theta}}}{y})$ correspondant à  l'erreur standard. Un résultat applicable dans le cas où $\sigma_{\widehat{\theta}}$ est inconnu, est le suivant~:
+\[
+  \Delta_{\widehat{\theta},\theta}:=\delta_{\widehat{\theta},\theta}(\Vect{Y}):=\frac{\Est{\theta}{Y} -\theta }{\Est{\sigma_{\widehat{\theta}}}{Y} } \SuitApprox \mathcal{N}(0,1).
+\]
+
+\item \textit{La probabilité comme une extension de la logique}~: Nous insistons sur le fait qu'une probabilité d'un \underline{événement} égale à \textbf{0} ou \textbf{1} signifie respectivement de manière équivalente que l'\underline{événement} (dit \textbf{certain}) est \textbf{Faux} ou \textbf{Vrai}.
+C'est en ce sens que la ``probabilité" est une extension de la ``logique" (en tant que théorie mathématique). Un événement \textbf{incertain} a donc une probabilité strictement comprise entre 0 et 1 et exprime donc qu'il est peut-être Vrai ou peut-être Faux, la probabilité de l'événement étant d'autant plus grande (resp. petite) que l'événement a de plus en plus de chance d'être Vrai (resp. Faux). Dans le contexte statistique, un événement s'exprime à partir d'une statistique $T:=t(\Vect{Y})$ sous la forme  $\left(T\in E\right)\Leftrightarrow\left(t(\Vect{Y})\in E\right)$ où $E$ est un sous-ensemble de modalités de $T:=t(\Vect{Y})$. Ainsi, connaissant la loi de probabilité de $T:=t(\Vect{Y})$, nous serons en mesure d'évaluer $\PPP{T\in E}=\PPP{t(\Vect{Y})\in E}$ comprise strictement entre 0 et 1 puisque $\Vect{Y}$ est intrinsèquement aléatoire. Une erreur très courante est de confondre, le \textbf{Jour J}, $\PPP{t(\Vect{y})\in E}$ avec $\PPP{t(\Vect{Y})\in E}$ alors que  \fbox{$\PPP{t(\Vect{y})\in E}\in\{0,1\}$}$\neq$\fbox{$\PPP{t(\Vect{Y})\in E}\in]0,1[$} puisque $\Vect{y}$ est déterministe (i.e. strictement non aléatoire) en tant que réalisation de $\Vect{Y}$.
+\end{IndicList}
+
+\chapter{Traitement\\ des problématiques \\des produits A et B}\label{TdProdAB}
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Objectif}~: En pratique, on peut être spécialement intéressé par une prise de décision qui dépend de la comparaison du \textbf{paramètre d'intérêt} $\theta$ inconnu par rapport à une \textbf{valeur de référence} $\theta_0$ (fixée selon la problématique). Cette comparaison sera par la suite appelée \textbf{assertion d'intérêt}.
+Ne disposant que d'une estimation $\Est{\theta}{y}$ la décision conduisant à conclure que l'assertion d'intérêt est vraie à partir de l'échantillon $\Vect{y}$ du \textbf{jour J}  ne peut pas être complètement fiable. L'objectif est de construire un outil d'aide à la décision nous garantissant un risque d'erreur de se tromper dans notre décision de valider l'assertion d'intérêt n'excédant pas une valeur que nous nous sommes fixée (généralement autour des 5\%).
+\item \textit{Paramètre d'écart standardisé}~: Comparer la paramètre d'intérêt $\theta$ à une valeur de référence $\theta_0$ est strictement équivalent à comparer leur différence ou leur rapport à 0 ou 1. Dans le cadre asymptotique, l'assertion d'intérêt pourra toujours se réécrire en fonction d'un paramètre d'écart standardisé $\delta_{\theta,\theta_0}:=\frac{\cqlsbm{\theta-\theta_0}} {\sigma_{\widehat{\theta}}}$. Il est important d'apprendre à lire cette expression où le numérateur $\theta-\theta_0$ a été mis en \textbf{gras} pour souligner son rôle plus important (en termes d'information pour l'utilisateur) par rapport au dénominateur $\sigma_{\widehat{\theta}}$ ayant été introduit principalement pour des raisons techniques (mais toutefois indispensables dans la construction de l'outil d'aide à la décision).  Il est alors direct de voir que~:
+\[
+\mbox{\textbf{Assertion d'intérêt}}\Longleftrightarrow \left\{\begin{array}{ccccc}
+  \theta<\theta_0&\Longleftrightarrow &\theta-\theta_0<0 &\Longleftrightarrow &\delta_{\theta,\theta_0}<0\\ 
+  \theta>\theta_0&\Longleftrightarrow&\theta-\theta_0>0 &\Longleftrightarrow  &\delta_{\theta,\theta_0}>0\\
+  \theta\neq\theta_0&\Longleftrightarrow&\theta-\theta_0\neq0 &\Longleftrightarrow  &\delta_{\theta,\theta_0}\neq0\\
+  \end{array}\right\}
+\]
+En commentaire non prioritaire, on peut tout de même remarquer que l'interprétation du $\sigma_{\widehat{\theta}}$ dans l'expression de $\delta_{\theta,\theta_0}$ est assez naturelle~: plus l'estimation de $\theta$ est fiable, se traduisant par un $\sigma_{\widehat{\theta}}$ d'autant plus faible, plus le paramètre d'écart standardisé $\delta_{\theta,\theta_0}$ est grand et ainsi plus facile à comparer à 0.
+\item \textit{Estimation du paramètre d'écart standardisé}~: Dépendant du paramètre d'intérêt $\theta$ inconnu, le paramètre d'écart standardisé $\delta_{\theta,\theta_0}$ est lui-même inconnu (en fait doublement inconnu puisque dépendant aussi de $\sigma_{\widehat{\theta}}$ inconnu). Il est facilement estimable à partir de l'échantillon $\Vect{y}$ du \textbf{jour J}. Nous l'exprimons ci-dessous à partir du ``futur" échantillon $\Vect{Y}$~:
+\[
+\Est{\delta_{\theta,\theta_0}}{Y}:=\frac{\Est{\theta}{Y}-\theta_0}{\Est{\sigma_{\widehat{\theta}}}{Y}}
+\]
+Pour mesurer les risques d'erreur de décision, nous serons tout particulièrement intéressés par la loi de probabilité de  $\Est{\delta_{\theta,\theta_0}}{Y}$ lorsque $\theta=\theta_0$. Dans ce cas très particulier, nous remarquons que lorsque $n$ est suffisamment grand~:
+\[
+\Est{\delta_{\theta,\theta_0}}{Y}:=\frac{\Est{\theta}{Y}-\mbox{\fbox{$\theta_0$}}}{\Est{\sigma_{\widehat{\theta}}}{Y}}=\frac{\Est{\theta}{Y}-\mbox{\fbox{$\theta$}}}{\Est{\sigma_{\widehat{\theta}}}{Y}}=:\delta_{\widehat{\theta},\theta}(\Vect{Y})\SuitApprox \mathcal{N}(0,1)
+\]
+où $\delta_{\widehat{\theta},\theta}(\Vect{Y})$ a été introduit au début de la fiche T.D.~\ref{TdEst}.
+\end{IndicList}
+
+\appendix\chapter{Représentations\\graphiques~dans~l'A.E.P.}\label{TdAEPGraph}
+\begin{IndicList}{Indications préliminaires} 
+\item \textit{Objectif}~: Comme nous l'avons vu à la fiche T.D.~\ref{TdProb}, l'\textbf{A.E.P.} s'appuie sur l'étude descriptive de $m$ (grand) réalisations indépendantes $\Vect{y}_{[m]}:=\dataEmp[m]{y_{[\cdot]}}$ d'une variable aléatoire d'intérêt $Y$. Afin d'alléger l'introduction de l'\textbf{A.E.P.}, cette étude descriptive a été volontairement limitée à une étude quantitative n'utilisant aucune représentation graphique issue de la Statistique Descriptive. Les graphiques étant d'une grande aide pour représenter les répartitions de séries de données, ils vont donc nous aider à mieux appréhender le comportement aléatoire des variables aléatoires d'intérêt.
+\item \textit{Représentations graphiques usuelles}~: Les représentations graphiques des répartitions diffèrent selon la nature des variables. Ainsi, lorsque la variable est de nature discrète (i.e. les modalités ou valeurs possibles sont dénombrables), on utilise un diagramme en bâton, et lorsqu'elle est de nature continue (i.e. à valeurs dans un continuum qui est non dénombrable), un histogramme est utilisé. Ce choix pose problème lorsqu'une étude expérimentale nous amène à comparer sur un même graphique des répartitions de plusieurs variables n'ayant pas la même nature. Il n'est pas possible de représenter une variable continue par un diagramme en bâton mais il en est tout autrement pour une variable discrète qui peut se représenter via un \underline{histogramme discret} que nous allons introduire très prochainement. 
+\item \textit{Histogramme (continu)}~: Rappelons les règles générales pour construire un histogramme représentant la répartition de la série  $z_1,z_2,\cdots,z_m$~:
+\begin{enumerate}
+\item L'ensemble des modalités est découpé en une partition d'intervalles pas forcément de même largeur.
+\item Chaque intervalle de la partition est représenté par un rectangle ayant pour base l'intervalle et de surface égale à la proportion des $z_1,z_2,\cdots,z_m$ appartenant au dit intervalle.
+\item La somme de tous les rectangles est donc égale à 100\%=1.
+\end{enumerate}
+Pour construire pratiquement un histogramme, il est conseillé au préalable de trier les $z_1,z_2,\cdots,z_m$ afin de les regrouper et ainsi de les affecter  plus facilement à leurs intervalles d'appartenance. Au lieu de directement construire les rectangles associés aux intervalles de la partition, nous avons choisi d'associer à chaque donnée $z_i$ un i\ieme\ rectangle, que l'on appellera \underline{brique} (l'histogramme étant un vu  de manière imagée comme un ``mur")~:
+\begin{enumerate}
+\item Toute brique associée à $z_i$ a pour base l'intervalle d'appartenance de $z_i$ et a une surface égale à $\frac1m$.
+\item La somme de toutes les briques associées aux $z_1,z_2,\cdots,z_m$ est donc égale à 1.
+\item Un rectangle associé à un intervalle est l'empilement de toutes les briques associés aux $z_i$ de l'intervalle.  
+\end{enumerate}
+Cette version de l'histogramme est équivalente à la version originale et propose en plus une représentation individualisée de toutes les données $z_1,z_2,\cdots,z_m$. Ce point particulier sera un atout pour comprendre la représentation graphique usuelle de loi de probabilités de variable aléatoire continue. 
+\item \textit{Histogramme discret}~: Dans le même esprit, nous allons maintenant présenter la notion d'\underline{histogramme discret} en l'adaptant à des données $z_1,z_2,\cdots,z_m$ à valeurs dans un espace dénombrable (donc pas dans un continuum)~:
+\begin{enumerate}
+\item Une brique associée à $z_i$ a pour surface $\frac1m$ et sa base est centrée en $z_i$ (à la différence d'une brique d'un histogramme continu où $z_i$ doit appartenir à l'intervalle représentant la base de la brique).
+\item Les bases des briques sont fixées de sorte que le mur (i.e. l'histogramme) constitué de l'ensemble des briques ait le moins d'espace (trou) possible. Les briques voisines doivent se toucher dès que possible.
+\item La somme des briques est toujours égale à 100\%=1 et l'empilement des briques associées aux données ayant même modalité forme un rectangle dont la surface est égale à la proportion des données égales à la modalité associée.  
+\end{enumerate}
+\textbf{IMPORTANT}~: Nous remarquons que dans la représentation d'histogramme (discret ou continu) les valeurs en ordonnée n'ont pas d'unité réellement interprétable. En revanche, lorsque les bases des rectangles sont toutes les mêmes, les hauteurs pourront donc être comparées entre elles pour nous éclairer sur la répartition des données puisque les aires des surfaces des rectangles (vues comme des empilements de briques) représentent naturellement des proportions de données.  
+\end{IndicList}
+
+
+
+
+
+
+\end{document}
+
+

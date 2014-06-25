@@ -1,0 +1,996 @@
+
+\documentclass[11pt]{beamer}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage[french]{babel}
+\usepackage{float}
+\usepackage{xkeyval,calc,listings,tikz}
+\usepackage{slashbox}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
+\input /Users/remy/cqls/texinputs/Cours/testInclude
+
+
+\mode<article>{\usepackage{fullpage}}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+\usetheme{Antibes}
+%\usecolortheme{lily}
+
+\definecolor{VertFonce}{rgb}{0,.4,.0}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  % or ...
+\usetheme{Boadilla}
+
+  \setbeamercovered{transparent=5}
+  % or whatever (possibly just delete it)
+}
+%\setbeamercovered{dynamic}
+
+
+\subject{Talks}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+\setbeamercovered{invisible}
+\newcommand{\Sim}{{\star}}
+\newcommand{\ok}{ \textcolor{green}{\large$\surd$}}
+\newcommand{\nok}{ \textcolor{red}{\large X}}
+
+
+\usetikzlibrary{arrows,%
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+\tikzset{
+  every plot/.style={prefix=plots/pgf-},
+  shape example/.style={
+    color=black!30,
+    draw,
+    fill=yellow!30,
+    line width=.5cm,
+    inner xsep=2.5cm,
+    inner ysep=0.5cm}
+}
+
+\definecolor{darkgreen}{rgb}{0,.4,.0}
+
+
+\definecolor{darkgreen}{rgb}{0,.4,.0}
+
+%Styles
+
+%Title
+
+\beamertemplateshadingbackground{green!50}{yellow!50}
+\title[Problématiques Produits A et B]
+{Cours de Statistiques Inférentielles}
+\author{CQLS~: cqls@upmf-grenoble.fr}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+%\begin{frame}
+%  \titlepage
+%\end{frame}
+
+\section{Rédaction standard}
+\begin{frame}
+\frametitle{Rédaction standard}
+
+\begin{minipage}{11cm}
+
+\centerline{\fbox{ \large \textit{  R{\'e}daction standard d'un test d'hypoth{\`e}ses param{\'e}trique  }} }\vspace*{.2cm}  
+
+\fbox{
+\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Hypoth{\`e}ses de test~:} 
+$$\mathbf{H_0}: \theta=\theta_0\mbox{ versus }\mathbf{H_1}:\left\{
+\begin{array}{ll} 
+\theta>\theta_0 & \mbox{\textbf{(a)}: {\it unilatéral droit}}\\ 
+\theta<\theta_0 & \mbox{\textbf{(b)}: {\it unilatéral gauche}} \\ 
+\theta\neq\theta_0 & \mbox{\textbf{(c)}: {\it bilatéral}}
+\end{array}\right.
+$$
+
+\noindent \textbf{Statistique de test sous $\mathbf{H_0}$}~:
+$$\Est{\delta_{\theta,\theta_0}}{Y}\leadsto\mathcal{L}_0 \mbox{ ({\`a} pr{\'e}ciser selon probl{\'e}matique)}$$ 
+
+\noindent \textbf{R{\`e}gle de d{\'e}cision~:}
+on accepte $\mathbf{H_1}$ si\\
+$\left\{ 
+\begin{array}{l} 
+\mbox{\textbf{(a): }} 
+\Est{\delta_{\theta,\theta_0}}{y}>\delta^{+}_{\lim,\alpha} \mbox{ ou p-valeur(droite)}<\alpha \\ 
+\mbox{\textbf{(b): }} 
+\Est{\delta_{\theta,\theta_0}}{y}<\delta^{-}_{\lim,\alpha}\mbox{ ou p-valeur(gauche)}<\alpha \\ 
+ \mbox{\textbf{(c): }}  
+\left( \Est{\delta_{\theta,\theta_0}} {y} < \delta^{-}_{\lim,\alpha/2} \mbox{ ou } \Est{\delta_{\theta,\theta_0}} {y} > \delta^{+}_{\lim,\alpha/2} \right)\mbox{ ou  p-valeur(bi)}<\alpha
+\end{array}\right.$
+}
+\end{minipage}}\end{minipage}
+\end{frame}
+
+\begin{frame}
+\frametitle{Un tableau récapitulatif pour les instructions \texttt{R}}
+{\small \hspace*{-.3cm} \begin{tabular}{|c|c|c|}
+\hline
+ \multicolumn{3}{|c|}{\color{blue} \large Assertion d'intérêt} \\ 
+$\mathbf{H_1}: \theta<\theta_0$ & $\mathbf{H_1}: \theta>\theta_0$&$\mathbf{H_1}: \theta\neq\theta_0$ \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Statistique de test sous $H_0$} \\
+\multicolumn{3}{|c|}{$\Est{\delta_{\theta,\theta_0}}{Y} \leadsto \mathcal{L}_0 \NotR \mathtt{{\color{purple}loi}({\color{purple}...})}$} \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Le jour J avec les données $\Vect{y}$} \\ \multicolumn{3}{|c|}{$\Est{\delta_{\theta,\theta_0}}{y} \NotR \mathtt{deltaEst.H0}$} \\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large Quantile(s)} \\
+$\delta_{lim,\alpha}^- \NotR \mathtt{q{\color{purple}loi}(\alpha,{\color{purple}...})}$ &  $\delta_{lim,\alpha}^+ \NotR \mathtt{q{\color{purple}loi}(1-\alpha,{\color{purple}...})}$& $\delta_{lim,\frac{\alpha}2}^- \NotR \mathtt{q{\color{purple}loi}(\alpha,{\color{purple}...})}$\\
+&& $\delta_{lim,\frac{\alpha}2}^+ \NotR \mathtt{q{\color{purple}loi}(1-\alpha/2,{\color{purple}...})}$\\
+\hline \hline
+\multicolumn{3}{|c|}{\color{blue} \large P$-$valeur}\\
+p$-$val(gauche)$\NotR$&p$-$val(droite)$\NotR$ & p$-$val(bi)$\NotR$ \\
+{\scriptsize$\mathtt{p{\color{purple}loi}(deltaEst.H0,{\color{purple}...})}$}&{\scriptsize $\mathtt{1-p{\color{purple}loi}(deltaEst.H0,{\color{purple}...})}$} & 
+{\tiny$ \mathtt{2*p{\color{purple}loi}(deltaEst.H0,{\color{purple}...})}$ si p$-$val(g)$<$p$-$val(d)} \\
+&& {\tiny$ \mathtt{2*(1-p{\color{purple}loi}(deltaEst.H0,{\color{purple}...}))}$ sinon}\\
+\hline
+\end{tabular}}
+\end{frame}
+
+
+\section{Problématiques avec 1 paramètre}
+\begin{frame}
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+\pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,6.4)}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+\pgfnodebox{Par2}[stroke]{\pgfxy(7.5,7.2)}{2 paramètres}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par2}{-90}{90}{0.5cm}{0.5cm}
+
+\end{pgfpicture}
+\pgftext[top,right,at={\pgfxy(0,4.0)}]{\begin{minipage}{11cm}
+
+
+\end{minipage}}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+\pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,6.4)}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+
+\end{pgfpicture}
+\pgftext[top,right,at={\pgfxy(0,4.0)}]{\begin{minipage}{11cm}
+
+
+\end{minipage}}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+\pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,6.4)}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+
+  \pgfnodebox{Asympt}[stroke]{\pgfxy(3,4.4)}{\color[rgb]{0,0.6,0}Asymptotique}{2pt}{2pt}
+\pgfnodebox{Gauss}[stroke]{\pgfxy(8,4.4)}{\color[rgb]{0,0.6,0}Gaussien}{2pt}{2pt}
+\pgfnodeconncurve{Par1}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+\pgfnodeconncurve{Par1}{Gauss}{-90}{90}{2cm}{0.5cm} 
+
+\end{pgfpicture}
+\pgftext[top,right,at={\pgfxy(0,4.0)}]{\begin{minipage}{11cm}
+
+
+\end{minipage}}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+\pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,6.4)}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+
+  \pgfnodebox{Asympt}[stroke]{\pgfxy(3,4.4)}{\color[rgb]{0,0.6,0}Asymptotique}{2pt}{2pt}
+\pgfnodeconncurve{Par1}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+
+\end{pgfpicture}
+\pgftext[top,right,at={\pgfxy(0,4.0)}]{\begin{minipage}{11cm}
+\hrulefill\\
+%%% 1 param et asympt
+\noindent\textbf{Données~:} $\Vect{Y}=(Y_1,\cdots,Y_n)$ avec {\color{blue}$n\geq 30$} ($n$ grand).\\
+\noindent \textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{\begin{tabular}{|c|c|}\hline
+$p^\bullet$ & $\scriptsize\Est{\delta_{p^\bullet,p_0}}{Y}:=\frac{\Est{p^\bullet}{Y}-p_0}{\sqrt{\frac{p_0\times(1-p_0)}n}}\SuitApprox \mathcal{N}(0,1)$\\\hline
+$\mu^\bullet$ &  $\scriptsize\Est{\delta_{\mu^\bullet,\mu_0}}{Y}:=\frac{\Est{\mu^\bullet}{Y}-\mu_0}{\Est{\sigma_{\widehat{\mu^\bullet}}}{Y}}\SuitApprox \mathcal{N}(0,1)$\\\hline
+$\sigma^2_\bullet$ & $\scriptsize\Est{\delta_{\sigma^2_\bullet,\sigma^2_0}}{Y}:=\frac{\Est{\sigma^2_\bullet}{Y}-\sigma^2_0}{\Est{\sigma_{\widehat{\sigma^2_\bullet}}}{Y}}\SuitApprox \mathcal{N}(0,1)$\\\hline
+\end{tabular}}
+
+
+\end{minipage}}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+\pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,6.4)}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+\pgfnodebox{Gauss}[stroke]{\pgfxy(8,4.4)}{\color[rgb]{0,0.6,0}Gaussien}{2pt}{2pt}
+\pgfnodeconncurve{Par1}{Gauss}{-90}{90}{2cm}{0.5cm} 
+
+\end{pgfpicture}
+\pgftext[top,right,at={\pgfxy(0,4.0)}]{\begin{minipage}{11cm}
+\hrulefill\\
+%%% 1 param et gaussien 
+\noindent\textbf{Données~:} $\Vect{Y}=(Y_1,\cdots,Y_n)$ avec $Y{\color{blue}\leadsto \mathcal{N}(\mu^\bullet,\sigma_\bullet)}$\\
+\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\ 
+\centerline{\begin{tabular}{|c|c|}\hline
+$\mu^\bullet$ &  $\scriptsize\Est{\delta_{\mu^\bullet,\mu_0}}{Y}:=\frac{\Est{\mu^\bullet}{Y}-\mu_0}{\Est{\sigma_{\widehat{\mu^\bullet}}}{Y}}\leadsto \mathcal{S}t(n-1)$\\\hline
+$\sigma^2_\bullet$ & $\scriptsize\Est{\delta_{\sigma^2_\bullet,\sigma^2_0}}{Y}:=(n-1)\times\frac{\Est{\sigma^2_\bullet}{Y}}{\sigma^2_0}\leadsto \chi^2(n-1)$\\\hline
+\end{tabular}}
+
+
+
+\end{minipage}}
+
+\end{frame}
+
+\section{P-valeur (suite)}
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{alf2}{img/alf2}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{alf7}{img/alf7}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{alf8}{img/alf8}
+
+
+
+
+
+
+
+
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{dict}{img/dict}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{dict2}{img/dict2}
+
+
+
+
+
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-4>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Exemple compétence Alfred}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Problématique de la dictée}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1-2>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Assertion d'intérêt}~: Alfred est compétent $\Leftrightarrow$ $\mathbf{H_1}:\sigma_A^2<0.1$.\\
+\textbf{Décision} (au vu des $n=20$ données)~: \\
+\hspace*{1cm}Accepter $\mathbf{H_1}$  si
+\only<1>{${\color<1>{orange}\Est{\delta_{\sigma_A^2,0.1}}{y^A}}<{\color<1>{darkgreen}\delta_{lim,\alpha}^-}$}
+\only<2>{${\color<2>{orange}p-valeur(gauche)}<{\color<2>{darkgreen}\alpha}$}\end{minipage}}}}
+\only<3-4>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question}~: Peut-on pour autant plutôt penser au vu de ce même jeu de données qu'Alfred n'est pas compétent (i.e. $\mathbf{H_1}:\sigma^2_A>0.1$)~?\\
+\textbf{Réponse}~: p-valeur droite = \only<3>{?}\only<4>{1-(p-valeur gauche)=1-21.16\%=78.84\%}\\
+\visible<4>{car \textbf{la somme des p-valeurs droite et gauche est égale à 1!}}\end{minipage}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11.3cm}
+\textbf{Assertion d'intérêt}~: Il y a un effet sur le niveau des bacheliers en orthographe $\Leftrightarrow$ $\mathbf{H_1}:\mu^D \neq 6.3$.\\
+\textbf{Décision} (au vu des $n=25$ données)~: \\
+Accepter $\mathbf{H_1}$  si
+{\small
+\only<5>{${\color<5>{orange}\Est{\delta_{\mu^D,6.3}}{y^D}}<{\color<5>{darkgreen}\delta_{lim,\alpha/2}^-}$ ou ${\color<5>{orange}\Est{\delta_{\mu^D,6.3}}{y^D}}>{\color<5>{darkgreen}\delta_{lim,\alpha/2}^+}$ }
+\only<6>{${\color<6>{orange}\mbox{p-valeur (bi)}\!=\!2\!\times\!\mbox{min(p-valeur gauche,p-valeur droite)}}\!<\!{\color<6>{darkgreen}\alpha}$}
+}\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<1>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf2}}}}
+\only<2-3>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf7}}}}
+\only<4>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf8}}}}
+\only<1-4>{
+\pgfputat{\pgfxy(0.5721648758217379,0.9714797908880797)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\sigma^2_A,0.1}}{Y^A}$ sous $\mathbf{H}_0:\sigma_A^2=0.1\Leftrightarrow \delta_{\sigma_A^2,0.1}=19$} }}}
+\only<1-3>{
+\pgfputat{\pgfxy(0.5721648758217379,0.05611716230336712)}{\pgfbox[center,center]{
+{\scriptsize \only<1>{{\color{orange}$\Est{\delta_{\sigma^2_A,0.1}}{y^A}\stackrel{R}{=}$\texttt{19*var(yA)/0.1=13.919}}$\nless${\color{darkgreen}$\delta_{lim,5\%}^-\stackrel{R}{=}$\texttt{qchisq(.05,19)=10.117}}}
+\only<2-3>{{\color{orange}$p-valeur (gauche)\stackrel{R}{=}$\texttt{pchisq(19*var(yA)/0.1,19)=21.16\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}}}}
+\only<4>{
+\pgfputat{\pgfxy(0.5721648758217379,0.05611716230336712)}{\pgfbox[center,center]{
+{\scriptsize  {\color{orange}$p-valeur (droite)\stackrel{R}{=}$\texttt{1-pchisq(19*var(yA)/0.1,19)=78.84\%}}$\nless${\color{darkgreen}$\alpha=5\%$}
+}}}}
+\only<5>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{dict}}}}
+\only<6>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{dict2}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5636363636363636,0.9615726728634971)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\mu^D,6.3}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=6.3\Leftrightarrow \delta_{\mu^D,6.3}=0$} }}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5636363636363636,0.07307827151614543)}{\pgfbox[center,center]{
+{\scriptsize \only<5>{{\color{orange}$\Est{\delta_{\mu^D,6.3}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-6.3)/seMean(yD)=-1.985}}
+$\left\{\begin{array}{l}
+\nless{\color{darkgreen}\delta_{lim,2.5\%}^-\simeq -2.063899}\\
+\ngtr{\color{darkgreen}\delta_{lim,2.5\%}^+\simeq 2.063899}
+\end{array}\right.$
+}
+\only<6>{{\color{orange}$p-valeur (bi)\stackrel{R}{=}$ \texttt{2*pt((mean(yD)-6.3)/seMean(yD),24) =5.87\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+\section{Exercices (1 échantillon)}
+\begin{frame}
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+\pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,6.4)}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+
+  \pgfnodebox{Asympt}[stroke]{\pgfxy(3,4.4)}{\color[rgb]{0,0.6,0}Asymptotique}{2pt}{2pt}
+\pgfnodeconncurve{Par1}{Asympt}{-90}{90}{0.5cm}{0.5cm}
+
+\end{pgfpicture}
+\pgftext[top,right,at={\pgfxy(0,4.0)}]{\begin{minipage}{11cm}
+\hrulefill\\
+%%% 1 param et asympt
+\noindent\textbf{Données~:} $\Vect{Y}=(Y_1,\cdots,Y_n)$ avec {\color{blue}$n\geq 30$} ($n$ grand).\\
+\noindent \textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{\begin{tabular}{|c|c|}\hline
+$p^\bullet$ & $\scriptsize\Est{\delta_{p^\bullet,p_0}}{Y}:=\frac{\Est{p^\bullet}{Y}-p_0}{\sqrt{\frac{p_0\times(1-p_0)}n}}\SuitApprox \mathcal{N}(0,1)$\\\hline
+$\mu^\bullet$ &  $\scriptsize\Est{\delta_{\mu^\bullet,\mu_0}}{Y}:=\frac{\Est{\mu^\bullet}{Y}-\mu_0}{\Est{\sigma_{\widehat{\mu^\bullet}}}{Y}}\SuitApprox \mathcal{N}(0,1)$\\\hline
+$\sigma^2_\bullet$ & $\scriptsize\Est{\delta_{\sigma^2_\bullet,\sigma^2_0}}{Y}:=\frac{\Est{\sigma^2_\bullet}{Y}-\sigma^2_0}{\Est{\sigma_{\widehat{\sigma^2_\bullet}}}{Y}}\SuitApprox \mathcal{N}(0,1)$\\\hline
+\end{tabular}}
+
+
+\end{minipage}}
+
+\end{frame}
+
+\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{pvalmuDietn50sq}{img/pvalmuDietn50sq}
+
+\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{pvalmuDietn50sp}{img/pvalmuDietn50sp}
+
+
+
+
+\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{pvalalfredn50sq}{img/pvalalfredn50sq}
+
+\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{pvalalfredn50sp}{img/pvalalfredn50sp}
+
+
+
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-1
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Chomage (abr. quant)}}}}
+\only<2-2
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Chomage (abr. p-val)}}}}
+\only<3-13>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Diététicien (quantile)}}}}
+\only<14-24>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Diététicien (p-valeur)}}}}
+\only<25-25
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Diététicien (abr. quant)}}}}
+\only<26-26
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Diététicien (abr. p-val)}}}}
+\only<27-37>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Alfred (quantile)}}}}
+\only<38-48>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Alfred (p-valeur)}}}}
+\only<49-49
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Alfred (abr. quant)}}}}
+\only<50-50
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Alfred (abr. p-val)}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1-1
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que le taux de chômage en France serait cette année inférieur à $10\%$
+au vu des données \texttt{yC} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{-0.942809}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qnorm(0.95)}$\simeq$ \texttt{1.644854} 
+
+\end{minipage}}}}
+\only<2-2
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que le taux de chômage en France serait cette année inférieur à $10\%$
+au vu des données \texttt{yC} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{pnorm(deltaEst.H0)}$\simeq$ \texttt{0.1728893}
+\end{minipage}}}}
+\only<3-4>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction des paramètres d'intérêt et d'écart~?\only<3>{\\\textbf{Assertion d'intérêt}~: le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine}\only<4>{\\ \centerline{$\mathbf{H_1}$:$\mu^{D}>4$ $\Longleftrightarrow$ $\delta_{\mu^{D},4}:={\displaystyle \frac{\mu^{D}-4}{
+\sigma_{\cqlshat{\mu^{D}}}
+}} >0$}}
+\end{minipage}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<7-8>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\mu^{D},4}}{Y^{D}}$ dans la pire des situations~?\end{minipage}}}}
+\only<9-10>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment s'écrit la règle de décision ne produisant pas plus de 5\% d'erreur de première espèce~? \\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{2.044722}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qnorm(0.95)}$\simeq$ \texttt{1.644854}
+\end{minipage}}}}
+\only<11-13>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment conclueriez-vous au vu des données \texttt{yD} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{2.044722}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qnorm(0.95)}$\simeq$ \texttt{1.644854} 
+\end{minipage}}}}
+\only<14-15>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction des paramètres d'intérêt et d'écart~?\only<14>{\\\textbf{Assertion d'intérêt}~: le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine}\only<15>{\\ \centerline{$\mathbf{H_1}$:$\mu^{D}>4$ $\Longleftrightarrow$ $\delta_{\mu^{D},4}:={\displaystyle \frac{\mu^{D}-4}{
+\sigma_{\cqlshat{\mu^{D}}}
+}} >0$}}
+\end{minipage}}}}
+\only<16-17>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<18-19>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\mu^{D},4}}{Y^{D}}$ dans la pire des situations~?\end{minipage}}}}
+\only<20-21>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment s'écrit la règle de décision ne produisant pas plus de 5\% d'erreur de première espèce~? \\
+\textbf{Indic \texttt{R}}~: \texttt{pnorm(deltaEst.H0)}$\simeq$ \texttt{0.9795589}\end{minipage}}}}
+\only<22-24>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment conclueriez-vous au vu des données \texttt{yD} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{pnorm(deltaEst.H0)}$\simeq$ \texttt{0.9795589}\end{minipage}}}}
+\only<25-25
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine
+au vu des données \texttt{yD} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{2.044722}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qnorm(0.95)}$\simeq$ \texttt{1.644854} 
+
+\end{minipage}}}}
+\only<26-26
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine
+au vu des données \texttt{yD} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{pnorm(deltaEst.H0)}$\simeq$ \texttt{0.9795589}
+\end{minipage}}}}
+\only<27-28>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction des paramètres d'intérêt et d'écart~?\only<27>{\\\textbf{Assertion d'intérêt}~: Alfred est compétent}\only<28>{\\ \centerline{$\mathbf{H_1}$:$\sigma^2_{A}<0.1$ $\Longleftrightarrow$ $\delta_{\sigma^2_{A},0.1}:={\displaystyle \frac{\sigma^2_{A}-0.1}{
+\sigma_{\cqlshat{\sigma^2_{A}}}
+}} <0$}}
+\end{minipage}}}}
+\only<29-30>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<31-32>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}$ dans la pire des situations~?\end{minipage}}}}
+\only<33-34>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment s'écrit la règle de décision ne produisant pas plus de 5\% d'erreur de première espèce~? \\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{-2.762438}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qnorm(0.95)}$\simeq$ \texttt{1.644854}
+\end{minipage}}}}
+\only<35-37>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment conclueriez-vous au vu des données \texttt{yA} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{-2.762438}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qnorm(0.95)}$\simeq$ \texttt{1.644854} 
+\end{minipage}}}}
+\only<38-39>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction des paramètres d'intérêt et d'écart~?\only<38>{\\\textbf{Assertion d'intérêt}~: Alfred est compétent}\only<39>{\\ \centerline{$\mathbf{H_1}$:$\sigma^2_{A}<0.1$ $\Longleftrightarrow$ $\delta_{\sigma^2_{A},0.1}:={\displaystyle \frac{\sigma^2_{A}-0.1}{
+\sigma_{\cqlshat{\sigma^2_{A}}}
+}} <0$}}
+\end{minipage}}}}
+\only<40-41>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<42-43>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}$ dans la pire des situations~?\end{minipage}}}}
+\only<44-45>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment s'écrit la règle de décision ne produisant pas plus de 5\% d'erreur de première espèce~? \\
+\textbf{Indic \texttt{R}}~: \texttt{pnorm(deltaEst.H0)}$\simeq$ \texttt{0.002868572}\end{minipage}}}}
+\only<46-48>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment conclueriez-vous au vu des données \texttt{yA} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{pnorm(deltaEst.H0)}$\simeq$ \texttt{0.002868572}\end{minipage}}}}
+\only<49-49
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que Alfred est compétent
+au vu des données \texttt{yA} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{-2.762438}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qnorm(0.95)}$\simeq$ \texttt{1.644854} 
+
+\end{minipage}}}}
+\only<50-50
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que Alfred est compétent
+au vu des données \texttt{yA} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{pnorm(deltaEst.H0)}$\simeq$ \texttt{0.002868572}
+\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<1-1
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $p^{C}<10\%$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{p^{C},10\%}}{y^{C}} &\NotR&\mathtt{(16/200-0.1)/sqrt(0.1*(1-0.1)/200)}\simeq -0.942809\\&\nless & \delta^-_{lim,5\%} \NotR \mathtt{-qnorm(1-.05)}\simeq-1.644854
+\end{eqnarray*}
+  
+on ne peut pas plutôt penser (avec un risque de 5\%) que le taux de chômage en France serait cette année inférieur à $10\%$. }
+\end{minipage}}}}
+\only<2-2
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $p^{C}<10\%$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \[
+p-valeur\NotR\mathtt{pnorm((16/200-0.1)/sqrt(0.1*(1-0.1)/200))} \simeq 17.29\%\nless5\%,
+\]
+on ne peut pas plutôt penser (avec un risque de 5\%) que le taux de chômage en France serait cette année inférieur à $10\%$. }
+\end{minipage}}}}
+\only<3-13>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\only<3>{\textbf{Indications \texttt{R}}~:\\\texttt{  > length(yD)\\
+$[1]$ 50\\
+> mean(yD)\\
+$[1]$ 4.5\\
+  > deltaEst.H0 \# instruction R à fournir\\
+$[1]$ 2.044722\\
+> qnorm(0.95)\\
+$[1]$ 1.644854}}\visible<4-13>{\noindent\textbf{Hypothèses de test~:}}\visible<6-13>{ {\small $\mathbf{H}_0:$ $\mu^{D}=4$} vs } \visible<4-13>{$\mathbf{H}_1:$ $\mu^{D}>4$}\\\only<4>{\\}\visible<8-13>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\mu^{D},4}}{Y^{D}}= {\displaystyle \frac{\Est{\mu^{D}}{Y^{D}}-4}{
+\Est{\sigma_{\cqlshat{\mu^{D}}}}{Y^{D}}
+}} 
+  \SuitApprox\mathcal{N}(0,1) $}\newline}
+\visible<10-13>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si   ${\color<12>{orange}\Est{\delta_{\mu^{D},4}}{y^{D}}} > {\color<12>{darkgreen}\delta^+_{lim,5\%}}$}\newline}
+\visible<12-13>{\small\noindent\textbf{Conclusion}~: puisqu'au vu des données,
+\\$\Est{\delta_{\mu^{D},4}}{y^{D}}\!\NotR\! {\color<12>{orange}\mbox{\scriptsize\texttt{(mean(yD)-4)/seMean(yD)}}\!\simeq\! 2.045}$\\\phantom{$\!\Est{\delta_{\mu^{D},4}}{y^{D}}\!$}$\!> \delta^+_{lim,5\%}\!
+\NotR\!{\color<12>{darkgreen}\mathtt{qnorm(1-.05)\!\simeq\!1.645}}\!$\\
+ on peut plutôt penser (avec un risque de 5\%) que le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine.}\end{minipage}}}}
+\only<12>{
+\pgfputat{\pgfxy(0.15,0.65)}{\pgfbox[left,bottom]{\pgfuseimage{pvalmuDietn50sq}}}}
+\only<14-24>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\only<14>{\textbf{Indications \texttt{R}}~:\\\texttt{  > length(yD)\\
+$[1]$ 50\\
+> mean(yD)\\
+$[1]$ 4.5\\
+  > pnorm(deltaEst.H0)\\
+$[1]$ 0.9795589}}\visible<15-24>{\noindent\textbf{Hypothèses de test~:}}\visible<17-24>{ {\small $\mathbf{H}_0:$ $\mu^{D}=4$} vs } \visible<15-24>{$\mathbf{H}_1:$ $\mu^{D}>4$}\\\only<15>{\\}\visible<19-24>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\mu^{D},4}}{Y^{D}}= {\displaystyle \frac{\Est{\mu^{D}}{Y^{D}}-4}{
+\Est{\sigma_{\cqlshat{\mu^{D}}}}{Y^{D}}
+}} 
+  \SuitApprox\mathcal{N}(0,1) $}\newline}
+\visible<21-24>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si   {\color<23>{orange}p-valeur (droite)} < {\color<23>{blue}5\%}}\newline}
+\visible<23-24>{\small\noindent\textbf{Conclusion}~: puisqu'au vu des données,
+\\ \texttt{p-valeur}$\NotR{\color<23>{orange}\mathtt{1-pnorm((mean(yD)-4)/seMean(yD))}}$\\ \phantom{\texttt{p-valeur}}${\color<23>{orange}\simeq 2.04\%}<{\color<23>{blue}5\%}$\\
+ on peut plutôt penser (avec un risque de 5\%) que le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine.}\end{minipage}}}}
+\only<23>{
+\pgfputat{\pgfxy(0.15,0.65)}{\pgfbox[left,bottom]{\pgfuseimage{pvalmuDietn50sp}}}}
+\only<25-25
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $\mu^{D}>4$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{\mu^{D},4}}{y^{D}} &\NotR&\mathtt{(mean(yD)-4)/seMean(yD)}\simeq 2.044722\\& >  & \delta^+_{lim,5\%} \NotR \mathtt{qnorm(1-.05)}\simeq1.644854
+\end{eqnarray*}
+  
+on peut plutôt penser (avec un risque de 5\%) que le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine. }
+\end{minipage}}}}
+\only<26-26
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $\mu^{D}>4$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \[
+p-valeur\NotR\mathtt{1-pnorm((mean(yD)-4)/seMean(yD))} \simeq 2.04\% < 5\%,
+\]
+on peut plutôt penser (avec un risque de 5\%) que le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine. }
+\end{minipage}}}}
+\only<27-37>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\only<27>{\textbf{Indications \texttt{R}}~:\\\texttt{  > length(yA)\\
+$[1]$ 50\\
+> var(yA)\\
+$[1]$ 0.06362229\\
+  > deltaEst.H0 \# instruction R à fournir\\
+$[1]$ -2.762438\\
+> qnorm(0.95)\\
+$[1]$ 1.644854}}\visible<28-37>{\noindent\textbf{Hypothèses de test~:}}\visible<30-37>{ {\small $\mathbf{H}_0:$ $\sigma^2_{A}=0.1$} vs } \visible<28-37>{$\mathbf{H}_1:$ $\sigma^2_{A}<0.1$}\\\only<28>{\\}\visible<32-37>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}= {\displaystyle \frac{\Est{\sigma^2_{A}}{Y^{A}}-0.1}{
+\Est{\sigma_{\cqlshat{\sigma^2_{A}}}}{Y^{A}}
+}} 
+  \SuitApprox\mathcal{N}(0,1) $}\newline}
+\visible<34-37>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si   ${\color<36>{orange}\Est{\delta_{\sigma^2_{A},0.1}}{y^{A}}} < {\color<36>{darkgreen}\delta^-_{lim,5\%}}$}\newline}
+\visible<36-37>{\small\noindent\textbf{Conclusion}~: puisqu'au vu des données,
+\\$\Est{\delta_{\sigma^2_{A},0.1}}{y^{A}}\!\NotR\! {\color<36>{orange}\mbox{\scriptsize\texttt{(var(yA)-0.1)/seVar(yA)}}\!\simeq\! -2.762}$\\\phantom{$\!\Est{\delta_{\sigma^2_{A},0.1}}{y^{A}}\!$}$\!<  \delta^-_{lim,5\%}\!
+\NotR\!{\color<36>{darkgreen}\mathtt{-qnorm(1-.05)\!\simeq\!-1.645}}\!$\\
+ on peut plutôt penser (avec un risque de 5\%) que Alfred est compétent.}\end{minipage}}}}
+\only<36>{
+\pgfputat{\pgfxy(0.15,0.65)}{\pgfbox[left,bottom]{\pgfuseimage{pvalalfredn50sq}}}}
+\only<38-48>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\only<38>{\textbf{Indications \texttt{R}}~:\\\texttt{  > length(yA)\\
+$[1]$ 50\\
+> var(yA)\\
+$[1]$ 0.06362229\\
+  > pnorm(deltaEst.H0)\\
+$[1]$ 0.002868572}}\visible<39-48>{\noindent\textbf{Hypothèses de test~:}}\visible<41-48>{ {\small $\mathbf{H}_0:$ $\sigma^2_{A}=0.1$} vs } \visible<39-48>{$\mathbf{H}_1:$ $\sigma^2_{A}<0.1$}\\\only<39>{\\}\visible<43-48>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}= {\displaystyle \frac{\Est{\sigma^2_{A}}{Y^{A}}-0.1}{
+\Est{\sigma_{\cqlshat{\sigma^2_{A}}}}{Y^{A}}
+}} 
+  \SuitApprox\mathcal{N}(0,1) $}\newline}
+\visible<45-48>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si   {\color<47>{orange}p-valeur (gauche)} < {\color<47>{blue}5\%}}\newline}
+\visible<47-48>{\small\noindent\textbf{Conclusion}~: puisqu'au vu des données,
+\\ \texttt{p-valeur}$\NotR{\color<47>{orange}\mathtt{pnorm((var(yA)-0.1)/seVar(yA))}}$\\ \phantom{\texttt{p-valeur}}${\color<47>{orange}\simeq 0.29\%}<{\color<47>{blue}5\%}$\\
+ on peut plutôt penser (avec un risque de 5\%) que Alfred est compétent.}\end{minipage}}}}
+\only<47>{
+\pgfputat{\pgfxy(0.15,0.65)}{\pgfbox[left,bottom]{\pgfuseimage{pvalalfredn50sp}}}}
+\only<49-49
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $\sigma^2_{A}<0.1$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{\sigma^2_{A},0.1}}{y^{A}} &\NotR&\mathtt{(var(yA)-0.1)/seVar(yA)}\simeq -2.762438\\& <  & \delta^-_{lim,5\%} \NotR \mathtt{-qnorm(1-.05)}\simeq-1.644854
+\end{eqnarray*}
+  
+on peut plutôt penser (avec un risque de 5\%) que Alfred est compétent. }
+\end{minipage}}}}
+\only<50-50
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $\sigma^2_{A}<0.1$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \[
+p-valeur\NotR\mathtt{pnorm((var(yA)-0.1)/seVar(yA))} \simeq 0.29\% < 5\%,
+\]
+on peut plutôt penser (avec un risque de 5\%) que Alfred est compétent. }
+\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+
+\begin{pgfpicture}{0cm}{0cm}{11cm}{8cm}
+\pgfsetendarrow{\pgfarrowto}
+\pgfnodebox{CritInt}[stroke]{\pgfxy(5.5,8)}{\color[rgb]{0,0,1}Nbre de paramètres pour décrire $\mathbf{H_1}$~?}{2pt}{2pt}
+\pgfnodebox{Par1}[stroke]{\pgfxy(3.5,6.4)}{1 paramètre}{2pt}{2pt}
+\pgfnodeconncurve{CritInt}{Par1}{-90}{90}{0.5cm}{0.5cm}
+\pgfnodebox{Gauss}[stroke]{\pgfxy(8,4.4)}{\color[rgb]{0,0.6,0}Gaussien}{2pt}{2pt}
+\pgfnodeconncurve{Par1}{Gauss}{-90}{90}{2cm}{0.5cm} 
+
+\end{pgfpicture}
+\pgftext[top,right,at={\pgfxy(0,4.0)}]{\begin{minipage}{11cm}
+\hrulefill\\
+%%% 1 param et gaussien 
+\noindent\textbf{Données~:} $\Vect{Y}=(Y_1,\cdots,Y_n)$ avec $Y{\color{blue}\leadsto \mathcal{N}(\mu^\bullet,\sigma_\bullet)}$\\
+\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\ 
+\centerline{\begin{tabular}{|c|c|}\hline
+$\mu^\bullet$ &  $\scriptsize\Est{\delta_{\mu^\bullet,\mu_0}}{Y}:=\frac{\Est{\mu^\bullet}{Y}-\mu_0}{\Est{\sigma_{\widehat{\mu^\bullet}}}{Y}}\leadsto \mathcal{S}t(n-1)$\\\hline
+$\sigma^2_\bullet$ & $\scriptsize\Est{\delta_{\sigma^2_\bullet,\sigma^2_0}}{Y}:=(n-1)\times\frac{\Est{\sigma^2_\bullet}{Y}}{\sigma^2_0}\leadsto \chi^2(n-1)$\\\hline
+\end{tabular}}
+
+
+
+\end{minipage}}
+
+\end{frame}
+
+\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{pvalalfredn20sq}{img/pvalalfredn20sq}
+
+\pgfdeclareimage[width=8cm,height=4cm,interpolate=true]{pvalalfredn20sp}{img/pvalalfredn20sp}
+
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-1
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Diététicien (abr. quant)}}}}
+\only<2-2
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Diététicien (abr. p-val)}}}}
+\only<3-13>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Alfred (quantile)}}}}
+\only<14-24>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Alfred (p-valeur)}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1-1
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que le régime alimentaire du diététicien permet une perte de poids
+au vu des données \texttt{AV-AP} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{5.25}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qt(0.95,9)}$\simeq$ \texttt{1.833113} 
+
+\end{minipage}}}}
+\only<2-2
+>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\begin{minipage}{11cm}
+\textbf{Question } Peut-on penser que le régime alimentaire du diététicien permet une perte de poids
+au vu des données \texttt{AV-AP} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{pt(deltaEst.H0,9)}$\simeq$ \texttt{0.9997362}
+\end{minipage}}}}
+\only<3-4>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction des paramètres d'intérêt et d'écart~?\only<3>{\\\textbf{Assertion d'intérêt}~: Alfred est compétent}\only<4>{\\ \centerline{$\mathbf{H_1}$:$\sigma^2_{A}<0.1$ $\Longleftrightarrow$ $\delta_{\sigma^2_{A},0.1}:={\displaystyle (20-1)\frac{\sigma^2_{A}}{0.1}}<20-1$}}
+\end{minipage}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<7-8>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}$ dans la pire des situations~?\end{minipage}}}}
+\only<9-10>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment s'écrit la règle de décision ne produisant pas plus de 5\% d'erreur de première espèce~? \\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{13.91858}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qchisq(0.95,19)}$\simeq$ \texttt{30.14353}
+\end{minipage}}}}
+\only<11-13>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment conclueriez-vous au vu des données \texttt{yA} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{deltaEst.H0}$\simeq$\texttt{13.91858}\\\phantom{\textbf{Indic \texttt{R}}~: }\texttt{qchisq(0.95,19)}$\simeq$ \texttt{30.14353} 
+\end{minipage}}}}
+\only<14-15>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question } Comment s'écrit l'assertion d'intérêt $\mathbf{H_1}$ en fonction des paramètres d'intérêt et d'écart~?\only<14>{\\\textbf{Assertion d'intérêt}~: Alfred est compétent}\only<15>{\\ \centerline{$\mathbf{H_1}$:$\sigma^2_{A}<0.1$ $\Longleftrightarrow$ $\delta_{\sigma^2_{A},0.1}:={\displaystyle (20-1)\frac{\sigma^2_{A}}{0.1}}<20-1$}}
+\end{minipage}}}}
+\only<16-17>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est la pire des situations, i.e. parmi toutes les situations quelle est celle qui engendre le plus grand risque d'erreur de première espèce~?\end{minipage}}}}
+\only<18-19>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Quelle est l'information du mathématicien quant au comportement de $\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}$ dans la pire des situations~?\end{minipage}}}}
+\only<20-21>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment s'écrit la règle de décision ne produisant pas plus de 5\% d'erreur de première espèce~? \\
+\textbf{Indic \texttt{R}}~: \texttt{pchisq(deltaEst.H0,19)}$\simeq$ \texttt{0.2115835}\end{minipage}}}}
+\only<22-24>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Question }: Comment conclueriez-vous au vu des données \texttt{yA} en \texttt{R}~?\\
+\textbf{Indic \texttt{R}}~: \texttt{pchisq(deltaEst.H0,19)}$\simeq$ \texttt{0.2115835}\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<1-1
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $\mu^{D}>0$ avec $\mu^{D}=\mbox{moyenne de }Y^{D}(=Y^{AV}-Y^{AP})$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \begin{eqnarray*}
+\Est{\delta_{\mu^{D},0}}{y^{D}} &\NotR&\mathtt{(mean(AV-AP)-0)/seMean(AV-AP)}\simeq 5.25\\& >  & \delta^+_{lim,5\%} \NotR \mathtt{qt(1-.05,9)}\simeq1.833113
+\end{eqnarray*}
+  
+on peut plutôt penser (avec un risque de 5\%) que le régime alimentaire du diététicien permet une perte de poids. }
+\end{minipage}}}}
+\only<2-2
+>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+{\small
+\noindent \textbf{Assertion d'intérêt} :  $\mathbf{H}_1:$ $\mu^{D}>0$ avec $\mu^{D}=\mbox{moyenne de }Y^{D}(=Y^{AV}-Y^{AP})$ \\
+\textbf{Application numérique} :  puisqu'au vu des données, 
+  \[
+p-valeur\NotR\mathtt{1-pt((mean(AV-AP)-0)/seMean(AV-AP),9)} \simeq 0.03\% < 5\%,
+\]
+on peut plutôt penser (avec un risque de 5\%) que le régime alimentaire du diététicien permet une perte de poids. }
+\end{minipage}}}}
+\only<3-13>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\only<3>{\textbf{Indications \texttt{R}}~:\\\texttt{  > length(yA)\\
+$[1]$ 20\\
+> var(yA)\\
+$[1]$ 0.07325571\\
+  > deltaEst.H0 \# instruction R à fournir\\
+$[1]$ 13.91858\\
+> qchisq(0.95,19)\\
+$[1]$ 30.14353}}\visible<4-13>{\noindent\textbf{Hypothèses de test~:}}\visible<6-13>{ {\small $\mathbf{H}_0:$ $\sigma^2_{A}=0.1$} vs } \visible<4-13>{$\mathbf{H}_1:$ $\sigma^2_{A}<0.1$}\\\only<4>{\\}\visible<8-13>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}= {\displaystyle (20-1)\frac{\Est{\sigma^2_{A}}{Y^{A}}}{0.1}} 
+  \leadsto\chi^2(20-1) $}\newline}
+\visible<10-13>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si   ${\color<12>{orange}\Est{\delta_{\sigma^2_{A},0.1}}{y^{A}}} < {\color<12>{darkgreen}\delta^-_{lim,5\%}}$}\newline}
+\visible<12-13>{\small\noindent\textbf{Conclusion}~: puisqu'au vu des données,
+\\$\Est{\delta_{\sigma^2_{A},0.1}}{y^{A}}\!\NotR\! {\color<12>{orange}\mbox{\scriptsize\texttt{(length(yA)-1)*var(yA)/0.1}}\!\simeq\! 13.92}$\\\phantom{$\!\Est{\delta_{\sigma^2_{A},0.1}}{y^{A}}\!$}$\!\nless  \delta^-_{lim,5\%}\!
+\NotR\!{\color<12>{darkgreen}\mathtt{qchisq(.05,19)\!\simeq\!10.12}}\!$\\
+ on ne peut pas plutôt penser (avec un risque de 5\%) que Alfred est compétent.}\end{minipage}}}}
+\only<12>{
+\pgfputat{\pgfxy(0.15,0.65)}{\pgfbox[left,bottom]{\pgfuseimage{pvalalfredn20sq}}}}
+\only<14-24>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\only<14>{\textbf{Indications \texttt{R}}~:\\\texttt{  > length(yA)\\
+$[1]$ 20\\
+> var(yA)\\
+$[1]$ 0.07325571\\
+  > pchisq(deltaEst.H0,19)\\
+$[1]$ 0.2115835}}\visible<15-24>{\noindent\textbf{Hypothèses de test~:}}\visible<17-24>{ {\small $\mathbf{H}_0:$ $\sigma^2_{A}=0.1$} vs } \visible<15-24>{$\mathbf{H}_1:$ $\sigma^2_{A}<0.1$}\\\only<15>{\\}\visible<19-24>{\noindent\textbf{Statistique de test sous $\mathbf{H_0}$~:}\\
+\centerline{$\Est{\delta_{\sigma^2_{A},0.1}}{Y^{A}}= {\displaystyle (20-1)\frac{\Est{\sigma^2_{A}}{Y^{A}}}{0.1}} 
+  \leadsto\chi^2(20-1) $}\newline}
+\visible<21-24>{\noindent\textbf{Règle de Décision}~:\\
+\centerline{Accepter $\mathbf{H_1}$ si   {\color<23>{orange}p-valeur (gauche)} < {\color<23>{blue}5\%}}\newline}
+\visible<23-24>{\small\noindent\textbf{Conclusion}~: puisqu'au vu des données,
+\\ \texttt{p-valeur}$\NotR{\color<23>{orange}\mathtt{pchisq((length(yA)-1)*var(yA)/0.1,19)}}$\\ \phantom{\texttt{p-valeur}}${\color<23>{orange}\simeq 21.16\%}\nless{\color<23>{blue}5\%}$\\
+ on ne peut pas plutôt penser (avec un risque de 5\%) que Alfred est compétent.}\end{minipage}}}}
+\only<23>{
+\pgfputat{\pgfxy(0.15,0.65)}{\pgfbox[left,bottom]{\pgfuseimage{pvalalfredn20sp}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+
+\end{document}
+
+
