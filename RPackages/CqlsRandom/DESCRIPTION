@@ -1,0 +1,7 @@
+Package: CqlsRandom
+Version: 0.5.0
+Title: Random Object
+Author: Cqls Team
+Maintainer: Remy Drouilhet <remy.drouilhet@upmf-grenoble.fr>
+Description: Random Object
+License: GPL Version 2 or later.

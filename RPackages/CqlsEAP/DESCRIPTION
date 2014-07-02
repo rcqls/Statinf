@@ -1,0 +1,8 @@
+Package: CqlsEAP
+Version: 0.3.0
+Title: Experimental Approach of Probabilities
+Author: Cqls Team
+Maintainer: Remy Drouilhet <remy.drouilhet@upmf-grenoble.fr>
+Description: Experimental Approach of Probabilities
+License: GPL Version 2 or later.
+Depends: R (>= 2.10.0), CqlsRandom (>= 0.1.0)

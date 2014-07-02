@@ -1,0 +1,7 @@
+Package: CqlsHisto
+Version: 0.2.0
+Title: Histogram tools
+Author: Cqls Team
+Maintainer: Remy Drouilhet <remy.drouilhet@upmf-grenoble.fr>
+Description: Histogram tools for discrete and continu random variables
+License: GPL Version 2 or later.
