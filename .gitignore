@@ -1,0 +1,8 @@
+*.aux
+*.snm
+*.log
+*.toc
+*.nav
+*.out
+*.dyn_log
+*~

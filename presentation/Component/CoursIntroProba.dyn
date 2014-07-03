@@ -1,5 +1,5 @@
 [#require]
-Import/Tex/FilterR
+RCqls/Tex/FilterR
 [#package]
 \usepackage{color}
 [#main]
@@ -21,7 +21,7 @@ ra<-c(plim,QQ(Y2,.999))
 plimPCT=#R{as.integer(plim*100)}
 plim5PCT=#R{round(qnorm(.95,.15,sqrt(.15*.85/1000))*100,2)}
 plimN=#R{as.integer(plim*n)}
-[#<]{#InitScene#}
+[#<]{#InitScene#}[#>]
 {#case]#{docs}
 [#when]section[#>]\section[Proba]{Cours introductif de probabilités}
 [#when]notationsSyn[#<]
@@ -393,5 +393,5 @@ $\sigma(Y^A)@{ONLY(:1)}{=\mbox{ ???}}@{ONLY(:4)}{=\!\sdEmp[\infty]{y^A_{[\cdot]}
 {#incCpt]4[#}
 [#case}
 [#>]
-{#PutScene]un[#}
+{#PutScene]cqls[#}
 
