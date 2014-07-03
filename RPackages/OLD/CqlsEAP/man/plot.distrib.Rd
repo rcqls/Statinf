@@ -18,7 +18,6 @@ plot(Y,...)
   \code{\link{Distribution}} for the definition of parametrizable random.
 }
 \examples{
-plot(Norm())
-plot(Norm(),from=-4,to=4)
+plot(Normal(),-4,4)
 }
 \keyword{random}

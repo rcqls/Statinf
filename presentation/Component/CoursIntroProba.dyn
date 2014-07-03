@@ -5,7 +5,7 @@ RCqls/Tex/FilterR
 [#main]
 [#%]Traitements R et ruby préliminaires
 [#r<]
-require(CqlsRandom)
+require(CqlsAEP)
 #source("~/work/statinf-cours/td/R/aep1.R")
 pA<-.15
 plim<-.16
@@ -262,7 +262,7 @@ $\sigma(Y){#only]:1[#,]=\mbox{ ???}[#}{#only]:4[#,]=\sdEmp[\infty]{y_{[\cdot]}}=
 [#}
 
 [#when]electionAEP[#%]Loi de proba v.a. (a.e.p.)[#r<]
-attach("~/cqls/data/simEch.RData")
+attach.data("simEch.RData")
 tmpEx<-sample(yy.sim[,2])
 detach()
 [#<]{#Slide]elecAEP[#nb]4[#titre]A.E.P. pour Election

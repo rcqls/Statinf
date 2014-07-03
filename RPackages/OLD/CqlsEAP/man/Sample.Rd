@@ -17,16 +17,18 @@ Sample(Y,n)
 }
 \seealso{
   \code{\link{Distribution}} for the definition of parametrizable random
-  distribution object.
+  distribution object, \code{\link{RandVar}} for the definition of
+  random variable.
 }
 \examples{
-Y<-Binom(1,p) # p is not evaluated and could be defined after!!!
-p<-.2
-YY<-Sample(Y,n) # n defined after!!!
-n<-100
-sim(YY,10) # the result is a list!!!
-Est<-mean(YY) # random sample mean of Y
-sim(Est,5) # the result is a vector of length 5!!!
-EE(Est) # EE.EAP(Est) is used instead (of course) !!! (Be patient!!!)
+Y=Binom(1,p) # p is not evaluated and could be defined after!!!
+p=.2
+YY=Sample(Y,n) # n defined after!!!
+n=100
+Sim(YY,10) # the result is a list!!!
+Est=mean(YY) # random sample mean of Y
+Sim(Est,5) # the result is a vector of length 5!!!
+Esp(Est) # EspEAP(Est) is used instead (of course) !!! (Be patient!!!)
+Esp(Binom(5,p))/5 # in fact the value of p!!!
 }
 \keyword{random}
