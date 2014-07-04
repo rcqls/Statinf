@@ -2,11 +2,6 @@
 ## BUGS : quand YY n'est pas initialisé Est(mu) n'est pas explicite!!
 .randomEnv<-new.env()
 
-".First.lib" <- function(libname, pkgname) {
-  ##require(CqlsParam,quietly=TRUE)
-  require(CqlsHisto,quietly=TRUE)
-}
-
 ###################################################################################
 ## TODO : Aller plus loin en développant le calcul de proba relativement simple
 ## à faire. Intégration du Support Supp(Y) pour connaitre le type de la variable Y

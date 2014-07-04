@@ -1,4 +1,3 @@
-require(CqlsRandom)
 
 ## class EAP.mean
 EAP.mean <- function(YY,m,col=cm.colors(m)) {

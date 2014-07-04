@@ -1,7 +1,8 @@
 [#=]beamerCfg.theme[Boadilla]
 [#=]beamerCfg.colorTheme[wolverine]
 [#=]beamerCfg.fontTheme[structureitalicserif]
-[#require]Tex/Cqls
+[#require]RCqls/TexInputs/Cqls
+RCqls/TexInputs/CqlsInputs
 Tex/Fr
 Tex/11pt
 RCqls/Beamer
