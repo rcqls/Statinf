@@ -1,13 +1,15 @@
-[#require]Import/Tools/TabAEP
+[#require]RCqls/Tools/TabAEP
 [#main]
 {#case]#{docs}
 [#when]section[#>]\section[A.E.P.]{Approche Expérimentale des Probabilités}
 [#when]data[#r<]
-require(CqlsRandom)
-load("~/cqls/data/statinf/simEchCoursIC.RData")
+require(CqlsEAP)
+attach.data("statinf","simEchCoursIC.RData")
 muEst.tmp<-muEst.sim[exOrder,2]
 YB<-Norm(.15,sqrt(sum((0:3-.15)^2*c(1760000,200000,20000,20000)/2000000)/1000))
 YA<-Norm(.15,sqrt(.15*.85/1000))
+[#when]detach[#r<]
+detach.data("statinf","simEchCoursIC.RData")
 [#when]histo[#>]
 \begin{frame}<1->[label=aep]
 \frametitle<1->{\textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités : l'Expérimentateur versus le Matheux}

@@ -1,6 +1,6 @@
 [#package]
 \usepackage{slashbox}
-[#require]Import/StatDevel/BeamerCours
+[#require]RCqls/StatInf/BeamerCours
 [#main]
 [#>]
 {#case]#{docs}
@@ -20,12 +20,12 @@
 
 [#when]dietn10Data[#<] Contexte
 {#new]muAVAPDiet[#of]ParamFrame[#in]muAVAPDiet[#,]md[#,]g[#,].nom1Pb[AV][#,].nom2Pb[AP][#.y1R]AV[#.y2R]AP[#r<]
-attach("~/cqls/data/dieteticien.RData")
+attach.data("dieteticien.RData")
 attach(dieteticien)
 AV<-AV
 AP<-AP
-detach()
-detach()
+detach(dieteticien)
+detach.data("dieteticien.RData")
 [#}
 
 {#new]muAVAPDietTest[#of]TestParam[#in]muAVAPDiet[#,]:muAVAPDiet[#,].theta0R[0][#,].side[>][#,].assertion[le régime alimentaire du diététicien permet une perte de poids][#}
@@ -36,11 +36,11 @@ detach()
 
 [#when]dietn50Data[#<] Contexte
 {#new]muDDiet[#of]ParamFrame[#in]muDDiet[#,]m[#,]a[#,].nomPb[D][#r<]
-attach("~/cqls/data/dieteticien.RData")
+attach.data("dieteticien.RData")
 attach(dieteticien)
 yD<-yBis
-detach()
-detach()
+detach(dieteticien)
+detach.data("dieteticien.RData")
 [#}
 
 {#new]muDDietTest[#of]TestParam[#in]muDDiet[#,]:muDDiet[#,].theta0R[4][#,].side[>][#,].assertion[le régime alimentaire du diététicien permet une perte de poids de 2 kilos par semaine][#}
@@ -63,9 +63,9 @@ detach()
 
 [#when]alfredn20Data[#<] Contexte
 {#new]varAn20Techni[#of]ParamFrame[#in]varAn20Techni[#,]v[#,]g[#,].nomPb[A][#r<]
-attach('~/cqls/data/techniciens.RData')
+attach.data('techniciens.RData')
 yA<-yA[1:20]
-detach()
+detach.data('techniciens.RData')
 [#}
 {#new]varAn20TechniTest[#of]TestParam[#in]varAn20Techni[#,]:varAn20Techni[#,].theta0R[0.1][#,].side[<][#,].assertion[Alfred est compétent][#}
 [#when]alfredn20SQ[#>]{#RedStdBeamer]varAn20TechniTest[#,]alfredn20sq[#,]Alfred (quantile)[#.indic]q[#}
@@ -74,9 +74,9 @@ detach()
 [#when]alfredn20AP[#>]{#redStdBeamer]varAn20TechniTest[#,]alfredn20[#,]Alfred (abr. p-val)[#.indic]p[#}
 [#when]alfredn50Data[#<] Contexte
 {#new]varAn50Techni[#of]ParamFrame[#in]varAn50Techni[#,]v[#,]a[#,].nomPb[A][#r<]
-attach('~/cqls/data/techniciens.RData')
+attach.data('techniciens.RData')
 yA<-yA
-detach()
+detach.data('techniciens.RData')
 [#}
 {#new]varAn50TechniTest[#of]TestParam[#in]varAn50Techni[#,]:varAn50Techni[#,].theta0R[0.1][#,].side[<][#,].assertion[Alfred est compétent][#}
 [#when]alfredn50SQ[#>]{#RedStdBeamer]varAn50TechniTest[#,]alfredn50sq[#,]Alfred (quantile)[#.indic]q[#}
@@ -180,58 +180,66 @@ $}
 [#}
 [#when]chAffData[#<]
 {#new]dmun20ChAff[#of]ParamFrame[#in]dmun20ChAff[#,]dm[#,]g[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 yP1<-yy05[1:20]
 yP2<-yP2[1:20]
+detach.data('chAff.RData')
 [#}
 {#new]dmun20ChAffTest[#of]TestParam[#in]dmun20ChAff[#,]:dmun20ChAff[#,].theta0R[20][#,].side[>][#,].assertion[le chiffre d'affaires annuel moyen des PME du pays P1 est de plus de 20 unités supérieur à celui du pays P2][#}
 
 {#new]dmuChAff[#of]ParamFrame[#in]dmuChAff[#,]dm[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 yP1<-yy05
 yP2<-yP2
+detach.data('chAff.RData')
 [#}
 {#new]dmuChAffTest[#of]TestParam[#in]dmuChAff[#,]:dmuChAff[#,].theta0R[20][#,].side[>][#,].assertion[le chiffre d'affaires annuel moyen des PME du pays P1 est de plus de 20 unités supérieur à celui du pays P2][#}
 
 {#new]rmuChAff[#of]ParamFrame[#in]rmuChAff[#,]rm[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 yP1<-yy05
 yP2<-yP2
+detach.data('chAff.RData')
 [#}
 {#new]rmuChAffTest[#of]TestParam[#in]rmuChAff[#,]:rmuChAff[#,].theta0R[1.2][#,].side[>][#,].assertion[le C.A. annuel moyen des PME du pays P1 est de plus de 20\% supérieur à celui du pays P2][#}
 
 {#new]rvarn20ChAff[#of]ParamFrame[#in]rvarn20ChAff[#,]rv[#,]g[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 yP1<-yy05[1:20]
 yP2<-yP2[1:20]
+detach.data('chAff.RData')
 [#}
 {#new]rvarn20ChAffTest[#of]TestParam[#in]rvarn20ChAff[#,]:rvarn20ChAff[#,].theta0R[1][#,].side[!=][#,].assertion[les hétérogénéités des chiffres d'affaires annuels des PME des deux pays diffèrent][#}
 
 {#new]rvarChAff[#of]ParamFrame[#in]rvarChAff[#,]rv[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 yP1<-yy05
 yP2<-yP2
+detach.data('chAff.RData')
 [#}
 {#new]rvarChAffTest[#of]TestParam[#in]rvarChAff[#,]:rvarChAff[#,].theta0R[1.25][#,].side[>][#,].assertion[l'hétérogénéité des C.A. annuels des PME de P1 est de plus de 25\% supérieure à celle de P2][#}
 
 {#new]dvarChAff[#of]ParamFrame[#in]dvarChAff[#,]dv[#,]a[#,].nom1Pb[P1][#,].nom2Pb[P2][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 yP1<-yy05
 yP2<-yP2
+detach.data('chAff.RData')
 [#}
 {#new]dvarChAffTest[#of]TestParam[#in]dvarChAff[#,]:dvarChAff[#,].theta0R[0][#,].side[!=][#,].assertion[les hétérogénéités des chiffres d'affaires annuels des PME des deux pays diffèrent][#}
 
 {#new]muDn20ChAff[#of]ParamFrame[#in]muDn20ChAff[#,]md[#,]g[#,].nom1Pb[04][#,].nom2Pb[05][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 y04<-yy04[1:20]
 y05<-yy05[1:20]
+detach.data('chAff.RData')
 [#}
 {#new]muDn20ChAffTest[#of]TestParam[#in]muDn20ChAff[#,]:muDn20ChAff[#,].theta0R[-10][#,].side[<][#,].assertion[le chiffre d'affaires annuel moyen des PME a augmenté entre 2004 et 2005 de 10 unités][#}
 
 {#new]muDChAff[#of]ParamFrame[#in]muDChAff[#,]md[#,]a[#,].nom1Pb[04][#,].nom2Pb[05][#r<]
-load('~/cqls/data/chAff.RData')
+attach.data('chAff.RData')
 y04<-yy04
 y05<-yy05
+detach.data('chAff.RData')
 [#}
 {#new]muDChAffTest[#of]TestParam[#in]muDChAff[#,]:muDChAff[#,].theta0R[-10][#,].side[<][#,].assertion[le chiffre d'affaires annuel moyen des PME a augmenté entre 2004 et 2005 de 10 unités][#}
 [#when]chAffq1a[#>]

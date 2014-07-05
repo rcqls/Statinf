@@ -1,5 +1,5 @@
 [#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 [#>]
 
 \section{Risque d'erreur de seconde espèce}

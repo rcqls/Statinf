@@ -205,9 +205,9 @@ Construisons un $m^{\grave eme}$ échantillon $\Vect{y_{[m]}}$ !
 [#r<]
 require(CqlsEAP)
 require(asympTest)
-load("~/cqls/data/statinf/ic.RDataSim")
+attach.data("statinf","ic.RData")
 #URNE UB0.2
-try(YB <- Norm(.2,sqrt(sum((0:3-.2)^2*c(1660000,300000,20000,20000)/2000000)/1000)))
+YB <- Norm(.2,sqrt(sum((0:3-.2)^2*c(1660000,300000,20000,20000)/2000000)/1000))
 YA<- Norm(.2,sqrt(.2*.8/1000))
 IC<-function(i,n=1000,alpha=.05) {
 yy<-yy.sim[[i]][1:n]
@@ -215,6 +215,7 @@ mean(yy)+c(-1,1)*qnorm(1-alpha/2)*seMean(yy)->ic
  if(ic[1]<=.2 & .2<=ic[2]) paste("{\\color<5>{red}",paste(round(ic,3),collapse=","),"}",sep="")
   else paste(round(ic,3),collapse=",")
 }
+
 ex<-c(1,2,3)
 [#>]
 
@@ -260,9 +261,9 @@ ex<-c(1,2,3)
 \end{enumerate}
 \end{exampleblock}
 \end{frame}
-
+[#r<]detach.data("statinf","ic.RData")
 [#when]vérifAEP
-[#r<]load("~/cqls/data/statinf/simEchCoursIC.RData") [#>]
+[#r<]attach.data("statinf","simEchCoursIC.RData") [#>]
 
 
 \begin{frame}
@@ -277,10 +278,10 @@ ex<-c(1,2,3)
 \noindent \textbf{\only<3-4,6,8>{Question}\only<5,7,9>{Réponse}}~: $\mathbb{P}\Big(\mu^\bullet \in [\only<3-4>{{\color{red}#R{round(tmp[ii]+c(-1,1)*tmp2[ii],3)}}}\only<5>{\!\underbrace{\Int{\mu^\bullet}{\inf}{\color{purple}y_{[#R{as.integer(ii)}]}}}_{\color{red}#R{round(tmp[ii]-tmp2[ii],3)}}\!,\!\underbrace{\Int{\mu^\bullet}{\sup}{\color{purple}y_{[#R{as.integer(ii)}]}}}_{\color{red}#R{round(tmp[ii]+tmp2[ii],3)}}\!}\only<6-7>{\!\Int{\mu^\bullet}{\inf}{\color<7>{purple}y}\!,\!\Int{\mu^\bullet}{\sup}{\color<7>{purple}y}\!}\only<8-9>{\!\Int{\mu^\bullet}{\inf}{\color<9>{purple}Y}\!,\!\Int{\mu^\bullet}{\sup}{\color<9>{purple}Y}\!}]\Big)=\only<3,6,8>{\mbox{ }?}\only<4>{95\%?}\only<5>{ {\color{red}100\%}}\only<7>{{\color{purple}0\%} \mbox{  ou } {\color{purple}100\%}}\only<9>{\color{purple}95\%}$
 }
 \end{frame}
+[#r<]detach.data("statinf","simEchCoursIC.RData")
 [#when]saljusIC[#>]
 {#BeamerFrame]Application: Salaire Juste
-[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/dataSJ.RData")
-require(CqlsStat)
+[#r<]attach.data("statinf","dataSJ.RData")
 [#>]Considérons (le \textbf{jour~J}) disposer d'un échantillon $\Vect{y}$ des Salaires Justes de $n$ individus du Pays. Ce jeu de données est noté \texttt{yJ} en \texttt{R}. Les formules des {\color<2-3>{purple}intervalle}s de {\color<2-3>{purple}confiance à $95\%$} pour {\color<2>{purple}$\mu^{J}$} et {\color<3>{purple}$\sigma^2_{J}$} s'obtiennent très facilement~:
 
 {#only]2[#>]\begin{eqnarray*}
@@ -298,4 +299,5 @@ require(CqlsStat)
 &\simeq& [:r{round(var(yJ)+c(-1,1)*qnorm(.975)*seVar(yJ),2)}]
 \end{eqnarray*}[#}
 [#}
+[#r<]detach.data("statinf","dataSJ.RData")
 [#case}

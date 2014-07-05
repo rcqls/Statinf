@@ -713,29 +713,64 @@ i.e. si {\color{orange}\bf le risque pour accepter $\mathbf{H_1}$} est {\color{d
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet3}}}}
 \only<4-5>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet4}}}}
+\only<1-5>{
+\pgfputat{\pgfxy(0.5636363636363637,0.9536580194337094)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} }}}
 \only<2-3>{
  
 \pgfsetendarrow{\pgfarrowto}
-\pgfline{\pgfxy(\:{CqlsBeamer.where("diet:2.5,0.2","ex")})}{\pgfxy(\:{CqlsBeamer.where("diet:1.8,0.04","ex")})}}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.8105041432386135,0.24189559741557892)}}
 \only<4-5>{
  
 \pgfsetendarrow{\pgfarrowto}
-\pgfline{\pgfxy(\:{CqlsBeamer.where("diet:2.5,0.2","ex")})}{\pgfxy(\:{CqlsBeamer.where("diet:2.5,0.005","ex")})}}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.9065082797505997,0.18258206224740137)}}
+\only<2>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{$\alpha=5\%$}}}
+\only<3>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{$\alpha=10\%$}}}
+\only<4-5>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{$\alpha=1\%$}}}
+\only<2>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=2.045}}$>${\color{darkgreen}$\delta_{lim,5\%}^+\stackrel{R}{=}$\texttt{qnorm(.95)=1.645}}}}}}
+\only<3>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=2.045}}$>${\color{darkgreen}$\delta_{lim,10\%}^+\stackrel{R}{=}$\texttt{qnorm(.9)=1.282}}}}}}
+\only<4>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}$\Est{\delta_{\mu^D,4}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-4)/seMean(yD)=2.045}}$\ngtr${\color{darkgreen}$\delta_{lim,1\%}^+\stackrel{R}{=}$\texttt{qnorm(.99)=2.326}}}}}}
 \only<6>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet5}}}}
 \only<6>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet6}}}}
 \only<6>{
+\pgfputat{\pgfxy(0.5636363636363637,0.9536580194337094)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} }}}
+\only<6>{
  
 \pgfsetendarrow{\pgfarrowto}
-\pgfline{\pgfxy(\:{CqlsBeamer.where("diet:2.5,0.2","ex")})}{\pgfxy(\:{CqlsBeamer.where("diet:2.2,0.01","ex")})}}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.8653636498168914,0.19105542441428391)}}
+\only<6>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{p$-$valeur}}}
+\only<6>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}p$-$valeur(droite)$\stackrel{R}{=}$ \texttt{1-pnorm((mean(yD)-4)/seMean(yD))=2.04\%}  }}}}}
 \only<7>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{diet7}}}}
 \only<7>{
+\pgfputat{\pgfxy(0.5636363636363637,0.9536580194337094)}{\pgfbox[center,center]{\textbf{Loi de $\Est{\delta_{\mu^D,4}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=4\Leftrightarrow \delta_{\mu^D,4}=0$} }}}
+\only<7>{
  
 \pgfsetendarrow{\pgfarrowto}
-\pgfline{\pgfxy(\:{CqlsBeamer.where("diet:2.5,0.2","ex")})}{\pgfxy(\:{CqlsBeamer.where("diet:2.2,0.01","ex")})}
-\pgfline{\pgfxy(\:{CqlsBeamer.where("diet:1.9,0.3","ex")})}{\pgfxy(\:{CqlsBeamer.where("diet:1.75,0.065","ex")})}}
+\pgfline{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfxy(0.8653636498168914,0.19105542441428391)}
+\pgfline{\pgfxy(0.8242190198831831,0.6825104300934691)}{\pgfxy(0.803646704916329,0.28426240824999144)}}
+\only<7>{
+\pgfputat{\pgfxy(0.9065082797505997,0.5130431867558191)}{\pgfbox[center,bottom]{p$-$valeur}}}
+\only<7>{
+\pgfputat{\pgfxy(0.8105041432386135,0.6825104300934691)}{\pgfbox[center,bottom]{$\alpha=5\%$}}}
+\only<7>{
+\pgfputat{\pgfxy(0.5636363636363637,0.05548162974416376)}{\pgfbox[center,center]{
+{\scriptsize {\color{orange}p$-$valeur(droite)$\stackrel{R}{=}$ \texttt{1-pnorm((mean(yD)-4)/seMean(yD))=2.04\%}  $<${\color{darkgreen}$\alpha=5\%$}  }}}}}
 
 \end{pgfpicture}
 

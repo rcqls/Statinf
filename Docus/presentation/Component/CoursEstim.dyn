@@ -1,6 +1,6 @@
 [#require]
 Tools/Tex/Table
-Import/StatDevel/TabAEP
+RCqls/StatInf/TabAEP
 [#main][#>]
 {#case]#{docs}
 [#when]section[#>]\section[Estimation]{Estimation~: Obtention et Qualité}
@@ -92,7 +92,7 @@ Pour illustrer comment cela est possible, étudions le paramètre moyenne $\mu^\
 {#invisible]:1[#>]\mbox{ estimé par } {\color{blue}\Est{\sigma_{\widehat{\mu^\bullet}}}{Y}}=\frac{{#only]:2[#>]{\color{blue}\Est{\sigma_\bullet}{Y}}[#}}{\sqrt{n}}[#}$} 
 [#}
 [#when]alea[#%]All the stuff here
-[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#r<]attach.data("statinf","resAEPSJ.RData")
 [#<]{#<]ind[[#?]i<4[#rb>]i-1[#?]i>4 and i<6[#>]m-:{6-i}[#?]i==6[#>]m][#<}
 {#<]ind2[[#?]i<4[#rb>]i-1[#?]i>6 and i<8[#rb>]10000-8+i[#?]i==8[#>]10000][#<}
 {#new]table1[#of]Tabular[#.tabR]tab1R[#}
@@ -165,7 +165,8 @@ col(2) & col*2
 {#only]:5-6[#>]{#print]table3[#jmax]6[#hlines],1-6,,,,,,,1-6,[#vlines]c|ccccc[#}[#}
 }
 [#}
-[#when]alea2[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#r<]detach.data("statinf","resAEPSJ.RData")
+[#when]alea2[#r<]attach.data("statinf","resAEPSJ.RData")
 [#>]{#BeamerFrame]Etude A.E.P. pour la mesure d'écart standardisé
 [#>]\textbf{Objectif~:} Construction outils statistiques facile si loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ connue\\
 $\Rightarrow$ loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ inconnue car dépend d'un paramètre de nuisance inconnu.
@@ -195,10 +196,11 @@ sd & $:r{round(sd(resSJ[1,]),4)}$ & $:r{round(sd(resSJ[2,]),4)}$ & $:r{round(sd(
 \\
 \end{tabular}}
 [#}
+[#r<]detach.data("statinf","resAEPSJ.RData")
 [#when]alea3[#>]{#Slide][#nb]5[#titre]Mesure d'écart standardisé
 [#haut]\textbf{Objectif~:} Construction outils statistiques facile si loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ connue\\
 $\Rightarrow$ loi $\Est{\theta^\bullet}{Y}-\theta^\bullet$ inconnue car dépend d'un paramètre de nuisance inconnu.
-[#blck]bas[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#blck]bas[#r<]attach.data("statinf","resAEPSJ.RData")
 [#>]{\small\begin{tabular}{c|cc|c|c}
 {#only]:1-3[#>]$\Vect{Y}$ & $\Est{\theta^\bullet}{Y}$ & $\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}$ & $\Est{\theta^\bullet}{Y}-\theta^\bullet$ & $\delta_{\widehat\theta^\bullet,\theta^\bullet}(\Vect{Y}):=\frac{\Est{\theta^\bullet}{Y}-\theta^\bullet}{\Est{\sigma_{\widehat{\theta^\bullet}}}{Y}}$[#}
 {#only]:4-5[#>]$\Vect{Y}$ & $\Est{\mu^{J}}{Y}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{Y}$ & $\Est{\mu^{J}}{Y}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{Y})$[#}
@@ -220,9 +222,10 @@ sd & $:r{round(sd(resSJ[1,]),4)}$ & $:r{round(sd(resSJ[2,]),4)}$ & $:r{round(sd(
 \\[#}
 \end{tabular}}
 [#}
+[#r<]detach.data("statinf","resAEPSJ.RData")
 [#when]aep[#%]tableau AEP!
 [#<]{#new]deltaSJ[#of]InstrProba[#y.AMP]\\Delta[#y.AEP]\\delta_{[\\cdot]}[#what]p-3[,p[-3;-1.5[,p[-1.5;-0.5],p[-0.5;0.5[[#}
-[#r<]load("{#prjpath]statinf-cours/presentation[#,]data[#}/resAEPSJ.RData")
+[#r<]attach.data("statinf","resAEPSJ.RData")
 [#>]{#Slide][#nb]1[#titre]A.E.P. ecart standardisé
 [#haut]\textbf{Expérimentation~:} Relation entre A.E.P. et A.M.P sur 
 \centerline{$\Delta:=\displaystyle\delta_{\widehat\mu^J,\mu^J}(\Vect{Y}):=\frac{{\color{purple}\Est{\mu^J}{Y}}-\mu^J}{\color{purple}\Est{\sigma_{\widehat{\mu^J}}}{Y}}\SuitApprox {\color{blue}\mathcal{N}(0,1)}$}
@@ -243,6 +246,6 @@ sd & $:r{round(sd(resSJ[1,]),4)}$ & $:r{round(sd(resSJ[2,]),4)}$ & $:r{round(sd(
 {#endTab]deltaSJ[#}\end{center}
 }
 [#Slide}
-
+[#r<]detach.data("statinf","resAEPSJ.RData")
 [#case}
 

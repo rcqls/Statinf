@@ -1,7 +1,7 @@
 \section{Test d'hypothèses}
 {#nitScene]head[#}{#nitScene]def[#}{#nitScene]ex[#}
 [#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 pA<-.15
 plim<-.16
 n<-1000
@@ -198,7 +198,7 @@ $
 \frac{\Est{p^A}{Y^A}-15\%}{\sqrt{\frac{15\%\times 85\%}n}} \mbox{ et }
 \Est{\delta_{\mu^B,0.15}}{Y^B}=\frac{\Est{\mu^B}{Y^B}-0.15}{\sqrt{\frac{\Est{\sigma_B^2}{Y^B}}n}}$}[#}
 {#ImageR]ex:img/stattest.png[#,]5,5[#,]:4[#,]0.6,-0.05[#,]
-require(CqlsRandom)
+require(CqlsEAP)
 ST<-Norm()
 plot(ST,main="",xlab="",ylab="",col="blue",lwd=3)
 abline(h=0)[#}
@@ -213,7 +213,7 @@ abline(h=0)[#}
 @{ONLY(:8-9)}{\noindent\textbf{Réponse~:} $\delta_{lim,\alpha}$ est le quantile d'ordre $1-\alpha$ d'une loi $\mathcal{N}(0,1)$ @{ONLY(:8)}{(pourquoi~?)} @{ONLY(:9)}{car $P_{\mu^\bullet=0.15}(\Est{\delta_{\mu^\bullet,0.15}}{Y^\bullet} > \delta_{lim,\alpha})$ (correspondant au risque sous $\mathbf{H_0}$ de mal décider $\mathbf{H_1}$ à partir du futur échantillon $\Vect{Y^\bullet}$) est égal à $\alpha$.}}
 }[#}
 {#ImageR]ex:img/deltalim5.png[#,]5,5[#,]:8-9[#,]0.6,-0.05[#,]
-require(CqlsRandom)
+require(CqlsEAP)
 ST<-Norm()
 deltalim5<-QQ(ST,.95)
 plot(ST,main="",xlab="",ylab="",col="blue",lwd=3)

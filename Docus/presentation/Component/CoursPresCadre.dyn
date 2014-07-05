@@ -244,8 +244,8 @@ Les indications \texttt{R} fournies permettent de déduire la bonne définition 
 \begin{frame}
 \frametitle{Indications R avec \texttt{deltaEst.H0}}
 [#r<]
-require(CqlsStat)
-attach("~/cqls/data/chAff.RData")
+require(CqlsEAP)
+attach.data("chAff.RData")
 yP1<-yy05[1:20]
 yP2<-yP2[1:20]
 [#>]
@@ -285,7 +285,7 @@ on a les équivalences suivantes:\\
 }
 [#=]new[FALSE]
 [#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 Y<-Norm()
 [#>]
 
@@ -309,14 +309,13 @@ abline(h=0,v=0,lwd=2)
 \includegraphics[width=#{width},height=#{height}]{img/cours6Fig1}& \includegraphics[width=#{width},height=#{height}]{img/cours6Fig2}
 \end{tabular}
 \end{frame}
-
-
+[#r<]detach.data("chAff.RData")[#>]
 
 \begin{frame}
 \frametitle{Retour sur les PME avec indications R= p$-$valeur(gauche)}
 [#r<]
-require(CqlsStat)
-attach("~/cqls/data/chAff.RData")
+require(CqlsEAP)
+attach.data("chAff.RData")
 yP1<-yy05[1:20]
 yP2<-yP2[1:20]
 [#>]
@@ -341,3 +340,4 @@ Or, p$-$valeur(g)$>50\%\Leftrightarrow$\texttt{deltaEst.H0}$>0$, par conséquent
 \fbox{\centerline{$\mathbf{H_1}: d_\mu:=\mu^{P1} - \mu^{P2}>20$}}
 }
 \end{frame}
+[#r<]detach.data("chAff.RData")

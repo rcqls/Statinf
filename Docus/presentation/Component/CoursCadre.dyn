@@ -1,6 +1,6 @@
 [#package]
 \usepackage{slashbox}
-[#require]Import/StatDevel/BeamerCours
+[#require]RCqls/StatInf/BeamerCours
 [#main]
 [#>]
 {#case]#{docs}
@@ -192,8 +192,7 @@ Les indications \texttt{R} fournies permettent de déduire la bonne définition 
 \begin{frame}
 \frametitle{Indications R avec \texttt{deltaEst.H0}}
 [#r<]
-require(CqlsStat)
-attach("~/cqls/data/chAff.RData")
+attach.data("chAff.RData")
 yP1<-yy05[1:20]
 yP2<-yP2[1:20]
 [#>]
@@ -217,7 +216,7 @@ Or, \texttt{deltaEst.H0} est positif, par conséquent une seule solution possibl
 \fbox{\centerline{$\mathbf{H_1}: d_\mu:=\mu^{P1} - \mu^{P2}>20$}}
 }
 \end{frame}
-
+[#r<]detach.data("chAff.RData")
 [#when]signeDelta[#>]
 
 {#BeamerFrame]Relation générale entre le signe de \texttt{deltaEst.H0} et \texttt{ploi(deltaEst.H0,...)}[#>]
@@ -232,7 +231,7 @@ on a les équivalences suivantes:\\
 }
 [#=]new[FALSE]
 [#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 Y<-Norm()
 [#>]
 
@@ -260,8 +259,7 @@ abline(h=0,v=0,lwd=2)
 [#when]prelim2[#>]
 
 {#BeamerFrame][#r<]
-require(CqlsStat)
-attach("~/cqls/data/chAff.RData")
+attach.data("chAff.RData")
 yP1<-yy05[1:20]
 yP2<-yP2[1:20]
 [#>]
@@ -296,4 +294,5 @@ $\Est{\mu^{P1}}{y^{P1}}\!-\!\Est{\mu^{P2}}{y^{P2}}\!-\!20\!\NotR\! \texttt{mean(
 Mêmes signes $\Rightarrow$  \fbox{$\mathbf{H_1}$: $d_\mu\!:=\!\mu^{P1} \!-\! \mu^{P2}\!>\!20$}
 \end{block}}
 [#}
+[#r<]detach.data("chAff.RData")
 [#case}

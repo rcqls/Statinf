@@ -199,7 +199,7 @@ $\Est{\delta_{\mu^\bullet,0.15}}{y^\bullet}>\delta_{lim,\alpha}^+$& $\Est{\delta
   :img => img/N01droite.png 
   :include => false  
   :rcode =>
-require(CqlsRandom)
+require(CqlsEAP)
 plot(Norm(),lwd=3,xlab="",ylab="",col='red',main="N(0,1)")
 area(Norm(),prob=c(0.95,1),col='red3',angle=-40,dens=10)
 abline(v=qnorm(.95),col='green',lwd=2)
@@ -252,7 +252,7 @@ $\delta_{lim,\alpha^-}\!\stackrel{R}{=}$\texttt{qchisq(0.05,19)} \\
   :img => img/N01droiteProdB.png 
   :include => false  
   :rcode =>
-require(CqlsRandom)
+require(CqlsEAP)
 plot(Norm(),lwd=3,xlab="",ylab="",col='red',main="N(0,1)")
 area(Norm(),prob=c(0.95,1),col='red3',angle=-40,dens=10)
 abline(v=qnorm(.95),col='green',lwd=2)
@@ -311,13 +311,14 @@ $\widehat{\delta}\!\stackrel{R}{=}$\texttt{(mean(yB)-0.15)/} & $\widehat{\delta}
 
 \begin{frame}
 \frametitle{Le jour J}
-[#r<] 
-attach('~/cqls/data/dictee.RData')
+[#r<]
+require(CqlsEAP)
+attach.data('dictee.RData')
 deltaDict<-(mean(y[1:25])-6.3)/sqrt(var(y[1:25])/25)
-attach('~/cqls/data/industriel.RData')
+attach.data('industriel.RData')
 attach(industriel)
 deltaProdB <- (mean(yB)-0.15)/sqrt(var(yB)/length(yB)) 
-attach('~/cqls/data/techniciens.RData')
+attach.data('techniciens.RData')
 deltaTechA<-19*var(yA[1:20])/0.1
 [#>]
 
@@ -351,3 +352,7 @@ $\delta_{lim,\alpha}^+\!=\mathtt{#r{qnorm(0.95)}}$ & $\delta_{lim,\alpha/2}^-\!=
 
 }
 \end{frame}
+[#r<]detach.data('dictee.RData')
+detach(industriel)
+detach.data('industriel.RData')
+detach.data('techniciens.RData')

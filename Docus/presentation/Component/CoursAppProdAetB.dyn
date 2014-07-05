@@ -1,6 +1,6 @@
 [#r<]
-require(CqlsRandom)
-load('~/cqls/data/industriel.RData')
+require(CqlsEAP)
+attach.data('industriel.RData')
 attach(industriel)
 [#>]
 
@@ -120,5 +120,6 @@ abline(v=(mean(yB)-0.15)/sqrt(var(yB)/1000),col="darkgreen",lty=2,lwd=2)
 
 \end{frame}
 
-
+[#r<]detach(industriel)
+detach.data('industriel.RData')
 

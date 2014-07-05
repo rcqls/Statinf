@@ -6,7 +6,7 @@ Import/Tex/FilterR
 \usepackage{color}
 [#main]
 [#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 pA<-.15
 plim<-.16
 n<-1000
@@ -228,9 +228,9 @@ $\sigma(Y^A)@{ONLY(:1)}{=\mbox{ ???}}@{ONLY(:4)}{=\!\sdEmp[\infty]{y^A_{[\cdot]}
 {\scriptsize, \ldots, @{DataFilter(tmpEx[251:300]|0|blue)}}}
 @{ONLY(:4)}{, \ldots}[#}
 {#incCpt]4[#}[#%]Loi de proba v.a. (a.e.p.)[#r<]
-attach("~/cqls/data/simEch.RData")
+attach.data("simEch.RData")
 tmpEx<-sample(yy.sim[,2])
-detach()
+detach.data("simEch.RData")
 [#>]{#ActorWhen]tit_exA_aep[#,]:1-4[#}
 {#Actor]def:ex2_prA_aep[#,]:1-4[#,]0.5,0.5[#,]
 @{ONLY(:1)}{$\Est{p^A}{Y^A}=$proportion de boules 1 parmi $n=1000$ tirages avec remise.\\}$P(\Est{p^A}{Y^A}> 16\%)@{ONLY(:1)}{=\mbox{ ???}}

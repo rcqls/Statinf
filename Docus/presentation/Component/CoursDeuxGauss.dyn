@@ -19,9 +19,8 @@ Ici, on ne souhaite pas confirmer {\color{red}$\mathbf{H_1}: r_{\sigma^2}={\sigm
 
 
 [#r<]
-require(CqlsRandom)
-require(CqlsStat)
-attach('~/cqls/data/conduite.RData')
+require(CqlsEAP)
+attach.data('conduite.RData')
 attach(conduite)
 deltaDMean <- (mean(yH)-mean(yF))/seDMeanG(yH,yF)
 deltaRVar <- var(yH)/var(yF)
@@ -121,4 +120,8 @@ area(Fisher(8,10),x=c(0,qf((1-pf(deltaRVar,8,10)),8,10)),angle=40,dens=10,col='b
 \end{tabular}
 
 \end{frame}
+
+[#r<]
+detach(conduite)
+detach.data('conduite.RData')
 

@@ -209,7 +209,7 @@
 \only<3-4>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
 \textbf{Question}~: Peut-on pour autant plutôt penser au vu de ce même jeu de données qu'Alfred n'est pas compétent (i.e. $\mathbf{H_1}:\sigma^2_A>0.1$)~?\\
-\textbf{Réponse}~: p-valeur droite = \only<3>{?}\only<4>{1-(p-valeur gauche)=1-#R{round(pchisq(deltaEst.H0.alf,19)*100,2)}\%=#R{round(100*(1-pchisq(deltaEst.H0.alf,19)),2)}\%}\\
+\textbf{Réponse}~: p-valeur droite = \only<3>{?}\only<4>{1-(p-valeur gauche)=1-21.16\%=78.84\%}\\
 \visible<4>{car \textbf{la somme des p-valeurs droite et gauche est égale à 1!}}\end{minipage}}}}
 \only<5-6>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11.3cm}
@@ -248,14 +248,52 @@ Accepter $\mathbf{H_1}$  si
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf7}}}}
 \only<4>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf8}}}}
+\only<1-4>{
+\pgfputat{\pgfxy(0.5721648758217379,0.9714797908880797)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\sigma^2_A,0.1}}{Y^A}$ sous $\mathbf{H}_0:\sigma_A^2=0.1\Leftrightarrow \delta_{\sigma_A^2,0.1}=19$} }}}
+\only<1-3>{
+\pgfputat{\pgfxy(0.5721648758217379,0.05611716230336712)}{\pgfbox[center,center]{
+{\scriptsize \only<1>{{\color{orange}$\Est{\delta_{\sigma^2_A,0.1}}{y^A}\stackrel{R}{=}$\texttt{19*var(yA)/0.1=13.919}}$\nless${\color{darkgreen}$\delta_{lim,5\%}^-\stackrel{R}{=}$\texttt{qchisq(.05,19)=10.117}}}
+\only<2-3>{{\color{orange}$p-valeur (gauche)\stackrel{R}{=}$\texttt{pchisq(19*var(yA)/0.1,19)=21.16\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}}}}
+\only<4>{
+\pgfputat{\pgfxy(0.5721648758217379,0.05611716230336712)}{\pgfbox[center,center]{
+{\scriptsize  {\color{orange}$p-valeur (droite)\stackrel{R}{=}$\texttt{1-pchisq(19*var(yA)/0.1,19)=78.84\%}}$\nless${\color{darkgreen}$\alpha=5\%$}
+}}}}
 \only<5>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{dict}}}}
 \only<6>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{dict2}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5636363636363636,0.9615726728634971)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{\mu^D,6.3}}{Y^D}$ sous $\mathbf{H}_0:\mu^D=6.3\Leftrightarrow \delta_{\mu^D,6.3}=0$} }}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5636363636363636,0.07307827151614543)}{\pgfbox[center,center]{
+{\scriptsize \only<5>{{\color{orange}$\Est{\delta_{\mu^D,6.3}}{y^D}\stackrel{R}{=}$\texttt{(mean(yD)-6.3)/seMean(yD)=-1.985}}
+$\left\{\begin{array}{l}
+\nless{\color{darkgreen}\delta_{lim,2.5\%}^-\simeq -2.063899}\\
+\ngtr{\color{darkgreen}\delta_{lim,2.5\%}^+\simeq 2.063899}
+\end{array}\right.$
+}
+\only<6>{{\color{orange}$p-valeur (bi)\stackrel{R}{=}$ \texttt{2*pt((mean(yD)-6.3)/seMean(yD),24) =5.87\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}}}}
 \only<7>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{hetero2}}}}
 \only<8>{
 \pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{hetero7}}}}
+\only<7-8>{
+\pgfputat{\pgfxy(0.5636363636363637,0.9536580194337094)}{\pgfbox[center,center]{
+\textbf{Loi de $\Est{\delta_{d_{\sigma^2},0}}{Y^C,Y^D}$ sous $\mathbf{H}_0:\sigma_C^2=\sigma^2_D\Leftrightarrow \delta_{d_{\sigma^2},0}=0$} }}}
+\only<7-8>{
+\pgfputat{\pgfxy(0.5636363636363637,0.07242835407792879)}{\pgfbox[center,center]{
+{\scriptsize \only<7>{{\color{orange}$\Est{\delta_{d_{\sigma^2},0}}{y^C,y^D}\stackrel{R}{=}$\texttt{(var(yC)-var(yD))/seDVar(yC,yD)=0.256}}
+$\left\{\begin{array}{l}
+\nless{\color{darkgreen}\delta_{lim,2.5\%}^-\simeq -1.96}\\
+\ngtr{\color{darkgreen}\delta_{lim,2.5\%}^+\simeq 1.96}
+\end{array}\right.$
+}
+\only<8>{{\color{orange}$p-valeur (bi)\stackrel{R}{=}$ \texttt{2*(1-pnorm(var(yC)-var(yD))/seDVar(yC,yD))=79.81\%}}$\nless${\color{darkgreen}$\alpha=5\%$}}
+}}}}
 
 \end{pgfpicture}
 

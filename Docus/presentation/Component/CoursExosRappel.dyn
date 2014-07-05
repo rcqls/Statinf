@@ -1,34 +1,34 @@
 [#require]Import/StatDevel/BeamerRedStdCours
 [#main][#<] Contexte
 {#new]dmuCopies[#of]ParamFrame[#in]dmuCopies[#,]dm[#,]a[#,].nom1Pb[A1][#,].nom2Pb[A2][#r<]
-attach('{#home#}/cqls/data/evalCopies.RData')
+attach.data('evalCopies.RData')
 yA1<-yA1
 yA2<-yA2
-detach()
+detach.data('evalCopies.RData')
 [#}
 {#new]dmuCopiesTest[#of]TestParam[#in]dmuCopies[#,]:dmuCopies[#,].theta0R[0][#,].side[>][#,].assertion[$C_1$ est plus souple que $C_2$][#}
 
 {#new]muDCopies[#of]ParamFrame[#in]muDCopies[#,]md[#,]a[#,].nom1Pb[A1][#,].nom2Pb[A1C2][#r<]
-attach('{#home#}/cqls/data/evalCopies.RData')
+attach.data('evalCopies.RData')
 yA1<-yA1
 yA1C2<-yA1C2
-detach()
+detach.data('evalCopies.RData')
 [#}
 {#new]muDCopiesTest[#of]TestParam[#in]muDCopies[#,]:muDCopies[#,].theta0R[0][#,].side[>][#,].assertion[$C_1$ est plus souple que $C_2$][#}
 
 {#new]muD2Copies[#of]ParamFrame[#in]muD2Copies[#,]m[#,]a[#,].nomPb[D][#r<]
-attach('{#home#}/cqls/data/evalCopies.RData')
+attach.data('evalCopies.RData')
 yAV<-yA1
 yAP<-yAP
 yD<-yAV-yAP
-detach()
+detach.data('evalCopies.RData')
 [#}
 {#new]muD2CopiesTest[#of]TestParam[#in]muD2Copies[#,]:muD2Copies[#,].theta0R[0][#,].side[!=][#,].assertion[la moyenne de la différence de notes est différente de zéro][#}
 
 {#new]varDCopies[#of]ParamFrame[#in]varDCopies[#,]v[#,]a[#,].nomPb[D][#r<]
-attach('{#home#}/cqls/data/evalCopies.RData')
+attach.data('evalCopies.RData')
 yD<-yA1-yAP
-detach()
+detach.data('evalCopies.RData')
 [#}
 {#new]varDCopiesTest[#of]TestParam[#in]varDCopies[#,]:varDCopies[#,].theta0R[0.25][#,].side[>][#,].assertion[la variance de la différence de notes est supérieure à 0.25][#}
 [#>]

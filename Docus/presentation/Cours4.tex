@@ -234,13 +234,13 @@ obtenues grâce à la connaissance du mathématicien suivante\\
 \only<33>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}\textbf{Réponse}~: \\
 \[
-\mu_{lim}\NotR\mathtt{qnorm(.95,.15,sqrt(varBO15/n))}\simeq #r{QQ(Y15B,.95)}
+\mu_{lim}\NotR\mathtt{qnorm(.95,.15,sqrt(varBO15/n))}\simeq 0.1740846
 \]\end{minipage}}}}
 \only<34>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
 L'urne $U^A_{0.15}$ est une pire situation potentielle pour le produit~B ainsi que beaucoup d'autres (à décrire). 
-Par conséquent, $\mu_{lim,5\%}$ peut prendre les valeurs  #r{QQ(Y15B,.95)},  #r{QQ(Y15,.95)} ainsi que beaucoup d'autres
-(le plus grand à 3 boules max est #r{QQ(Y15B2,.95)}) $\Rightarrow$ \textbf{ECHEC!}\end{minipage}}}}
+Par conséquent, $\mu_{lim,5\%}$ peut prendre les valeurs  0.1740846,  0.168573 ainsi que beaucoup d'autres
+(le plus grand à 3 boules max est 0.1840091) $\Rightarrow$ \textbf{ECHEC!}\end{minipage}}}}
 \only<35>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
 \textbf{mais pas MATH!}~: en effet, $\Est{\mu^B}{Y^B}\SuitApprox \mathcal{N}({\color{blue}0.15},\frac{\color{red}\sigma_B}{\sqrt{n}})$ sous $\mathbf{H_0}$. Heureusement, $\mathbf{H_1}:\mu^B>0.15\Leftrightarrow \delta_{\mu^B,0.15}:=\frac{\mu^B-0.15}{\sigma_B/\sqrt{n}}>0$\\
@@ -269,7 +269,7 @@ avec $\sigma_{\widehat{\mu^B}}=\frac{\sigma_B}{\sqrt{n}}$.}\end{minipage}}}}
 \textbf{Question }: Comment s'écrit la règle de décision en faveur de l'assertion d'intérêt ne produisant pas plus de 5\% d'erreur de première espèce~?\end{minipage}}}}
 \only<46-47>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
-\textbf{Question }: Comment conclueriez-vous au vu des données de l'industriel stockées dans le vecteur $\Vect{y^B}$ (\texttt{yB} en \texttt{R}) et pour lequel $\mathtt{mean(yB)}=#r{mean(yB)}$ et $\mathtt{sd(yB)}=#r{sd(yB)}$~?\end{minipage}}}}
+\textbf{Question }: Comment conclueriez-vous au vu des données de l'industriel stockées dans le vecteur $\Vect{y^B}$ (\texttt{yB} en \texttt{R}) et pour lequel $\mathtt{mean(yB)}=0.172$ et $\mathtt{sd(yB)}=0.5610087$~?\end{minipage}}}}
 
 \end{pgfpicture}
 
@@ -289,12 +289,12 @@ avec $\sigma_{\widehat{\mu^B}}=\frac{\sigma_B}{\sqrt{n}}$.}\end{minipage}}}}
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
 $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
-10\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst01>p)),if(is.null(Y1)) NULL else 1-FF(Y1,plim),"no","darkgray","darkgray")} \\\hline
-14\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst014>p)),if(is.null(Y14)) NULL else 1-FF(Y14,plim),"no","darkgray","darkgray")} \\\hline
-15\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst015>p)),if(is.null(Y15)) NULL else 1-FF(Y15,plim),"no","darkgray","darkgray")} \\\hline
-15.1\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst0151>p)),if(is.null(Y151)) NULL else 1-FF(Y151,plim),"no","darkgray","darkgray")} \\\hline
-16\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst016>p)),if(is.null(Y16)) NULL else 1-FF(Y16,plim),"no","darkgray","darkgray")} \\\hline
-20\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst02>p)),if(is.null(Y2)) NULL else 1-FF(Y2,plim),"no","darkgray","darkgray")} \\\hline
+10\% &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+14\% &  $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ &  $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% &  $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ &  $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ &  $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ &  $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline
 \end{tabular}}}}
 \only<9,14,15>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
@@ -302,12 +302,12 @@ $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\colum
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
 $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
-10\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst01>p)),if(is.null(Y1)) NULL else 1-FF(Y1,plim),"white","darkgray","darkgray")} \\\hline 
-14\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst014>p)),if(is.null(Y14)) NULL else 1-FF(Y14,plim),"white","darkgray","darkgray")} \\\hline
-15\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst015>p)),if(is.null(Y15)) NULL else 1-FF(Y15,plim),"white","darkgray","darkgray")} \\\hline 
-15.1\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst0151>p)),if(is.null(Y151)) NULL else 1-FF(Y151,plim),"no","darkgray","darkgray")} \\\hline
-16\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst016>p)),if(is.null(Y16)) NULL else 1-FF(Y16,plim),"no","darkgray","darkgray")} \\\hline
-20\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst02>p)),if(is.null(Y2)) NULL else 1-FF(Y2,plim),"no","darkgray","darkgray")} \\\hline 
+10\% & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% & \cellcolor{darkgray} $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ & \cellcolor{white} $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ &  $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ &  $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline 
 \end{tabular}}}}
 \only<10,11-13>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
@@ -315,12 +315,12 @@ $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\colum
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
 $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
-10\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst01>p)),if(is.null(Y1)) NULL else 1-FF(Y1,plim),"white","darkgray","darkgray")} \\\hline 
-14\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst014>p)),if(is.null(Y14)) NULL else 1-FF(Y14,plim),"white","darkgray","darkgray")} \\\hline
-15\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst015>p)),if(is.null(Y15)) NULL else 1-FF(Y15,plim),"white","darkgray","darkgray")} \\\hline 
-15.1\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst0151>p)),if(is.null(Y151)) NULL else 1-FF(Y151,plim),"darkblue","darkblue","cyan")} \\\hline
-16\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst016>p)),if(is.null(Y16)) NULL else 1-FF(Y16,plim),"darkblue","darkblue","cyan")} \\\hline
-20\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst02>p)),if(is.null(Y2)) NULL else 1-FF(Y2,plim),"darkblue","darkblue","cyan")} \\\hline 
+10\% & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% & \cellcolor{darkgray} $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ & \cellcolor{white} $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+15.1\% & \cellcolor{darkblue} $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ & \cellcolor{darkblue} $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ & \cellcolor{darkblue} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% & \cellcolor{darkblue} $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ & \cellcolor{darkblue} $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ & \cellcolor{darkblue} $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% & \cellcolor{cyan} $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ & \cellcolor{cyan} $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ & \cellcolor{darkblue} $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline 
 \end{tabular}}}}
 \only<16-17,18>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
@@ -328,12 +328,12 @@ $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\colum
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
 $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{20\%} \\\hline
-10\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst01>p)),if(is.null(Y1)) NULL else 1-FF(Y1,plim),"no","darkgray","darkgray")} \\\hline 
-14\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst014>p)),if(is.null(Y14)) NULL else 1-FF(Y14,plim),"no","darkgray","darkgray")} \\\hline
-15\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst015>p)),if(is.null(Y15)) NULL else 1-FF(Y15,plim),"white","darkgray","darkgray")} \\\hline 
-15.1\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst0151>p)),if(is.null(Y151)) NULL else 1-FF(Y151,plim),"no","darkgray","darkgray")} \\\hline
-16\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst016>p)),if(is.null(Y16)) NULL else 1-FF(Y16,plim),"no","darkgray","darkgray")} \\\hline
-20\% & #r{vector2texTab(sapply(plim,function(p) mean(pAEst02>p)),if(is.null(Y2)) NULL else 1-FF(Y2,plim),"no","darkgray","darkgray")} \\\hline 
+10\% &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% &  $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ &  $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ &  $ {\color{blue}0.06\% } \simeq {\color{red}0.03\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ &  $ {\color{blue}48.23\% } \simeq {\color{red}50\% } $ \\\hline 
 \end{tabular}}}}
 \only<19-20>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
@@ -341,12 +341,12 @@ $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\colum
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$p_{lim}$} \\\cline{2-4}
 $p$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{15\%}& \multicolumn{1}{>{\columncolor{yellow}}c|}{16.8573\%} & \multicolumn{1}{>{\columncolor{yellow}}c|}{17\%} \\\hline 
-10\% & #r{vector2texTab(sapply(plim2,function(p) mean(pAEst01>p)),if(is.null(Y1)) NULL else 1-FF(Y1,plim2),"no","darkgray","darkgray")} \\\hline 
-14\% & #r{vector2texTab(sapply(plim2,function(p) mean(pAEst014>p)),if(is.null(Y14)) NULL else 1-FF(Y14,plim2),"no","darkgray","darkgray")} \\\hline
-15\% & #r{vector2texTab(sapply(plim2,function(p) mean(pAEst015>p)),if(is.null(Y15)) NULL else 1-FF(Y15,plim2),"white","darkgray","darkgray")} \\\hline 
-15.1\% & #r{vector2texTab(sapply(plim2,function(p) mean(pAEst0151>p)),if(is.null(Y151)) NULL else 1-FF(Y151,plim2),"no","darkgray","darkgray")} \\\hline 
-16\% & #r{vector2texTab(sapply(plim2,function(p) mean(pAEst016>p)),if(is.null(Y16)) NULL else 1-FF(Y16,plim2),"no","darkgray","darkgray")} \\\hline
-20\% & #r{vector2texTab(sapply(plim2,function(p) mean(pAEst02>p)),if(is.null(Y2)) NULL else 1-FF(Y2,plim2),"no","darkgray","darkgray")} \\\hline 
+10\% &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline 
+14\% &  $ {\color{blue}16.57\% } \simeq {\color{red}18.11\% } $ &  $ {\color{blue}0.52\% } \simeq {\color{red}0.46\% } $ &  $ {\color{blue}0.32\% } \simeq {\color{red}0.31\% } $ \\\hline
+15\% & \cellcolor{darkgray} $ {\color{blue}48.06\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}5.17\% } \simeq {\color{red}5\% } $ & \cellcolor{white} $ {\color{blue}3.68\% } \simeq {\color{red}3.83\% } $ \\\hline 
+15.1\% &  $ {\color{blue}51.52\% } \simeq {\color{red}53.52\% } $ &  $ {\color{blue}6.18\% } \simeq {\color{red}6.03\% } $ &  $ {\color{blue}4.3\% } \simeq {\color{red}4.67\% } $ \\\hline 
+16\% &  $ {\color{blue}78.95\% } \simeq {\color{red}80.58\% } $ &  $ {\color{blue}22.89\% } \simeq {\color{red}22.98\% } $ &  $ {\color{blue}17.88\% } \simeq {\color{red}19.42\% } $ \\\hline
+20\% &  $ {\color{blue}99.99\% } \simeq {\color{red}100\% } $ &  $ {\color{blue}99.35\% } \simeq {\color{red}99.35\% } $ &  $ {\color{blue}99.02\% } \simeq {\color{red}99.11\% } $ \\\hline 
 \end{tabular} }}}
 \only<21-30>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
@@ -367,11 +367,11 @@ $p_{lim,5\%}\NotR
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\mu_{lim}$} \\\cline{2-4}
 $\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.17} & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.20} \\\hline
-0.1 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst01>p)),if(is.null(Y1B)) NULL else 1-FF(Y1B,plim),"white","darkgray","darkgray")} \\\hline
-0.14 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst014>p)),if(is.null(Y14B)) NULL else 1-FF(Y14B,plim),"white","darkgray","darkgray")} \\\hline
-0.15 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst015>p)),if(is.null(Y15B)) NULL else 1-FF(Y15B,plim),"white","darkgray","darkgray")} \\\hline
-0.16 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst016>p)),if(is.null(Y16B)) NULL else 1-FF(Y16B,plim),"darkblue","darkblue","cyan")} \\\hline
-0.20 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst02>p)),if(is.null(Y2B)) NULL else 1-FF(Y2B,plim),"darkblue","darkblue","cyan")} \\\hline
+0.1 & \cellcolor{white} $ {\color{blue}0.01\% } \simeq {\color{red}0.01\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ & \cellcolor{white} $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+0.14 & \cellcolor{darkgray} $ {\color{blue}23.39\% } \simeq {\color{red}24.38\% } $ & \cellcolor{white} $ {\color{blue}1.74\% } \simeq {\color{red}1.86\% } $ & \cellcolor{white} $ {\color{blue}0.01\% } \simeq {\color{red}0\% } $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{darkgray} $ {\color{blue}7.72\% } \simeq {\color{red}8.6\% } $ & \cellcolor{white} $ {\color{blue}0.04\% } \simeq {\color{red}0.03\% } $ \\\hline
+0.16 & \cellcolor{darkblue} $ {\color{blue}74.24\% } \simeq {\color{red}74.07\% } $ & \cellcolor{darkblue} $ {\color{blue}23.45\% } \simeq {\color{red}25.93\% } $ & \cellcolor{darkblue} $ {\color{blue}0.39\% } \simeq {\color{red}0.49\% } $ \\\hline
+0.20 & \cellcolor{cyan} $ {\color{blue}99.96\% } \simeq {\color{red}99.98\% } $ & \cellcolor{cyan} $ {\color{blue}97.81\% } \simeq {\color{red}98.3\% } $ & \cellcolor{darkblue} $ {\color{blue}48.43\% } \simeq {\color{red}50\% } $ \\\hline
 \end{tabular}\end{minipage}}}}
 \only<32>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
@@ -379,35 +379,35 @@ $\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\col
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\mu_{lim}$} \\\cline{2-4}
 $\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.17} & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.20} \\\hline
-0.1 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst01>p)),if(is.null(Y1B)) NULL else 1-FF(Y1B,plim),"no","darkgray","darkgray")} \\\hline
-0.14 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst014>p)),if(is.null(Y14B)) NULL else 1-FF(Y14B,plim),"no","darkgray","darkgray")} \\\hline
-0.15 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst015>p)),if(is.null(Y15B)) NULL else 1-FF(Y15B,plim),"white","darkgray","darkgray")} \\\hline
-0.16 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst016>p)),if(is.null(Y16B)) NULL else 1-FF(Y16B,plim),"no","darkgray","darkgray")} \\\hline
-0.20 & #r{vector2texTab(sapply(plim,function(p) mean(muBEst02>p)),if(is.null(Y2B)) NULL else 1-FF(Y2B,plim),"no","darkgray","darkgray")} \\\hline
+0.1 &  $ {\color{blue}0.01\% } \simeq {\color{red}0.01\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+0.14 &  $ {\color{blue}23.39\% } \simeq {\color{red}24.38\% } $ &  $ {\color{blue}1.74\% } \simeq {\color{red}1.86\% } $ &  $ {\color{blue}0.01\% } \simeq {\color{red}0\% } $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{darkgray} $ {\color{blue}7.72\% } \simeq {\color{red}8.6\% } $ & \cellcolor{white} $ {\color{blue}0.04\% } \simeq {\color{red}0.03\% } $ \\\hline
+0.16 &  $ {\color{blue}74.24\% } \simeq {\color{red}74.07\% } $ &  $ {\color{blue}23.45\% } \simeq {\color{red}25.93\% } $ &  $ {\color{blue}0.39\% } \simeq {\color{red}0.49\% } $ \\\hline
+0.20 &  $ {\color{blue}99.96\% } \simeq {\color{red}99.98\% } $ &  $ {\color{blue}97.81\% } \simeq {\color{red}98.3\% } $ &  $ {\color{blue}48.43\% } \simeq {\color{red}50\% } $ \\\hline
 \end{tabular}\end{minipage}}}}
 \only<33>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
 \arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\mu_{lim}$} \\\cline{2-4}
-$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Y15B,.95)}} & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.2} \\\hline
-0.1 & #r{vector2texTab(sapply(plimB,function(p) mean(muBEst01>p)),if(is.null(Y1B)) NULL else 1-FF(Y1B,plimB),"no","darkgray","darkgray")} \\\hline
-0.14 & #r{vector2texTab(sapply(plimB,function(p) mean(muBEst014>p)),if(is.null(Y14B)) NULL else 1-FF(Y14B,plimB),"no","darkgray","darkgray")} \\\hline
-0.15 & #r{vector2texTab(sapply(plimB,function(p) mean(muBEst015>p)),if(is.null(Y15B)) NULL else 1-FF(Y15B,plimB),"white","darkgray","darkgray")} \\\hline
-0.16 & #r{vector2texTab(sapply(plimB,function(p) mean(muBEst016>p)),if(is.null(Y16B)) NULL else 1-FF(Y16B,plimB),"no","darkgray","darkgray")} \\\hline
-0.20 & #r{vector2texTab(sapply(plimB,function(p) mean(muBEst02>p)),if(is.null(Y2B)) NULL else 1-FF(Y2B,plimB),"no","darkgray","darkgray")} \\\hline
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.15}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.1740846} & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.2} \\\hline
+0.1 &  $ {\color{blue}0.01\% } \simeq {\color{red}0.01\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ &  $ {\color{blue}0\% } \simeq {\color{red}0\% } $ \\\hline
+0.14 &  $ {\color{blue}23.39\% } \simeq {\color{red}24.38\% } $ &  $ {\color{blue}0.94\% } \simeq {\color{red}0.9\% } $ &  $ {\color{blue}0.01\% } \simeq {\color{red}0\% } $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}4.63\% } \simeq {\color{red}5\% } $ & \cellcolor{white} $ {\color{blue}0.04\% } \simeq {\color{red}0.03\% } $ \\\hline
+0.16 &  $ {\color{blue}74.24\% } \simeq {\color{red}74.07\% } $ &  $ {\color{blue}16.04\% } \simeq {\color{red}18.16\% } $ &  $ {\color{blue}0.39\% } \simeq {\color{red}0.49\% } $ \\\hline
+0.20 &  $ {\color{blue}99.96\% } \simeq {\color{red}99.98\% } $ &  $ {\color{blue}95.74\% } \simeq {\color{red}96.64\% } $ &  $ {\color{blue}48.43\% } \simeq {\color{red}50\% } $ \\\hline
 \end{tabular}\end{minipage}}}}
 \only<34>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
 \arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
 \begin{tabular}{|>{\columncolor{red}}c|c|c|}\hline
  & \multicolumn{2}{>{\columncolor{yellow}}c|}{$\mu_{lim,5\%}$} \\\cline{2-3}
-$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Y15,.95)} ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Y15B,.95)} ($U^B_{0.15}$)} \\\hline
-0.1 & $#r{percentFilter(mean(pAEst01>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y1,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst01>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y1B,plimB2[2]))}$ \\\hline
-0.14 & $#r{percentFilter(mean(pAEst014>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y14,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst014>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y14B,plimB2[2]))}$ \\\hline
-0.15 & \cellcolor{white}$#r{percentFilter(mean(pAEst015>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y15,plimB2[1]))}$ & \cellcolor{white}$#r{percentFilter(mean(muBEst015>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y15B,plimB2[2]))}$ \\\hline
-0.16 & $#r{percentFilter(mean(pAEst016>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y16,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst016>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y16B,plimB2[2]))}$ \\\hline
-0.1 & $#r{percentFilter(mean(pAEst02>plimB2[1]))} \simeq #r{percent2Filter(1-FF(Y2,plimB2[1]))}$ & $#r{percentFilter(mean(muBEst02>plimB2[2]))} \simeq #r{percent2Filter(1-FF(Y2B,plimB2[2]))}$ \\\hline
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0.168573 ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{0.1740846 ($U^B_{0.15}$)} \\\hline
+0.1 & ${\color{blue}0\% } \simeq {\color{red}0\% }$ & ${\color{blue}0\% } \simeq {\color{red}0\% }$ \\\hline
+0.14 & ${\color{blue}0.52\% } \simeq {\color{red}0.46\% }$ & ${\color{blue}0.94\% } \simeq {\color{red}0.9\% }$ \\\hline
+0.15 & \cellcolor{white}${\color{blue}5.17\% } \simeq {\color{red}5\% }$ & \cellcolor{white}${\color{blue}4.63\% } \simeq {\color{red}5\% }$ \\\hline
+0.16 & ${\color{blue}22.89\% } \simeq {\color{red}22.98\% }$ & ${\color{blue}16.04\% } \simeq {\color{red}18.16\% }$ \\\hline
+0.1 & ${\color{blue}99.35\% } \simeq {\color{red}99.35\% }$ & ${\color{blue}95.74\% } \simeq {\color{red}96.64\% }$ \\\hline
 \end{tabular}}}}
 \only<35-36>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
@@ -415,23 +415,23 @@ $\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Y15,.95)} ($U^A_{0.15}$
 \begin{tabular}{|>{\columncolor{red}}c|c|c|c|}\hline
  & \multicolumn{3}{>{\columncolor{yellow}}c|}{$\delta_{lim}$} \\\cline{2-4}
 $\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{0}& \multicolumn{1}{>{\columncolor{yellow}}c|}{1.6449} & \multicolumn{1}{>{\columncolor{yellow}}c|}{1.96} \\\hline
-0.1 & #r{vector2texTab(sapply(plim3,function(p) mean(deltaBEst01>p)),if(is.null(NULL)) NULL else 1-FF(NULL,plim3),"no","darkgray","darkgray")} \\\hline
-0.14 & #r{vector2texTab(sapply(plim3,function(p) mean(deltaBEst014>p)),if(is.null(NULL)) NULL else 1-FF(NULL,plim3),"no","darkgray","darkgray")} \\\hline
-0.15 & #r{vector2texTab(sapply(plim3,function(p) mean(deltaBEst015>p)),if(is.null(Delta)) NULL else 1-FF(Delta,plim3),"white","darkgray","darkgray")} \\\hline
-0.16 & #r{vector2texTab(sapply(plim3,function(p) mean(deltaBEst016>p)),if(is.null(NULL)) NULL else 1-FF(NULL,plim3),"no","darkgray","darkgray")} \\\hline
-0.20 & #r{vector2texTab(sapply(plim3,function(p) mean(deltaBEst02>p)),if(is.null(NULL)) NULL else 1-FF(NULL,plim3),"no","darkgray","darkgray")} \\\hline
+0.1 &  $ {\color{blue}0.01\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ \\\hline
+0.14 &  $ {\color{blue}100\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ &  $ {\color{blue}0\% } \simeq {\color{red}???} $ \\\hline
+0.15 & \cellcolor{darkgray} $ {\color{blue}47.92\% } \simeq {\color{red}50\% } $ & \cellcolor{white} $ {\color{blue}3.66\% } \simeq {\color{red}5\% } $ & \cellcolor{white} $ {\color{blue}1.73\% } \simeq {\color{red}2.5\% } $ \\\hline
+0.16 &  $ {\color{blue}74.24\% } \simeq {\color{red}???} $ &  $ {\color{blue}53.52\% } \simeq {\color{red}???} $ &  $ {\color{blue}50.9\% } \simeq {\color{red}???} $ \\\hline
+0.20 &  $ {\color{blue}99.96\% } \simeq {\color{red}???} $ &  $ {\color{blue}96.46\% } \simeq {\color{red}???} $ &  $ {\color{blue}92.45\% } \simeq {\color{red}???} $ \\\hline
 \end{tabular}}}}
 \only<37>{
 \pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{
 \arrayrulecolor{blue}\setlength\arrayrulewidth{1pt}
 \begin{tabular}{|>{\columncolor{red}}c|c|c|}\hline
  & \multicolumn{2}{>{\columncolor{yellow}}c|}{$\delta_{lim,5\%}$} \\\cline{2-3}
-$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Norm(0,1),.95)} ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Norm(0,1),.95)} ($U^B_{0.15}$)} \\\hline
-0.1 & $#r{percentFilter(mean(deltaBEstUA01>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst01>plim3[2]))} \simeq {\color{red}???}$ \\\hline
-0.14 & $#r{percentFilter(mean(deltaBEstUA014>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst014>plim3[2]))} \simeq {\color{red}???}$ \\\hline
-0.15 &\cellcolor{white} $#r{percentFilter(mean(deltaBEstUA015>plim3[2]))} \simeq #r{percent2Filter(1-FF(Delta,plim3[2]))}$ &\cellcolor{white} $#r{percentFilter(mean(deltaBEst015>plim3[2]))} \simeq #r{percent2Filter(1-FF(Delta,plim3[2]))}$ \\\hline
-0.16 & $#r{percentFilter(mean(deltaBEstUA016>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst016>plim3[2]))} \simeq {\color{red}???}$ \\\hline
-0.1 & $#r{percentFilter(mean(deltaBEstUA02>plim3[2]))} \simeq {\color{red}???}$ & $#r{percentFilter(mean(deltaBEst02>plim3[2]))} \simeq {\color{red}???}$ \\\hline
+$\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{1.644854 ($U^A_{0.15}$)}& \multicolumn{1}{>{\columncolor{yellow}}c|}{1.644854 ($U^B_{0.15}$)} \\\hline
+0.1 & ${\color{blue}0\% } \simeq {\color{red}???}$ & ${\color{blue}0\% } \simeq {\color{red}???}$ \\\hline
+0.14 & ${\color{blue}0.39\% } \simeq {\color{red}???}$ & ${\color{blue}0\% } \simeq {\color{red}???}$ \\\hline
+0.15 &\cellcolor{white} ${\color{blue}4.39\% } \simeq {\color{red}5\% }$ &\cellcolor{white} ${\color{blue}3.66\% } \simeq {\color{red}5\% }$ \\\hline
+0.16 & ${\color{blue}20.15\% } \simeq {\color{red}???}$ & ${\color{blue}53.52\% } \simeq {\color{red}???}$ \\\hline
+0.1 & ${\color{blue}99.2\% } \simeq {\color{red}???}$ & ${\color{blue}96.46\% } \simeq {\color{red}???}$ \\\hline
 \end{tabular}}}}
 \only<38-47>{
 \pgfputat{\pgfxy(0.5,1.05)}{\pgfbox[center,top]{\begin{minipage}{11cm}
@@ -441,7 +441,7 @@ $\mu$ & \multicolumn{1}{>{\columncolor{yellow}}c|}{#r{QQ(Norm(0,1),.95)} ($U^A_{
 \visible<45-47>{\noindent\textbf{Règle de Décision}~:\\
 \centerline{Accepter $\mathbf{H_1}$ si $\Est{\delta_{\mu^B,0.15}}{y^B} > \delta_{lim,\alpha}$}\newline}
 \visible<47>{\noindent\textbf{Conclusion}~: Au vu des données, puisque\\
- \centerline{$\Est{\delta_{\mu^B,0.15}}{y^B} =#r{(mean(yB)-0.15)/sqrt(var(yB)/length(yB))}\ngtr \delta_{lim,5\%}\NotR \mathtt{qnorm(.95)}\simeq 1.644854$}\\
+ \centerline{$\Est{\delta_{\mu^B,0.15}}{y^B} =1.24009\ngtr \delta_{lim,5\%}\NotR \mathtt{qnorm(.95)}\simeq 1.644854$}\\
 on NE peut PAS plutôt penser que le produit~B est rentable.\\
 (avec
 $ \Est{\delta_{\mu^B,0.15}}{y^B}\NotR

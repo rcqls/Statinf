@@ -11,7 +11,7 @@
 [#when]initScene[#>]{#InitScene#}
 [#when]putScene[#>]{#PutScene#}
 [#when]data[#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 pA<-.15
 plim<-c(.15,.17,.2)
 plim2<-c(.15,.168573,.17)
@@ -43,10 +43,10 @@ varB2<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
 Y15B2<-Norm(.15,sqrt(varB2/1000))
 plimB<-c(.15,QQ(Y15B,.95),.2)
 plimB2<-c(QQ(Y15,.95),QQ(Y15B,.95),QQ(Y15B2,.95))
-attach("~/cqls/data/simEch.RData")
-attach("~/cqls/data/simEch2.RData")
-attach("~/cqls/data/simEch3.RData")
-attach('~/cqls/data/industriel.RData');attach(industriel)
+attach.data("simEch.RData")
+attach.data("simEch2.RData")
+attach.data("simEch3.RData")
+attach.data('industriel.RData');attach(industriel)
 pAEst01<-muEst.sim[,1];pAEst015<-muEst.sim[,2];pAEst02<-muEst.sim[,3]
 pAEst0151<-yy0151.sim
 muBEst01<-muEst.sim[,4];muBEst015<-muEst.sim[,5];muBEst02<-muEst.sim[,6]
@@ -71,6 +71,11 @@ deltaBEstUA016<-(muEst2.sim[,2]-.15)/sqrt(muEst2.sim[,2]*(1-muEst2.sim[,2])/1000
 plimPCT=#R{as.integer(plim*100)}
 plim5PCT=#R{round(qnorm(.95,.15,sqrt(.15*.85/1000))*100,2)}
 plimN=#R{as.integer(plim*n)}
+[#when]detach[#r<]
+detach.data("simEch.RData")
+detach.data("simEch2.RData")
+detach.data("simEch3.RData")
+detach(industriel);detach.data('industriel.RData')
 [#when]intro[#%]Produit  (intro) -> Intro[#<]
 {#Slide][#nb]3[#titre]Décision pour Produits A et B
 [#haut]\textbf{Objectif}~: Nous rappelons que l'industriel désire établir une règle de décision à partir d'une unique estimation obtenue le \textbf{Jour J} quant au lancement du produit~$\bullet$.

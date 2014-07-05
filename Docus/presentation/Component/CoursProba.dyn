@@ -1,7 +1,7 @@
 \section[Proba]{Mini-cours de probabilités}
 {#initScene]head[#}{#initScene]def[#}{#initScene]ex[#}
 [#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 pA<-.15
 plim<-.16
 n<-1000

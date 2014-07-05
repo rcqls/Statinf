@@ -6,3 +6,5 @@
 *.out
 *.dyn_log
 *~
+*.Rhistory
+*.png
