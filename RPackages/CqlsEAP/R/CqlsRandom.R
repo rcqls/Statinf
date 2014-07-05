@@ -43,9 +43,9 @@ as.dynExpr <- function(obj,expr=NULL) {
 
 ## find some key in the field 
 findKey<-function(env=curEnvir()) {
-  objs<-ls(env=env)
+  objs<-ls(env=env,pattern="^[a-z,A-Z,\\.]",all.names=TRUE) # objs have to start with a letter or .
   l<-sapply(objs,function(o) {o<-eval(parse(text=o),env=env);if(inherits(o,"dynExpr") && !is.null(o[["key"]])) TRUE else FALSE}) 
-  keys<-character() 
+  keys<-character()
   if(length(l)) {
     objs<-objs[l]
     keys<-sapply(objs,function(o) {o<-eval(parse(text=o),env=env);o[["key"]]} )
@@ -58,7 +58,7 @@ findKey<-function(env=curEnvir()) {
 }
 
 findObj<-function(key,env=curEnvir()) {
-  objs<-ls(env=env)
+  objs<-ls(env=env,pattern="^[a-z,A-Z,\\.]",all.names=TRUE) # objs have to start with a letter or .
   objs<-objs[sapply(objs,function(o) {o<-eval(parse(text=o),env=env);if(inherits(o,"dynExpr") && !is.null(o[["key"]]) && o[["key"]]==key) TRUE else FALSE}) ]
   if(length(objs)==0) return(NULL)#stop("key unknown!!!")
   if(length(objs)>2) stop("too much keys!!!")

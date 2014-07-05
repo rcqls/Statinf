@@ -1,4 +1,4 @@
-[#require]Import/Tools/TabAEP
+[#require]RCqls/Tools/TabAEP
 [#main]
 [#>]{#case]#{docs}
 [#when]section[#>]\section[I. C.]{Intervalle de confiance}
@@ -203,12 +203,12 @@ Construisons un $m^{\grave eme}$ échantillon $\Vect{y_{[m]}}$ !
 \end{frame}
 [#when]qualité
 [#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 require(asympTest)
 load("~/cqls/data/statinf/ic.RDataSim")
 #URNE UB0.2
-YB<-Norm(.2,sqrt(sum((0:3-.2)^2*c(1660000,300000,20000,20000)/2000000)/1000))
-YA<-Norm(.2,sqrt(.2*.8/1000))
+try(YB <- Norm(.2,sqrt(sum((0:3-.2)^2*c(1660000,300000,20000,20000)/2000000)/1000)))
+YA<- Norm(.2,sqrt(.2*.8/1000))
 IC<-function(i,n=1000,alpha=.05) {
 yy<-yy.sim[[i]][1:n]
 mean(yy)+c(-1,1)*qnorm(1-alpha/2)*seMean(yy)->ic

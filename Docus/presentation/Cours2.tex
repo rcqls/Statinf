@@ -4,27 +4,33 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{aeguill}
 \usepackage{amssymb}
-\usepackage{pgf,pgfarrows,pgfnodes}
 \usepackage[french]{babel}
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{xmpmulti}
+\usepackage{multimedia}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{mathrsfs,dsfont}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
 \usepackage{float}
 \usepackage{xkeyval,calc,listings,tikz}
 \usepackage{fancyvrb}
 
 %Preamble
 
-\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
-\input /Users/remy/cqls/texinputs/Cours/testInclude
+\input Cours/cqlsInclude
+\input Cours/testInclude
 
 
 \mode<article>{\usepackage{fullpage}}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-\usetheme{Antibes}
-%\usecolortheme{lily}
+\usefonttheme{structureitalicserif}
+
 
 \definecolor{VertFonce}{rgb}{0,.4,.0}
 
@@ -44,12 +50,16 @@
 
 \AtBeginSection[]
 {
-  \begin{frame}<beamer>
-    \frametitle{Plan}
+  
+\begin{frame}<beamer>
+	\frametitle{Plan}
     \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
+\end{frame}
+
 }
 
+
+\definecolor{show}{rgb}{0.59,0.29,0.59}
 
 \setbeamercovered{invisible}
 \newcommand{\Sim}{{\star}}
@@ -133,10 +143,7 @@
 \item Après quelques mois de travail, un premier prototype (très perfectible) du \textbf{Salaire Juste} est élaboré par la fine équipe d'experts.
 \end{itemize}
 \end{exampleblock}
-\begin{tikzpicture}[remember picture,overlay]
-  \node [rotate=30,scale=10,text opacity=0.05]
-    at (current page.center) {CQLS};
-\end{tikzpicture}\end{frame}
+\end{frame}
 
 
 \begin{frame}
@@ -149,10 +156,7 @@ Les sociologues s'accordent à dire qu'un pays peut se dire non civilisé si~:
 \item \textbf{Discrimination Intérieure}~: les Salaires Justes dans le pays sont très dispersés. La variance des Salaires Justes dans le pays supérieur à 30 est considérée comme excessive et donc anormale.
 \end{enumerate}
 \end{alertblock}
-\begin{tikzpicture}[remember picture,overlay]
-  \node [rotate=30,scale=10,text opacity=0.05]
-    at (current page.center) {CQLS};
-\end{tikzpicture}\end{frame}
+\end{frame}
 
 
 \begin{frame}
@@ -167,10 +171,7 @@ $$\mu^{J}=\meanEmp[N]{\mathcal{Y}^{J}}=\frac1N\sum_{i=1}^N \mathcal{Y}^{J}_i=\EE
 $$\sigma^2_{J}=\Big(\sdEmp[N]{\mathcal{Y}^{J}}\Big)^2=\frac1N\sum_{i=1}^N \Big(\mathcal{Y}^{J}_i-\meanEmp[N]{\mathcal{Y}^{J}}\Big)^2=\VVV{Y^{J}}$$
 \end{enumerate}
 \end{alertblock}
-\begin{tikzpicture}[remember picture,overlay]
-  \node [rotate=30,scale=10,text opacity=0.05]
-    at (current page.center) {CQLS};
-\end{tikzpicture}\end{frame}
+\end{frame}
 
 
 

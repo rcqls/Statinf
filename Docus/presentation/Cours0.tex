@@ -1,0 +1,276 @@
+
+\documentclass[11pt]{beamer}
+%Packages
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage{aeguill}
+\usepackage{amssymb}
+\usepackage[french]{babel}
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{xmpmulti}
+\usepackage{multimedia}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{mathrsfs,dsfont}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+\usepackage{float}
+\usepackage{xkeyval,calc,listings,tikz}
+\usepackage{slashbox}
+\usepackage{fancyvrb}
+
+%Preamble
+
+\input Cours/cqlsInclude
+\input Cours/testInclude
+
+
+\mode<article>{\usepackage{fullpage}}
+\usefonttheme{structureitalicserif}
+
+
+\definecolor{VertFonce}{rgb}{0,.4,.0}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  % or ...
+\usetheme{Boadilla}
+
+  \setbeamercovered{transparent=5}
+  % or whatever (possibly just delete it)
+}
+%\setbeamercovered{dynamic}
+
+
+\subject{Talks}
+
+\AtBeginSection[]
+{
+  
+\begin{frame}<beamer>
+	\frametitle{Plan}
+    \tableofcontents[currentsection,currentsubsection]
+\end{frame}
+
+}
+
+
+\definecolor{show}{rgb}{0.59,0.29,0.59}
+
+\setbeamercovered{invisible}
+\newcommand{\Sim}{{\star}}
+\newcommand{\ok}{ \textcolor{green}{\large$\surd$}}
+\newcommand{\nok}{ \textcolor{red}{\large X}}
+
+
+\usetikzlibrary{arrows,%
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+\tikzset{
+  every plot/.style={prefix=plots/pgf-},
+  shape example/.style={
+    color=black!30,
+    draw,
+    fill=yellow!30,
+    line width=.5cm,
+    inner xsep=2.5cm,
+    inner ysep=0.5cm}
+}
+
+\definecolor{darkgreen}{rgb}{0,.4,.0}
+
+
+\definecolor{darkgreen}{rgb}{0,.4,.0}
+
+%Styles
+
+%Title
+
+\beamertemplateshadingbackground{green!50}{yellow!50}
+\title[Problématiques Produits A et B]
+{Cours de Statistiques Inférentielles}
+\author{CQLS~: cqls@upmf-grenoble.fr}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+%\begin{frame}
+%  \titlepage
+%\end{frame}
+
+
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{alf2}{img/alf2}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{alf7}{img/alf7}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{alf8}{img/alf8}
+
+
+
+
+
+
+
+
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{dict}{img/dict}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{dict2}{img/dict2}
+
+
+
+
+
+
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{hetero2}{img/hetero2}
+
+\pgfdeclareimage[width=11cm,height=5cm,interpolate=true]{hetero7}{img/hetero7}
+
+
+
+
+
+
+%\beamertemplateshadingbackground{green!50}{yellow!50}
+\begin{frame}<1->
+\setbeamercolor{header}{fg=black,bg=blue!40!white}
+ \hspace*{2.5cm}\begin{beamerboxesrounded}[width=6cm,shadow=true,lower=header]{}
+  \pgfsetxvec{\pgfpoint{6cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{0.5cm}}
+\begin{pgfpicture}{0cm}{0cm}{6cm}{0.5cm}
+
+  \only<1-4>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Exemple compétence Alfred}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Problématique de la dictée}}}}
+\only<7-8>{
+\pgfputat{\pgfxy(0.5,0.5)}{\pgfbox[center,center]{\textbf{\large Hétérogénéité des notes}}}}
+
+  \end{pgfpicture}
+
+\end{beamerboxesrounded}
+
+\setbeamercolor{postit}{fg=black,bg=green!40!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postit}
+\begin{beamerboxesrounded}[shadow=true,lower=postit]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{2.1cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{2.1cm}
+
+\only<1-2>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Assertion d'intérêt}~: Alfred est compétent $\Leftrightarrow$ $\mathbf{H_1}:\sigma_A^2<0.1$.\\
+\textbf{Décision} (au vu des $n=20$ données)~: \\
+\hspace*{1cm}Accepter $\mathbf{H_1}$  si
+\only<1>{${\color<1>{orange}\Est{\delta_{\sigma_A^2,0.1}}{y^A}}<{\color<1>{darkgreen}\delta_{lim,\alpha}^-}$}
+\only<2>{${\color<2>{orange}p-valeur(gauche)}<{\color<2>{darkgreen}\alpha}$}\end{minipage}}}}
+\only<3-4>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11cm}
+\textbf{Question}~: Peut-on pour autant plutôt penser au vu de ce même jeu de données qu'Alfred n'est pas compétent (i.e. $\mathbf{H_1}:\sigma^2_A>0.1$)~?\\
+\textbf{Réponse}~: p-valeur droite = \only<3>{?}\only<4>{1-(p-valeur gauche)=1-#R{round(pchisq(deltaEst.H0.alf,19)*100,2)}\%=#R{round(100*(1-pchisq(deltaEst.H0.alf,19)),2)}\%}\\
+\visible<4>{car \textbf{la somme des p-valeurs droite et gauche est égale à 1!}}\end{minipage}}}}
+\only<5-6>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11.3cm}
+\textbf{Assertion d'intérêt}~: Il y a un effet sur le niveau des bacheliers en orthographe $\Leftrightarrow$ $\mathbf{H_1}:\mu^D \neq 6.3$.\\
+\textbf{Décision} (au vu des $n=25$ données)~: \\
+Accepter $\mathbf{H_1}$  si
+{\small
+\only<5>{${\color<5>{orange}\Est{\delta_{\mu^D,6.3}}{y^D}}<{\color<5>{darkgreen}\delta_{lim,\alpha/2}^-}$ ou ${\color<5>{orange}\Est{\delta_{\mu^D,6.3}}{y^D}}>{\color<5>{darkgreen}\delta_{lim,\alpha/2}^+}$ }
+\only<6>{${\color<6>{orange}\mbox{p-valeur (bi)}\!=\!2\!\times\!\mbox{min(p-valeur gauche,p-valeur droite)}}\!<\!{\color<6>{darkgreen}\alpha}$}
+}\end{minipage}}}}
+\only<7-8>{
+\pgfputat{\pgfxy(0.5,1.0)}{\pgfbox[center,top]{\begin{minipage}{11.3cm}
+\textbf{Assertion d'intérêt}~: Les variances des notes entre les sections C et D sont différentes $\Leftrightarrow$ $\mathbf{H_1}:d_{\sigma^2}\neq 0.$\\
+\textbf{Décision} (au vu des données)~: \\
+Accepter $\mathbf{H_1}$  si
+{\small
+\only<7>{${\color<7>{orange}\Est{\delta_{d_{\sigma^2},0}}{y^C,y^D}}<{\color<7>{darkgreen}\delta_{lim,\alpha/2}^-}$ ou ${\color<7>{orange}\Est{\delta_{d_{\sigma^2},0}}{y^C,y^D}}>{\color<7>{darkgreen}\delta_{lim,\alpha/2}^+}$ }
+\only<8>{${\color<8>{orange}\mbox{p-valeur (bi)}\!=\!2\!\times\!\mbox{min(p-valeur gauche,p-valeur droite)}}\!<\!{\color<8>{darkgreen}\alpha}$}
+}\end{minipage}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+
+\setbeamercolor{postex}{fg=black,bg=yellow!50!white}
+%\begin{beamercolorbox}[sep=1em,wd=12cm]{postex}
+\begin{beamerboxesrounded}[shadow=true,lower=postex]{}
+\pgfsetxvec{\pgfpoint{11cm}{0cm}}
+\pgfsetyvec{\pgfpoint{0cm}{5cm}}
+\begin{pgfpicture}{0cm}{0cm}{11cm}{5cm}
+
+\only<1>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf2}}}}
+\only<2-3>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf7}}}}
+\only<4>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{alf8}}}}
+\only<5>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{dict}}}}
+\only<6>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{dict2}}}}
+\only<7>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{hetero2}}}}
+\only<8>{
+\pgfputat{\pgfxy(0.05,0.0)}{\pgfbox[left,bottom]{\pgfuseimage{hetero7}}}}
+
+\end{pgfpicture}
+
+\end{beamerboxesrounded}
+%\end{beamercolorbox}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [rotate=30,scale=10,text opacity=0.05]
+    at (current page.center) {CQLS};
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+
+\end{document}
+
+

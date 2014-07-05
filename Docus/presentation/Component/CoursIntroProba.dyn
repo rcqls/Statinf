@@ -5,11 +5,11 @@ RCqls/Tex/FilterR
 [#main]
 [#%]Traitements R et ruby préliminaires
 [#r<]
-require(CqlsAEP)
+require(CqlsEAP)
 #source("~/work/statinf-cours/td/R/aep1.R")
-pA<-.15
-plim<-.16
-n<-1000
+pA <- .15
+plim <- .16
+n <- 1000
 qtmp<-qbinom(c(.001,.999),n,pA)
 modtmp<-qtmp[1]:qtmp[2]
 Y1<-Norm(.1,sqrt(.1*.9/1000))
