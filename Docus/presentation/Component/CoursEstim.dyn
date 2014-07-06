@@ -1,7 +1,7 @@
 [#require]
 Tools/Tex/Table
 RCqls/StatInf/TabAEP
-[#main][#>]
+[#main][#r<]require(CqlsEAP)[#>]
 {#case]#{docs}
 [#when]section[#>]\section[Estimation]{Estimation~: Obtention et Qualité}
 [#when]dictéePb[#>]
@@ -92,7 +92,8 @@ Pour illustrer comment cela est possible, étudions le paramètre moyenne $\mu^\
 {#invisible]:1[#>]\mbox{ estimé par } {\color{blue}\Est{\sigma_{\widehat{\mu^\bullet}}}{Y}}=\frac{{#only]:2[#>]{\color{blue}\Est{\sigma_\bullet}{Y}}[#}}{\sqrt{n}}[#}$} 
 [#}
 [#when]alea[#%]All the stuff here
-[#r<]attach.data("statinf","resAEPSJ.RData")
+[#r<]
+attach.data("statinf","resAEPSJ.RData")
 [#<]{#<]ind[[#?]i<4[#rb>]i-1[#?]i>4 and i<6[#>]m-:{6-i}[#?]i==6[#>]m][#<}
 {#<]ind2[[#?]i<4[#rb>]i-1[#?]i>6 and i<8[#rb>]10000-8+i[#?]i==8[#>]10000][#<}
 {#new]table1[#of]Tabular[#.tabR]tab1R[#}
