@@ -1,10 +1,11 @@
 [#require]
 Tex/10pt
-Tex/Cqls
+RCqls/TexInputs/Cqls
+RCqls/TexInputs/CqlsInputs
 Tex/Fr
 Tex/Report
-Import/StatDevel/HypoTest
-Import/Tools/RFigure
+RCqls/StatInf/HypoTest
+RCqls/R/Fig
 Tex/LargeA4
 [#package]
 \usepackage{float}
@@ -18,7 +19,7 @@ Tex/LargeA4
 [#path]
 /export/prjCqls/share/dyndoc/exoHypo
 [#main][#r<]
-require(CqlsRandom)
+require(CqlsEAP)
 require(asympTest)
 [#%]LE CONTENU PAR TD!
 [#=]tdPres[titrePres,indicPres,PresIC,PresProdAB,PresProcEch,PresICSuite]
@@ -56,30 +57,30 @@ require(asympTest)
 [#when]titreEst[#>]\chapter{\mbox{Estimation~ponctuelle}\\ et par intervalle\\ de confiance}\label{TdEst}
 [#when]titreProdAB[#>]\chapter{Traitement\\ des problématiques \\des produits A et B}\label{TdProdAB}
 [#when]titreAEPGraph[#>]\appendix\chapter{Représentations\\graphiques~dans~l'A.E.P.}\label{TdAEPGraph}
-[#when]indicGen[#>]{#Compose]Tds/aide:genéral[#}
-[#when]indicPres[#>]{#Compose]Tds/aide:pres[#}
-[#when]PresIC[#<<]PresIC/exoPresIC
-[#when]PresProdAB[#<<]ProdAetB/exoPresentation
-[#when]PresProcEch[#<<]ProdAetB/exoProcedeEch
-[#when]PresICSuite[#<<]PresIC/exoPresICsuite
-[#when]indicProb[#>]{#Compose]Tds/aide:prob[#}
-[#when]finProb[#>]{#Compose]Tds/aide:finProb[#}
+[#when]indicGen[#>]{#Compose]Components/aide:genéral[#}
+[#when]indicPres[#>]{#Compose]Components/aide:pres[#}
+[#when]PresIC[#<<]Components/PresIC/exoPresIC
+[#when]PresProdAB[#<<]Components/ProdAetB/exoPresentation
+[#when]PresProcEch[#<<]Components/ProdAetB/exoProcedeEch
+[#when]PresICSuite[#<<]Components/PresIC/exoPresICsuite
+[#when]indicProb[#>]{#Compose]Components/aide:prob[#}
+[#when]finProb[#>]{#Compose]Components/aide:finProb[#}
 [#when]Prob[#>]
-{#Compose]Tds/Prob/exosProb:unDé,deuxDés,uneUnif,deuxUnif,moyenne[#}
-[#when]indicEst[#>]{#Compose]Tds/aide:est[#}
+{#Compose]Components/Prob/exosProb:unDé,deuxDés,uneUnif,deuxUnif,moyenne[#}
+[#when]indicEst[#>]{#Compose]Components/aide:est[#}
 [#when]Est[#>]
-{#Compose]Tds/EstIC/exoSalaireJuste:bExEst,enonce,bEnum,param,est,propEst,aep,eEnum,eEx[#}
-{#Compose]Tds/EstIC/exoSalaireJuste:bExIC,bEnum,IC,eEnum,eEx[#}
+{#Compose]Components/EstIC/exoSalaireJuste:bExEst,enonce,bEnum,param,est,propEst,aep,eEnum,eEx[#}
+{#Compose]Components/EstIC/exoSalaireJuste:bExIC,bEnum,IC,eEnum,eEx[#}
 {#Compose]TailleEtud/exo[#}
 {#Compose]Election/exo[#}
-[#when]indicProdAB[#>]{#Compose]Tds/aide:prodAB[#}
+[#when]indicProdAB[#>]{#Compose]Components/aide:prodAB[#}
 [#when]ProdAB[#>]
-{#Compose2]Tds/ProdAB/info[#}
-{#Compose2]Tds/ProdAB/exoProdAetB:presOutils,dataTMP,filter,dataAB,dataAEP,#loi_Y,#loi_est,#loi_deltaEst,rd_pA,rd_muB,rd_delta_muB,rd_delta_pA[#}
-{#Compose]Tds/ProdAB/exoProdAetB:prodIntro,expAEP,prodAEP,prodJourJ,expAEPFin[#}
-[#when]indicAEPGraph[#>]{#Compose]Tds/aide:AEPGraph[#}
+{#Compose2]Components/ProdAB/info[#}
+{#Compose2]Components/ProdAB/exoProdAetB:presOutils,dataTMP,filter,dataAB,dataAEP,#loi_Y,#loi_est,#loi_deltaEst,rd_pA,rd_muB,rd_delta_muB,rd_delta_pA[#}
+{#Compose]Components/ProdAB/exoProdAetB:prodIntro,expAEP,prodAEP,prodJourJ,expAEPFin[#}
+[#when]indicAEPGraph[#>]{#Compose]Components/aide:AEPGraph[#}
 [#when]AEPGraph[#>]
-{#Compose]Tds/Prob/exosProb:graphMoyenneDeuxUnifs,graphMoyenneDeuxDés,graphMoyennes[#}
+{#Compose]Components/Prob/exosProb:graphMoyenneDeuxUnifs,graphMoyenneDeuxDés,graphMoyennes[#}
 [#when]titreHypo[#>]\chapter{Tests d'hypothèses}\label{TdHypo}
 \noindent \fbox{\begin{minipage}{14.5cm}
 \textbf{Avertissement~:} Dans la plupart des exercices ci-dessous traitant des tests d'hypothèses, les indications~\texttt{R} sont fournies à la fois pour le quantile et la p-valeur. Dans le cadre d'un examen, notez qu'un seul type d'indication~\texttt{R} est généralement fourni.

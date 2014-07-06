@@ -1,0 +1,54 @@
+
+\section{Résultats expérimentaux}
+\subsection{Estimation des paramètres d'intérêt}
+[#r]
+bi<-c(1,495,4995,9480,9991)
+bs<-c(9,501,5005,9501,10000)
+ind<-c(bi[1]:bs[1],bi[2]:bs[2],bi[3]:bs[3],bi[4]:bs[4],bi[5]:bs[5])
+i<-0
+[#end]
+\begin{tabular}{|c|ccc|ccc|}
+%{|c|c|c|c|c|c|c|} 
+\cline{2-7}
+%\multicolumn{1}{c}{} & \multicolumn{3}{|c|}{\bf Produit~A} & \multicolumn{6}{c|}{\bf Produit~B} \\ 
+%\cline{2-10}
+\multicolumn{1}{c}{} & \multicolumn{3}{|c|}{${\displaystyle \left(\Est{p^A}{y_{[j]}^A} \right)_{j=1,\ldots,m}}$} & \multicolumn{3}{c|}{${\displaystyle \left( \Est{\mu^B}{y_{[j]}^B}\right)_{j=1,\ldots,m}}$}  \\
+\cline{2-7}
+\multicolumn{1}{c|}{} & Urne $U_{0.1}^A$ & Urne $U_{0.15}^A$ & Urne $U_{0.2}^A$ & Urne $U_{0.1}^B$ & Urne $U_{0.15}^B$ & \multicolumn{1}{c|}{Urne $U_{0.2}^B$}  \\
+\hline
+%LOOP{
+#R{ind[i<-i+1]} & #R{paste(paste(muEst.sim[ind[i],1:3]*100,"\\%",sep=""),collapse=" & ")} &
+#R{paste(round(muEst.sim[ind[i],4:6],5),collapse=" & ")} \\
+%IF{#R{ind[i] %in% bs}
+\hline
+%IF}
+%BREAK #R{i==length(ind)}
+%LOOP}
+\end{tabular}
+\thispagestyle{empty}
+%\newpage
+
+\subsection{Estimation des paramètres d'écart standardisé}
+[#r]
+i<-0
+tmp<-cbind((muEst.sim[,1:3]-.15)/sqrt(.15*.85/1000),(muEst.sim[,1:3]-.15)/sqrt(muEst.sim[,1:3]*(1-muEst.sim[,1:3])/1000),muEst.sim[,7:9])
+[#end]
+\hspace*{-2.5cm}\begin{tabular}{|c|ccc|ccc|ccc|}
+%{|c|c|c|c|c|c|c|c|c|c|} 
+\cline{2-10}
+\multicolumn{1}{c}{} & \multicolumn{3}{|c|}{\bf Produit~A} & \multicolumn{6}{c|}{\bf Produit~B} \\ 
+\cline{2-10}
+\multicolumn{1}{c}{} & \multicolumn{3}{|c|}{${\displaystyle \left(\Est{\delta_{p^A,15\%}}{y_{[j]}^A} \right)_{j=1,\ldots,m}}$} & \multicolumn{3}{c|}{${\displaystyle \left( \Est{\delta_{\mu^B,0.15}}{y_{[j]}^A}\right)_{j=1,\ldots,m}}$}  & \multicolumn{3}{c|}{${\displaystyle \left(\Est{\delta_{\mu^B,0.15}}{y_{[j]}^B}\right)_{j=1,\ldots,m}}$} \\
+\cline{2-10}
+\multicolumn{1}{c|}{} & Urne $U_{0.1}^A$ & Urne $U_{0.15}^A$ & Urne $U_{0.2}^A$ & Urne $U_{0.1}^A$ & Urne $U_{0.15}^A$ & Urne $U_{0.2}^A$ & Urne $U_{0.1}^B$ &Urne $U_{0.15}^B$ &\multicolumn{1}{c|}{Urne $U_{0.2}^B$}  \\
+\hline
+%LOOP{
+#R{ind[i<-i+1]} &
+#R{paste(round(tmp[ind[i],1:9],3),collapse=" & ")} \\
+%IF{#R{ind[i] %in% bs}
+\hline
+%IF}
+%BREAK #R{i==length(ind)}
+%LOOP}
+\end{tabular}
+

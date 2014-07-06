@@ -1,0 +1,117 @@
+[#=]docs?[uneUnif,deuxUnif]
+[#>]{#case]#{docs}
+[#when]uneUnif[#>]
+\begin{exercice}[Loi uniforme sur l'intervalle unité]
+\begin{enumerate}
+\item Soit $Y_1$ une variable aléatoire suivante une loi uniforme sur $[0,1]$, correspondant au choix ``au hasard'' d'un réel dans l'intervalle $[0,1]$. Calculez $P(Y_1=0.5)$ et $P(0<Y_1<0.5)$. Quel chiffre moyen, i.e. $\Esp(Y_1)$, peut-on espérer~?
+[#tag]reponse[#>]
+\ReponseC{$P(Y_1=0.5)=0$, $P(0<Y_1<0.5)=1/2$ et $\Esp(Y_1)=1/2$.}
+[#tag]enonce[#>]
+\item Un expérimentateur réalise cette expérience en choisissant 1000 réels au hasard (par exemple en tapant 1000 fois sur la touche RAND d'une calculatrice). Il stocke les informations dans son logiciel préféré (libre et gratuit) \texttt{R} dans un vecteur noté \texttt{y1}. Que pensez-vous des instructions ci-dessous~? Comparez-les avec le résultat du mathématicien suivant: pour tout $0\leq a \leq b\leq 1$, $P(a\leq Y_1 \leq b)=b-a$.
+{#rverb]
+##hide
+y1<- runif(1000)
+## out | short=2,...,2
+y1
+mean(y1)
+mean(0.25 <y1 & y1<0.5)
+[#}
+[#tag]reponse[#>]
+\begin{Correction}
+On observe\\
+$\meanEmp[1000]{0.25<y_{1,[\cdot]}<0.5} =#r{mean(0.25 <y1 & y1<0.5)} \simeq \meanEmp[\infty]{0.25<y_{1,[\cdot]}<0.5} =P(0.25<Y_1<0.5)=0.5-0.25=0.25$ \\
+et
+$\meanEmp[1000]{y_{1,[\cdot]}} =#r{mean(y1)} \simeq \meanEmp[\infty]{y_{1,[\cdot]}} =\Esp(Y_1)=0.5$.
+\end{Correction}
+[#tag]enonce[#>]
+\item Qu'exprime le calcul suivant à comparer avec le résultat obtenu par le mathématicien par le calcul $\Var(Y_1)=1/12$~?
+{#rverb]
+var(y1)
+[#}
+[#tag]reponse[#>]
+\begin{Correction}
+Ce résultat correspond au calcul de
+$\left(\sdEmp[1000]{y_{1,[\cdot]}}\right)^2 =#r{var(y1)} \simeq \left(\sdEmp[\infty]{y_{1,[\cdot]}} \right)^2=\Var(Y_1)=1/12\simeq 0.0833$.
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#when]deuxUnif[#>]
+\begin{exercice}[Somme de deux uniformes]
+\begin{enumerate}
+\item On se propose maintenant d'étudier la variable $Y=Y_1+Y_2$ où $Y_1$ et $Y_2$ sont deux variables aléatoires indépendantes suivant une loi uniforme sur $[0,1]$. Quel est l'ensemble des valeurs possibles de $Y$~? Pensez-vous que la variable $Y$ suive une loi uniforme~? (indication: pensez-vous que $P(0\leq Y \leq 0.5) = P(0.5\leq Y \leq 1)$~?)
+[#tag]reponse[#>]
+\begin{Correction}
+L'ensemble des valeurs possibles de $Y$ est l'intervalle $[0,2]$. On peut penser que l'on a plus de chances d'obtenir des réels dans l'intervalle $[0.5,1]$ que dans l'intervalle $[0,0.5]$. Ces intervalles étant de même longueur, on peut penser que la variable $Y$ n'est pas uniforme.
+\end{Correction}
+[#tag]enonce[#>]
+\item Sauriez-vous évaluer ou intuiter les quantités suivantes: $P(0\leq Y \leq 0.5)$, $P(0.5\leq Y \leq 1)$, $\Esp(Y)$~?
+[#tag]reponse[#>]
+\begin{Correction}
+Difficile d'intuiter les deux premières quantités. Par contre, on peut penser que la valeur moyenne $\Esp(Y)$ vaut~1.
+\end{Correction}
+[#tag]enonce[#>]
+\item Y parvenez-vous en vous aidant de l'information suivante donnée par le mathématicien: pour tout $t$ réel 
+$$
+P(Y\leq t)= \left\{ \begin{array}{ll}
+0 & \mbox{ si } t\leq 0 \\
+\frac{t^2}2 & \mbox{ si } 0\leq t\leq 1 \\
+2t-\frac{t^2}2 -1& \mbox{ si } 1\leq t \leq 2 \\
+1 & \mbox{ si } t\geq 2 
+\end{array} \right.
+$$.
+{#hide]
+la densité de probabilité de la variable $Y$ correspond à la fonction dont le graphe est donné par
+
+{#FigureSimple]
+  :img => img/deuxUnif.png
+  :include => false
+  :rcode =>
+plot(c(-.1,2.1),c(0,1),type="n",xlab="",ylab="")
+segments(-.1,0,0,0,lwd=3)
+segments(0,0,1,1,lwd=3)
+segments(1,1,2,0,lwd=3)
+segments(2,0,2.1,0,lwd=3)
+abline(h=0)
+abline(v=1,lty=2)
+[#}
+
+\centerline{\includegraphics[width=8cm,height=8cm]{img/deuxUnif}}
+[#}
+[#tag]enonce[#>]
+[#tag]reponse[#>]
+\begin{Correction}
+$P(0<Y<0.5)= P(Y\leq 0.5)= \frac{(0.5)^2}2 = \frac18$ et \\
+$P(0.5<Y<1)= P(Y\leq 1) - P(Y\leq 0.5)= \frac12 - \frac18= \frac38.$
+\end{Correction}
+[#tag]enonce[#>]
+
+\item Un expérimentateur réalise à nouveau l'expérience de choisir 1000 réels entre 0 et 1. Les informations sont stockées dans le vecteur \texttt{y2}. Qu'en pensez-vous?
+{#rverb]
+## hide
+if(!exists("y1")) y1<-runif(1000)
+{#if]:r{!exists("y1")}[#>]## out | short=1,...,1
+y1
+[#if}## hide
+y2<- runif(1000)
+## out | short=1,...,1
+y2
+y<-y1+y2
+mean(0<y & y<0.5)
+mean(0.5<y & y <1)
+mean(y)
+[#}
+[#tag]reponse[#>]
+\begin{Correction}
+On observe
+\begin{itemize}
+\item $\meanEmp[1000]{0<y_{[\cdot]}<0.5} =#r{mean(0<y & y<0.5)} \simeq \meanEmp[\infty]{0<y_{[\cdot]}<0.5} =P(0<Y<0.5)=1/8=0.125$ 
+\item $\meanEmp[1000]{0.5<y_{[\cdot]}<1} =#r{mean(0.5<y & y<1)} \simeq \meanEmp[\infty]{0.5<y_{[\cdot]}<1} =P(0.5<Y<1)=3/8=0.375$ 
+\item $\meanEmp[1000]{y_{[\cdot]}} =#r{mean(y)} \simeq \meanEmp[\infty]{y_{[\cdot]}} =\Esp(Y)=1$.
+\end{itemize}
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#r<]rm(y,y1,y2)
+[#case}

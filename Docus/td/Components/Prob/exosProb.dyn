@@ -1,0 +1,713 @@
+[#<]{#require]RCqls/StatInf/TabAEP[#}
+[#=]docs?[esprit,unDé,deuxDés]
+[#>]{#case]#{docs}
+[#when]esprit[#>]\noindent\textbf{Esprit pour le plan des exos~:}
+\begin{itemize}
+\item avant de passer à des exos de stats où l'expression de la variable aléatoire est généralement plus complexe, proposons des exos où nous introduisons les principales notations de notre cours.
+\item Schéma Formalisation
+\item Une approche AEP versus AMP
+\item Des exos où on travaille la technique \texttt{R} sur les lois de probas
+\end{itemize}
+[#when]unDé[#>]
+\begin{exercice}[Lancer d'un dé] ${ }$\label{ex:des}
+[#tag]enonce[#>]
+\begin{enumerate}
+\item Proposer le Schéma de Formalisation pour la variable aléatoire correspondant à un futur lancer de dé.\\
+\begin{Correction}
+\begin{itemize}
+\item \textbf{Expérience $\mathcal{E}$~:} Lancer un dé
+\item \textbf{Variable d'intérêt~:} $Y$ la face supérieure du dé
+\item \textbf{Loi de proba~:} $\PPP{Y=k}=1/6$ avec $k=1,\cdots,6$ (si le dé est équilibré).
+\end{itemize}
+\end{Correction} 
+[#tag]enonce[#>]
+\item Quelle expérimentation mettriez-vous en oeuvre pour vérifier qu'un dé est rigoureusement non pipé (i.e. parfaitement équilibré)~? Pensez-vous qu'il existe un tel type de dé~?
+[#tag]reponse[#>]
+\begin{Correction}En théorie, il faudrait lancer une infinité de fois un dé. On pourrait cependant s'imaginer lancer un très très grand nombre de fois le dé afin de vérifier expérimentalement que la fréquence empirique de chaque face est proche de $1/6$. Nous ne pensons pas qu'il existe un tel dé car au bout d'un certain nombre de lancers (peut-être inimaginablement grand), on se convaincrait que les  fréquences d'apparition de toutes les faces possibles ne sont pas exactement les mêmes et donc que le dé n'est pas parfaitement physiquement équilibré.
+\end{Correction}
+[#tag]enonce[#>]
+\item \textbf{Application~:} Un expérimentateur propose l'expérience suivante avec un dé (en théorie vendu) équilibré et un autre dont il a volontairement légèrement déséquilibré une ou plusieurs de ses faces. Les résultats des deux dés sont fournis dans un ordre arbitraire dans les tableaux ci-dessous. Sauriez-vous reconnaître les deux dés et, en particulier, déterminer les probabilités d'apparition des faces (sachant que, pour chaque dé, il n'y a en théorie pas plus de 2 choix possibles pour celles-ci)~? A partir de combien de lancers ($m$) êtes-vous en mesure de faire votre choix~?
+[#r<]attach.data("statinf","td","deTruque.RData")
+{#new]unDe[#of]InstrProba[#y.R]yE[#what]p1,p2,p3,p4,p5,p6,mean[#}
+[#>]
+\hspace*{-.5cm}{#beginTab]unDe[#first]1[#}
+{#headAEP]unDe[#first]$m$[#}
+{#rowAEP]unDe[#y][yNE[1:100]][#first]100[#}
+{#rowAEP]unDe[#y][yNE[1:1000]][#first]1000[#}
+{#rowAEP]unDe[#y][yNE[1:10000]][#first]10000[#}
+{#rowAEP]unDe[#y][yNE[1:100000]][#first]100000[#}
+{#rowAEP]unDe[#y]yNE[#first]:r{length(yNE)}[#}
+{#endTab]unDe[#}
+
+\hspace*{-.5cm}{#beginTab]unDe[#first]1[#}
+{#headAEP]unDe[#first]$m$[#}
+{#rowAEP]unDe[#y][yE[1:100]][#first]100[#}
+{#rowAEP]unDe[#y][yE[1:1000]][#first]1000[#}
+{#rowAEP]unDe[#y][yE[1:10000]][#first]10000[#}
+{#rowAEP]unDe[#y][yE[1:100000]][#first]100000[#}
+{#rowAEP]unDe[#y]yE[#first]:r{length(yE)}[#}
+{#endTab]unDe[#}
+\item  Fournir les instructions~\texttt{R} ayant permis de déterminer les résultats des tableaux précédents.
+\item Ayant à présent identifié (du moins nous l'espérons!) le dé équilibré, sauriez vous compléter le tableau suivant correspondant à l'éventuelle dernière ligne du tableau précédent lui correspondant~:\\
+\hspace*{-.5cm}{#beginTab]unDe[#first]1[#}
+{#headAEP]unDe[#first]$m$[#}
+[#tag]reponse[#>]{#rowAMP]unDe[#valR]rep(1/6,6),3.5[#first]$\infty$[#}
+[#tag]question[#>]$\infty$ & & & & & & &\\\hline
+[#tag]enonce[#>]{#endTab]unDe[#}
+
+Comment noteriez-vous ces quantités via l'A.M.P.~? 
+\item Considérons le dé (théoriquement) équilibré. Observons les expressions dans le tableau ci-dessous obtenues par le mathématicien (A.M.P.). Sauriez-vous les calculer (\textit{N.B.~: c'est une question personnelle et il est donc possible de répondre NON})~? On rappelle (pour votre culture) les formules d'obtentions de la moyenne (ou espérance) de $Y$~:
+$$
+\EEE{Y}=\sum_{k=1}^6 k\times\PPP{Y=k}
+$$
+ainsi que celle de la variance
+$$
+\VVV{Y}=\sum_{k=1}^6 (k-\EEE{Y})^2\times\PPP{Y=k}=\EEE{Y^2}-\EEE{Y}^2=\sum_{k=1}^6 k^2\times\PPP{Y=k}-\EEE{Y}^2
+$$
+[#<]{#init]unDe[#what]p[2;4[,mean,var,sd,q0.05,q0.5,q0.95[#}
+[#>]{#tabAMP]unDe[#valR]2/6,mean(1:6),var<-mean((1:6)^2)-mean(1:6)^2,sqrt(var),quantile(rep(1:6,rep(100,6)),c(.05,.5,.95))[#}
+
+\noindent \textbf{Remarque (pour les amateurs)}~: Puisque $\PPP{Y=k}=\frac16$, les valeurs du tableau pour $\EEE{Y}$, $\VVV{Y}$ et $\quant{Y}{p}$ ($p=$5\%, 50\% et 95\% ) ont simplement été obtenues en appliquant les formules de Statistique Descriptive pour la série de chiffres $1,2,3,4,5,6$. 
+
+\item Comprenons comment ces quantités peuvent être obtenues (ou intreprétées) par l'expérimentateur en les confrontant à ses  résultats sur $m=1000000$ lancers (A.E.P.). Proposez aussi les instructions~\texttt{R} ayant permis de les construire sachant que ces résultats ont été stockés dans le vecteur \texttt{yy} en \texttt{R}.\\
+{#tabAEP]unDe[#y]yE[#}
+\item Quelle approche (A.M.P. ou A.E.P.) vous semble être la plus facile à appréhender~? Comprenez-vous les intérêts  propres à chacune d'entre elles~?
+\end{enumerate}
+\end{exercice}
+[#r<]detach.data("statinf","td","deTruque.RData")
+[#when]deuxDés[#>]
+\begin{exercice}[Somme de deux dés]\label{ex:sommeDes} ${ }$\label{ex:sommeDes}
+[#tag]enonce[#>]
+
+\begin{enumerate}
+\item Soient $Y_V$ et $Y_R$ deux variables aléatoires correspondant aux faces de 2 dés (Vert et Rouge) à lancer. Définissons $S=Y_V+Y_R$ correspondant à la somme de deux faces.
+Proposez le Schéma de Formalisation pour $S$. \\
+\begin{Correction}
+\begin{itemize}
+\item \textbf{Expérience $\mathcal{E}$~:} Lancer de 2 dés
+\item \textbf{Variable d'intérêt~:} $S$ la somme des faces supérieures des 2 dés
+\item \textbf{Loi de proba~:} $\PPP{S=k}=???$ avec $k=2,\cdots,12$.
+\end{itemize}
+\end{Correction}
+[#tag]enonce[#>]
+\item Comparez $\PPP{S=2}$, $\PPP{S=12}$ et $\PPP{S=7)}$. Sauriez-vous les évaluer~?
+[#tag]reponse[#>]
+\begin{Correction}Une erreur courante est de penser que toutes modalités sont équiprobables. Pourtant, il est assez intuitif de penser le contraire car il y a 6 possibilités (1 et 6, 2 et 5, 3 et 4, 4 et 3, 5 et 2, 6 et 1) pour obtenir la somme 7 et seulement une pour obtenir soit 2 soit 12. On est alors tenté de penser que le résultat 7 est 6 fois plus probable que 2 ou 12. Comme il y a 36 ($6\times6$) possibilités différentes pour les résultats des 2 dés (en tenant compte de leur couleur). On peut affirmer que~: $\PPP{S=2}=\PPP{S=12}=\frac1{36}$ et $\PPP{S=7}=\frac6{36}=\frac16$ 
+Pour les évaluations des probas, voir le calcul ci-après proposé par le mathématicien.
+\end{Correction}
+[#tag]enonce[#>]
+\item Que peut-on espérer en moyenne sur la valeur de $S$~? (cette quantité rappelons-le est notée $\EEE{S}$).
+[#tag]reponse[#>]
+\begin{Correction}
+On peut espèrer la valeur $7$.
+\end{Correction}
+[#tag]enonce[#>]
+
+\item Un joueur se propose de lancer $m=5000$ fois deux dés. A chaque lancer, il note la somme et stocke l'ensemble des informations dans un vecteur noté \texttt{s} en \texttt{R}. Voici quelques résultats d'instructions~\texttt{R}~:
+[#r<]attach.data("statinf","td","sommeDes.RData")
+s<-somme2des
+[#>]{#rverb]
+## out | short=2,...,2
+s
+mean(s==2)
+mean(s==12)
+mean(s==7)
+mean(s)
+var(s)
+sd(s)
+[#}
+\noindent Pourriez-vous proposer les notations mathématiques (\textit{norme CQLS}) correspondant aux résultats obtenus dans la sortie~\texttt{R} ci-dessus~?
+
+\item Cette approche expérimentale confirme-t-elle le résultat du mathématicien affirmant que pour toute modalité $k=2,\cdots,12$ de $S$,
+$$
+\PPP{S=k} = \left\{ \begin{array}{ll}
+\frac{k-1}{36} & \mbox{ si } k\leq 7 \\
+\frac{13-k}{36} & \mbox{ si } k \geq 7
+\end{array} \right.
+$$
+Voici les résultats de l'\textbf{A.M.P.} présentés dans le tableau suivant (que vous pouvez vérifier si vous avez l'âme d'un mathématicien)~:
+{#new]sommeDés[#of]InstrProba[#y.R]somme2des[#y.AMP]S[#what]p2,p12,p7,mean,var[#}
+{#tabAMP]sommeDés[#valR](((k<-c(2,12,7))-1)*(k <=7) + (13-k)*(k>7))/36,7,2*mean((1:6-3.5)^2)[#}
+[#tag]reponse[#>]
+\begin{Correction}
+Les instructions des lignes 16 à 18 (resp. des lignes 19 à 21) proposent les évaluations de $\meanEmp[5000]{y_{[\cdot]}=k}$ (resp. $P(Y=k)$) pour $k=2,\ldots,12$. On retrouve le résultat
+$$
+\meanEmp[5000]{y_{[\cdot]}=k} \simeq \meanEmp[\infty]{y_{[\cdot]}=k} = P(Y=k).
+$$
+\end{Correction}
+[#tag]enonce[#>]
+\item Pourriez-vous aussi vérifier la validité des formules sur l'espérance et variance de la somme de variables aléatoires réelles fournies au début de cette fiche. 
+[#tag]reponse[#>]
+\begin{Correction}
+$\EEE{S}=\EEE{Y_1+Y_2}=\EEE{Y_1}+\EEE{Y_2}=7\simeq \mathtt{mean(s)=:r{mean(s)}}$\\
+$\VVV{S}=\VVV{Y_1+Y_2}=\VVV{Y_1}+\VVV{Y_2}=:r{2*mean((1:6-3.5)^2)}\simeq \mathtt{var(s)=:r{var(s)}}$
+puisque les 2 dés sont naturellement indépendants entre eux.
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#r<]
+rm(s)
+detach.data("statinf","td","sommeDes.RData")
+[#when]uneUnif[#>]
+\begin{exercice}[Loi uniforme sur l'intervalle unité]\label{ex:unif}
+\begin{enumerate}
+\item Soit $Y_1$ une variable aléatoire suivant une loi uniforme sur $[0,1]$ (en langage math., $Y_1\leadsto \mathcal{U}([0,1])$), correspondant au choix ``au hasard'' d'un réel dans l'intervalle $[0,1]$. L'objectif est l'évaluation (exacte ou approximative) des probabilités suivantes $\PPP{Y_1=0.5}$ et $\PPP{0<Y_1<0.5}$, le chiffre moyen $\EEE{Y_1}$ (espéré), l'écart-type $\sigma(Y_1)$ ainsi que la variance $\VVV{Y_1}$~? Parmi ces quantités, lequelles sauriez-vous intuitivement (i.e. sans calcul) déterminer~?
+[#tag]reponse[#>]
+\ReponseC{Intuitivement, il est possible de dire que $\PPP{Y_1=0.5}=0$, $\PPP{0<Y_1<0.5}=1/2$ et $\EEE{Y_1}=1/2$.}
+[#tag]enonce[#>]
+\item Via \textbf{A.E.P.}~: Un expérimentateur réalise cette expérience en choisissant 10000 réels au hasard (par exemple en tapant 10000 fois sur la touche RAND d'une calculatrice). Il stocke les informations dans son logiciel préféré (libre et gratuit) \texttt{R} dans un vecteur noté \texttt{y1}. Déterminez approximativement les quantités de la première question.
+[#r<]attach.data("statinf","td","sommeUnif.RData")
+[#>]{#rverb]
+## out | short=2,...,2
+y1
+mean(y1)
+mean(y1==0.5)
+mean(0.25 <y1 & y1<0.5)
+var(y1)
+sd(y1)
+sd(y1)^2
+[#}
+[#tag]reponse[#>]
+\begin{Correction}
+On observe\\
+$\meanEmp[1000]{0.25<y_{1,[\cdot]}<0.5} =#r{mean(0.25 <y1 & y1<0.5)} \simeq \meanEmp[\infty]{0.25<y_{1,[\cdot]}<0.5} =P(0.25<Y_1<0.5)=0.5-0.25=0.25$ \\
+et
+$\meanEmp[1000]{y_{1,[\cdot]}} =#r{mean(y1)} \simeq \meanEmp[\infty]{y_{1,[\cdot]}} =\EEE{Y_1}=0.5$.
+\end{Correction}
+[#tag]enonce[#>]
+\item Via \textbf{A.M.P.}~: Un mathématicien obtient par le calcul les résultats suivant pour une variable aléatoire $Y$ représentant un chiffre au hasard dans l'intervalle $[a,b]$ (i.e. $Y\leadsto\mathcal{U}([a,b])$)~: 
+\begin{enumerate}
+\item pour tout $a\leq t_1 \leq t_2\leq b$, $\PPP{t_1\leq Y \leq t_2}=\frac{t_2-t_1}{b-a}$ .
+\item $\EEE{Y}=\frac{a+b}2$
+\item $\VVV{Y}=\frac{(b-a)^2}{12}$
+\end{enumerate}
+\noindent \textit{Question optionnelle~:} lesquels de ces résultats sont intuitifs (i.e. déterminables sans calcul)~?
+Déterminez exactement les quantités de la première question.
+{#rverb]
+1/12
+sqrt(1/12)
+[#}
+[#tag]reponse[#>]
+\begin{Correction}
+Ce résultat correspond au calcul de
+$\left(\sdEmp[1000]{y_{1,[\cdot]}}\right)^2 =#r{var(y1)} \simeq \left(\sdEmp[\infty]{y_{1,[\cdot]}} \right)^2=\VVV{Y_1}=1/12\simeq 0.0833$.
+\end{Correction}
+[#tag]enonce[#>]
+\item L'\textbf{A.E.P.} confirme-t'elle les résultats théoriques de l'\textbf{A.M.P.}~?
+\end{enumerate}
+\end{exercice}
+[#r<]detach.data("statinf","td","sommeUnif.RData")
+[#when]deuxUnif[#>]
+\begin{exercice}[Somme de deux uniformes]\label{ex:sommeUnifs}
+\begin{enumerate}
+\item On se propose maintenant d'étudier la variable $S=Y_1+Y_2$ où $Y_1$ et $Y_2$ sont deux variables aléatoires indépendantes suivant une loi uniforme sur $[0,1]$. Quel est l'ensemble des valeurs possibles (ou modalités) de $S$~? Pensez-vous que la variable $S$ suive une loi uniforme~?
+Nous nous proposons d'évaluer (excatement ou approximativement) les probabilités $\PPP{0< S \leq \frac12}$, $\PPP{\frac34< S \leq \frac54}$, $\PPP{\frac32< S \leq 2}$, la moyenne $\EEE{S}$, l'écart-type $\sigma(S)$ et la variance $\VVV{S}$.  Lesquelles parmi ces quantités sont déterminables intuitivement ou via un simple calcul mental~? Etes-vous capable de comparer les trois probabilités précédentes~?
+[#tag]reponse[#>]
+\begin{Correction} Sans développement mathématique trop compliqué, on peut affirmer que~:
+\begin{itemize}
+\item $\EEE{S}=\EEE{Y_1}+\EEE{Y_2}=2\times 0.5=1$, 
+\item $\VVV{S}=\VVV{Y_1}+\VVV{Y_2}=2\times \frac1{12}=\frac16$,
+\item $\sigma(S)=\sqrt{\VVV{S}}=\frac1{\sqrt{6}}$, 
+\item $\PPP{0< S \leq \frac12}$ et $\PPP{\frac32< S \leq 2}$ sont les mêmes tandis que  $\PPP{\frac34< S \leq \frac54}$ est la plus grande des probabilités d'appartenance de $S$ à un intervalle de longueur $\frac12$.
+\end{itemize} 
+\end{Correction}
+[#tag]enonce[#>]
+
+\item Via \textbf{A.E.P.}~: Un expérimentateur réalise à nouveau l'expérience de choisir 1000 réels entre 0 et 1. Les informations sont stockées dans le vecteur \texttt{y2}. Déterminez approximativement les quantités de la premire question.
+[#r<]attach.data("statinf","td","sommeUnif.RData")[#>]
+{#rverb]
+## out | short=1,...,1
+y2
+##!eval
+s<-y1+y2
+mean(0<s & s <=1/2)
+mean(3/4<s & s<=5/4)
+mean(3/2<s & s<=2)
+mean(s)
+var(s)
+sd(s)
+1/sqrt(6)
+7/16
+[#}
+[#tag]reponse[#>]
+\begin{Correction}
+On observe
+\begin{itemize}
+\item $\PPP{0<S\leq\frac12}=\meanEmp[\infty]{0<s_{[\cdot]}<\frac12}\simeq\meanEmp[1000]{0<s_{[\cdot]}\leq\frac12}\NotR$ \verb!mean(0<s & s<=1/2)!$=#r{mean(0<s & s<=1/2)}$
+ \item $\PPP{\frac34<S\leq\frac54}=\meanEmp[\infty]{\frac34<s_{[\cdot]}<\frac54}\simeq\meanEmp[1000]{\frac34<s_{[\cdot]}\leq\frac54}\NotR$ \verb!mean(3/4<s & s<=5/4)!$=#r{mean(3/4<s & s<=5/4)}$
+\item $\PPP{\frac32<S\leq2}=\meanEmp[\infty]{\frac32<s_{[\cdot]}<2}\simeq\meanEmp[1000]{\frac32<s_{[\cdot]}\leq2}\NotR$ \verb!mean(3/2<s & s<=2)!$=#r{mean(3/2<s & s<=2)}$
+\item $\EEE{S}=\meanEmp[\infty]{s_{[\cdot]}}\simeq\meanEmp[1000]{s_{[\cdot]}}\NotR$\verb!mean(s)!$=#r{mean(s)}$ ($\simeq 1=\EEE{S}$).
+\item $\sigma(S)=\sdEmp[\infty]{s_{[\cdot]}}\simeq\sdEmp[1000]{s_{[\cdot]}}\NotR$\verb!sd(s)!$=#r{sd(s)}$ ($\simeq \sqrt{\VVV{S}}=\frac1{\sqrt6}\simeq:r{1/sqrt(6)}$).
+\end{itemize}
+\end{Correction}
+[#tag]enonce[#>]
+\item Via l'\textbf{A.M.P.}~: Par des développements plutôt avancés, le mathématicien obtient pour tout réel $t$~: 
+$$
+\PPP{S\leq t}= \left\{ \begin{array}{ll}
+0 & \mbox{ si } t\leq 0 \\
+\frac{t^2}2 & \mbox{ si } 0\leq t\leq 1 \\
+2t-1-\frac{t^2}2& \mbox{ si } 1\leq t \leq 2 \\
+1 & \mbox{ si } t\geq 2 
+\end{array} \right..
+$$ Etes-vous en mesure de déterminer les valeurs exactes de la première question~?
+[#tag]reponse[#>]
+\begin{Correction}
+$\PPP{0<S\leq\frac12}= \PPP{S\leq \frac12}= \frac{(\frac12)^2}2 = \frac18$ \\
+$\PPP{3/2<S\leq2}= \PPP{S\leq 2} - \PPP{S\leq \frac32}= 3 - 2 - (2 - \frac98)= \frac18$\\
+$\PPP{3/4<S\leq5/4}= \PPP{S\leq 5/4} - \PPP{S\leq 3/4}= (\frac32-\frac{25}{32}) -\frac9{32}=\frac{7}{16}.$ 
+\end{Correction}
+[#tag]enonce[#>]
+\item L'\textbf{A.E.P.} confirme-t'elle les résultats théoriques de l'\textbf{A.M.P.}~? 
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#r<]
+detach.data("statinf","td","sommeUnif.RData")
+[#when]graphMoyenneDeuxUnifs[#>]
+\begin{exercice}[Histogramme continu] ${ }$\label{ex:histMoyUnifs}
+Cet exercice fait suite à l'exercice~\ref{ex:sommeUnifs} mais dans l'esprit de l'exercice~\ref{ex:loiMoyenne} puisqu'on s'intéresse à la moyenne plutôt que la somme. Voici 4 graphiques représentant les histogrammes continus des $m=200$, 2000, 5000, 10000 premières réalisations de la variable $M_2:=\frac{Y_1+Y_2}2=\frac{S}2$. Nous rappelons que les $m=10000$ réalisations de $S$ avaient été stockées dans le vecteur \texttt{s} en \texttt{R}. Les $m=10000$ réalisations $\dataEmp[m]{m_{2,[\cdot]}}$ de $M_2$ sont donc accessibles en \texttt{R} via l'instruction \texttt{s/2}. 
+[#r<]attach.data("statinf","td","sommeUnif.RData")
+[#>]{#FigureSimple][#img]img/deuxUnif200.png[#include]false[#rcode]
+Hist.EAP(s[1:200]/2,br=c(0,.05),discrete=FALSE,xlim=c(0,1),ylim=c(0,2),ylab="",xlab="m=200, pas=.05")
+segments(-.1,0,0,0,lwd=3)
+segments(0,0,.5,2,lwd=3)
+segments(.5,2,1,0,lwd=3)
+segments(1,0,1.1,0,lwd=3)
+abline(h=0)
+abline(v=c(0,1),h=2,lty=2)
+[#}
+
+{#FigureSimple][#img]img/deuxUnif2000.png[#include]false[#rcode]
+Hist.EAP(s[1:2000]/2,br=c(0,.02),discrete=FALSE,xlim=c(0,1),ylim=c(0,2),ylab="",xlab="m=2000, pas=.02")
+segments(-.1,0,0,0,lwd=3)
+segments(0,0,.5,2,lwd=3)
+segments(.5,2,1,0,lwd=3)
+segments(1,0,1.1,0,lwd=3)
+abline(h=0)
+abline(v=c(0,1),h=2,lty=2)
+[#}
+
+{#FigureSimple][#img]img/deuxUnif5000.png[#include]false[#rcode]
+Hist.EAP(s[1:5000]/2,br=c(0,.02),discrete=FALSE,xlim=c(0,1),ylim=c(0,2),ylab="",xlab="m=5000, pas=.02")
+segments(-.1,0,0,0,lwd=3)
+segments(0,0,.5,2,lwd=3)
+segments(.5,2,1,0,lwd=3)
+segments(1,0,1.1,0,lwd=3)
+abline(h=0)
+abline(v=c(0,1),h=2,lty=2)
+[#}
+
+{#FigureSimple][#img]img/deuxUnif10000.png[#include]false[#rcode]
+Hist.EAP(s[1:10000]/2,br=c(0,.01),discrete=FALSE,xlim=c(0,1),ylim=c(0,2),ylab="",xlab="m=10000, pas=.01")
+segments(-.1,0,0,0,lwd=3)
+segments(0,0,.5,2,lwd=3)
+segments(.5,2,1,0,lwd=3)
+segments(1,0,1.1,0,lwd=3)
+abline(h=0)
+abline(v=c(0,1),h=2,lty=2)
+abline(v=c(3/8,5/8),lwd=5)
+[#}
+\centerline{\includegraphics[width=8cm,height=8cm]{img/deuxUnif200} \includegraphics[width=8cm,height=8cm]{img/deuxUnif2000}}
+\centerline{\includegraphics[width=8cm,height=8cm]{img/deuxUnif5000} \includegraphics[width=8cm,height=8cm]{img/deuxUnif10000}}
+Dans le contexte de l'\textbf{A.E.P.}, les intervalles d'un histogramme continu peuvent sans restriction être de même largeur (car $m$ est censé être suffisamment grand). 
+Le ``pas" d'un histogramme nomme en général la largeur du plus petit de ces intervalles.
+\begin{enumerate}
+\item Pour chaque graphique, indiquez quelle est la surface d'une brique.  
+\item Lequel de ces graphiques est le plus informatif~? A partir de ce dernier, êtes-vous en mesure de déterminer les valeurs de $M_2$ qui sont les plus probables~?
+\item  Identifiez les briques associées aux valeurs comprises entre $\frac38$ et $\frac58$ incluses. Quelle est la valeur de l'aire de la surface occupée par ces briques en vous rappelant que la proportion des $\dataEmp[m]{m_{2,[\cdot]}}$ comprises entre $\frac38$ et $\frac58$  est fourni par~:\\
+{#rverb]
+mean(3/8<=s/2 &  s/2<=5/8)
+[#}
+\item Sauriez-vous alors évaluer approximativement la probabilité $\PPP{M_2\in [\frac38,\frac58]}$~?
+\item Est-il possible d'évaluer approximativement $\PPP{M_2=\frac12}$ qui via l'\textbf{A.E.P.} est approchée grâce à~:
+{#rverb]
+mean(s/2==1/2)
+[#}
+Que faudrait-il faire pour pouvoir y arriver~?
+\item En s'imaginant que le pas $\to0$ au fur et à mesure que $m\to+\infty$, pouvez-vous décrire à quoi ressemblera une brique~? Même question pour le mur de briques~? Représentez-le sur le graphique en ne dessinant que le ``dessus" (i.e. contour supérieur) du mur. Vu comme une fonction, comment interprèteriez-vous le contour supérieur du mur~?  
+
+\item Un mathématicien, sollicité pour nous assister dans l'étude de l'\textbf{A.M.P.}, nous apprend qu'il est classique de caractériser le comportement aléatoire de $M_2$ en fournissant la densité de probabilité (qui porte bien son nom!) s'exprimant ici mathématiquement par~:
+\[
+f_{M_2}(t)=\left\{\begin{array}{ll}
+4t & \mbox{si }t\in [0,\frac12]\\
+4-4t & \mbox{si }t\in [\frac12,1]\\
+0 & \mbox{sinon}
+\end{array}\right.
+\]
+Représentez cette fonction sur le dernier graphique et comparez-la avec les histogrammes continus. Sont-ils très différents de la fonction~?
+\item Le mathématicien nous annonce que  $\PPP{M_2\in [\frac38,\frac58]}=\displaystyle\int_{\frac38}^{\frac58} f_{M_2}(t)dt$ qui est représentée graphiquement par la surface des points sous la courbe $f_{M_2}(t)$ et dont les abscisses sont compris entre $\frac38$ et $\frac58$. Représentez alors $\PPP{M_2\in [\frac38,\frac58]}$ sur le graphique. Cela ne vous rappelle pas quelquechose~?
+Sachant qu'il n'est pas difficile de montrer que $\PPP{M_2\in [\frac38,\frac58]}=\PPP{S\in [\frac34,\frac54]}=\frac7{16}\simeq :r{7/16*100}\%$ (déjà évaluée à l'exercice~\ref{ex:sommeUnifs}), évaluez l'aire de la surface représentant cette probabilité. 
+\item Quelle est la valeur exacte de $\PPP{M_2=\frac12}$~?
+\item Sélectionnez la bonne réponse parmi les réponses (proposées en suivant entre parenthèses)~:\\
+La modalité $\frac12$ est le mode de la loi de $M_2$ car $\frac12$ est la valeur qui maximise la fonction \underline{\hspace*{1cm}} ( $\mathbf{p_{M_2}(x)}:=\PPP{M_2=x}$ ou $\mathbf{f_{M_2}(x)}$ ou $\mathbf{F_{M_2}(x)}:=\PPP{M_2\leq x}$ ).
+Cela se traduit littéralement par~: $\frac12$ est la valeur de plus grande \underline{\hspace*{2cm}}( \textbf{probabilité} ou \textbf{densité de probabilité} ou \textbf{fonction de répartition} ).
+[#tag]question[#>]
+\begin{Indication}{A retenir}
+$\to$ La \underline{densité de probabilité} caractérisant la loi de probabilité d'une v.a. continue $Y$ est vue via l'\textbf{A.E.P.} comme le \texttt{contour supérieur} de \textbf{l'histogramme à ``pas zéro" d'une infinité de ses réalisations} (i.e. $\Vect{y}_{[+\infty]}:=\dataEmp[+\infty]{y_{[\cdot]}}$). De manière plus imagée, cet histogramme se décrit comme \textbf{un mur de briques devenues points}  ou comme \textbf{un ``tas de points"} (pour traduire la notion d'empilement) où chaque point est associé à une des réalisations. Autrement dit, tous ces objets permettent de décrire de manière très synthétique l'ensemble de ``tous" les résultats possibles (représentés par les composantes de $\Vect{y}_{[+\infty]}$) de la variable aléatoire $Y$.\\ 
+\noindent $\to$ La probabilité $\PPP{Y\in [a,b]}=\displaystyle\int_a^b f_{Y}(t)dt$ dans le contexte de l'\textbf{A.M.P.} correspond via l'\textbf{A.E.P.} à la proportion des composantes de $\Vect{y}_{[+\infty]}$ appartenant à $[a,b]$. Du points de vue de l'\textbf{A.M.P.} ou de celui de l'\textbf{A.E.P.}, elle se représente par la surface occupée par les points sous la courbe $f_Y$ et d'abscisses appartenant à $[a,b]$.  
+\end{Indication}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#r<]detach.data("statinf","td","sommeUnif.RData")
+[#when]graphMoyenneDeuxDés
+[#r<]attach.data("statinf","td","sommeDes.RData")
+s<-somme2des
+[#>]\begin{exercice}[Histogramme discret] ${ }$\label{ex:histMoyDes}
+On s'intéresse à la loi de probabilité de la moyenne $M_2:=\frac{Y_1+Y_2}2=\frac{S}2$ où $S$ représente la somme de deux dés (introduite auparavant à l'exercice~\ref{ex:sommeDes}). Le but est ici d'introduire la notion d'histogramme discret qui n'est pas la représentation graphique la plus usuelle pour représenter une variable aléatoire discrète. Voici 4 histogrammes discrets pour les $m=200$, 1000, 2000 et 5000 premières somme des deux dés. Remarquons que dans le cadre de l'exercice, nous aurions pu nous limiter à la représentation graphique usuelle en diagramme en bâton
+puisque nous n'aurons aucune intention de comparer la loi de probabilité de $M_2$ avec celle d'une loi de probabilité associée à une variable aléatoire continue. Ce sera en revanche le cas dans l'exercice~\ref{ex:histMoyenne}.
+    
+{#FigureSimple][#img]img/deuxDes200.png[#include]false[#rcode]
+Hist.EAP(s[1:200]/2,xlim=c(0,7),ylim=c(0,0.35),ylab="",xlab="m=200")
+abline(h=0)
+abline(v=(2:12)/2,lty=2)
+segments((2:12)/2,-0.01,(2:12)/2,0.01,lwd=5)
+[#}
+
+{#FigureSimple][#img]img/deuxDes1000.png[#include]false[#rcode]
+Hist.EAP(s[1:1000]/2,xlim=c(0,7),ylim=c(0,0.35),ylab="",xlab="m=1000")
+abline(h=0)
+abline(v=(2:12)/2,lty=2)
+segments((2:12)/2,-0.01,(2:12)/2,0.01,lwd=5)
+[#}
+
+{#FigureSimple][#img]img/deuxDes2000.png[#include]false[#rcode]
+Hist.EAP(s[1:2000]/2,xlim=c(0,7),ylim=c(0,0.35),ylab="",xlab="m=2000")
+abline(h=0)
+abline(v=(2:12)/2,lty=2)
+segments((2:12)/2,-0.01,(2:12)/2,0.01,lwd=5)
+[#}
+
+{#FigureSimple][#img]img/deuxDes5000.png[#include]false[#rcode]
+Hist.EAP(s/2,xlim=c(0,7),ylim=c(0,0.35),ylab="",xlab="m=5000")
+abline(h=0)
+abline(v=(2:12)/2,lty=2)
+segments((2:12)/2,-0.01,(2:12)/2,0.01,lwd=5)
+[#}
+
+Afin de mettre en avant les caractéristiques les distinguant des histogrammes continus, nous avons complété les histogrammes en identifiant les modalités de $M_2$ par des petits traits en gras sur l'axe des abscisses prolongés par des lignes verticales en trait pointillé.
+
+\centerline{\includegraphics[width=8cm,height=8cm]{img/deuxDes200} \includegraphics[width=8cm,height=8cm]{img/deuxDes1000}}
+\centerline{\includegraphics[width=8cm,height=8cm]{img/deuxDes2000} \includegraphics[width=8cm,height=8cm]{img/deuxDes5000}}
+
+
+\begin{enumerate}
+\item Quelles sont les largeurs des briques utilisées dans ces histogrammes discrets~? Changent-elles lorsque $m$ augmente (justifier votre réponse)~? Sur chacun des graphiques, indiquez l'aire de la surface de chaque brique. 
+\item A partir du premier graphique, donnez un ordre de grandeur de la probabilité $\PPP{M_2=1}$. Quelle est l'aire de la surface occupée par les briques associées aux $m_{2,[k]}=1$~? A-t'on vraiment besoin de voir les briques individuellement pour évaluer $\PPP{M_2=1}$~? Si vous avez répondu non, appliquez cela sur le dernier graphique puisque les briques ne sont pas distinguables individuellement tellement elles sont plates.
+\item Le graphique suivant fournit deux histogrammes discrets l'un correspondant à $m=5000$ et l'autre à celui $m\to+\infty$. Deux types de trait (simple et en gras) ont été utilisés pour les représenter. Sauriez-vous les identifier~? Evaluez (le plus précisément possible) $\PPP{M_2=1}$ ainsi que $\PPP{M_2\in\{1,1.5,6\}}$.
+      
+{#FigureSimple][#img]img/deuxDesInf.png[#include]false[#rcode]
+HistDiscreteTh((2:12)/2,c(1:6,5:1)/36,xlim=c(0,7),ylim=c(0,0.35),ylab="",xlab="m=500 et m=infini",lwd=3)
+Hist.EAP(s/2,add=T,rect=FALSE)
+abline(h=0)
+abline(v=(2:12)/2,lty=2)
+segments((2:12)/2,-0.01,(2:12)/2,0.01,lwd=5)
+[#}
+\centerline{\includegraphics[width=8cm,height=8cm]{img/deuxDesInf}}
+\end{enumerate}
+\end{exercice}
+\begin{Indication}{A retenir}
+\noindent $\to$ L'histogramme discret s'interprète de la même manière qu'un histogramme continu où les probabilités (ou proportions) sont mesurées via des aires de surfaces.\\
+\noindent $\to$ A la différence d'un histogramme continu, dans un histogramme discret~:
+\begin{itemize} 
+\item les briques sont de largeur fixe (même lorsque $m$ varie)
+\item la base d'une brique n'a pas vraiment de sens
+\item seul le centre de la base d'une brique a un sens puisqu'il indique la valeur associée qui se lit en abscisse (surtout si la brique n'est pas la première à avoir été empilée).  
+\end{itemize} 
+\end{Indication}
+[#r<]detach.data("statinf","td","sommeUnif.RData")
+rm(s)
+[#when]moyenne[#>]
+\begin{exercice}[Loi d'une moyenne] ${ }$\label{ex:loiMoyenne}
+Cet exercice est à lire attentivement à la maison. Il permet d'appréhender via l'approche expérimentale le résultat suivant central en Statistique Inférentielle~:
+\begin{center}
+\fbox{\begin{minipage}{13cm}Une moyenne d'un grand nombre de variables aléatoires i.i.d. (indépendantes et identiquement distribuées, i.e. ayant la même loi de probabilité) se comporte approximativement selon la loi Normale (qui tire son nom de ce comportement universel).
+\end{minipage}}
+\end{center}
+Rappelons que les paramètres d'une loi Normale sont sa moyenne et son écart-type (les matheux préférant sa variance). Notons aussi que ce résultat s'applique dans un cadre assez général excluant tout de même le cas de moyenne de variables aléatoires n'ayant pas de variance finie (et oui, tout arrive!!!).
+\begin{enumerate}
+\item A partir des exercices~\ref{ex:sommeDes}~et~\ref{ex:sommeUnifs}, pouvez-vous intuiter les comportements aléatoires des moyennes de 2 faces de dés et de 2 uniformes sur $[0,1]$.\\
+\begin{Correction}
+De manière expérimentale, il suffit de diviser par  2 les vecteurs \texttt{s} en \texttt{R} pour obtenir les quantités d'intérêts désirées. Via l'A.M.P., on obtient très facilement la fonction de répartition de $M_2$ pour tout réel $t$~: $\PPP{M_2 \leq t}=\PPP{S/2 \leq t}=\PPP{S\leq 2\times t}$.\\
+Les moyenne, variance et écart-type de $M_2$ se déduisent très facilement de ceux de $S$~:\\
+$\EEE{M_2}=\EEE{S/2}=\EEE{S}/2$, $\VVV{M_2}=\VVV{S/2}=\VVV{S}/4$ et $\sigma(M_2)=\sigma(S)/2$.
+\end{Correction}
+\item On constate sur ces deux exemples que les modalités centrales (autour de la moyenne) sont plus probables pour la moyenne $M_2:=(Y_1+Y_2)/2$ que sur l'une ou l'autre des variables aléatoires $Y_1$ et $Y_2$.  Pensez-vous que ce phénomène reste vrai pour n'importe quelle paire de variables aléatoires  i.i.d. selon $Y$~? (C'est votre avis qui est demandé!)
+\item Un expérimentateur, convaincu que ce principe est vrai, observe que la moyenne de 4 v.a. i.i.d. se décompose aussi comme une moyenne de 2 v.a. i.i.d. comme le montre la formule suivante~:
+$$
+M_n:=\frac{Y_1+Y_2+Y_3+Y_4}4=\frac{\frac{Y_1+Y_2}2+\frac{Y_3+Y_4}2}2
+$$
+Il en déduit alors que les valeurs centrales (autour de la moyenne des $Y$) de la moyenne de 4 v.a. i.i.d. selon $Y$ sont plus probables que celles de la moyenne de 2 v.a. i.i.d. selon $Y$ qui sont elles-mêmes plus probables que  celles de $Y$.    
+Itérant ce processus, il constate que les moyennes $M_n$ de $n=2^k$ (avec $k$ un entier aussi grand qu'on le veut) v.a. i.i.d. s'écrit aussi comme une moyenne de 2 v.a. i.i.d. étant elles-mêmes des moyennes de $2^{k-1}$ v.a. i.i.d. elles-mêmes s'écrivant comme des moyennes de 2 v.a. i.i.d. \ldots.
+En conclusion, il postule que les probabilités d'apparition des modalités centrales de $Y$ augmentent pour la moyenne $M_n$ de $n$ v.a. i.i.d. selon $Y$ lorsque $n$ augmente. 
+Qu'en pensez-vous au vu de son protocole expérimental suivant (les réalisations de $M_n$ sont notées $\mu_{n,[k]}$ et correspondent aux moyennes des lancers de $n$ dés)~? \\
+[#r<]attach.data("statinf","td","moyenneDes.RData")
+{#hide]généré par:
+attach.data("statinf","td","deTruque.RData")
+m<-10000
+y<-yE[1:m]
+moy<-list()
+for(k in 1:6) moy[[k]]<-apply(matrix(yE[1:(m*2^k)],nr=2^k),2,mean)
+[#hide}
+[#<]{#new]moy[#of]InstrProba[#y.AEP]\\mu_{n,[\\cdot]}[#what][p[1;2[,p[2;3[,p[3;4],p]4;5],p]5;6]][#}
+[#>]\hspace*{-1cm}{#beginTab]moy[#first]1[#}
+{#headAEP]moy[#first]$n$[#}
+{#rowAEP]moy[#y][y][#first]1[#}
+{#rowAEP]moy[#y][moy[[1]]][#first]2[#}
+{#rowAEP]moy[#y][moy[[2]]][#first]4[#}
+{#rowAEP]moy[#y][moy[[3]]][#first]8[#}
+{#rowAEP]moy[#y][moy[[4]]][#first]16[#}
+{#rowAEP]moy[#y][moy[[5]]][#first]32[#}
+{#rowAEP]moy[#y][moy[[6]]][#first]64[#}
+{#endTab]moy[#}
+\item L'expérimentateur demande à son ami mathématicien s'il peut justifier sur un plan théorique (via A.M.P.) ces résultats. A sa grande surprise, le mathématicien lui annonce que ce résultat est central en statistique sous le nom de Théorème de la limite centrale (central limit theorem en anglais). Il s'énonce dans le cadre de la moyenne sous la forme suivante~: pour toute v.a. $Y$ et lorsque $n$ est suffisamment grand (en général, $n\geq 30$)
+$$
+M_n:=\frac1n\sum_{i=1}^n Y_i \SuitApprox \mathcal{N}\Big(\EEE{M_n},\sqrt{\frac{\VVV{Y_1}}n}\Big)
+$$
+où $Y_1,\cdots,Y_n$ désignent $n$ v.a. i.i.d. selon $Y$. La loi Normale tire son nom de ce résultat étonnant et combien important dans le sens où beaucoup de phénomènes réels peuvent être vus comme des moyennisations. Le premier paramètre d'une loi Normale correspond à l'espérance $\EEE{M_n}$ de $M_n$ et le second à l'écart-type de $M_n$. Le fait marquant est que ce résultat 
+est vrai indépendemment de la loi de $Y$. Afin de comparer ces résultats à ceux qu'il a déjà effectué sur la loi uniforme, il transforme toutes les réalisations des lois uniformes sur $[0,1]$ en les multipliant par 5 puis en les additionnant à 1 de sorte que toutes les nouvelles réalisations à moyenner soient celles d'une loi uniforme sur $[1,6]$. L'ensemble des modalités ainsi que celui du dés sont comprises entre 1 et 6. Ainsi, il lui semble possible de comparer les probabilités dans les deux exemples puisque les supports sont les mêmes ainsi que leurs espérances égales à 3.5.\\
+[#r<]attach.data("statinf","td","moyenneUnif.RData")
+{#hide]généré par:
+runif(64000,1,6)->yy
+m<-10000
+y<-yy[1:m]
+moy<-list()
+for(k in 1:6) moy[[k]]<-apply(matrix(yy[1:(m*2^k)],nr=2^k),2,mean)
+[#hide}
+[#>]\hspace*{-1cm}{#beginTab]moy[#first]1[#}
+{#headAEP]moy[#first]$n$[#}
+{#rowAEP]moy[#y][y][#first]1[#}
+{#rowAEP]moy[#y][moy[[1]]][#first]2[#}
+{#rowAEP]moy[#y][moy[[2]]][#first]4[#}
+{#rowAEP]moy[#y][moy[[3]]][#first]8[#}
+{#rowAEP]moy[#y][moy[[4]]][#first]16[#}
+{#rowAEP]moy[#y][moy[[5]]][#first]32[#}
+{#rowAEP]moy[#y][moy[[6]]][#first]64[#}
+{#endTab]moy[#}
+
+Qu'en pensez-vous~? Observez-vous à nouveau que le procédé de moyennisation concentre les probabilités vers les modalités centrales (en fait autour de l'espérance)~?
+
+\item Le mathématicien lui fait cependant remarquer qu'a priori les variances ne sont pas rigoureusement les mêmes (certainement assez proches) et qu'il n'est donc pas en mesure de comparer les résultats expérimentaux sur les 2 exemples. Pour comparer les résultats pour différentes v.a. $Y$, il faut au préalable les uniformiser (les contraindre à avoir les mêmes moyennes et variances). Une solution est  de les centrer (soustraire l'espérance $\EEE{M_n}$) et les réduire (diviser ensuite par $\sqrt{\VVV{M_n}}=\sqrt{\frac{\VVV{Y_1}}n}$) de sorte à ce que les v.a. résultantes soient toutes d'espérances 0 et de variances 1 (et ainsi comparables). Cette transformation pourra plus tard (via une représentation graphique) être comparé au travail d'un photographe lors d'une photo de groupe qui demande d'abord à l'ensemble des photographiés de se recentrer (i.e. centrage) puis utilise son zoom (i.e. réduction ou plutôt changement d'échelle dans ce cas précis) pour bien les cadrer. Aidé par le mathémacien, il compare donc ses résultats en effectuant la dite transformation. Le mathématicien l'informe donc du nouveau résultat suivant~:
+$$
+\Delta_n:=\frac{M_n-\EEE{M_n}}{\sqrt{\VVV{M_n}}}=\frac{M_n-\EEE{M_n}}{\sqrt{\frac{\VVV{Y_1}}n}} \SuitApprox \mathcal{N}(0,1)
+$$
+\textbf{N.B.:} Ce résultat n'est valide que lorsque les notions d'espérance et de variance ont un sens! Il existe en effet des v.a. (suivant une loi de Cauchy, par exemple) n'ayant pas d'espérance et variances finies!\\
+Voici les résultats expérimentaux pour $n=64$ (i.e. la valeur de $n$ la plus grande) et $m=10000$  pour consécutivement les exemples du dé (i.e. $Y\leadsto \mathcal{U}(\{1,\cdots,6\})$), de la loi uniforme sur $[0,1]$ (i.e. $Y\leadsto \mathcal{U}([0,1])$) et sur sa loi transformée  uniforme sur $[1,6]$ (i.e. $5Y+1 \leadsto \mathcal{U}([1,6])$). Les tableaux ci-dessous sont complétés par les résultats via l'A.M.P. correspondant (théoriquement) à $m=+\infty$.
+\\
+[#<]{#new]delta[#of]InstrProba[#y.AEP]\\delta_{n,[\\cdot]}[#y.AMP]\\Delta_n[#what]p-3[,p[-3;-1.5[,p[-1.5;-0.5],p[-0.5;0.5[[#}
+[#r<]
+detach.data("statinf","td","moyenneUnif.RData")
+attach.data("statinf","td","moyenneDes.RData")
+deltaDes<-(moy[[6]]-3.5)/sqrt(mean(((1:6)-3.5)^2))*8
+detach.data("statinf","td","moyenneDes.RData")
+attach.data("statinf","td","moyenneUnif.RData")
+deltaUnif16<-(moy[[6]]-3.5)/sqrt(25/12)*8
+deltaUnif01<-((moy[[6]]-1)/5-0.5)/sqrt(1/12)*8
+[#>]\hspace*{-1.5cm}{#beginTab]delta[#first]1[#}
+{#headAEP]delta[#first]loi de $Y$[#}
+{#rowAEP]delta[#y]deltaDes[#first]$\mathcal{U}(\{1,\cdots,6\})$[#}
+{#rowAEP]delta[#y]deltaUnif01[#first]$\mathcal{U}([0,1])$[#}
+{#rowAEP]delta[#y]deltaUnif16[#first]$\mathcal{U}([1,6])$[#}\hline
+{#headAMP]delta[#first]loi de $\Delta_n$[#}
+{#rowAMP]delta[#valR]diff(pnorm(c(-Inf,-3,-1.5,-0.5,0.5)))[#first]$\mathcal{N}(0,1)$[#}
+{#endTab]delta[#}
+[#<]{#init]delta[#what]p[0.5;1.5[,p[1.5;3[,p[3,mean,sd[#}
+[#>]\hspace*{-.8cm}{#beginTab]delta[#first]1[#}
+{#headAEP]delta[#first]loi de $Y$[#}
+{#rowAEP]delta[#y]deltaDes[#first]$\mathcal{U}(\{1,\cdots,6\})$[#}
+{#rowAEP]delta[#y]deltaUnif01[#first]$\mathcal{U}([0,1])$[#}
+{#rowAEP]delta[#y]deltaUnif16[#first]$\mathcal{U}([1,6])$[#}\hline
+{#headAMP]delta[#first]loi de $\Delta_n$[#}
+{#rowAMP]delta[#valR]diff(pnorm(c(0.5,1.5,3,Inf))),0,1[#first]$\mathcal{N}(0,1)$[#}
+{#endTab]delta[#}
+
+Commentez ces résultats et expliquez en particulier pourquoi les 2 lignes correspondant aux 2 exemples des lois uniformes (non transformée et transformée) sont identiques~?
+\item Fournir les instructions~R permettant d'obtenir les probabilités des tableaux précédents pour $m=+\infty$.\\
+\begin{Correction} Pour tout $a<b$,
+$$\PPP{\Delta_n \in [a,b[}=F_{\mathcal{N}(0,1)}(b)-F_{\mathcal{N}(0,1)}(a)\NotR\mathtt{pnorm(b)-pnorm(a)}$$
+puisque $F_{\mathcal{N}(0,1)}$ est obtenu en \texttt{R} en utilisant la fonction \texttt{pnorm}.
+\end{Correction}
+\end{enumerate}
+\end{exercice}
+[#r<]detach.data("statinf","td","moyenneUnif.RData")
+[#when]graphMoyennes
+[#r<]attach.data("statinf","td","moyenneDes.RData")
+[#>]\begin{exercice}[Histogramme de moyenne] ${ }$ \label{ex:histMoyenne}
+L'étude menée est la suite de l'exercice~\ref{ex:loiMoyenne}. Ayant introduit les notions d'histogrammes discret et continu, nous allons pouvoir apprécier de visualiser le théorème de la limite centrale notamment dans le cadre de l'exemple de la moyenne de dés. Voici pour commencer, 2 graphiques représentant les contours supérieurs des histogrammes (discrets pour l'exemple du dé à gauche et continu pour l'exemple de la loi uniforme sur $[1,6]$ à droite) des lois de probabilité $M_n$ pour $n=1,2,4,16,64$. Les échelles sont identiques pour les 2 graphiques.
+
+{#FigureSimple][#img]img/moyDes.png[#include]false[#rcode]
+Hist.EAP(moy[[6]],xlim=c(0.5,6.5),ylim=c(0,2.2),ylab="",cex.main=1.5,main="m=10000 et n=1,2,4,16,64",rect=FALSE,lwd=3)
+Hist.EAP(y,rect=FALSE,add=TRUE,lwd=5)
+Hist.EAP(moy[[1]],rect=FALSE,add=TRUE,lwd=3)
+Hist.EAP(moy[[2]],rect=FALSE,add=TRUE,lwd=3)
+#Hist.EAP(moy[[3]],rect=FALSE,add=TRUE,lwd=3)
+Hist.EAP(moy[[4]],rect=FALSE,add=TRUE,lwd=3)
+#Hist.EAP(moy[[5]],rect=FALSE,add=TRUE,lwd=3)
+abline(h=0)
+[#}
+
+{#FigureSimple][#img]img/n1MoyDes.png[#include]false[#rcode]
+Hist.EAP(y,xlim=c(0.5,6.5),ylab="",xlab="",cex.main=2,main="n=1 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+[#}
+
+{#FigureSimple][#img]img/n2MoyDes.png[#include]false[#rcode]
+Hist.EAP(moy[[1]],xlim=c(0.5,6.5),ylab="",xlab="",cex.main=2,main="n=2 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(2.9167/2)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n4MoyDes.png[#include]false[#rcode]
+Hist.EAP(moy[[2]],ylab="",xlab="",cex.main=2,main="n=4 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(2.9167/4)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n16MoyDes.png[#include]false[#rcode]
+Hist.EAP(moy[[4]],ylab="",xlab="",cex.main=2,main="n=16 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(2.9167/16)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n64MoyDes.png[#include]false[#rcode]
+Hist.EAP(moy[[6]],ylab="",xlab="",cex.main=2,main="n=64 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(2.9167/64)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n1DeltaMoyDes.png[#include]false[#rcode]
+Hist.EAP((y-3.5)/sqrt(2.9167),xlim=(c(0.5,6.5)-3.5)/sqrt(2.9167),ylab="",xlab="",cex.main=2,main="n=1 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+[#}
+
+{#FigureSimple][#img]img/n2DeltaMoyDes.png[#include]false[#rcode]
+Hist.EAP((moy[[1]]-3.5)/sqrt(2.9167/2),xlim=(c(0.5,6.5)-3.5)/sqrt(2.9167/2),ylab="",xlab="",cex.main=2,main="n=2 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n4DeltaMoyDes.png[#include]false[#rcode]
+Hist.EAP((moy[[2]]-3.5)/sqrt(2.9167/4),ylab="",xlab="",cex.main=2,main="n=4 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n16DeltaMoyDes.png[#include]false[#rcode]
+Hist.EAP((moy[[4]]-3.5)/sqrt(2.9167/16),ylab="",xlab="",cex.main=2,main="n=16 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n64DeltaMoyDes.png[#include]false[#rcode]
+Hist.EAP((moy[[6]]-3.5)/sqrt(2.9167/64),ylab="",xlab="",cex.main=2,main="n=64 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+[#r<]detach.data("statinf","td","moyenneDes.RData")
+attach.data("statinf","td","moyenneUnif.RData")
+[#>]
+{#FigureSimple][#img]img/moyUnifs.png[#include]false[#rcode]
+Hist.EAP(moy[[6]],xlim=c(0.5,6.5),ylim=c(0,2.2),ylab="",xlab="",cex.main=1.5,main="m=10000 et n=1,2,4,16,64",rect=FALSE,lwd=3)
+Hist.EAP(yy[1:10000],rect=FALSE,add=TRUE,lwd=5)
+Hist.EAP(moy[[1]],rect=FALSE,add=TRUE,lwd=3)
+Hist.EAP(moy[[2]],rect=FALSE,add=TRUE,lwd=3)
+#Hist.EAP(moy[[3]],rect=FALSE,add=TRUE,lwd=3)
+Hist.EAP(moy[[4]],rect=FALSE,add=TRUE,lwd=3)
+#Hist.EAP(moy[[5]],rect=FALSE,add=TRUE,lwd=3)
+abline(h=0)
+[#}
+
+{#FigureSimple][#img]img/n1MoyUnifs.png[#include]false[#rcode]
+Hist.EAP(yy[1:10000],xlim=c(0.5,6.5),ylab="",xlab="",cex.main=2,main="n=1 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+[#}
+
+{#FigureSimple][#img]img/n2MoyUnifs.png[#include]false[#rcode]
+Hist.EAP(moy[[1]],ylab="",xlab="",cex.main=2,main="n=2 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(25/12/2)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n4MoyUnifs.png[#include]false[#rcode]
+Hist.EAP(moy[[2]],ylab="",xlab="",cex.main=2,main="n=4 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(25/12/4)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n16MoyUnifs.png[#include]false[#rcode]
+Hist.EAP(moy[[4]],ylab="",xlab="",cex.main=2,main="n=16 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(25/12/16)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n64MoyUnifs.png[#include]false[#rcode]
+Hist.EAP(moy[[6]],ylab="",xlab="",cex.main=2,main="n=64 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x,3.5,sqrt(25/12/64)),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n1DeltaMoyUnifs.png[#include]false[#rcode]
+Hist.EAP((yy[1:10000]-3.5)/sqrt(25/12),xlim=(c(0.5,6.5)-3.5)/sqrt(25/12),ylab="",xlab="",cex.main=2,main="n=1 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+[#}
+
+{#FigureSimple][#img]img/n2DeltaMoyUnifs.png[#include]false[#rcode]
+Hist.EAP((moy[[1]]-3.5)/sqrt(25/12/2),ylab="",xlab="",cex.main=2,main="n=2 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n4DeltaMoyUnifs.png[#include]false[#rcode]
+Hist.EAP((moy[[2]]-3.5)/sqrt(25/12/4),ylab="",xlab="",cex.main=2,main="n=4 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n16DeltaMoyUnifs.png[#include]false[#rcode]
+Hist.EAP((moy[[4]]-3.5)/sqrt(25/12/16),ylab="",xlab="",cex.main=2,main="n=16 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+{#FigureSimple][#img]img/n64DeltaMoyUnifs.png[#include]false[#rcode]
+Hist.EAP((moy[[6]]-3.5)/sqrt(25/12/64),ylab="",xlab="",cex.main=2,main="n=64 et m=10000",rect=FALSE,lwd=5)
+abline(h=0)
+curve(dnorm(x),add=TRUE,lwd=3)
+[#}
+
+\centerline{\includegraphics[width=8cm,height=8cm]{img/moyDes}\includegraphics[width=8cm,height=8cm]{img/moyUnifs}}
+
+\begin{enumerate}
+\item Pour chaque graphique, quelle est l'histogramme qui représente via l'\textbf{A.E.P.} la loi de probabilité approximative de $Y_1$~? 
+\item Ces représentations graphiques expriment-elles le résultat que nous avions décrit sur le procédé de moyennisation qui concentre les modalités~?
+\item Comparez les 2 graphiques. Pour quelle étude (dé ou uniforme), la moyenne est de plus grande variance~?
+\item Sauriez-vous anticiper les histogrammes pour le cas où $n\to+\infty$ avec $m\to+\infty$~?
+\item Comme il n'est pas possible d'observer la forme de l'histogramme dans le cas précédent, il est naturel de faire comme un photographe en rezoomant le graphique de sorte à pouvoir mieux cadrer l'histogramme sur le graphique. C'est aussi ce que fait automatiquement le logiciel~\texttt{R} comme on peut le voir dans la série de graphiques suivants~:\\[0.25cm]
+\hspace*{-2.3cm}\begin{tabular}{|c|c|c|c|}\hline
+\multicolumn{2}{|c|}{Exemple du dé: $Y_i\leadsto \mathcal{U}(\{1,2,3,4,5,6\})$} & \multicolumn{2}{c|}{Exemple de l'uniforme: $Y_i\leadsto \mathcal{U}([1,6])$}\\\hline
+loi de $M_n$ & loi de $\Delta_n$ & loi de $M_n$ & loi de $\Delta_n$\\\hline
+%\includegraphics[width=4cm,height=4cm]{img/n1MoyDes} & \includegraphics[width=4cm,height=4cm]{img/n1DeltaMoyDes} & \includegraphics[width=4cm,height=4cm]{img/n1MoyUnifs} & \includegraphics[width=4cm,height=4cm]{img/n1DeltaMoyUnifs}\\\hline
+\includegraphics[width=4cm,height=4cm]{img/n2MoyDes} & \includegraphics[width=4cm,height=4cm]{img/n2DeltaMoyDes} & \includegraphics[width=4cm,height=4cm]{img/n2MoyUnifs} & \includegraphics[width=4cm,height=4cm]{img/n2DeltaMoyUnifs}\\\hline
+\includegraphics[width=4cm,height=4cm]{img/n4MoyDes} & \includegraphics[width=4cm,height=4cm]{img/n4DeltaMoyDes} & \includegraphics[width=4cm,height=4cm]{img/n4MoyUnifs} & \includegraphics[width=4cm,height=4cm]{img/n4DeltaMoyUnifs}\\\hline
+\includegraphics[width=4cm,height=4cm]{img/n16MoyDes} & \includegraphics[width=4cm,height=4cm]{img/n16DeltaMoyDes} & \includegraphics[width=4cm,height=4cm]{img/n16MoyUnifs} & \includegraphics[width=4cm,height=4cm]{img/n16DeltaMoyUnifs}\\\hline
+\includegraphics[width=4cm,height=4cm]{img/n64MoyDes} & \includegraphics[width=4cm,height=4cm]{img/n64DeltaMoyDes} & \includegraphics[width=4cm,height=4cm]{img/n64MoyUnifs} & \includegraphics[width=4cm,height=4cm]{img/n64DeltaMoyUnifs}\\\hline
+\end{tabular}
+\item Pour les 2 exemples et pour chaque $n$, comparez la forme de l'histogramme (en trait le plus épais) des réalisations de $M_n$ avec celle de l'histogramme (en trait le plus épais) des réalisations $\Delta_n$~? Expliquez pourquoi il en est ainsi~?
+\item Pourquoi ces histogrammes sont-ils de plus en plus irréguliers lorsque $n$ augmente~? Qu'aurait dû faire l'expérimentateur pour qu'il n'en soit pas ainsi~? Pouvez-vous tout de même imaginer ce qui ce serait passé lorsque $m\to+\infty$~?
+\item D'après le Théorème de la limite centrale, on peut mathématiquement affirmer, lorsque $n$ est suffisamment grand (convention simplifiée appliquée dans ce cours: $n\geq 30$)~:
+\[
+  M_n\SuitApprox \mathcal{N}\left(\EEE{Y_1},\sqrt{\frac{\VVV{Y_1}}{n}}\right) \Leftrightarrow \Delta_n:=\frac{M_n-\EEE{Y_1}}{\sqrt{\frac{\VVV{Y_1}}{n}}} \SuitApprox \mathcal{N}(0,1).
+\]
+Aussi, on rappelle que, pour l'exemple du dé, $\VVV{Y_1}=2.9167$ et que, pour l'exemple de la loi uniforme sur $[1,6]$,  $\VVV{Y_1}=\frac{25}{12}$.\\
+Pour chaque graphique, que représente la courbe en trait le plus fin~?  Est-elle de plus en plus ressemblante à l'histogramme en trait le plus épais lorsque $n$ augmente (Indication~: éviter de tenir compte du caractère irrégulier de l'histogramme quand $n$ augmente uniquement dû au fait que $m$ aurait dû être augmenté en même temps que $n$)~?
+\item Dans le contexte de l'\textbf{A.E.P.}, comment décririez-vous ces courbes~? %répartitions de m=+\infty de \mathcal{N}\left(\EEE{Y_1},\sqrt{\frac{\VVV{Y_1}}{n}}\right)
+Dans l'exemple du dé, les deux histogrammes représentées sur chaque graphique sont-ils de la même nature~? Avez-vous une idée sur comment illustrer graphiquement le Théorème de la limite centrale sans l'utilisation de l'histogramme discret (\textit{Indication}~: Une réponse très courte est bien venue)~?  
+\item Le Théorème de la limite centrale s'appliquant pour tout $Y_1$ ayant n'importe quelle loi de probabilité admettant une moyenne et une variance finies, imaginez la même série de graphiques que précédemment mais pour d'autres exemples que ceux (uniformes) choisis dans cette étude.   
+\end{enumerate}
+
+\end{exercice}
+[#r<]detach.data("statinf","td","moyenneUnif.RData")
+[#case}
+

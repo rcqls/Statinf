@@ -1,0 +1,38 @@
+[#>][#tag]enonce[#>]
+\begin{exercice}[Outil pour la problématique des élections] ${}$
+
+[#tag]question[#>]On se propose d'estimer le paramètre d'intérêt en fournissant un intervalle (ou fourchette, encadrement) obtenu à partir des données. Cet intervalle, appelé intervalle de confiance, est centré en la valeur de l'estimation et sa largeur dépend d'un niveau de confiance que l'on se fixe (généralement plutôt grand, par exemple, $95\%$). [#tag]enonce[#>]
+\begin{enumerate}
+[#tag]enonce[#>]
+\item Pensez-vous qu'il soit possible qu'une estimation $\Est{p}{y}$ soit égale au paramètre estimé? Pouvez-vous savoir l'ordre de grandeur de l'écart entre l'estimation et le paramètre inconnu?
+Quel niveau de confiance accordez-vous à la valeur d'une estimation (dans notre exemple, 47\% et 52\% sur deux échantillons)?
+[#tag]reponse[#>]
+\ReponseC{Excepté dans de très rares contextes, une estimation ne peut pas correspondre à la vraie valeur du paramètre inconu. Il n'y a aucun moyen de mesurer avec certitude l'écart entre l'estimation et le paramètre. Cependant, on peut seulement espérer qu'ils ne sont pas très éloignés. Compte tenu ce ces réponses, il est alors difficile de répondre à la dernière question autrement que de proposer un avis personnel plutôt arbitraire.}
+[#tag]enonce[#>]
+\item Si on vous annonce qu'un statisticien sait généralement fournir en plus de l'estimation du paramètre, l'estimation de sa fiabilité mesurée en terme de variabilité attendue, quel est la mission principale d'un intervalle de confiance~? Quelles sont les qualités souhaitées d'un intervalle de bonne confiance (95\% par exemple) du paramètre d'intérêt (inconnu)~? 
+[#tag]reponse[#>]
+\ReponseC{L'objectif est d'intégrer dans le procédé d'estimation du paramètre sa fiabilité (voir énoncé) afin de fournir un intervalle plus ou moins large selon le niveau de confiance  fixé.
+La qualité attendue est que cet intervalle ait de bonnes chances (traduites par le niveau de confiance) de contenir le paramètre d'intérêt inconnu. En outre, on peut espérer obtenir un intervalle de longueur raisonnablement faible pour que l'estimation soit suffisamment informative (bien que l'on ne peut en être assuré en général).}
+[#tag]enonce[#>]
+\item Compléter les phrases suivantes~:
+\begin{enumerate}
+\item PLUS le niveau de confiance est fort, [#tag]question[#>]....[#tag]reponse[#>]PLUS[#tag]enonce[#>] l'intervalle de confiance est petit.
+\item Vue comme un intervalle de confiance de largeur 0, une estimation peut donc être associé à un niveau de confiance [#tag]question[#>]...[#tag]reponse[#>]0[#tag]enonce[#>]\%.
+\end{enumerate} 
+[#r<]
+IC1<-.47+c(-1,1)*1.96*sqrt(.47*.53/1000)
+IC2<-.52+c(-1,1)*1.96*sqrt(.52*.48/1000)
+[#tag]enonce[#>]
+\item Un statisticien construit les intervalles à $95\%$ de confiance (via une formule d'obtention étudiée plus tard dans le cours ne faisant pas l'objet) et informe le candidat que les intervalles associés aux estimations 47\% et 52\% sont respectivement $[#r{IC1[1]*100}\%,#r{IC1[2]*100}\%]$ et $[#r{IC2[1]*100}\%,#r{IC2[2]*100}\%]$. Les élections effectuées, on évalue $p^{Max}=51.69\%$, qu'en pensez-vous~?
+[#tag]reponse[#>]
+\ReponseC{Il semble qu'il soit difficile d'affirmer que le candidat sera élu.}
+[#tag]enonce[#>]
+\item Si vous avez des difficultés à traduire ce que signifie le niveau de confiance d'un intervalle, comparez-le avec celui que vous accorderiez à une personne qui serait censée dire la vérité avec un niveau de confiance fixé à 95\%. Dans le cas de cette personne, comment traduiriez-vous (ou expliqueriez-vous) le concept de niveau de confiance~? \\
+\ReponseC{Parmi toutes les assertions énoncées par cette personne (dont on peut vérifier la véracité ou fiabilité), 95\% (en moyenne) seraient censées être justes ou fiables.}
+[#tag]enonce[#>]
+\end{enumerate}
+[#tag]question[#>]
+\begin{Indication}{Remarque} Cet exemple nous aide à appréhender la notion de niveau de confiance ou plus généralement de probabilité d'un événement en l'exprimant comme la proportion parmi toutes (en théorie, on peut imaginer en faire une infinité) réalisations de l'expérience (a priori supposée aléatoire) qui conduisent à ce que l'événement soit vérifié. Ceci nous conduit naturellement vers la notion d'Approche Expérimentale des Probabilités qui sera présentée dans la fiche de Td suivante en complément de l'Approche Mathématique des Probabilités (qui est classiquement présentée dans les cours de Probabilités et Statistique).
+\end{Indication}
+[#tag]enonce[#>]
+\end{exercice}

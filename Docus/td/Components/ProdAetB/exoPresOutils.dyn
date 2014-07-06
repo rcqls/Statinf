@@ -1,0 +1,30 @@
+[#>]\begin{exercice}[Règles de décision pour les produits A et B]
+\begin{enumerate}
+\item Pour chacun des produits, proposez la forme de la règle de décision en faveur de l'assertion d'intérêt à partir d'un échantillon obtenu via le critère RSAP.
+[#tag]reponse[#>]
+\ReponseC{Une règle de décision serait: on décide de lancer le produit $\bullet$ sur le marché (i.e. on décide que l'assertion d'intérêt ``le produit est rentable'' est vraie) si $\Est{\mu^\bullet}{y^\bullet}> \mu_{lim}$, où $\mu_{lim}$ reste à déterminer (a priori  $\mu_{lim}>>0.15$).}
+[#tag]enonce[#>]
+\item  Selon cette règle, est-il possible pour l'industriel de ne pas se tromper dans sa décision quant au lancement de chaque produit~? 
+[#tag]reponse[#>]
+\ReponseC{Selon cette règle de décison, il est impossible pour l'industriel de ne pas se tromper.}
+[#tag]enonce[#>]
+\item Exprimez les erreurs de décision éventuelles en les illustrant par des exemples de situations réelles envisageables.
+[#tag]reponse[#>]
+\ReponseC{Il est tout à fait possible par exemple que $p^A=10\%$ et d'observer $\Est{p^A}{y^A}=85\%$ ce qui conduirait (si $\mu_{lim}<85\%$) à lancer le produit à tort. De la même manière, il est tout à fait possible par exemple que $p^A=30\%$ et d'observer $\Est{p^A}{y^A}=5\%$ ce qui conduirait à ne pas lancer le produit (également) à tort.}
+[#tag]enonce[#>]
+\item Comment mesurer ces risques d'erreurs de décision~?
+[#tag]reponse[#>]
+\ReponseC{On notera:
+\begin{itemize}
+\item Risque d'erreur I: risque d'erreur de décider en faveur de l'assertion d'intérêt à tort.
+\item Risque d'erreur II : risque d'erreur de ne pas décider l'assertion d'intérêt à tort.
+\end{itemize}
+On peut mesurer ces risques en évaluant les chances (les probabilités) que chacun de ces deux risques interviennent.
+}
+[#tag]enonce[#>]
+\item Un statisticien informe l'industriel que la règle de décision (connue de tous les statisticiens) est de lancer le produit~A si $\Est{p^A}{y^A}>16.8573\%$. L'industriel pensant que son produit est tel que $p^A\geq 20\%$ se dit que cette règle de décision sera donc toujours acceptée. Qu'en pensez-vous~? 
+[#tag]reponse[#>]
+\ReponseC{Il a tort puisque toute règle de décision comporte une erreur de décision (pouvant être faible ou élevée).}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}

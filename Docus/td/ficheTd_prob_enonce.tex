@@ -3,7 +3,7 @@
 %Packages
 \usepackage{multirow}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{aeguill}
 \usepackage{amssymb}
@@ -17,8 +17,8 @@
 
 %Preamble
 
-\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
-\input /Users/remy/cqls/texinputs/Cours/testInclude
+\input Cours/cqlsInclude
+\input Cours/testInclude
 
 
 \rightmargin -2cm
@@ -29,6 +29,7 @@
 \newcommand{\redabr}{\textit{(rédaction abrégée) }}
 \newcommand{\redstd}{\textit{(rédaction standard) }}
 
+\setcounter{chapter}{1}
 %Styles
 
 %Title
@@ -38,6 +39,7 @@
 
 
 
+\chapter{Introduction\\ aux~probabilités}\label{TdProb}
 \begin{IndicList}{Indications préliminaires} 
 \item \textit{Objectif}~: L'originalité de ce cours réside essentiellement dans l'axe qui a été choisi pour présenter les probabilités. Dans un cours classique, les développements mathématiques (de nature plutôt technique) sont proposés en priorité en laissant peu de place à l'interprétation des concepts théoriques véhiculés. Cette approche pour introduire les concepts de probabilités sera par la suite appelée \textbf{A.M.P.} pour désigner \textbf{A}pproche \textbf{M}athématique des \textbf{P}robabilités. La Statistique (Inférentielle ou Inductive, celle présentée dans ce cours) repose largement sur la théorie des Probabilités, mais de part sa vocation à être largement utilisée  par les praticiens sous une forme plutôt méthodologique, il s'ensuit souvent une difficulté pour ces utilisateurs à appréhender les conditions d'applicabilité et les points-clés des outils statistiques qui bien souvent s'expriment en fonction des concepts probabilistes pas toujours faciles à assimiler (compte tenu de leurs aspects mathématiques). Afin de remédier à cet incovénient, nous avons choisi de proposer une approche complémentaire, appelée  \textbf{A.E.P.} pour désigner \textbf{A}pproche \textbf{E}xpérimentale des \textbf{P}robabilités, qui nous semble plus intuitive car basée sur l'expérimentation et dont la difficulté technique se limite aux outils de Statistique Desciptive présentés en première année (faciles à appréhender par les praticiens motivés surtout lorsqu'ils en ont l'utilité). L'objectif de cette fiche T.D. est essentiellement de faire le lien entre les deux approches \textbf{A.M.P.} et \textbf{A.E.P.}. Notamment, il sera essentiel de comprendre comment les praticiens pourrons être éclairés via  l'\textbf{A.E.P.}  sur les résultats techniques obtenus grâce à l'\textbf{A.M.P.} par les mathématiciens. 
 \item \textit{L'\textbf{A.E.P.} en complément de l'\textbf{A.M.P.}}~: Soit $Y$ une variable aléatoire réelle dont on suppose disposer (via l'\textbf{A.E.P.}) d'un vecteur $\textbf{y}_{[m]}:=(y_{[\cdot]})_m:=(y_{[1]},y_{[2]},\cdots,y_{[m]})$ de $m$ (a priori très grand) réalisations indépendantes entre elles. En théorie, on pourra aussi imaginer disposer du vecteur $\textbf{y}_{[+\infty]}:=(y_{[\cdot]})_{+\infty}$ qui est l'analogue de $\textbf{y}_{[m]}$ avec $m\rightarrow +\infty$. Supposons  aussi que $m=10000$ expériences aient été réalisées et les $m$ composantes de $\textbf{y}_{[m]}$ aient été stockées dans \texttt{R} sous le vecteur nommé \texttt{yy}.
@@ -148,7 +150,6 @@ $$
 \end{enumerate}
 \end{exercice}
 
-
 \begin{exercice}[Somme de deux dés]\label{ex:sommeDes} ${ }$\label{ex:sommeDes}
 
 
@@ -214,7 +215,6 @@ Voici les résultats de l'\textbf{A.M.P.} présentés dans le tableau suivant (q
 \end{enumerate}
 \end{exercice}
 
-
 \begin{exercice}[Loi uniforme sur l'intervalle unité]\label{ex:unif}
 \begin{enumerate}
 \item Soit $Y_1$ une variable aléatoire suivant une loi uniforme sur $[0,1]$ (en langage math., $Y_1\leadsto \mathcal{U}([0,1])$), correspondant au choix ``au hasard'' d'un réel dans l'intervalle $[0,1]$. L'objectif est l'évaluation (exacte ou approximative) des probabilités suivantes $\PPP{Y_1=0.5}$ et $\PPP{0<Y_1<0.5}$, le chiffre moyen $\EEE{Y_1}$ (espéré), l'écart-type $\sigma(Y_1)$ ainsi que la variance $\VVV{Y_1}$~? Parmi ces quantités, lequelles sauriez-vous intuitivement (i.e. sans calcul) déterminer~?
@@ -262,7 +262,6 @@ Déterminez exactement les quantités de la première question.
 \end{enumerate}
 \end{exercice}
 
-
 \begin{exercice}[Somme de deux uniformes]\label{ex:sommeUnifs}
 \begin{enumerate}
 \item On se propose maintenant d'étudier la variable $S=Y_1+Y_2$ où $Y_1$ et $Y_2$ sont deux variables aléatoires indépendantes suivant une loi uniforme sur $[0,1]$. Quel est l'ensemble des valeurs possibles (ou modalités) de $S$~? Pensez-vous que la variable $S$ suive une loi uniforme~?
@@ -270,6 +269,7 @@ Nous nous proposons d'évaluer (excatement ou approximativement) les probabilit�
 
 
 \item Via \textbf{A.E.P.}~: Un expérimentateur réalise à nouveau l'expérience de choisir 1000 réels entre 0 et 1. Les informations sont stockées dans le vecteur \texttt{y2}. Déterminez approximativement les quantités de la premire question.
+
 \begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
 > y2
     [1] 7.050965e-01 7.167117e-01 8.085787e-01 5.334738e-01 1.126156e-01
@@ -422,6 +422,14 @@ puisque $F_{\mathcal{N}(0,1)}$ est obtenu en \texttt{R} en utilisant la fonction
 \end{Correction}
 \end{enumerate}
 \end{exercice}
+
+\begin{IndicList}{Quelques commentaires} 
+\item Un étudiant suivant ce cours n'est pas censé comprendre comment les résultats de l'\textbf{A.M.P.} ont été mathématiquement obtenus. Ils sont généralement proposés sans démonstration.
+Sa mission est en revanche de savoir comment les vérifier via l'\textbf{A.E.P.} en prenant soin de bien les interpréter. Autrement dit, l'\textbf{A.E.P.} permet à un praticien de mieux comprendre les tenants et les aboutissants des outils statistiques (qu'il utilise) développés dans le contexte de l'\textbf{A.M.P.}.
+\item Afin d'éviter de surcharger l'étude de l'\textbf{A.E.P.}, il a été décidé dans ce cours d'étaler son introduction en deux étapes. La première qui vous a été présentée dans cette fiche est naturellement complétée par une deuxième étape qui s'appuie sur la représentation graphique des répartitions de $\Vect{y}_{[m]}:=\dataEmp[m]{y_{[\cdot]}}$ (avec $m$ généralement très grand).
+Cette étape est présentée en Annexe. Un étudiant motivé pourra à sa guise choisir de compléter sa connaissance sur l'\textbf{A.E.P.} en lisant dès à présent la fiche Annexe~\ref{TdAEPGraph} en Annexe consacrée à l'\textbf{A.E.P.} dans sa version ``graphique". Il est toutefois important de rappeler que les 2 fiches T.D.~\ref{TdEst}~et~\ref{TdProdAB} suivantes ne s'appuient que sur les outils présentées dans la fiche T.D. présentée ici.      
+\item Dans la suite du cours (nous en avons déjà eu un aperçu dans la fiche introductive précédente), la plupart des variables aléatoires d'intérêt, appelées \underline{statistiques}, seront de la forme $T:=t(\Vect{Y})$ où $t$ est une fonction s'appliquant à $\Vect{Y}=(Y_1,\cdots,Y_n)$ qui représente le ``futur" échantillon, seule source d'aléatoire dans la variable aléatoire $t(\Vect{Y})$. C'est en effet le cas pour  l'estimation d'un paramètre inconnu $\theta$ qui s'écrit $\Est{\theta}{y}$ lorsqu'il est évalué à partir de l'échantillon que l'on obtient le \textbf{Jour J} (i.e. jour d'obtention des données) et qui est la réalisation de $\Est{\theta}{Y}$ représentant le procédé d'obtention de l'estimation à partir du ``futur" échantillon $\Vect{Y}$. L'étude \textbf{A.E.P.} consistera alors à construire $m$ échantillons $\dataEmp[m]{\Vect{y}_{[\cdot]}}$ où $\Vect{y}_{[k]}:=(y_{1,[k]},\cdots,y_{n,[k]})$ représente le $k^{\grave eme}$ échantillon de taille $n$ construit parmi les $m$. Le comportement aléatoire d'une statistique $T:=t(\Vect{Y})$ sera donc appréhendé via  l'\textbf{A.E.P.} en proposant $m$ réalisations indépendantes $\dataEmp[m]{t_{[\cdot]}}:=\dataEmp[m]{t(\Vect{y}_{[\cdot]})}$ avec $t_{[k]}:=t(\Vect{y}_{[k]})$ la $k^{\grave eme}$ réalisation de $T$ parmi les $m$.
+\end{IndicList}
 
 
 

@@ -1,0 +1,155 @@
+
+%(hide)
+\fbox{\begin{minipage}{14cm}
+{\large \bf Attention} : à partir de maintenant on notera par souci de simplicité (car très largement utilisé par la suite) $\Vect{y}=\left(y_i\right)_{i=1,\ldots,n}$ au lieu de $\Vect{y}^\bullet=\left(y_i^\bullet\right)_{i=1,\ldots,n}$.
+\end{minipage}}
+%(enonce)
+
+
+\section{Paramètre d'écart et hypothèses de test}
+
+\begin{enumerate}
+\item Quelle est la nature du paramètre d'intérêt $\mu^A$ dans le cas où les données ne sont que des~0 et~1~? Désormais cette moyenne, puisqu'elle bénéficiera d'un traitement particulier, sera notée \fbox{$p^A=\mu^A$}.
+
+\item Pour chacune des problématiques, on définit les paramètres d'écarts (mesurant un écart normalisé entre le paramètre d'intérêt et la valeur de référence) suivants
+$$
+\delta_{p^A,15\%}=\frac{p^A-15\%}{\sqrt{\frac{15\%\times 85\%}{n}}} 
+\quad \mbox{ et } \quad 
+\delta_{\mu^B,0.15}= \frac{\mu^B-0.15}{\sqrt{\frac{\sigma^2_B}{n}}}
+$$
+où $\sigma^2_B$ représente la variance des réponses des $N$ individus, i.e. 
+$\sigma^2_B=\frac1N \sum_{i=1}^N \left( \mathcal{Y}_i-\mu^B \right)^2$.
+Pour chacune des problématiques, quelle est l'assertion d'intérêt $H_1$, écrite en fonction des paramètres d'intérêt et en fonction des paramètres d'écart~?
+\item D'après le cours, comment estime-t-on chacun de ces paramètres~? Comment noter ces remplaçants~?
+\end{enumerate}
+
+
+
+
+%(hide)
+\section{Règle de décision relative au paramètre d'intérêt}
+
+\subsection{Construction (avant le jour~J) d'une règle de décision et types d'erreur }
+\begin{enumerate}
+\item Assistez l'industriel en lui proposant une règle de décision quant au lancement du produit~$\bullet$.
+\item Quelles sont les valeurs possibles de $\Est{\mu^\bullet}{y^\bullet}$~? Pourquoi la règle de décision n'est-elle plus fiable à 100\%~?
+\item Deux erreurs de décision sont mises en jeu dans les deux problématiques. Complétez les assertions ci-dessous 
+
+\begin{center} \begin{tabular}{crccc}
+\underline{Erreur I} :&Décider &$\ldots\ldots \ldots \ldots$ &le produit $\bullet$ alors que &$\ldots\ldots \ldots \ldots$. \\
+\underline{Erreur II} :&Ne pas décider& $\ldots\ldots \ldots \ldots$ &le produit $\bullet$ alors que & $\ldots\ldots \ldots \ldots$.\\
+\end{tabular} \end{center} 
+Ces deux erreurs peuvent se reformuler de manière plus littérale :\\
+\centerline{ \underline{L'erreur I} conduit à devenir $\ldots \ldots \ldots$ et \underline{l'erreur II} conduit à ne pas devenir $\ldots \ldots \ldots$.}
+
+%(enonce)
+
+\section{Règle de décision et échantillonnage}
+
+\begin{enumerate}
+
+\item Assistez l'industriel en proposant une règle de décision soit basée sur le remplaçant du paramètre d'intérêt soit sur le remplaçant du paramètre d'écart. 
+\item Pourquoi la règle de décision n'est-elle pas fiable à 100\%~?
+
+\item A titre expérimental, l'industriel crée son jeu de données, noté $\Vect{y_1}^B$ relativement au \PR{B} auprès de 152 individus de son entourage. Il serait susceptible de vendre 18 exemplaires du \PR{B}. Il réalise la même expérience auprès des 51 ouvriers (échantillon noté $\Vect{y_2}^B$) de son entreprise, échantillon pour lequel il vendrait 19 exemplaires. Commentez les résultats. 
+\item Peut-on vraiment faire confiance à une telle solution~? Pensez-vous que regrouper les deux échantillons puisse être satisfaisant~? On notera $\Vect{y_3}^B$ l'échantillon regroupé.
+\item Comment interprétez la variabilité des résultats obtenus précédemment~? Pensez-vous qu'il soit possible de mesurer la qualité des trois remplaçants, $\Est{\mu^B}{y_1^B}$, $\Est{\mu^B}{y_2^B}$ et $\Est{\mu^B}{y_3^B}$, du paramètre d'intérêt obtenus par l'industriel lors de son expérimentation~?
+\item Quel doit être le mode d'échantillonnage pour construire une régle de décision contrôlée~?
+\end{enumerate}
+
+
+\section{Futurs échantillons et estimations}
+
+\begin{enumerate}
+\item Décrire l'expérience aléatoire $\mathcal{E}^\bullet$ permettant d'obtenir une observation de notre futur échantillon~?
+\item Décrire la variable aléatoire $Y_i^\bullet$ relative à l'expérience aléatoire $\mathcal{E}^\bullet$. Quelle est sa loi de probabilité~?
+\item A quoi correspond $\Vect{Y}^\bullet=\left(Y_1^\bullet,\ldots,Y_n^\bullet\right)$~? Quelle est la relation avec $\Vect{y}^\bullet$~?
+\item A quoi correspondent $\Est{\delta_{p^A,15\%}}{\Vect{Y}^A}$ et $\Est{\delta_{\mu^B,0.15}}{\Vect{Y}^B}$~? Quelle est la relation avec $\Est{\delta_{p^A,15\%}}{\Vect{y}^A}$ et $\Est{\delta_{\mu^B,0.15}}{\Vect{Y}^B}$~? 
+
+
+
+\end{enumerate}
+
+\section{Construction effective des règles de décision et application}
+
+\begin{enumerate}
+\item Complétez~: \\
+une \_ \_ \_ \_ \_ valeur de la statistique de test nous laisse plutôt penser que $\mathbf{H_1}$ est \_ \_ \_ \_ \_ et donc que le produit~$\bullet$ est à lancer sur le marché.
+\item Si $p^A=15\%$ (voire 10\%, 20\% et en fait pour toute valeur de $p^A$), peut-on obtenir $\Est{p^A}{\Vect{y}^A}=90\%$ et $\Est{\delta_{p^A,15\%}}{\Vect{y}^A}\simeq 66.42$ (pour $n=1000$)~? 
+\item Dans quelles situations (i.e. pour quelles valeurs de $p^A$ pensez-vous que cela soit le plus probable~?
+\item Dans quelles situations, cela est-il dangereux~?
+\item Comment mesure-t-on la fiabilité d'une règle de décision~? 
+\item Parmi les mauvaises situations (non $\mathbf{H_1}$) ne pensez-vous pas qu'il y en a une plus dangereuse que les autres qui engendrerait un plus grand risque de mal décider $\mathbf{H_1}$~? Cette situation sera notée \fbox{$\mathbf{H_0}$} et appelée pire des (mauvaises) situations.
+\item On rappelle que la statistique de test sous $\mathbf{H}_0$ s'écrit et vérifie
+\begin{eqnarray*}
+\Est{\delta_{p^A,15\%}}{\Vect{Y}^A}  &=& \frac{\Est{p^A}{\Vect{Y}^A}-15\%}{\sqrt{\frac{15\%\times 85\%}{n}}} \SuitApprox \mathcal{N}(0,1) \\
+\Est{\delta_{\mu^B,0.15}}{\Vect{Y}^B} & =& \frac{\Est{\mu^B}{\Vect{Y}^B}-0.15}{\sqrt{\frac{\Est{\sigma_B^2}{\Vect{Y}^B}}{n}}} \SuitApprox \mathcal{N}(0,1) .
+\end{eqnarray*}
+Comment utilise-t-on le comportement aléatoire de la statistique de test sous $\mathbf{H}_0$~?
+\item Par conséquent, on décidera (le jour~J) de lancer le produit~A si $\Est{\delta_{p^A,15\%}}{\Vect{y}^A}>\delta_{lim,\alpha}^+$ et de lancer le prodtuit~B si
+$\Est{\delta_{\mu^B,0.15}}{\Vect{y}^B}>\delta_{lim,\alpha}^+$ où $\delta_{lim,\alpha}^+$ est défini de telle sorte que 
+$$
+P_{p^A=15\%} \left(\Est{\delta_{p^A,15\%}}{\Vect{Y}^A}>\delta_{lim,\alpha}^+ \right)= \alpha
+\quad \mbox{ et } \quad
+P_{\mu^B=0.15} \left(\Est{\delta_{\mu^B,0.15}}{\Vect{Y}^B}>\delta_{lim,\alpha}^+ \right)= \alpha
+$$
+
+et correspond au quantile d'ordre $1-\alpha$ de la loi $\mathcal{N}(0,1)$. Comment obtient-on $\delta_{lim,\alpha}^+$ en~\texttt{R} et comment l'interprète-t-on graphiquement~?
+\item Reformulez les règles de décision en fonction de $\Est{p^A}{\Vect{y}^A}$ et $\Est{\mu^B}{\Vect{y}^B}$. En particulier, déterminez $p_{lim,\alpha}^+$ et $\mu_{lim,\alpha}^+(\Vect{y}^B)$.
+\item Appliquez les règles de décision en vous aidant des sorties logiciels ci-dessous et en prenant $\alpha=5\%$.
+
+[#r]
+load('~/cqls/data/industriel.RData')
+attach(industriel)
+[#rverb]
+##out | short=3,...,3
+yA
+length(yA)
+mean(yA)
+(mean(yA)-0.15)/sqrt(0.15*0.85/1000)
+##out | short=3,...,3
+yB
+length(yB)
+mean(yB)
+sd(yB)
+sqrt(var(yB))
+(mean(yB)-0.15)/sqrt(var(yB)/length(yB))
+qnorm(c(0.9,0.95,0.975,0.99))
+[#end]
+
+
+\item Pour la problématique du produit~A, construire une règle de décision (i.e. déterminez un nouveau $p_{lim,\alpha}^+$) en utilisant directement le comportement aléatoire de la future estimation $\Est{p^A}{\Vect{Y}^A}$ suivant~: sous $\mathbf{H_0}$,
+$$
+\Est{p^A}{\Vect{Y}^A} \SuitApprox \mathcal{N}\left(15\%, \sqrt{\frac{15\% \times 85\%}n} \right).
+$$
+Est-ce réellement un nouveau $p_{lim,\alpha}^+$~?
+
+[#rverb]
+qnorm(c(0.9,0.95,0.975,0.99),0.15,sqrt(0.15*0.85/1000))
+[#end]
+\end{enumerate}
+
+
+
+
+
+%(hide)
+\subsection{Application sur un exemple (après le jour~J)}
+
+\begin{enumerate}
+%\item Peut-on faire confiance à une telle solution~?
+\item A titre expérimental, l'industriel crée son jeu de données, noté $\Vect{y_1}^B$ relativement au \PR{B} auprès de 152 individus de son entourage. Il serait susceptible de vendre 18 exemplaires du \PR{B}. Il réalise la même expérience auprès des 51 ouvriers (échantillon noté $\Vect{y_2}^B$) de son entreprise, échantillon pour lequel il vendrait 19 exemplaires. Commentez les résultats.
+% rappel : les indiv font partie de pop totale.
+% > c(18,19)/c(152,51)
+% [1] 0.1184211 0.3725490
+% > sum(c(18,19))/sum(c(152,51))
+% [1] 0.182266
+\item Peut-on vraiment faire confiance à une telle solution~? Pensez-vous que regrouper les deux échantillons puisse être satisfaisant~? On notera $\Vect{y_3}^B$ l'échantillon regroupé.
+%\item L'industriel pense à regrouper les deux jeux de données. Qu'en pensez-vous~?
+%\item Peut-on vraiment vraiment faire confiance à une telle solution~?
+\item Quelle est la nature du problème soulevé~? Dans quel domaine d'actualités rencontre-t-on souvent ce problème~?
+% pr cqls : représentativité, taille d'échantillon.
+\item Comment interprétez la variabilité des résultats obtenus précédemment~? Pensez-vous qu'il soit possible de mesurer la qualité des trois remplaçants, $\Est{\mu^B}{y_1^B}$, $\Est{\mu^B}{y_2^B}$ et $\Est{\mu^B}{y_3^B}$, du paramètre d'intérêt obtenus par l'industriel lors de son expérimentation~?
+% Même pour un mathématicien probabiliste, on ne sait pas mesurer les chances que chaque individu a d'apparaître dans l'individu et donc on ne pourra contrôler la variabilité des remplaçants. 
+% notion échantillonnage aléatoire uniforme, jour J
+\end{enumerate}

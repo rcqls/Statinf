@@ -1,0 +1,61 @@
+[#=]docs?[unDé,deuxDés]
+[#>]{#case]#{docs}
+[#when]unDé[#>]
+\begin{exercice}[Répartition du lancer d'un dé] ${ }$
+[#tag]enonce[#>]
+\begin{enumerate}
+\item Soit $Y_1$ la variable aléatoire correspondant à la face supérieure obtenue lors d'un lancer de dé. Que vaut $P(Y_1=k)$ pour $k=1,\ldots,6$?
+[#tag]reponse[#>]
+\ReponseC{$P(Y_1=k)=1/6$ (si le dé est équilibré).}
+[#tag]enonce[#>]
+\item Quelle expérience mettriez-vous en oeuvre pour vérifier qu'un dé est rigoureusement non pipé~? Pensez-vous qu'il existe un tel type de dé~?
+[#tag]reponse[#>]
+\ReponseC{On pourrait lancer un très très grand nombre de fois le dé et de vérifier que la fréquence empirique de chaque face est proche de $1/6$. Nous ne pensons pas qu'il existe un tel dé car au bout de $m=100000$ lancers à notre avis, le dé devient physiquement déséquilibré.}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#when]deuxDés[#>]
+\begin{exercice}[Somme de deux dés] ${ }$
+[#tag]enonce[#>]
+
+\begin{enumerate}
+\item Soit $Y_2$ une seconde variable aléatoire de la même nature que $Y_1$ et indépendante de celle-ci. Définissons $Y=Y_1+Y_2$ correspondant à la somme de deux dés. Quel est l'ensemble des valeurs possibles de $Y$~? Comparez $P(Y=2)$, $P(Y=12)$ et $P(Y=7)$. (Sauriez-vous les évaluer~?)
+[#tag]reponse[#>]
+\ReponseC{L'ensemble des valeurs possibles est $\{2,\ldots,12\}$. Pour les évaluations des probas, voir le calcul ci-après proposé par le mathématicien.}
+[#tag]enonce[#>]
+\item Que peut-on espérer en moyenne sur la valeur de $Y$~? (cette quantité rappelons-le est notée $\Esp(Y)$).
+[#tag]reponse[#>]
+\begin{Correction}
+On peut espèrer la valeur $7.5$.
+\end{Correction}
+[#tag]enonce[#>]
+\item Un joueur se propose de lancer $m=5000$ fois deux dés. A chaque lancer, il note la somme et stocke l'ensemble des informations dans un vecteur noté \texttt{y} en \texttt{R}. A la lecture des informations suivantes, cette approche expérimentale confirme-t-elle le résultat du mathématicien affirmant que 
+$$
+P(Y=k) = \left\{ \begin{array}{ll}
+\frac{k-1}{36} & \mbox{ si } k\leq 7 \\
+\frac{13-k}{36} & \mbox{ si } k \geq 7
+\end{array} \right.
+$$
+{#rverb] ## hide
+y<- sample(1:6,5000,repl=T)+sample(1:6,5000,repl=T)
+## out | short=2,...,2
+y
+mean(y==2)
+mean(y==12)
+mean(y==7)
+mean(y)
+table(y)/5000
+k<-2:12;((k-1)*(k <=7) + (13-k)*(k>7))/36
+[#}
+[#tag]reponse[#>]
+\begin{Correction}
+Les instructions des lignes 16 à 18 (resp. des lignes 19 à 21) proposent les évaluations de $\meanEmp[5000]{y_{[\cdot]}=k}$ (resp. $P(Y=k)$) pour $k=2,\ldots,12$. On retrouve le résultat
+$$
+\meanEmp[5000]{y_{[\cdot]}=k} \simeq \meanEmp[\infty]{y_{[\cdot]}=k} = P(Y=k).
+$$
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#r<]rm(y,k)
+[#case}

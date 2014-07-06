@@ -3,7 +3,7 @@
 %Packages
 \usepackage{multirow}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{aeguill}
 \usepackage{amssymb}
@@ -17,8 +17,8 @@
 
 %Preamble
 
-\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
-\input /Users/remy/cqls/texinputs/Cours/testInclude
+\input Cours/cqlsInclude
+\input Cours/testInclude
 
 
 \rightmargin -2cm
@@ -29,6 +29,7 @@
 \newcommand{\redabr}{\textit{(rédaction abrégée) }}
 \newcommand{\redstd}{\textit{(rédaction standard) }}
 
+\setcounter{chapter}{2}
 %Styles
 
 %Title
@@ -38,6 +39,7 @@
 
 
 
+\chapter{\mbox{Estimation~ponctuelle}\\ et par intervalle\\ de confiance}\label{TdEst}
 \begin{IndicList}{Indications préliminaires} 
 \item \textit{Objectif}~: Dans la fiche d'introduction, le cadre de ce cours de Statistique Inférentielle a été posé. En question préliminaire, nous aurons, pour chaque problématique considérée, à identifier le paramètre d'intérêt (noté $\theta$ en général lorsque la problématique n'est pas encore précisée) et à bien prendre conscience que ce dernier est \textbf{inconnu}. A partir d'un échantillon $\Vect{y}$ récolté le \textbf{jour J} (cette appellation sera utilisée tout au long de ce cours), nous aurons alors comme objectif de proposer une estimation, notée $\Est{\theta}{y}$ (pour bien exprimer la dépendance en l'échantillon $\Vect{y}$), afin d'avoir une idée sur l'ordre de grandeur de $\theta$ (inconnu). Dans un deuxième temps, nous réaliserons que ce type d'estimation ponctuelle (i.e. un paramètre inconnu estimé par une unique valeur estimée) n'est pas satisfaisant en termes de confiance que l'on peut apporter à l'estimation. Le statisticien se doit alors de proposer à partir du même échantillon $\Vect{y}$, un niveau de qualité de l'estimation  $\Est{\theta}{y}$. L'\textbf{erreur standard} (``standard error" en anglais) est alors introduite s'exprimant comme une estimation de l'écart-type (i.e. indicateur de variabilité) de la ``future" estimation $\Est{\theta}{Y}$ (à partir du futur échantillon $\Vect{Y}$) ayant pour réalisation $\Est{\theta}{y}$ le \textbf{jour J}. En appliquant le système notation Norme CQLS (voir polycopié de cours), cette erreur standard se note $\Est{\sigma_{\widehat{\theta}}}{y}$.
 La meilleure façon de proposer une estimation tenant compte du couple d'informations $(\Est{\theta}{y},\Est{\sigma_{\widehat{\theta}}}{y})$ disponible le \textbf{jour J} est de construire un intervalle de confiance $IC_{\theta,1-\alpha}(\Vect{y}):=[\Int{\theta}{\inf}{y},\Int{\theta}{\sup}{y}]$ à $1-\alpha$ de niveau de confiance. Grâce à la l'\textbf{A.E.P.}, nous aurons comme mission prioritaire de bien interpréter la notion de niveau de confiance. 
@@ -488,74 +490,10 @@ $\PPP{\mu^J \in IC_{\mu^J}(\Vect{y^J})}=\PPP{\mu^J\in [100.19,101.49]}$ et $\PPP
 \end{enumerate}
 \end{exercice}
 
-\begin{exercice} (taille étudiants)
-
-Pour mettre en pratique ce qu'il a appris dans son cours de Statistique Inf{\'e}rentielle, un {\'e}tudiant souhaite utiliser l'\textbf{Approche Exp{\'e}rimentale} pour comprendre la notion d'intervalle de confiance. Son but est d'estimer par intervalle de confiance  \textbf{la taille moyenne}, not{\'e}e $\mu$, des $N=300$ {\'e}tudiants de sa promotion. 
-
-1) Il construit un premier {\'e}chantillon (avec remise) de taille $n=30$ (i.e. pour se placer dans le cadre asymptotique), qu'il note $\Vect{y_{[1]}}$, dans la population des $N=300$ {\'e}tudiants de sa promotion~:
-
-\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
-> y1
- [1] 165 179 171 178 171 168 166 171 182 178 177 165 174 164 175 178 167 168 185
-[20] 166 162 180 167 174 159 159 184 154 172 157
-\end{Verbatim}
-
-
-Proposez l'instruction \texttt{R} ayant permis d'obtenir le résultat ci-dessous correspondant à un intervalle de confiance au niveau de confiance de 80\% de $\mu$~:
-
-\IndicR
-\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
-> # IC <- (instruction R à fournir dans la rédaction)
-> IC
-[1] 168.6308 172.4359
-\end{Verbatim}
-
-
-
-
-
-2) Ne sachant pas comment interpr{\'e}ter ce r{\'e}sultat, il construit 19 autres {\'e}chantillons de taille $n=30$ dans la population des {\'e}tudiants de sa promotion que l'on notera respectivement $\Vect{y_{[2]}},\ldots,\Vect{y_{[20]}}$. Il repr{\'e}sente alors sur un m{\^e}me graphique ces 20 diff{\'e}rents intervalles de confiance de $\mu$ {\`a} $80\%$ de niveau de confiance~:
-\begin{center}
-\includegraphics[width=10cm,height=10cm]{/export/prjCqls/share/rsrc/exoHypo/TailleEtud/img/Inter80} 
-\end{center}
-
-Afin de confronter ses r{\'e}sultats exp{\'e}rimentaux avec la r{\'e}alit{\'e}, l'{\'e}tudiant d{\'e}cide d'interroger tous les {\'e}tudiants de sa promotion (notez que ceci est possible car $N=300$). Il peut alors calculer la valeur de $\mu$, {\`a} savoir $168.45$. Elle est repr{\'e}sent{\'e}e par le trait vertical (en trait plein) sur le graphique pr{\'e}c{\'e}dent. Sur les 20 intervalles de confiance calcul{\'e}s, combien contiennent $\mu$~? Est-ce surprenant~? 
-
-
-
-
-3) Que se passerait-il si l'{\'e}tudiant construisait une infinit{\'e} d'intervalles de confiance de $\mu$ {\`a} $80\%$ de niveau de confiance sur des {\'e}chantillons de taille $n=30$~? \\
-
-
-
-\end{exercice}
-
-\begin{exercice} (élection présidentielle) 
-Entre les deux tours d'une {\'e}lection pr{\'e}sidentielle, on souhaite estimer par intervalle de confiance {\`a} 95\% les proportions d'intentions de vote des deux candidats finalistes. Avant m{\^e}me d'effectuer un sondage sur une sous-population de taille $n=1000$, quelle serait la plus grande longueur des deux intervalles de confiance (en utilisant la formule approch{\'e}e)? \\
-
-\IndicR
-\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
-> 2*qnorm(0.975)*sqrt(0.5*0.5/1000)
-[1] 0.0619795
-\end{Verbatim}
-
-
-Quelle doit {\^e}tre la taille de l'{\'e}chantillon $n$  pour {\^e}tre certain que
-la longueur de l'intervalle de confiance au niveau $95\%$ n'exc{\`e}de pas
-$0.04\%$~? \\
-
-
-\IndicR
-\begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
-> (2*qnorm(.975)*sqrt(.5^2)/.0004)^2
-[1] 24009118
-> (qnorm(.975)/.0004)^2
-[1] 24009118
-\end{Verbatim}
-
-
-\end{exercice}
-
+WARNING: TailleEtud/exo not reachable in ~/Github/dyndoc/dyndoc:.:/Users/remy/.gem/ruby/2.0.0/gems/dyndoc-ruby-1.6.0/dyndoc:/Users/remy/.gem/ruby/2.0.0/gems/dyndoc-ruby-1.6.0/dyndoc/Std:/Users/remy/dyndoc/library:/Users/remy/Seafile/library:Components/EstIC:/export/prjCqls/share/dyndoc/exoHypo:/Users/remy/Dropbox/Dyndoc/System/dyndoc::/export/prjCqls/share/dyndoc:~/dyndoc/root/V3:~/dyndoc/etc/root/V3:~/dyndoc/test/V3:/export/cqlsWeb/dynam/views:/export/cqlsWeb/dynam/apps/dyndoc:~/Dropbox/Dyndoc/System/dyndoc:/export/cqlsWeb/dynam/apps/dyndoc:/Users/remy/dyndoc/library/RCqls/TexInputs/Cqls with extension .dyn_tex,_tmpl.tex,.dyn,.rtex,.dyn_txt,_tmpl.txt,.dyn_rb,_tmpl.rb,.dyn_c,_tmpl.c,.dyn_html,_tmpl.html,_tmpl.rhtml,.dyn_txtl,_tmpl.txtl,.dyn_tm,_tmpl.tm,.dyn_odt_content,_tmpl_content.xml,.dyn_odt_styles,_tmpl_styles.xml,.dyn_odt,_tmpl.odt,.dyn_ttm,_tmpl.ttm,
+Dyndoc Error: TailleEtud/exo is not reacheable!!! 
+WARNING: Election/exo not reachable in ~/Github/dyndoc/dyndoc:.:/Users/remy/.gem/ruby/2.0.0/gems/dyndoc-ruby-1.6.0/dyndoc:/Users/remy/.gem/ruby/2.0.0/gems/dyndoc-ruby-1.6.0/dyndoc/Std:/Users/remy/dyndoc/library:/Users/remy/Seafile/library:Components/EstIC:/export/prjCqls/share/dyndoc/exoHypo:/Users/remy/Dropbox/Dyndoc/System/dyndoc::/export/prjCqls/share/dyndoc:~/dyndoc/root/V3:~/dyndoc/etc/root/V3:~/dyndoc/test/V3:/export/cqlsWeb/dynam/views:/export/cqlsWeb/dynam/apps/dyndoc:~/Dropbox/Dyndoc/System/dyndoc:/export/cqlsWeb/dynam/apps/dyndoc:/Users/remy/dyndoc/library/RCqls/TexInputs/Cqls with extension .dyn_tex,_tmpl.tex,.dyn,.rtex,.dyn_txt,_tmpl.txt,.dyn_rb,_tmpl.rb,.dyn_c,_tmpl.c,.dyn_html,_tmpl.html,_tmpl.rhtml,.dyn_txtl,_tmpl.txtl,.dyn_tm,_tmpl.tm,.dyn_odt_content,_tmpl_content.xml,.dyn_odt_styles,_tmpl_styles.xml,.dyn_odt,_tmpl.odt,.dyn_ttm,_tmpl.ttm,
+Dyndoc Error: Election/exo is not reacheable!!! 
 
 
 

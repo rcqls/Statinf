@@ -1,0 +1,55 @@
+[#>]\newpage\begin{exercice}[Présentation des problématiques des produits A et B]${ }$
+[#tag]question[#>]
+\fbox{\begin{minipage}{14cm} %\begin{center}
+Un industriel veut lancer sur le march{\'e} deux produits que l'on nommera \PR{A} et \PR{B}. Le \PR{A} est achet{\'e} au plus une fois par mois tandis que le \PR{B} peut être acheté autant de fois que désiré. Apr{\`e}s une {\'e}tude financi{\`e}re, les services comptables indiquent {\`a} cet industriel que pour que le lancement de chacun de ces produits soit rentable, il faut qu'il soit vendu {\`a} plus de 300000 exemplaires par mois. La population cibl{\'e}e par l'industriel est une population de taille $N=2000000$. L'industriel se demande s'il doit ou non lancer le(s) \textit{Produit(s) A et/ou B}. 
+%\end{center} 
+\end{minipage}}
+
+Commençons par introduire quelques notations permettant de décrire le choix d'achat des individus de la population totale (ciblée par l'industriel). Les deux études des \PR{A} et \PR{B} étant plutôt similaires, nous noterons donc dans un cadre général  $\bullet$ aussi bien à la place de $A$ ou $B$. Ainsi  
+$\mathcal{Y}^{\bullet}_i$ représente le nombre de produit(s) $\bullet$ acheté(s) par le $i^{\grave eme}$ ($i=1,\cdots,N$) individu de la population totale. L'ensemble des choix d'achat des $N$ individus $\left(\mathcal{Y}_i\right)_{i=1,\cdots,N}$ sera noté \POP. $N^{\bullet}$ désignera le nombre d'exemplaires de \PR{$\bullet$} achetés par les N individus de la population. 
+[#tag]enonce[#>]
+\begin{enumerate}
+\item Exprimez $N^A$ (resp. $N^B$) en fonction des  \POP[A] (resp. \POP[B]). Exprimez la rentabilité du \PR{A} (resp. \PR{B}) en fonction du nombre total $N^A$ (resp. $N^B$) d'exemplaires du \PR{A} (resp. \PR{B}) vendus.
+[#tag]reponse[#>]
+\ReponseC{Le produit $\bullet$ est rentable si $N^\bullet:=\sum_{i=1}^N \mathcal{Y}_i^\bullet > 300000$.}
+[#tag]enonce[#>]
+\item Même question mais en fonction du nombre moyen (par individu de la population) $\mu^A$ (resp. $\mu^B$) d'exemplaires du \PR{A} (resp. \PR{B}) en ayant au préalable établi la relation entre $\mu^A$ et $N^A$ (resp. $\mu^B$ et $N^B$) et ainsi entre $\mu^A$ et \POP[A] (resp. $\mu^B$ et \POP[B]). Quelle relation y a-t-il donc entre $\mu^A$ et $\overline{\mathcal{Y}^A}$ (resp. entre $\mu^B$ et $\overline{\mathcal{Y}^B}$)~?\\
+\centerline{\fbox{Les quantités $\mu^A$ et $\mu^B$ seront appelées \textbf{paramètres d'intérêt}.}}
+[#tag]reponse[#>]
+\ReponseC{Le produit $\bullet$ est rentable si $\mu^\bullet:=\frac1N\sum_{i=1}^N \mathcal{Y}_i^\bullet = \overline{\mathcal{Y^\bullet}} > \frac{300000}{2000000}=0.15$.}
+[#tag]enonce[#>]
+\item Est-il possible pour l'industriel de ne pas se tromper dans sa décision quant au lancement de chaque produit~? Si oui, comment doit-il procéder~? Cette solution est-elle réalisable~? 
+[#tag]reponse[#>]
+\ReponseC{Pour ne pas se tromper, il lui faut recueillir les intentions des $N$ individus ce qui paraît peu réalisable.}
+[#tag]enonce[#>]
+\item Est-il alors possible d'évaluer (exactement) les paramètres d'intérêt~? Comment les qualifieriez-vous par la suite~?
+[#tag]reponse[#>]
+\ReponseC{Les paramètres d'intérêt ne peuvent donc pas être évalués et sont donc considérés comme INCONNUS.}
+[#tag]enonce[#>]
+\item Une solution r{\'e}alisable est alors de n'interroger qu'une sous-population de taille raisonnable $n<<N$ (ex $n=1000$). On notera alors $\Vect{y}^\bullet$ le jeu de données (appelé aussi échantillon), i.e. le vecteur des $n$ nombres d'achat $\left(y_i^\bullet\right)_{i=1,\cdots,n}$ du produit~$\bullet$ des $n$ ($n<<N$) individus interrogés.
+{#hide]
+\fbox{\begin{minipage}{14cm}
+Cet unique jeu de données $\Vect{y}^\bullet$ sera créé un jour particulier, le \textbf{jour~J}. Ce jour là (et seulement ce jour là) nous pourrons décider ou pas de lancer le produit~$\bullet$ sur le marché. 
+\end{minipage}}
+Chronologiquement, tous les raisonnements qui se situeront \textbf{avant le jour~J} seront consacrés à la mise en place de l'outil d'aide à la décision.[#} 
+[#tag]enonce[#>]
+
+Comment l'industriel pourra-t-il évaluer un remplaçant de $\mu^\bullet$ à partir de son échantillon $\Vect{y}^\bullet$~? 
+{#hide]
+\fbox{\begin{minipage}{14cm}
+Cette quantité désomais notée $\Est{\mu^\bullet}{y^\bullet}$ se traduit littéralement par ``remplaçant" de $\mu^\bullet$ obtenu à partir du vecteur des données $\Vect{y}$ (\textit{convention:} le symbole \underline{accent circonflexe} sur un paramètre signifie {\bf estimation} ou ``remplaçant" de celui-ci et les symboles \underline{parenthèses} contiennent les informations nécessaires pour son obtention). 
+\end{minipage}}[#}
+[#tag]enonce[#>]
+
+(quelle est la relation entre $\overline{y^\bullet}$, représentant la moyenne empirique des $\left(y_i^\bullet\right)_{i=1,\ldots,n}$, et l'estimation $\Est{\mu^\bullet}{y^\bullet}$~?)
+[#tag]reponse[#>]
+\ReponseC{En évaluant la moyenne sur l'échantillon observé, i.e. en calculant $\Est{\mu^\bullet}{y^\bullet}=\frac1n \sum_{i=1}^n y_i^\bullet=\overline{y^\bullet}$.}
+[#tag]enonce[#>]
+\item Quelle est la nature du paramètre d'intérêt $\mu^A$ dans le cas où les données ne sont que des~0 et~1~? Désormais cette moyenne, puisqu'elle bénéficiera d'un traitement particulier, sera notée \fbox{$p^A=\mu^A$}.
+[#tag]reponse[#>]
+\ReponseC{Une moyenne de 0 et de 1 correspond à une proportion.}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+
+

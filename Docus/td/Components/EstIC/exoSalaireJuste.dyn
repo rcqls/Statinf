@@ -1,0 +1,107 @@
+[#=]docs?[enonce]
+[#>]{#case]#{docs}
+[#when]enonce[#>]
+Une équipe de sociologues propose de réunir un comité d'experts pour la création d'un indicateur, appelé \textbf{Salaire Juste}, mesuré pour toute personne active et qui permettra de transformer les ressources individuelles réelles (généralement mesurées par un salaire) en tenant compte de critères aussi importants que les ressources locales, le partage de ces ressources, la pénibilité du travail, le niveau d'expérience, d'expertise et bien d'autres encore...
+Cet indicateur est conçu de sorte qu'en théorie il devrait être équivalent (en fait égal à une valeur étalon 100) pour toute personne active dans le monde. En conséquence directe, le Salaire Juste moyen dans le monde devrait être égal à 100.
+Après quelques mois de travail, un premier prototype (très perfectible) du \textbf{Salaire Juste} est élaboré par la fine équipe d'experts.
+Les sociologues s'accordent à dire qu'un pays peut se dire non civilisé s'il vérifie aux 2 critères de discriminations suivants~:
+\begin{list}{} 
+\item \textbf{Discrimination Mondiale}~: le Salaire Juste moyen dans le pays est très supérieur à  la valeur 100 de base. Un Salaire Juste moyen excédant un seuil de 150 est considéré comme intolérable.
+\item \textbf{Discrimination Intérieure}~: les Salaires Justes dans le pays sont très dispersés. La variance des Salaires Justes dans le pays supérieur à 30 est considérée comme excessive et donc anormale.
+\end{list}
+Par la suite, $\mathcal{Y}_i$ ($i=1,\cdots,N$) désigne le Salaire Juste de la $i^{\grave eme}$ personne actives du pays.
+[#when]bExEst[#>]\begin{exercice}[Salaire Juste - Estimation (ponctuelle)] ${ }$
+[#when]bExIC[#>]\begin{exercice}[Salaire Juste - Estimation par intervalle de confiance]${ }$
+[#when]eEx[#>]\end{exercice}
+[#when]bEnum[#>]\begin{enumerate}
+[#when]eEnum[#>]\end{enumerate}
+[#when]param
+[#>]\item Définir mathématiquement les paramètres (d'intérêt), notés $\mu^J$ et $\sigma^2_J$, permettant éventuellement d'établir des discriminations mondiale et intérieure.  Quelle est la nature de ces paramètres~?
+\item Soit $Y^J$ la variable aléatoire (v.a.) correspondant au Salaire Juste d'un individu choisi au hasard dans la population des $N$ personnes actives du pays. Etablir la relation entre les paramètres $\mu^J$ et $\sigma^2_J$ et la v.a. $Y^J$
+[#when]est
+[#>]\item Rappeler alors les estimateurs proposés par les mathématiciens obtenus à partir d'un ``futur" échantillon $\Vect{Y^J}$ (en utilisant la Norme CQLS).
+[#when]propEst
+[#>]\item Quelles sont les ``bonnes" propriétés de ces estimateurs désirées par les mathématiciens~?
+Interrogez-vous sur comment les interpréter via l'A.M.P.~?  
+\item Proposer à présent leur interprétation via l'A.E.P. en prenant soin au préalable
+d'introduire les notations nécessaires (Norme CQLS). Proposer alors une description littérale pour chacune de ces ``bonnes" propriétés.
+[#when]aep
+[#r<]attach.data("statinf","resAEPSJ.RData")
+[#<] {#<]ind[[#?]i<5[#rb>]i-1[#?]i>5 and i<8[#rb>]10000-8+i[#?]i==8[#>]10000][#<}
+{#new]table[#of]Tabular[#}
+{#make]table[#mat]
+$\Vect{Y}$ & $\Est{\mu^{J}}{Y}$ & $\Est{\sigma_{J}}{Y}$ & $\Est{\sigma_{\widehat{\mu^{J}}}}{Y}$ & $\Est{\mu^{J}}{Y}-\mu^{J}$ & $\delta_{\widehat\mu^{J},\mu^{J}}(\Vect{Y})$ \\
+{#>]y31[$\Vect{y_{[#{ind!}]}}$][#} &
+{#>]y32[$:r{round(resSJ[:{j-(j>2 ? 2 : 1)},#{ind!}],2)}$][#} & 
+{#>]y33[$:r{round(resSJ[2,#{ind!}]*sqrt(1000),4)}$][#} &
+{#>]y34[$:r{round(resSJ[:{j-(j>2 ? 2 : 1)},#{ind!}],4)}$][#} & 
+col(2) & col*1 \\
+row*2 \\
+\vdots & col*5 \\
+row(2) \\
+row*2 \\
+Moyenne & {#>]y35[$:r{round(mean(resSJ[:{j-(j>2 ? 2 : 1)},]),4)}$][#>} & 
+$:r{round(mean(resSJ[2,])*sqrt(1000),4)}$ & 
+col(2) & col*2\\
+Ecart-type & {#>]y36[$:r{round(sd(resSJ[:{j-(j>2 ? 2 : 1)},]),4)}$][#>} & 
+$:r{round(sd(resSJ[2,])*sqrt(1000),4)}$ &
+col(2) & col*2
+[#}
+[#>]\item Une étude est menée par un expérimentateur.  Il se fixe l'ensemble des Salaires Justes sur un pays fictif de $N=1000000$ personnes actives dont il est le seul à en connaître les valeurs. Voici les résultats présentés dans les tableaux ci-dessous~:\\   
+\begin{center}{#print]table[#jmax]6[#hlines],1-6,,,,,,,1-6,,[#vlines]c|ccccc[#}\end{center}
+[#rb<]puts "sortie"[#>]
+\item En notant \texttt{yy} un échantillon correspondant à une ligne du tableau ci-dessous (par exemple, la $3^{\grave eme}$), fournir les instructions~\texttt{R} qui a permis à l'expérimentateur d'obtenir les valeurs du tableau précédent (\textit{Indication~:} étant ici à la place de l'expérimentateur, n'oubliez pas que vous disposez exceptionnellement les valeurs de $\mu^J$ et $\sigma^2_J$).
+\item Proposer les notations mathématiques correspondant aux 2 dernières lignes du tableau qui, nous l'espérons, permet de comprendre à quoi elles correspondent et comment elles ont été obtenues.
+\item Quelles valeurs du tableau sont sensées mesurer (approximativement) les qualités de l'estimateur $\Est{\mu^J}{Y^J}$~? Comment les noter dans l'A.M.P.~? Sont-elles accessibles le jour~J~? Mêmes questions pour l'estimateur $\Est{\sigma^2_J}{Y^J}$.
+\item Comment obtient-on les estimations des qualités mesurées par les écarts-type des estimateurs $\Est{\mu^J}{Y^J}$ et $\Est{\sigma^2_J}{Y^J}$. Comment sont-elles appelées~?
+\item A partir de maintenant, on s'imagine être le jour~J. Pour cela, on suppose ne disposer que du $3^{\grave eme}$ échantillon dans le tableau ci-dessus. Comment doit-on noter ce jeu de données. Proposer à partir du tableau toutes les estimations intéressantes relativement aux problèmes de discriminations mondiale et intérieure. N'en manque-t-il pas une ou plusieurs~?  Retrouvez-les ou complétez-les à partir de la sortie~\texttt{R} suivante~:
+[#r<]attach.data("statinf","sample3AEPSJ.RData")
+[#>]{#rverb]
+length(yy)
+mean(yy)
+sd(yy)
+var(yy)
+seMean(yy)
+sd(yy)/sqrt(length(yy))
+seVar(yy)
+[#} 
+\item Voici les sorties \texttt{R}, correspondant aux mêmes informations mais sur l'échantillon des n=100 premiers individus~: 
+{#rverb]
+mean(yy[1:100])
+sd(yy[1:100])
+var(yy[1:100])
+seMean(yy[1:100])
+sd(yy)/sqrt(100)
+seVar(yy[1:100])
+[#}
+Comparer ces résultats à ceux obtenus à partir de l'échantillon initial de taille n=1000. Quelle type d'estimation vaut-il mieux préconiser lorsqu'on désire intégrer l'erreur standard~?
+[#r<]detach.data("statinf","resAEPSJ.RData")
+detach.data("statinf","sample3AEPSJ.RData")
+[#when]IC
+[#>]\item A partir de votre formulaire, rappeler les expressions des ``futurs"  intervalles de confiance à $95\%$ (généralement noté $1-\alpha$) de niveau de confiance pour les paramètres $\mu^J$ et $\sigma^2_J$. Rappeler à partir de quel résultat mathématique (probabiliste) ont-ils été construits~?
+Evaluer la probabilité $\PPP{|\delta_{\widehat\theta,\theta}(\Vect{Y^J})| \leq 1.96}=\PPP{-1.96 \leq \delta_{\widehat\theta,\theta}(\Vect{Y^J}) \leq 1.96}$ où $\theta$ désigne indifféremment $\mu^J$ et $\sigma^2_J$. L'interpréter via l'A.E.P. notamment avec le tableau précédent.
+\item \textit{Question optionnelle (pour ceux qui ne sont pas rebutés par de simples calculs mathématiques)~:} Construire mathématiquement les futurs intervalles de confiance ci-dessus. 
+\item Fournir l'instruction~\texttt{R} permettant de les obtenir le jour~J (\textit{Indication~:} en \texttt{R}, $\mathtt{qnorm(.975)}\simeq$:r{round(qnorm(.975),3)}) et le calculer éventuellement en utilisant votre machine à calculer. Déduire un intervalle de confiance à $95\%$ pour $\sigma_J$.
+\item Voici sur les résultats expérimentaux pour les intervalles de confiance $IC_{\mu^J}(\Vect{Y^J})$ et $IC_{\sigma^2_J}(\Vect{Y^J})$ de $\mu^J$ et $\sigma^2_J$. Interpréter via l'approche expérimentale
+[#r<]attach.data("statinf","icAEPSJ.RData")
+[#<] {#<]ind[[#?]i<5[#rb>]i-1[#?]i>5 and i<8[#rb>]10000-8+i[#?]i==8[#>]10000][#<}
+{#new]table[#of]Tabular[#.tabR]tabR[#}
+{#make]table[#mat]
+$\Vect{Y}$ & $IC_{\mu^J}(\Vect{Y^J})$ & $\mu^J\in IC_{\mu^J}(\Vect{Y^J})$ & $IC_{\sigma^2_J}(\Vect{Y^J})$ & $\sigma^2_J\in IC_{\sigma^2_J}(\Vect{Y^J})$ \\
+{#>]y1[$\Vect{y_{[#{ind!}]}}$][#} &
+{#>]y2[$[:r{round(icMuSJ[1,#{ind!}],2)},:r{round(icMuSJ[2,#{ind!}],2)}]$][#} & 
+{#>]y3[$:r{round(icMuSJ[3,#{ind!}])}$][#} &
+{#>]y4[$[:r{round(icVarSJ[1,#{ind!}],2)},:r{round(icVarSJ[2,#{ind!}],2)}]$][#} & 
+{#>]y5[$:r{round(icVarSJ[3,#{ind!}])}$][#} \\
+row*2 \\
+\vdots & col*4 \\
+row(2) \\
+row*2 \\
+Moyenne & & {#>]y6[$:r{round(mean(icMuSJ[3,])*100,4)}\%$][#>} & & {#>]y7[$:r{round(mean(icVarSJ[3,])*100,4)}\%$][#>}
+[#}
+[#>]\begin{center}{#print]table[#hlines],1-5,,,,,,,1-5,[#vlines]c|cc|cc[#}\end{center}
+\item Evaluer les probabilités suivantes~:\\
+$\PPP{\mu^J \in IC_{\mu^J}(\Vect{y^J})}=\PPP{\mu^J\in [:r{round(icMuSJ[1,3],2)},:r{round(icMuSJ[2,3],2)}]}$ et $\PPP{\sigma^2_J\in IC_{\sigma^2_J}(\Vect{y^J})}=\PPP{\sigma^2_J\in [:r{round(icVarSJ[1,3],2)},:r{round(icVarSJ[2,3],2)}]}$
+[#tag]enonce[#>]
+[#r<]detach.data("statinf","icAEPSJ.RData")
+[#case}

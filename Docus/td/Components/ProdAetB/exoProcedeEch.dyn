@@ -1,0 +1,32 @@
+[#>]
+\begin{exercice}
+Dans le but d'estimer un paramètre d'intérêt inconnu, on dispose d'un échantillon. Nous nous proposons maintenant de préciser plus en détail son procédé de construction.
+\begin{enumerate}
+\item Proposez des critères de qualité d'un tel échantillon.
+\item A quoi correspond la notion de représentativité~?
+[#tag]reponse[#>]
+\ReponseC{à essayer de faire ``ressembler'' l'échantillon à la population totale.}
+[#tag]enonce[#>]
+\item Est-il possible de construire un échantillon représentatif d'une (ou plusieurs) caractéristique(s) donnée(s)~?
+[#tag]reponse[#>]
+\ReponseC{oui par exemple en tentant de respecter la proportion de femmes dans la population totale avec la proportion de femmes présentes dans l'échantillon.}
+[#tag]enonce[#>]
+\item Même question sans aucun a priori (i.e. aucune caractéristique fixée).
+\item Proposez un critère de qualité  qui permettra de construire un échantillon le plus représentatif sans aucun a priori.
+[#tag]reponse[#>]
+\ReponseC{voir réponse ci-après.}
+[#tag]enonce[#>]
+\item Fournissez un (ou plusieurs) procédé(s) d'échantillonnage satisfaisant au critère suivant de représentativité (maximale) sans a priori (RSAP)~:\\
+\centerline{
+\fbox{\begin{minipage}{12cm}
+\bf Tous les individus de la population totale ont la même chance d'être choisi dans l'échantillon. 
+\end{minipage}}}
+[#tag]reponse[#>]
+\ReponseC{Selon ce critère, on pourrait choisir $n$ individus au hasard au sein de la population avec remise et sans remise. Notons qu'étant donné les ordres de grandeurs, $n=1000$ et $N=2000000$ ces deux procédés sont quasiment équivalents.}
+[#tag]enonce[#>]
+\item Si on répète le procédé d'échantillonnage suivant le critère RSAP et que pour chaque échantillon on évalue l'estimation du paramètre d'intérêt, pensez-vous que les résultats seront toujours les mêmes~? Comment qualifie-t-on alors la nature du procédé d'échantillonnage~?
+[#tag]reponse[#>]
+\ReponseC{L'échantillonnage est dit aléatoire.}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}

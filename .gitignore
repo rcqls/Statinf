@@ -7,4 +7,5 @@
 *.dyn_log
 *~
 *.Rhistory
-Docus/presentation/img/*.png.RData
+Docus/presentation/img/*
+

@@ -1,0 +1,1415 @@
+[#%]Changement de stratégie (due à l'instrustion Compose): regrouper tous les exos en un seul document. Envisager la possibilité de placer tous les fichiers de ce type dans un seul répertoire (Component) comme pour le cours beamer.
+[#>]{#case]#{docs}
+[#when]presPb[#>]
+\begin{exercice}[Présentation des problématiques des produits A et B]
+${ }$
+
+\fbox{\begin{minipage}{14cm} %\begin{center}
+Un industriel veut lancer sur le march{\'e} deux produits que l'on nommera \PR{A} et \PR{B}. Le \PR{A} est achet{\'e} au plus une fois par mois tandis que le \PR{B} peut être acheté autant de fois que désiré. Apr{\`e}s une {\'e}tude financi{\`e}re, les services comptables indiquent {\`a} cet industriel que pour que le lancement de chacun de ces produits soit rentable, il faut qu'il soit vendu {\`a} plus de 300000 exemplaires par mois. La population cibl{\'e}e par l'industriel est une population de taille $N=2000000$. L'industriel se demande s'il doit ou non lancer le(s) \textit{Produit(s) A et/ou B}. 
+%\end{center} 
+\end{minipage}}
+
+Commençons par introduire quelques notations permettant de décrire le choix d'achat des individus de la population totale (ciblée par l'industriel). Les deux études des \PR{A} et \PR{B} étant plutôt similaires, nous noterons donc dans un cadre général  $\bullet$ aussi bien à la place de $A$ ou $B$. Ainsi  
+$\mathcal{Y}^{\bullet}_i$ représente le nombre de produit(s) $\bullet$ acheté(s) par le $i^{\grave eme}$ ($i=1,\cdots,N$) individu de la population totale. L'ensemble des choix d'achat des $N$ individus $\left(\mathcal{Y}_i\right)_{i=1,\cdots,N}$ sera noté \POP.
+
+\begin{enumerate}
+\item Exprimez $N^A$ (resp. $N^B$) en fonction des  \POP[A] (resp. \POP[B]). Exprimez la rentabilité du \PR{A} (resp. \PR{B}) en fonction du nombre total $N^A$ (resp. $N^B$) d'exemplaires du \PR{A} (resp. \PR{B}) vendus.
+[#tag]reponse[#>]
+\ReponseC{Le produit $\bullet$ est rentable si $N^\bullet:=\sum_{i=1}^N \mathcal{Y}_i^\bullet > 300000$.}
+[#tag]enonce[#>]
+\item Même question mais en fonction du nombre moyen $\mu^A$ (resp. $\mu^B$) d'exemplaires du \PR{A} (resp. \PR{B}) en ayant au préalable établi la relation entre $\mu^A$ et $N^A$ (resp. $\mu^B$ et $N^B$) et ainsi entre $\mu^A$ et \POP[A] (resp. $\mu^B$ et \POP[B]). Quelle relation y a-t-il donc entre $\mu^A$ et $\overline{\mathcal{Y}^A}$ (resp. entre $\mu^B$ et $\overline{\mathcal{Y}^B}$)~?
+\fbox{Les quantités $\mu^A$ et $\mu^B$ seront appelées \textbf{paramètres d'intérêt}}.
+[#tag]reponse[#>]
+\ReponseC{Le produit $\bullet$ est rentable si $\mu^\bullet:=\frac1N\sum_{i=1}^N \mathcal{Y}_i^\bullet = \overline{\mathcal{Y^\bullet}} > \frac{300000}{2000000}=0.15$.}
+[#tag]enonce[#>]
+\item Est-il possible pour l'industriel de ne pas se tromper dans sa décision quant au lancement de chaque produit~? Si oui, comment doit-il procéder~? Cette solution est-elle réalisable~? 
+[#tag]reponse[#>]
+\ReponseC{Pour ne pas se tromper, il lui faut recueillir les intentions des $N$ individus ce qui paraît peu réalisable.}
+[#tag]enonce[#>]
+\item Est-il alors possible d'évaluer (exactement) les paramètres d'intérêt~? Comment les qualifieriez-vous par la suite~?
+[#tag]reponse[#>]
+\ReponseC{Les paramètres d'intérêt ne peuvent donc pas être évalués et sont donc considérés comme INCONNUS.}
+[#tag]enonce[#>]
+\item Une solution r{\'e}alisable est alors de n'interroger qu'une sous-population de taille raisonnable $n<<N$ (ex $n=1000$). On notera alors $\Vect{y}^\bullet$ le jeu de données (appelé aussi échantillon), i.e. le vecteur des $n$ nombres d'achat $\left(y_i^\bullet\right)_{i=1,\cdots,n}$ du produit~$\bullet$ des $n$ ($n<<N$) individus interrogés.
+{#hide]
+\fbox{\begin{minipage}{14cm}
+Cet unique jeu de données $\Vect{y}^\bullet$ sera créé un jour particulier, le \textbf{jour~J}. Ce jour là (et seulement ce jour là) nous pourrons décider ou pas de lancer le produit~$\bullet$ sur le marché. 
+\end{minipage}}
+Chronologiquement, tous les raisonnements qui se situeront \textbf{avant le jour~J} seront consacrés à la mise en place de l'outil d'aide à la décision.[#} 
+[#tag]enonce[#>]
+
+Comment l'industriel pourra-t-il évaluer un remplaçant de $\mu^\bullet$ à partir de son échantillon $\Vect{y}^\bullet$~? 
+{#hide]
+\fbox{\begin{minipage}{14cm}
+Cette quantité désomais notée $\Est{\mu^\bullet}{y^\bullet}$ se traduit littéralement par ``remplaçant" de $\mu^\bullet$ obtenu à partir du vecteur des données $\Vect{y}$ (\textit{convention:} le symbole \underline{accent circonflexe} sur un paramètre signifie {\bf estimation} ou ``remplaçant" de celui-ci et les symboles \underline{parenthèses} contiennent les informations nécessaires pour son obtention). 
+\end{minipage}}[#}
+[#tag]enonce[#>]
+
+(quelle est la relation entre $\overline{y^\bullet}$, représentant la moyenne empirique des $\left(y_i^\bullet\right)_{i=1,\ldots,n}$, et l'estimation $\Est{\mu^\bullet}{y^\bullet}$~?)
+[#tag]reponse[#>]
+\ReponseC{En évaluant la moyenne sur l'échantillon observé, i.e. en calculant $\Est{\mu^\bullet}{y^\bullet}=\frac1n \sum_{i=1}^n y_i^\bullet=\overline{y^\bullet}$.}
+[#tag]enonce[#>]
+\item Quelle est la nature du paramètre d'intérêt $\mu^A$ dans le cas où les données ne sont que des~0 et~1~? Désormais cette moyenne, puisqu'elle bénéficiera d'un traitement particulier, sera notée \fbox{$p^A=\mu^A$}.
+[#tag]reponse[#>]
+\ReponseC{Une moyenne de 0 et de 1 correspond à une proportion.}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#when]presOutils[#>]\begin{exercice}[Règles de décision pour les produits A et B]
+\begin{enumerate}
+\item Pour chacun des produits, proposez la forme de la règle de décision en faveur de l'assertion d'intérêt à partir d'un échantillon obtenu via le critère RSAP.
+[#tag]reponse[#>]
+\ReponseC{Une règle de décision serait: on décide de lancer le produit $\bullet$ sur le marché (i.e. on décide que l'assertion d'intérêt ``le produit est rentable'' est vraie) si $\Est{\mu^\bullet}{y^\bullet}> \mu_{lim}$, où $\mu_{lim}$ reste à déterminer (a priori  $\mu_{lim}>>0.15$).}
+[#tag]enonce[#>]
+\item  Selon cette règle, est-il possible pour l'industriel de ne pas se tromper dans sa décision quant au lancement de chaque produit~? 
+[#tag]reponse[#>]
+\ReponseC{Selon cette règle de décison, il est impossible pour l'industriel de ne pas se tromper.}
+[#tag]enonce[#>]
+\item Exprimez les erreurs de décision éventuelles en les illustrant par des exemples de situations réelles envisageables.
+[#tag]reponse[#>]
+\ReponseC{Il est tout à fait possible par exemple que $p^A=10\%$ et d'observer $\Est{p^A}{y^A}=85\%$ ce qui conduirait (si $\mu_{lim}<85\%$) à lancer le produit à tort. De la même manière, il est tout à fait possible par exemple que $p^A=30\%$ et d'observer $\Est{p^A}{y^A}=5\%$ ce qui conduirait à ne pas lancer le produit (également) à tort.}
+[#tag]enonce[#>]
+\item Comment mesurer ces risques d'erreurs de décision~?
+[#tag]reponse[#>]
+\ReponseC{On notera:
+\begin{itemize}
+\item Risque d'erreur I: risque d'erreur de décider en faveur de l'assertion d'intérêt à tort.
+\item Risque d'erreur II : risque d'erreur de ne pas décider l'assertion d'intérêt à tort.
+\end{itemize}
+On peut mesurer ces risques en évaluant les chances (les probabilités) que chacun de ces deux risques interviennent.
+}
+[#tag]enonce[#>]
+\item Un statisticien informe l'industriel que la règle de décision (connue de tous les statisticiens) est de lancer le produit~A si $\Est{p^A}{y^A}>16.8573\%$. L'industriel pensant que son produit est tel que $p^A\geq 20\%$ se dit que cette règle de décision sera donc toujours acceptée. Qu'en pensez-vous~? 
+[#tag]reponse[#>]
+\ReponseC{Il a tort puisque toute règle de décision comporte une erreur de décision (pouvant être faible ou élevée).}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#when]procEch[#>]
+\begin{exercice}
+Dans le but d'estimer un paramètre d'intérêt inconnu, on dispose d'un échantillon. Nous nous proposons maintenant de préciser plus en détail son procédé de construction.
+\begin{enumerate}
+\item Proposez des critères de qualité d'un tel échantillon.
+\item A quoi correspond la notion de représentativité~?
+[#tag]reponse[#>]
+\ReponseC{à essayer de faire ``ressembler'' l'échantillon à la population totale.}
+[#tag]enonce[#>]
+\item Est-il possible de construire un échantillon représentatif d'une (ou plusieurs) caractéristique(s) donnée(s)~?
+[#tag]reponse[#>]
+\ReponseC{oui par exemple en tentant de respecter la proportion de femmes dans la population totale avec la proportion de femmes présentes dans l'échantillon.}
+[#tag]enonce[#>]
+\item Même question sans aucun a priori (i.e. aucune caractéristique fixée).
+\item Proposez un critère de qualité  qui permettra de construire un échantillon le plus représentatif sans aucun a priori.
+[#tag]reponse[#>]
+\ReponseC{voir réponse ci-après.}
+[#tag]enonce[#>]
+\item Fournissez un (ou plusieurs) procédé(s) d'échantillonnage satisfaisant au critère suivant de représentativité (maximale) sans a priori (RSAP)~:\\
+\centerline{
+\fbox{\begin{minipage}{12cm}
+\bf Tous les individus de la population totale ont la même chance d'être choisi dans l'échantillon. 
+\end{minipage}}}
+[#tag]reponse[#>]
+\ReponseC{Selon ce critère, on pourrait choisir $n$ individus au hasard au sein de la population avec remise et sans remise. Notons qu'étant donné les ordres de grandeurs, $n=1000$ et $N=2000000$ ces deux procédés sont quasiment équivalents.}
+[#tag]enonce[#>]
+\item Si on répète le procédé d'échantillonnage suivant le critère RSAP et que pour chaque échantillon on évalue l'estimation du paramètre d'intérêt, pensez-vous que les résultats seront toujours les mêmes~? Comment qualifie-t-on alors la nature du procédé d'échantillonnage~?
+[#tag]reponse[#>]
+\ReponseC{L'échantillonnage est dit aléatoire.}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#when]filter[#r<]
+percentFilter<-function(v,dcm=3) paste(round(v*100,dcm),'\\%',sep='')
+vector2texArray<-function(vec,vec2=NULL,filter=prettyNum,...){
+if(is.null(vec)) return("")
+vec<-filter(vec,...) 
+if(!is.null(vec2)) {
+vec<-paste(vec,'\\simeq',filter(vec2,...))
+}
+vec<-paste('$',vec,'$',sep="") 
+paste(vec,collapse=" & ")
+}
+[#when]dataAB[#r<]
+p<-c(0.1,0.15,0.2)
+m<-10000
+NPA<-2000000
+N1PA<-c(200000,300000,400000)
+yA01<-sample(c(rep(0,NPA-N1PA[1]),rep(1,N1PA[1])),m,repl=T)
+yA015<-sample(c(rep(0,NPA-N1PA[2]),rep(1,N1PA[2])),m,repl=T)
+yA02<-sample(c(rep(0,NPA-N1PA[3]),rep(1,N1PA[3])),m,repl=T)
+
+NPB<-2000000
+N1PB<-c(100000,200000,300000)
+N2PB<-N3PB<-20000
+N0PB<- NPB-(N1PB+N2PB+N3PB)
+varB<-((0^2*N0PB+1^2*N1PB+2^2*N2PB+3^2*N3PB)/NPB) - ((0*N0PB+1*N1PB+2*N2PB+3*N3PB)/NPB)^2
+yB01<-sample(c(rep(0,N0PB[1]),rep(1,N1PB[1]),rep(2,N2PB),rep(3,N3PB)),m,repl=T)
+yB015<- sample(c(rep(0,N0PB[2]),rep(1,N1PB[2]),rep(2,N2PB),rep(3,N3PB)),m,repl=T)
+yB02<- sample(c(rep(0,N0PB[3]),rep(1,N1PB[3]),rep(2,N2PB),rep(3,N3PB)),m,repl=T)
+[#when]loi_Y[#>]
+\begin{exercice}[Loi de probabilité du choix d'une boule dans une urne]
+Soit $Y^\bullet$ ($\bullet=A,B$) la variable aléatoire correspondant au choix au hasard d'une boule parmi $N$ (=2000000) numérotées de 0 à $J^\bullet$ (ici $J^A=1$ et $J^B=3$). Dans la suite, on notera $N_j$ le nombre de boules numérotées $j$.
+
+Un mathématicien sait alors calculer les quantités suivantes~: 
+\begin{eqnarray*}
+P(Y^\bullet=j)&=&\frac{N_j}N , \\ 
+\Esp(Y^\bullet)&=&\mu^\bullet =\frac1N \sum_{j=1}^N \mathcal{Y}_j^\bullet=
+\sum_{j=0}^{J^\bullet} P(Y^\bullet=j) \times j  = 0\times \frac{N_0}N + \cdots + J^\bullet \times \frac{N_{J^\bullet}}N \\
+\Var(Y^\bullet)&=&\sigma_\bullet^2=\frac1N \sum_{j=1}^N \left(\mathcal{Y}_j^\bullet-\mu^\bullet\right)^2=
+\sum_{j=0}^{J^\bullet} \left(j-\mu^\bullet\right)^2 \times P(Y^\bullet=j) \\
+&=& \sum_{j=0}^{J^\bullet} j^2\times P(Y^\bullet=j) -\big(\sum_{j=0}^{J^\bullet} P(Y^\bullet=j) \times j \big)^2=\Esp((Y^\bullet)^2)-\Esp(Y^\bullet)^2\\
+&=& \big(0^2\times \frac{N_0}N + \cdots + (J^\bullet)^2 \times \frac{N_{J^\bullet}}N\big) - \big(0\times \frac{N_0}N + \cdots + J^\bullet \times \frac{N_{J^\bullet}}N\big)^2
+\end{eqnarray*}
+
+\begin{enumerate}
+\item Urnes~A ($J^A=1$): on considère trois urnes différentes (décrites ci-dessous). Un expérimentateur choisit $m=10000$ boules au sein de chacune de ces trois urnes et stockes les informations dans trois vecteurs en \texttt{R}: \texttt{yA01}, \texttt{yA015} et \texttt{yA02}.
+Comparez (en remplissant le tableau ci-dessous) les résultats expérimentaux avec les résultats du mathématicien qui dans ce cas particulier se réduisent à~:
+\begin{eqnarray*}
+P(Y^A=0)&=& 1-p^A, P(Y^A=1)=p^A, \\
+\Esp(Y^A)&=& \mu^A=p^A  \\
+\sqrt{\Var(Y^A)}&=& \sigma_A = \sqrt{p^A(1-p^A)}. 
+\end{eqnarray*}
+
+
+[#>]
+\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~A&  $U_{0.1}^A$ &  $U_{0.15}^A$&  $U_{0.2}^A$\\
+\hline
+Caractéristique & $N_1=200000$ & $N_1=300000$ & $N_1=400000$  \\
+\hline
+$P(Y^A=0)$ & [#tag]reponse[#>]#r{vector2texArray(1-p,filter=percentFilter)}[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Fréquence A.E.P.&&&\\
+$\meanEmp[m]{\Vect{y^A}_{[\cdot]}=0}\simeq \meanEmp[\infty]{\Vect{y^A}_{[\cdot]}=0}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(yA01==0),mean(yA015==0),mean(yA02==0)),1-p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\Esp(Y^A)$ &[#tag]reponse[#>]#r{vector2texArray(p,filter=percentFilter)}[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Moyenne A.E.P. &&&\\
+$\meanEmp[m]{\Vect{y^A}_{[\cdot]}}\simeq \meanEmp[\infty]{\Vect{y^A}_{[\cdot]}}$ &[#tag]reponse[#>]#r{vector2texArray(c(mean(yA01),mean(yA015),mean(yA02)),p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\sigma(Y^A)=\sqrt{\Var(Y^A)}$ &[#tag]reponse[#>]#r{vector2texArray(sqrt(p*(1-p)),filter=percentFilter)}[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Vect{y^A}_{[\cdot]}}\simeq \sdEmp[\infty]{\Vect{y^A}_{[\cdot]}}$ &[#tag]reponse[#>]#r{vector2texArray(c(sd(yA01),sd(yA015),sd(yA02)), sqrt(p*(1-p)),filter=percentFilter)}[#tag]-reponse[#>]&& [#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+p<-c(0.1,0.15,0.2)
+1-p
+sqrt(p*(1-p))
+## out | short=1,...,1
+yA01
+## out | short=1,...,1
+yA015
+## out | short=1,...,1
+yA02
+c(mean(yA01==0),mean(yA015==0),mean(yA02==0))
+c(mean(yA01),mean(yA015),mean(yA02))
+c(sqrt(var(yA01)),sqrt(var(yA015)),sqrt(var(yA02)))
+c(sd(yA01),sd(yA015),sd(yA02))
+[#}
+
+\item Même question relative aux urnes~B ($J^B=3$): l'expérimentateur a cette fois-ci choisi $m=10000$ boules au hasard dans trois urnes notées $U_{0.1}^B$, $U_{0.15}^B$ et $U_{0.2}^B$ (décrites ci-dessous). Les informations sont maintenant stockées dans les vecteurs \texttt{yB01}, \texttt{yB015} et \texttt{yB02}.
+[#>]
+\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~B& $U_{0.1}^B$ & $U_{0.15}^B$& $U_{0.2}^B$\\
+\hline
+Caractéristique & $N_1=100000$ & $N_1=200000$ & $N_1=300000$  \\
+& $N_2=N_3=20000$ & $N_2=N_3=20000$ & $N_2=N_3=20000$ \\
+\hline
+$P(Y^B=k)$ $k=0,3$&[#tag]reponse[#>]
+#r{vector2texArray(N0PB/NPB)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Vect{y^B}_{[\cdot]}=k}\simeq \meanEmp[\infty]{\Vect{y^B}_{[\cdot]}=k}$ $k=0,3$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(yB01==0),mean(yB015==0),mean(yB02==0)),N0PB/NPB)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\Esp(Y^B)$ &[#tag]reponse[#>]
+#r{vector2texArray((0*N0PB+1*N1PB+2*N2PB+3*N3PB)/NPB)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Moyenne A.E.P. &&&\\
+$\meanEmp[m]{\Vect{y^B}_{[\cdot]}}\simeq \meanEmp[\infty]{\Vect{y^B}_{[\cdot]}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(yB01),mean(yB015),mean(yB02)),(0*N0PB+1*N1PB+2*N2PB+3*N3PB)/NPB)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\sigma(Y^B)=\sqrt{\Var(Y^B)}$ &[#tag]reponse[#>]
+#r{vector2texArray(sqrt(varB))}
+[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Vect{y^B}_{[\cdot]}}\simeq \sdEmp[\infty]{\Vect{y^B}_{[\cdot]}}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(yB01),sd(yB015),sd(yB02)),sqrt(varB),round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+N<-2000000
+N1<-c(100000,200000,300000)
+N2<-N3<-20000
+N0<- N-(N1+N2+N3)
+N0/N
+N3/N
+(0*N0+1*N1+2*N2+3*N3)/N
+varB<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
+sqrt(varB)
+## out | short=1,...,1
+yB01
+## out | short=1,...,1
+yB015
+## out | short=1,...,1
+yB02
+c(mean(yB01==0),mean(yB015==0),mean(yB02==0))
+c(mean(yB01==3),mean(yB015==3),mean(yB02==3))
+c(mean(yB01),mean(yB015),mean(yB02))
+c(sd(yB01),sd(yB015),sd(yB02))
+[#}
+\end{enumerate}
+\end{exercice}
+
+[#when]dataAEP[#r<]
+attach.data("statinf","prodAB","simEch.RData")
+m<-nrow(muEst.sim)
+n<-1000
+pAEst01<-muEst.sim[perm01,1];pAEst015<-muEst.sim[perm015,2];pAEst02<-muEst.sim[perm02,3]
+muBEst01<-muEst.sim[perm01,4];muBEst015<-muEst.sim[perm015,5];muBEst02<-muEst.sim[perm02,6]
+muB<-c(0.1,0.15,0.2)
+require(CqlsRandom)
+n<-1000
+loidelta01<-Norm((0.1-0.15)/sqrt(.15*.85/n),sqrt(.1*.9/.15/.85))
+loidelta02<-Norm((0.2-0.15)/sqrt(.15*.85/n),sqrt(.2*.8/.15/.85))
+deltaAEst01<-(pAEst01-0.15)/sqrt(0.15*0.85/n)
+deltaAEst015<-(pAEst015-0.15)/sqrt(0.15*0.85/n)
+deltaAEst02<-(pAEst02-0.15)/sqrt(0.15*0.85/n)
+deltaBEst01<-muEst.sim[perm01,7]
+deltaBEst015<-muEst.sim[perm015,8]
+deltaBEst02<-muEst.sim[perm02,9]
+deltaBEstUA015<-(muEst.sim[,2]-.15)/sqrt(muEst.sim[,2]*(1-muEst.sim[,2])/1000)
+detach.data("statinf","prodAB","simEch.RData")
+[#when]loi_est[#>]
+\begin{exercice}[Loi de la moyenne de $n$ tirages de boules]~
+On s'intéresse à présent à la moyenne de numéros de $n$ boules choisies au hasard dans une urne $U^\bullet$. Ceci correspond à l'estimateur 
+$\Est{\mu^\bullet}{Y^\bullet}:=\overline{Y^\bullet}=\frac1n \sum_{i=1}^n Y^\bullet_i$ du paramètre $\mu^\bullet$ calculé à partir du vecteur $\Vect{Y^\bullet}=\left( Y_1^\bullet,\ldots,Y_n^\bullet\right)$. Le mathématicien obtient par le calcul les résultats suivants
+$$
+\Est{\mu^\bullet}{Y^\bullet}
+\SuitApprox \mathcal{N} \left( \Esp\left(\Est{\mu^\bullet}{Y^\bullet}\right)  , \sqrt{\Var\left(\Est{\mu^\bullet}{Y^\bullet}\right)}
+\right)=\mathcal{N} \left( \mu^\bullet  ,  \sigma_{\widehat{\mu^\bullet}}
+\right)
+$$
+où $\Esp\left(\Est{\mu^\bullet}{Y^\bullet}\right)=\mu^\bullet$ et $\sqrt{\Var\left(\Est{\mu^\bullet}{Y^\bullet}\right)}=\sigma_{\widehat{\mu^\bullet}} = \frac{\sigma_{\bullet}}{\sqrt{n}}$. 
+
+\begin{enumerate}
+\item Urnes~A: comparez (en remplissant le tableau ci-dessous) les résultats expérimentaux (stockés en \texttt{R} dans les vecteurs \texttt{pAEst01},\texttt{pAEst015} et \texttt{pAEst02}) avec les résultats du mathématicien. 
+
+[#>]
+\hspace*{-1cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~A&  $U_{0.1}^A$ &  $U_{0.15}^A$&  $U_{0.2}^A$\\
+\hline
+Caractéristique & $N_1=200000$ & $N_1=300000$ & $N_1=400000$  \\
+\hline \hline
+$\Esp\left( \Est{p^A}{Y^A}\right)$ &[#tag]reponse[#>]
+#r{vector2texArray(p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(pAEst01),mean(pAEst015),mean(pAEst02)),p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$\sigma_{\widehat{p^A}}$ &[#tag]reponse[#>]
+#r{vector2texArray(sqrt(p*(1-p)/n),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{p^A}{y^A_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(pAEst01),sd(pAEst015),sd(pAEst02)),sqrt(p*(1-p)/n),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$P(\Est{p^A}{Y^A}>16.86\%)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(0.1686,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline 
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}>16.86\%}\simeq \meanEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}>16.86\%}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(pAEst01>0.1686),mean(pAEst015>0.1686),mean(pAEst02>0.1686)),1-pnorm(0.1686,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$\quant{ \Est{p^A}{Y^A}}{95\%}$&[#tag]reponse[#>]
+#r{vector2texArray(qnorm(0.95,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(pAEst01,0.95),quantile(pAEst015,0.95),quantile(pAEst02,0.95)),qnorm(0.95,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+
+{#rverb]
+n<-1000;p<-c(0.1,0.15,0.2)
+sqrt(p*(1-p)/n)
+## !eval
+1-pnorm(0.1686,p,sqrt(p*(1-p)/n))
+## hide
+round(1-pnorm(0.1686,p,sqrt(p*(1-p)/n)),4)
+qnorm(0.95,p,sqrt(p*(1-p)/n))
+## out | short=1,...,1
+pAEst01
+## out | short=1,...,1
+pAEst015
+## out | short=1,...,1
+pAEst02
+c(mean(pAEst01),mean(pAEst015),mean(pAEst02))
+c(sd(pAEst01),sd(pAEst015),sd(pAEst02))
+c(mean(pAEst01>0.1686),mean(pAEst015>0.1686),mean(pAEst02>0.1686))
+c(quantile(pAEst01,0.95),quantile(pAEst015,0.95),quantile(pAEst02,0.95))
+[#}
+
+\item Même question pour les urnes~B (les résultats sont stockés en \texttt{R} dans les vecteurs \texttt{muBEst01},\texttt{muBEst015} et \texttt{muBEst02})
+
+[#>]
+\hspace*{-1.5cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~B&  $U_{0.1}^B$ &  $U_{0.15}^B$&  $U_{0.2}^B$\\
+\hline
+Caractéristique & $N_1=100000$ & $N_1=200000$ & $N_1=300000$  \\
+& $N_2=N_3=20000$& $N_2=N_3=20000$& $N_2=N_3=20000$\\
+\hline \hline 
+$\Esp\left( \Est{\mu^B}{Y^B}\right)$ &[#tag]reponse[#>]
+#r{vector2texArray(muB)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(muBEst01),mean(muBEst015),mean(muBEst02)),muB,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline 
+$\sigma_{\widehat{\mu^B}}$ &[#tag]reponse[#>]
+#r{vector2texArray(sqrt(varB/n),vec2=NULL,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(muBEst01),sd(muBEst015),sd(muBEst02)),sqrt(varB/n),filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline 
+$P(\Est{\mu^B}{Y^B}>0.17)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(0.17,muB,sqrt(varB/n)),vec2=NULL,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}>0.17}\simeq \meanEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}>0.17}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(muBEst01>0.17),mean(muBEst015>0.17),mean(muBEst02>0.17)),1-pnorm(0.17,muB,sqrt(varB/n)),filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+ \hline\hline 
+$\quant{ \Est{\mu^B}{Y^B}}{95\%}$&[#tag]reponse[#>]
+#r{vector2texArray(qnorm(0.95,muB,sqrt(varB/n)),vec2=NULL,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{\mu^B}{y^B_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{\mu^B}{y^B_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(muBEst01,0.95),quantile(muBEst015,0.95),quantile(muBEst02,0.95)),qnorm(0.95,muB,sqrt(varB/n)),filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+muB<-c(0.1,0.15,0.2)
+sqrt(varB/n)
+## !eval
+1-pnorm(0.17,muB,sqrt(varB/n))
+## hide
+round(1-pnorm(0.17,muB,sqrt(varB/n)),4)
+qnorm(0.95,muB,sqrt(varB/n))
+## out | short=1,...,1
+muBEst01
+## out | short=1,...,1
+muBEst015
+## out | short=1,...,1
+muBEst02
+c(mean(muBEst01),mean(muBEst015),mean(muBEst02))
+c(sd(muBEst01),sd(muBEst015),sd(muBEst02))
+c(mean(muBEst01>0.17),mean(muBEst015>0.17),mean(muBEst02>0.17))
+c(quantile(muBEst01,0.95),quantile(muBEst015,0.95),quantile(muBEst02,0.95))
+[#}
+\end{enumerate}
+\end{exercice}
+
+[#when]loi_deltaEst[#>]
+\begin{exercice}[Loi d'une transformation de la moyenne de $n$ tirages de boules] \label{exo:loiParamEcart}
+
+Le mathématicien obtient par le calcul les résultats suivants:
+$$ \frac{\Est{\mu^\bullet}{Y^\bullet}-\mu^\bullet }{\sigma_{\widehat{\mu^\bullet}}} \SuitApprox \mathcal{N} (0,1) \mbox{ et }\frac{\Est{\mu^\bullet}{Y^\bullet}-\mu^\bullet }{\Est{\sigma_{\widehat{\mu^\bullet}}}{Y^\bullet}} \SuitApprox \mathcal{N} (0,1)
+$$
+où $\Est{\sigma^2_{\widehat{\mu^\bullet}}}{Y^\bullet}=\frac{\Est{\sigma_\bullet^2}{Y^\bullet}} {n}$ et ${\displaystyle \Est{\sigma_{\bullet}^2}{Y^\bullet} = \frac1n \sum_{i=1}^{n} \left(Y^\bullet_i -\overline{Y^\bullet}  \right)^2 }$.
+
+\begin{enumerate}
+\item Urnes~A: comparez (en remplissant le tableau ci-dessous) les résultats expérimentaux (stockés en \texttt{R} dans les vecteurs \texttt{deltaAEst01},\texttt{deltaAEst015} et \texttt{deltaAEst02}) avec les résultats du mathématicien\footnote{certains des résultats (en souligné dans le tableau) du mathématicien sont difficiles à établir. Nous les donnons à titre indicatif afin que vous puissisez les comparer avec leur version expérimentale toujours facilement disponible} suivant: 
+$${\displaystyle \Est{\delta_{p^A,15\%}}{Y^A} =  \frac{\Est{p^A}{Y^A}-15\% }{\sqrt{ \frac{15\% \times 85\%}{n}}}}\SuitApprox 
+\mathcal{N} (0,1)$$ 
+uniquement pour l'urne $U_{0.15}^A$.
+[#>]
+\hspace*{-1.5cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~A&  $U_{0.1}^A$ &  $U_{0.15}^A$&  $U_{0.2}^A$\\
+\hline \hline
+$\Esp\left( \Est{\delta_{p^A,15\%}}{Y^A}\right)$ & \underline{#R{round(as.numeric(EE(loidelta01)),3)}}&[#tag]reponse[#>]
+0
+[#tag]-reponse[#>][#tag]enonce[#>] & 
+\underline{#R{round(as.numeric(EE(loidelta02)),3)}}\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaAEst01),mean(deltaAEst015),mean(deltaAEst02)),c(as.numeric(EE(loidelta01)),0,as.numeric(EE(loidelta02)) ),round,3 )}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$\sigma_{\widehat{\delta_{p^A,15\%}}}$ &\underline{#R{round(as.numeric(sqrt(VV(loidelta01))),3)}}&
+[#tag]reponse[#>]1[#tag]-reponse[#>][#tag]enonce[#>]
+& \underline{#R{round(as.numeric(sqrt(VV(loidelta02))),3)} }\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(deltaAEst01),sd(deltaAEst015),sd(deltaAEst02)),c(as.numeric(sqrt(VV(loidelta01))),1,as.numeric(sqrt(VV(loidelta02)))),filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$P(\Est{\delta_{p^A,15\%}}{Y^A}>1.6449)$ &\underline{#R{round(as.numeric(1-FF(loidelta01,1.6449))*100,2)}\%}&[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(1.6449),filter=percentFilter)}
+[#tag]-reponse[#>][#tag]enonce[#>]&
+\underline{#R{round(as.numeric(1-FF(loidelta02,1.6449))*100,2)}\%}\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}>1.6449}\simeq \meanEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}>1.6449}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaAEst01>1.6449),mean(deltaAEst015>1.6449),mean(deltaAEst02>1.6449)),c(as.numeric(1-FF(loidelta01,1.6449)),1-pnorm(1.6449) ,as.numeric(1-FF(loidelta02,1.6449))),filter=percentFilter)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+ \hline \hline
+$\quant{ \Est{\delta_{p^A,15\%}}{Y^A}}{95\%}$&\underline{#R{round(as.numeric(QQ(loidelta01,.95)),3)}}&[#tag]reponse[#>]
+#r{vector2texArray(qnorm(0.95),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>][#tag]enonce[#>]&
+\underline{#R{round(as.numeric(QQ(loidelta02,.95)),3)}}\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(deltaAEst01,0.95),quantile(deltaAEst015,0.95),quantile(deltaAEst02,0.95)),c(as.numeric(QQ(loidelta01,.95)),qnorm(.95),as.numeric(QQ(loidelta02,.95))),filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+
+{#rverb]
+1-pnorm(1.6449,0,1)
+1-pnorm(1.6449)
+qnorm(0.95,0,1)
+qnorm(0.95)
+## out | short=1,...,1
+deltaAEst01
+## out | short=1,...,1
+deltaAEst015
+## out | short=1,...,1
+deltaAEst02
+c(mean(deltaAEst01),mean(deltaAEst015),mean(deltaAEst02))
+c(sd(deltaAEst01),sd(deltaAEst015),sd(deltaAEst02))
+c(mean(deltaAEst01>1.6449),mean(deltaAEst015>1.6449),mean(deltaAEst02>1.6449))
+c(quantile(deltaAEst01,0.95),quantile(deltaAEst015,0.95),quantile(deltaAEst02,0.95))
+[#}
+
+\item Puisque, pour tout $k=1,\ldots,m$, on a $\Est{\delta_{p^A,15\%}}{y_{[k]}^A} = \frac{\Est{p^A}{y_{[k]}^A}-15\%}{\sqrt\frac{15\%\times 85\%}{n}}$, déduire la valeur du quantile $\quantEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}$   en fonction de $\quantEmp[m]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}$.
+
+Même question pour $\quantEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}$ et $\quant{ \Est{\delta_{p^A,15\%}}{Y^A}}{95\%}$ en fonction de respectivement $\quantEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}$ et $\quant{ \Est{p^A}{Y^A}}{95\%}$.
+[#tag]reponse[#>]
+\begin{Correction}
+$$
+\quantEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}=\frac{\quantEmp[m]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}-15\%}{\sqrt{15\%\times 85\%/n}}
+$$
+Par ailleurs
+\begin{eqnarray*}
+\quantEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}&=&\quant{ \Est{\delta_{p^A,15\%}}{Y^A}}{95\%} \\
+&=&\frac{\quantEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}-15\%}{\sqrt{15\%\times 85\%/n}} \\
+&=& \frac{\quant{ \Est{p^A}{Y^A}}{95\%}-15\%}{\sqrt{15\%\times 85\%/n}}
+\end{eqnarray*}
+\end{Correction}
+[#tag]enonce[#>]
+{#rverb]
+(c(quantile(pAEst01,0.95),quantile(pAEst015,0.95),quantile(pAEst02,0.95))-0.15)/
+sqrt(.15*.85/n)
+(qnorm(0.95,.15,sqrt(.15*.85/n))-0.15)/sqrt(.15*.85/n)
+[#}
+
+\item Reprenez la question~1 pour les urnes~B (les résultats sont stockés en \texttt{R} dans les vecteurs \texttt{deltaBEst01},\texttt{deltaBEst015} et \texttt{deltaBEst02}). Le résultat du mathématicien est le suivant~: $${\displaystyle\Est{\delta_{\mu^B,0.15}}{Y} =  \frac{\Est{\mu^B}{Y^B}-0.15 }{
+\Est{\sigma_{\widehat{\mu^B}}}{Y^B}
+} }
+\SuitApprox 
+\mathcal{N} (0,1)
+$$
+uniquement pour les urnes $U_{0.15}^A$ et $U_{0.15}^B$ (parmi les six). 
+
+[#>]
+\hspace*{-2cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~B& \hspace*{.5cm} $U_{0.1}^B$  \hspace*{.5cm}&  \hspace*{.5cm} $U_{0.15}^B$ \hspace*{.5cm}& \hspace*{.5cm}  $U_{0.2}^B$ \hspace*{.5cm}\\
+\hline\hline
+$\Esp\left( \Est{\delta_{\mu^B,0.15}}{Y^B}\right)$ &????&[#tag]reponse[#>]
+0
+[#tag]-reponse[#>][#tag]enonce[#>]&????\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaBEst01),mean(deltaBEst015),mean(deltaBEst02)),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline
+$\sigma_{\widehat{\delta_{\mu^B,0.15}}}$ &????&[#tag]reponse[#>]
+1
+[#tag]-reponse[#>][#tag]enonce[#>]&????\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(deltaBEst01),sd(deltaBEst015),sd(deltaBEst02)),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline
+$P(\Est{\delta_{\mu^B,0.15}}{Y^B}>1.6449)$ &????&[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(1.6449),vec2=NULL,filter=percentFilter)}
+[#tag]-reponse[#>][#tag]enonce[#>]&????\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>1.6449}\simeq \meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>1.6449}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaBEst01>1.6449),mean(deltaBEst015>1.6449),mean(deltaBEst02>1.6449)),vec2=NULL,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+ \hline\hline
+$\quant{ \Est{\delta_{\mu^B,15\%}}{Y^B}}{95\%}$&???&[#tag]reponse[#>]
+#r{round(qnorm(.95),4)}
+[#tag]-reponse[#>][#tag]enonce[#>]&???\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(deltaBEst01,0.95),quantile(deltaBEst015,0.95),quantile(deltaBEst02,0.95)),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+## !eval
+1-pnorm(1.6449)
+## hide
+round(1-pnorm(1.6449),5)
+## out | short=1,...,1
+deltaBEst01
+## out | short=1,...,1
+deltaBEst015
+## out | short=1,...,1
+deltaBEst02
+c(mean(deltaBEst01),mean(deltaBEst015),mean(deltaBEst02))
+c(sd(deltaBEst01),sd(deltaBEst015),sd(deltaBEst02))
+c(mean(deltaBEst01>1.6449),mean(deltaBEst015>1.6449),mean(deltaBEst02>1.6449))
+c(quantile(deltaBEst01,0.95),quantile(deltaBEst015,0.95),quantile(deltaBEst02,0.95))
+[#}
+\end{enumerate}
+\end{exercice}
+[#when]rd_pA[#>]
+\begin{exercice}[Outil d'aide de décision pour le produit~A] ${ }$
+
+\label{exo:RD-prodA}
+\begin{enumerate}
+\item Nous avons convenu qu'une règle de décision effective pouvait s'écrire sous la forme~: \\ {\fbox{\textit{L'industriel lance le produit si } $\Est{p^A}{y^A}>p_{lim}$}} où le problème réside dans la détermination de $p_{lim}$ (a priori tel que $p_{lim}>>15\%$). \\
+Quelles sont les situations (i.e. les urnes $U^A$) qui sont susceptibles de générer l'erreur de décision la plus grave pour l'industriel~? 
+
+[#tag]reponse[#>]
+\begin{Correction}
+Les situations susceptibles de générer un risque d'erreur de première espèce sont les situations pour lesquelles $p^A\leq 15\%$, i.e. pour les urnes $U_{0.1}^A$ et $U_{0.15}^A$.
+\end{Correction}
+[#tag]enonce[#>]
+\item On rappelle que pour mesure le risque d'erreur de décision la plus grave se calcule respectivement par le mathématicien et par l'expérimentateur de la manière suivante
+$$
+P_{p^A=p}(\Est{p^A}{Y^A} > p_{lim}) \quad \mbox{ et } \quad
+\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}>p_{lim}}
+$$
+Application à $p_{lim}=15\%$, $p_{lim}=17\%$ et $p_{lim}=20\%$, i.e. complétez le tableau suivant
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~A& \hspace*{1cm} $U_{0.1}^A$\hspace*{1cm} & \hspace*{1cm} $U_{0.15}^A$\hspace*{1cm}&  $U_{0.2}^A$\\
+\hline
+Risque d'erreur I Théorique&&&\\
+$P(\Est{p^A}{Y^A} > 15\%)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(.15,p<-c(.1,.15),sqrt(p*(1-p)/1000)),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I A.E.P.&&& \\
+$\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}>15\% } \simeq \meanEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}>15\%}$ &
+[#tag]reponse[#>]
+#r{vector2texArray(c(mean(pAEst01>.15),mean(pAEst015>0.15)),vec2=(1-pnorm(.15,p<-c(.1,.15),sqrt(p*(1-p)/1000))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>] &$\times$\\
+\hline
+Risque d'erreur I Théorique&&&\\
+$P(\Est{p^A}{Y^A} > 17\%)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(.17,p<-c(.1,.15),sqrt(p*(1-p)/1000)),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I A.E.P.&&& \\
+$\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}>17\%}\simeq
+\meanEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}>17\%}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(pAEst01>.17),mean(pAEst015>0.17)),vec2=(1-pnorm(.17,p<-c(.1,.15),sqrt(p*(1-p)/1000))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I Théorique&&&\\
+$P(\Est{p^A}{Y^A} > 20\%)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(.2,p<-c(.1,.15),sqrt(p*(1-p)/1000)),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I A.E.P.&&& \\
+$\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}>20\%}\simeq
+\meanEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}>20\%}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(pAEst01>.2),mean(pAEst015>0.2)),vec2=(1-pnorm(.2,p<-c(.1,.15),sqrt(p*(1-p)/1000))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+\end{tabular}
+{#rverb]
+p<-c(0.1,0.15,.2)
+1-pnorm(0.15,p,sqrt(p*(1-p)/1000))
+1-pnorm(0.17,p,sqrt(p*(1-p)/1000))
+1-pnorm(0.2,p,sqrt(p*(1-p)/1000))
+c(mean(pAEst01>0.15),mean(pAEst015>0.15),mean(pAEst02>0.15))
+c(mean(pAEst01>0.17),mean(pAEst015>0.17),mean(pAEst02>0.17))
+c(mean(pAEst01>0.2),mean(pAEst015>0.2),mean(pAEst02>0.2))
+[#rverb}
+
+\item Parmi les deux situations $U_{0.1}^A$ $U_{0.15}^A$, n'y en a-t-il pas une générant le plus d'erreur de décision~? Pensez-vous qu'il en soit de même pour toutes les \textbf{mauvaises situations} pour l'industriel~?
+
+[#tag]reponse[#>]
+\begin{Correction}
+L'urne $U^A_{0.15}$ est plus grave que l'urne $U^A_{0.1}$ pour l'industriel car quelle que soit la valeur de $p_{lim}$ le risque d'erreur I est plus fort pour cette urne. 
+\end{Correction}
+[#tag]enonce[#>]
+
+\fbox{\begin{minipage}{14cm} \large \textbf{Désormais cette situation sera appelée la \underline{pire des (mauvaises) situations} au sens où le risque de devenir pauvre est maximal.} \end{minipage}}
+
+\item  Déterminer un unique $p_{lim}$ ne produisant pas plus de $5\%$ d'erreur de décision la plus grave pour l'industriel en utilisant soit l'information du mathématicien soit celle de l'expérimentateur. 
+
+[#tag]reponse[#>]
+\begin{Correction}
+On cherche $p_{lim}$ tel que $\meanEmp[m]{\Est{p^A}{y_{[\cdot]}^A}>p_{lim}} \simeq
+P_{p^A=15\%}\left(\Est{p^A}{Y^A}>p_{lim} \right)=5\%$. Il s'agit du quantile d'ordre 95\% de la loi $\mathcal{N}\left(15\%,\sqrt{\frac{15\%\times 85\%}{1000}}\right)$~: \\
+$p_{lim,5\%}\NotR\mathtt{qnorm(.95,.15,sqrt(.15*.85/1000))}\simeq #r{qnorm(.95,.15,sqrt(.15*.85/1000))*100}\%$.
+\end{Correction}
+[#tag]enonce[#>]
+
+\item Pour $p_{lim}=20\%$ (en fait, pour tout $p_{lim}>15\%$), pensez-vous qu'il soit possible pour l'industriel de devenir pauvre~? Si oui, comment le prouveriez-vous expérimentalement~?
+
+[#tag]reponse[#>]
+\begin{Correction}
+Il est possible de devenir pauvre même avec ce choix de $p_{lim}$. Cependant cette erreur est extrêmement faible. Pour le prouver expérimentalement, il suffit de réaliser une infinité d'expériences.
+\end{Correction}
+[#tag]enonce[#>]
+
+\item Application le jour~J: les données sont stockées dans le vecteur \texttt{yA} en \texttt{R}
+{#rverb]
+## hide
+yA<-sample(c(rep(1,171),rep(0,829)))
+## out | short=2,...,2
+yA
+mean(yA)
+[#rverb}
+[#tag]reponse[#>]
+\begin{Correction}
+Puisque $\Est{p^A}{y^A} =#r{mean(yA)*100}\%>p_{lim,5\%}=#r{qnorm(.95,.15,sqrt(.15*.85/1000))*100}\%$, on peut plutôt penser au vu des données et avec un risque d'erreur de devenir pauvre n'excédant pas 5\% que l'assertion d'intérêt est vraie et on peut conseiller l'industriel de lancer le produit~A sur le marché.
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+
+\end{exercice}
+
+[#when]rd_muB[#>]
+\begin{exercice}[Tentative d'outil d'aide à la décision pour le produit~B] ${ }$
+\label{exo:RD-prodB}
+
+\begin{enumerate}
+\item Une règle de décision effective pour le produit~B pourrait s'écrire~: \\ {\fbox{\textit{L'industriel lance le produit si } $\Est{\mu^B}{y^A}>\mu_{lim}$}} où le problème réside dans la détermination de $\mu_{lim}$ (a priori tel que $\mu_{lim}>>0.15$). \\
+Quelles sont les situations (i.e. les urnes $U^B$) qui sont susceptibles de générer l'erreur de décision la plus grave pour l'industriel~? 
+[#tag]reponse[#>]
+\begin{Correction}
+Il s'agit des urnes $U_{0.1}^B$ et $U_{0.15}^B$.
+\end{Correction}
+[#tag]enonce[#>]
+\item On rappelle que pour mesure le risque d'erreur de décision la plus grave se calcule respectivement par le mathématicien et par l'expérimentateur de la manière suivante
+$$
+P_{\mu^B=\mu}(\Est{\mu^B}{Y^B} > \mu_{lim}) \quad \mbox{ et } \quad
+\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}>\mu_{lim}}
+$$
+Application à $\mu_{lim}=0.15$, $\mu_{lim}=0.17$ et $\mu_{lim}=0.2$, i.e. complétez le tableau suivant
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~B& \hspace*{1cm} $U_{0.1}^B$\hspace*{1cm} & \hspace*{1cm} $U_{0.15}^B$\hspace*{1cm}&  $U_{0.2}^B$\\
+\hline
+Risque d'erreur I Théorique&&&\\
+$P(\Est{\mu^B}{Y^B} > 0.15)$ &[#tag]reponse[#>]
+#r{vector2texArray((1-pnorm(.15,mu<-c(.1,.15),sqrt(varB[1:2]/1000))),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I A.E.P.&&& \\
+$\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}>0.15} \simeq \meanEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}>0.15}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(muBEst01>.15),mean(muBEst015>0.15)),vec2=(1-pnorm(.15,mu<-c(.1,.15),sqrt(varB[1:2]/1000))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I Théorique&&&\\
+$P(\Est{\mu^B}{Y^B} > 0.17)$ &[#tag]reponse[#>]
+#r{vector2texArray((1-pnorm(.17,mu<-c(.1,.15),sqrt(varB[1:2]/1000))),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I A.E.P.&&& \\
+$\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}>0.17} \simeq \meanEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}>0.17}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(muBEst01>.17),mean(muBEst015>0.17)),vec2=(1-pnorm(.17,mu<-c(.1,.15),sqrt(varB[1:2]/1000))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I Théorique&&&\\
+$P(\Est{\mu^B}{Y^B} > 0.2)$ &[#tag]reponse[#>]
+#r{vector2texArray((1-pnorm(.2,mu<-c(.1,.15),sqrt(varB[1:2]/1000))),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+Risque d'erreur I A.E.P.&&& \\
+$\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}>0.2} \simeq \meanEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}>0.2}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(muBEst01>.2),mean(muBEst015>0.2)),vec2=(1-pnorm(.2,mu<-c(.1,.15),sqrt(varB[1:2]/1000))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]& $\times$\\
+\hline
+\end{tabular}
+{#rverb]
+mu<-c(0.1,0.15,.2)
+1-pnorm(0.15,mu,sqrt(varB/1000))
+1-pnorm(0.17,mu,sqrt(varB/1000))
+1-pnorm(0.2,mu,sqrt(varB/1000))
+c(mean(muBEst01>0.15),mean(muBEst015>0.15),mean(muBEst02>0.15))
+c(mean(muBEst01>0.17),mean(muBEst015>0.17),mean(muBEst02>0.17))
+c(mean(muBEst01>0.2),mean(muBEst015>0.2),mean(muBEst02>0.2))
+[#rverb}
+
+\item Reprenez la démarche établie dans l'exercice précédent et proposez une règle de décision (du point de vue du mathématicien et de celui de l'expérimentateur) en utilisant les urnes $U^B$.
+
+[#tag]reponse[#>]
+\begin{Correction}
+On se place dans l'urne $U_{0.15}^B$ et on cherche $\mu_{lim}$ tel que $\meanEmp[m]{\Est{\mu^B}{y_{[\cdot]}^B}>\mu_{lim}} \simeq
+P_{U_{0.15}^B}\left(\Est{\mu^B}{Y^B}>\mu_{lim} \right)=5\%$. Il s'agit du quantile d'ordre 95\% de la loi $\mathcal{N}\left(15\%,\sqrt{\frac{\sigma^2_B}{1000}}\right)$~: \\
+$\mu_{lim,5\%}\NotR\mathtt{qnorm(.95,.15,sqrt(varB[2]/1000))}\simeq #r{qnorm(.95,.15,sqrt(varB[2]/1000))}$.
+\end{Correction}
+[#tag]enonce[#>]
+\item L'urne $U_{0.15}^A$ est-elle une situation envisageable pour le produit~B~? (Aurait-il été possible de construire d'autres urnes de moyenne $0.15$~? Si oui, combien y en a-t-il~?)
+
+[#tag]reponse[#>]
+\begin{Correction}
+L'urne $U_{0.15}^A$ est une situation envisageable pour le produit~B car la moyenne des numéros des boules vaut 0.15. On notera qu'il existe un très très grand nombre d'urnes dont la moyenne des numéros des boules vaut 0.15.
+\end{Correction}
+[#tag]enonce[#>]
+\item La règle de décision construite ne dépend-elle pas de la répartition de la population totale~? (rappelons que même dans la pire des situations, plusieurs répartitions de la population totale peuvent conduire à une moyenne théorique de $0.15$~?
+
+[#tag]reponse[#>]
+\begin{Correction}
+En conséquence de la précédente question, on s'aperçoit que même dans la pire des situations ($\mu^B=0.15$) le choix de $\mu_{lim}$ n'est pas unique et dépend de l'urne (0.168573 pour l'urne $U_{0.15}^A$ 0.174 pour l'urne $U_{0.15}^B$) donc de la répartition de la population totale.
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+
+[#when]rd_delta_muB[#>]
+\begin{exercice}
+\begin{enumerate}
+\item Pour construire une règle de décision effective pour le produit~B, il faut passer par l'introduction d'un nouveau paramètre appelé \textbf{paramètre d'écart standardisé} de la forme 
+$$ \delta_{\mu^B,0.15} = \frac{\mu^B-0.15}{\sqrt{\frac{\sigma_B^2}n}} 
+$$
+Complétez les assertions ci-dessous~:
+\begin{list}{$\bullet$}{}
+\item Le produit~B est rentable si $\mu^B> [#tag]reponse[#>]0.15[#tag]-reponse[#>]\ldots \ldots[#tag]enonce[#>]
+$ équivalent à $\delta_{\mu^B,0.15} [#tag]reponse[#>]>0[#tag]-reponse[#>]\ldots\ldots \ldots[#tag]enonce[#>]
+$.
+\item Le paramètre $\delta_{\mu^B,0.15}$ (tout comme le paramètre $\mu^B$) est un paramètre [#tag]reponse[#>]INCONNU[#tag]-reponse[#>]$\ldots \ldots \ldots \ldots $[#tag]enonce[#>]
+\end{list}
+\item Estimation de ce nouveau paramètre~: \\
+${\displaystyle\Est{\delta_{\mu^B,0.15}}{Y} =  \frac{\Est{\mu^B}{Y^B}-0.15 }{\sqrt{ \frac{\Est{\sigma_B^2}{Y^B}}{n}}} }$, où ${\displaystyle \Est{\sigma_B^2}{Y^B} = \frac1n \sum_{i=1}^{n-1} \left(Y^B_i -\overline{Y^B}  \right)^2 }$. La motivation étant de contrôler le risque maximal de devenir pauvre, on a le résultat dans la pire des situations (i.e. lorsque $\mu^B=0.15$), 
+$$ \Est{\delta_{\mu^B,0.15}}{Y^B} \SuitApprox \mathcal{N}(0,1)
+\quad \mbox{ et } \quad
+\Est{\delta_{\mu^B,0.15}}{Y^A} \SuitApprox \mathcal{N}(0,1)
+$$ 
+Expliquez quelle amélioration nous avons apporté pour l'étude du \PR{B} et vérifiez-le expérimentalement en complétant le tableau suivant~:
+
+[#tag]reponse[#>]
+\begin{Correction}
+Dans la pire des situations, la loi de $\Est{\delta_{\mu^B,0.15}}{Y^\bullet}$ ne dépend plus de l'urne!
+\end{Correction}
+[#tag]enonce[#>]
+\begin{tabular}{|c|c|c|}
+\hline
+Urnes & \hspace*{1cm}$U_{0.15}^A$\hspace*{1cm} & \hspace*{1cm}$U_{0.15}^B$ \hspace*{1cm}\\
+\hline
+Risque d'erreur I Théorique&&\\
+$P(\Est{\delta_{\mu^B,0.15}}{Y^\bullet} > 1.2816)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(rep(1.2816,2)),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+\hline
+Risque d'erreur I A.E.P.&&\\
+$\meanEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^\bullet_{[\cdot]}}>1.2816} \simeq 
+\meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^\bullet_{[\cdot]}}>1.2816}
+$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaBEstUA015>1.2816),mean(deltaBEst015>1.2816)),vec2=(1-pnorm(rep(1.2816,2))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+\hline
+Risque d'erreur I Théorique&&\\
+$P(\Est{\delta_{\mu^B,0.15}}{Y^\bullet} > 1.6449)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(rep(1.6449,2)),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+\hline
+Risque d'erreur I A.E.P.&& \\
+$\meanEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^\bullet_{[\cdot]}}>1.6449} \simeq 
+\meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^\bullet_{[\cdot]}}>1.6449}
+$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaBEstUA015>1.6449),mean(deltaBEst015>1.6449)),vec2=(1-pnorm(rep(1.6449,2))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+\hline
+Risque d'erreur I Théorique&&\\
+$P(\Est{\delta_{\mu^B,0.15}}{Y^\bullet} > 1.96)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(rep(1.96,2)),vec2=NULL,filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+\hline
+Risque d'erreur I A.E.P.&&\\
+$\meanEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^\bullet_{[\cdot]}}>1.96} \simeq 
+\meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^\bullet_{[\cdot]}}>1.96}
+$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaBEstUA015>1.96),mean(deltaBEst015>1.96)),vec2=(1-pnorm(rep(1.96,2))),filter=percentFilter,3)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+1-pnorm(c(1.2811,1.6449,1.96))
+c(mean(deltaBEstUA015>1.2811),mean(deltaBEst015>1.2811))
+c(mean(deltaBEstUA015>1.6449),mean(deltaBEst015>1.6449))
+c(mean(deltaBEstUA015>1.96),mean(deltaBEst015>1.96))
+[#rverb}
+\item Formulez une règle de décision ne produisant pas plus de $\alpha=5\%$ de risque d'erreur de première espèce (i.e. de devenir pauvre) 
+
+[#tag]reponse[#>]
+\begin{Correction}
+Accepter l'assertion d'intérêt si $\Est{\delta_{\mu^B,0.15}}{y^B} > \delta_{lim,5\%}$ avec $\delta_{lim,5\%}$ tel que \\$P_{\mu^B=0.15}\left( \Est{\delta_{\mu^B,0.15}}{Y^B} > \delta_{lim,5\%}\right)=5\%$. On a $\delta_{lim,5\%}=  \quant{\mathcal{N}(0,1) }{95\%}\NotR \mathtt{qnorm(0.95)} \simeq #r{qnorm(.95)}$.
+\end{Correction}
+[#tag]enonce[#>]
+\item Appliquez-la avec les données obtenues le jour~J et stockées dans le vecteur $\texttt{yB}$.
+[#r<]
+attach.data('industriel.RData')
+attach(industriel)
+[#>]
+{#rverb]
+##out | short=3,...,3
+yB
+length(yB)
+mean(yB)
+sd(yB)
+sqrt(var(yB))
+(mean(yB)-0.15)/sqrt(var(yB)/length(yB))
+[#rverb}
+
+[#tag]reponse[#>]
+\begin{Correction}
+Puisque $\Est{\delta_{\mu^B,0.15}}{y^B}\NotR \mathtt{(mean(yB)-0.15)/sqrt(var(yB)/length(yB))}\simeq #r{(mean(yB)-0.15)/sqrt(var(yB)/length(yB))} \ngtr \mathtt{qnorm(0.95)}\simeq #r{qnorm(.95)}$, au vu des données et avec un risque de devenir pauvre n'excédant pas 5\%, on ne peut pas plutôt penser que le produit~B est rentable.
+\end{Correction}
+[#tag]enonce[#>]
+\item Même question avec $\alpha=10\%$ et $\alpha=2.5\%$.
+
+[#tag]reponse[#>]
+\begin{Correction}
+Mêmes conclusions car\\ $#r{(mean(yB)-0.15)/sqrt(var(yB)/length(yB))}<\delta_{lim,10\%}\NotR \mathtt{qnorm(.9)}\simeq #r{qnorm(.9)}<\delta_{lim,2.5\%}\NotR \mathtt{qnorm(.975)}\simeq #r{qnorm(.975)}$
+\end{Correction}
+[#tag]enonce[#>]
+\item Peut-on appliquer l'outil d'aide à la décision du produit~B à la problématique du produit~A~? Si oui, appliquez-le à $\alpha=5\%$.
+{#rverb]
+mean(yA)
+sd(yA)
+(mean(yA)-0.15)/sqrt(var(yA)/length(yA))
+[#rverb}
+\end{enumerate}
+
+[#tag]reponse[#>]
+\begin{Correction}
+On peut tout à fait appliquer l'outil du produit~B à celui du produit~A (car il peut être considéré comme un produit~B particulier). On parviendrait à la même conclusion car \\
+$\frac{\Est{p^A}{y^A}-15\%}{\sqrt{\frac{\Est{\sigma_A}{y^A}}{n}}} \NotR \mathtt{(mean(yA)-0.15)/sqrt(var(yA)/length(yA))}\simeq #r{(mean(yA)-0.15)/sqrt(var(yA)/length(yA))} > \delta_{lim,5\%}\simeq #r{qnorm(.95)}$.
+\end{Correction}
+[#tag]enonce[#>]
+\end{exercice}
+[#r<]detach(industriel);detach.data("industriel.RData")
+[#when]rd_delta_pA[#>]
+\begin{exercice}\label{exo:RD2-prodA}
+On peut appliquer la même démarche pour le produit~A que celle développée pour le produit~B, i.e. définir une règle de décision via le paramètre d'écart standardisé défini par
+\[
+\delta_{p^A,15\%} = \frac{p^A-15\%}{\sqrt\frac{15\%\times 85\%}{n}}
+\]
+\begin{enumerate}
+\item Complétez la phrase suivante~: le produit~A est rentable si $p^A> [#tag]reponse[#>]15\% [#tag]-reponse[#>]\ldots \ldots[#tag]enonce[#>]
+$ équivalent à $\delta_{p^A,15\%} [#tag]reponse[#>]>0 [#tag]-reponse[#>]\ldots\ldots \ldots[#tag]enonce[#>]
+$.
+
+Le mathématicien fournit la loi de probabilités de l'estimateur de ce nouveau paramètre pour l'urne $U_{0.15}^A$
+\[
+\Est{\delta_{p^A,15\%}}{Y^A} = \frac{\Est{p^A}{Y^A}-15\%}{\sqrt\frac{15\%\times 85\%}{n}} \SuitApprox \mathcal{N}(0,1).
+\]
+
+\item Constuire et appliquez la règle de décision au seuil $\alpha=5\%$.
+[#r<]attach.data("industriel.RData");attach(industriel)[#>]
+{#rverb]
+(mean(yA)-0.15)/sqrt(0.15*0.85/length(yA))
+[#rverb}
+
+[#tag]reponse[#>]
+\begin{Correction}
+Au seuil $\alpha=5\%$, on accepte l'assertion d'intérêt (i.e. le produit~A est rentable) si $\Est{\delta_{p^A,15\%}}{y^A} > \delta_{lim,5\%}$ avec $\delta_{lim,5\%}$ tel que \\$P_{p^A=15\%}\left( \Est{\delta_{p^A,15\%}}{Y^A} > \delta_{lim,5\%}\right)=5\%$.
+Puisque \\ $\Est{\delta_{p^A,15\%}}{y^A}\NotR \mathtt{(mean(yA)-0.15)/sqrt(0.15*0.85/length(yA))} \simeq #r{(mean(yA)-0.15)/sqrt(0.15*0.85/length(yA))} >
+\delta_{lim,5\%}=  \quant{\mathcal{N}(0,1) }{95\%}\NotR \mathtt{qnorm(0.95)} \simeq #r{qnorm(.95)}$, peut plutôt penser que l'assertion d'intérêt est vraie au seuil de 5\%.
+\end{Correction}
+[#tag]enonce[#>]
+
+\item l'outil de décision est-il différent de celui de l'exercice~\ref{exo:RD-prodA}~? Sauriez-vous en donner les arguments mathématiques (très simples)~? (indication~: allez voir la question~2 de l'exercice~\ref{exo:loiParamEcart})
+
+[#tag]reponse[#>]
+\begin{Correction}
+L'outil d'aide à la décision est strictement équivalent à celui de l'exercice~\ref{exo:RD-prodA} car\\
+$\Est{p^A}{y^A}> \quant{\mathcal{N}\left(15\%, \sqrt\frac{15\%\times 85\%}{1000} \right)}{95\%} \Leftrightarrow \Est{\delta_{p^A,15\%}}{y^A} > \frac{\quant{\mathcal{N}\left(15\%, \sqrt\frac{15\%\times 85\%}{n} \right)}{95\%}-15\%}{\sqrt\frac{15\%\times 85\%}{1000} } = \quant{\mathcal{N}\left(0,1 \right)}{95\%}.
+$
+\end{Correction}
+[#tag]enonce[#>]
+\item Peut-on appliquer l'outil d'aide à la décision du produit~A à la problématique du produit~B~? Si oui, appliquez-le à $\alpha=5\%$.
+{#rverb]
+mean(yB)
+(mean(yB)-0.15)/sqrt(0.15*0.85/length(yB))
+[#rverb}
+
+[#tag]reponse[#>]
+\begin{Correction}
+On ne peut pas appliquer l'outil du produit~A au produit~B car celui-ci ne peut pas être considéré comme un produit~A particulier!!
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+[#r<]
+detach(industriel)
+detach.data("industriel.RData")
+
+[#when]schemaGen[#>]
+Rédaction standard
+
+Assertion d'intérêt via paramètre d'intérêt
+
+Assertion d'intérêt via paramètre d'écart standardisé
+
+Les règles de décisions associées
+
+Description des Urnes Expérimentales
+
+Les risques d'erreur de décision
+
+Peut-on construire une RD de sorte à controller les risques d'erreurs des 2 types?
+Somme des risques d'erreur des 2 types
+
+Quelle est la RD 
+
+
+[#when]prodA[#>]
+
+\begin{enumerate}
+\item Nous avons convenu qu'une règle de décision effective pouvait s'écrire sous la forme~: \\ {\fbox{\textit{L'industriel lance le produit si } $\Est{p^A}{y^A}>p_{lim}$}} où le problème réside dans la détermination de $p_{lim}$ (a priori tel que $p_{lim}>>15\%$). \\
+Quelles sont les situations (i.e. les urnes $U^A$) qui sont susceptibles de générer l'erreur de décision la plus grave pour l'industriel~? 
+
+[#tag]reponse[#>]
+\begin{Correction}
+Les situations susceptibles de générer un risque d'erreur de première espèce sont les situations pour lesquelles $p^A\leq 15\%$, i.e. pour les urnes $U_{0.1}^A$ et $U_{0.15}^A$.
+\end{Correction}
+[#tag]enonce[#>]
+\item On rappelle que pour mesure le risque d'erreur de décision la plus grave se calcule respectivement par le mathématicien et par l'expérimentateur de la manière suivante
+$$
+P_{p^A=p}(\Est{p^A}{Y^A} > p_{lim}) \quad \mbox{ et } \quad
+\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}>p_{lim}}
+$$
+Application à $p_{lim}=15\%$, $p_{lim}=17\%$ et $p_{lim}=20\%$, i.e. complétez le tableau suivant
+ 
+
+\item Parmi les deux situations $U_{0.1}^A$ $U_{0.15}^A$, n'y en a-t-il pas une générant le plus d'erreur de décision~? Pensez-vous qu'il en soit de même pour toutes les \textbf{mauvaises situations} pour l'industriel~?
+
+[#tag]reponse[#>]
+\begin{Correction}
+L'urne $U^A_{0.15}$ est plus grave que l'urne $U^A_{0.1}$ pour l'industriel car quelle que soit la valeur de $p_{lim}$ le risque d'erreur I est plus fort pour cette urne. 
+\end{Correction}
+[#tag]enonce[#>]
+
+\fbox{\begin{minipage}{14cm} \large \textbf{Désormais cette situation sera appelée la \underline{pire des (mauvaises) situations} au sens où le risque de devenir pauvre est maximal.} \end{minipage}}
+
+\item  Déterminer un unique $p_{lim}$ ne produisant pas plus de $5\%$ d'erreur de décision la plus grave pour l'industriel en utilisant soit l'information du mathématicien soit celle de l'expérimentateur. 
+
+[#tag]reponse[#>]
+\begin{Correction}
+On cherche $p_{lim}$ tel que $\meanEmp[m]{\Est{p^A}{y_{[\cdot]}^A}>p_{lim}} \simeq
+P_{p^A=15\%}\left(\Est{p^A}{Y^A}>p_{lim} \right)=5\%$. Il s'agit du quantile d'ordre 95\% de la loi $\mathcal{N}\left(15\%,\sqrt{\frac{15\%\times 85\%}{1000}}\right)$~: \\
+$p_{lim,5\%}\NotR\mathtt{qnorm(.95,.15,sqrt(.15*.85/1000))}\simeq #r{qnorm(.95,.15,sqrt(.15*.85/1000))*100}\%$.
+\end{Correction}
+[#tag]enonce[#>]
+
+\item Pour $p_{lim}=20\%$ (en fait, pour tout $p_{lim}>15\%$), pensez-vous qu'il soit possible pour l'industriel de devenir pauvre~? Si oui, comment le prouveriez-vous expérimentalement~?
+
+[#tag]reponse[#>]
+\begin{Correction}
+Il est possible de devenir pauvre même avec ce choix de $p_{lim}$. Cependant cette erreur est extrêmement faible. Pour le prouver expérimentalement, il suffit de réaliser une infinité d'expériences.
+\end{Correction}
+[#tag]enonce[#>]
+
+\item Application le jour~J: les données sont stockées dans le vecteur \texttt{yA} en \texttt{R}
+{#rverb]
+## hide
+yA<-sample(c(rep(1,171),rep(0,829)))
+## out | short=2,...,2
+yA
+mean(yA)
+[#rverb}
+[#tag]reponse[#>]
+\begin{Correction}
+Puisque $\Est{p^A}{y^A} =#r{mean(yA)*100}\%>p_{lim,5\%}=#r{qnorm(.95,.15,sqrt(.15*.85/1000))*100}\%$, on peut plutôt penser au vu des données et avec un risque d'erreur de devenir pauvre n'excédant pas 5\% que l'assertion d'intérêt est vraie et on peut conseiller l'industriel de lancer le produit~A sur le marché.
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+
+
+
+
+[#r<]
+attach.data('industriel.RData')
+attach(industriel)
+[#>]
+On peut appliquer la même démarche pour le produit~A que celle développée pour le produit~B, i.e. définir une règle de décision via le paramètre d'écart standardisé défini par
+\[
+\delta_{p^A,15\%} = \frac{p^A-15\%}{\sqrt\frac{15\%\times 85\%}{n}}
+\]
+\begin{enumerate}
+\item Complétez la phrase suivante~: le produit~A est rentable si $p^A> [#tag]reponse[#>]15\% [#tag]-reponse[#>]\ldots \ldots[#tag]enonce[#>]
+$ équivalent à $\delta_{p^A,15\%} [#tag]reponse[#>]>0 [#tag]-reponse[#>]\ldots\ldots \ldots[#tag]enonce[#>]
+$.
+
+Le mathématicien fournit la loi de probabilités de l'estimateur de ce nouveau paramètre pour l'urne $U_{0.15}^A$
+\[
+\Est{\delta_{p^A,15\%}}{Y^A} = \frac{\Est{p^A}{Y^A}-15\%}{\sqrt\frac{15\%\times 85\%}{n}} \SuitApprox \mathcal{N}(0,1).
+\]
+
+\item Constuire et appliquez la règle de décision au seuil $\alpha=5\%$.
+
+{#rverb]
+(mean(yA)-0.15)/sqrt(0.15*0.85/length(yA))
+[#rverb}
+
+[#tag]reponse[#>]
+\begin{Correction}
+Au seuil $\alpha=5\%$, on accepte l'assertion d'intérêt (i.e. le produit~A est rentable) si $\Est{\delta_{p^A,15\%}}{y^A} > \delta_{lim,5\%}$ avec $\delta_{lim,5\%}$ tel que \\$P_{p^A=15\%}\left( \Est{\delta_{p^A,15\%}}{Y^A} > \delta_{lim,5\%}\right)=5\%$.
+Puisque \\ $\Est{\delta_{p^A,15\%}}{y^A}\NotR \mathtt{(mean(yA)-0.15)/sqrt(0.15*0.85/length(yA))} \simeq #r{(mean(yA)-0.15)/sqrt(0.15*0.85/length(yA))} >
+\delta_{lim,5\%}=  \quant{\mathcal{N}(0,1) }{95\%}\NotR \mathtt{qnorm(0.95)} \simeq #r{qnorm(.95)}$, peut plutôt penser que l'assertion d'intérêt est vraie au seuil de 5\%.
+\end{Correction}
+[#tag]enonce[#>]
+
+\item l'outil de décision est-il différent de celui de l'exercice~\ref{exo:RD-prodA}~? Sauriez-vous en donner les arguments mathématiques (très simples)~? (indication~: allez voir la question~2 de l'exercice~\ref{exo:loiParamEcart})
+
+[#tag]reponse[#>]
+\begin{Correction}
+L'outil d'aide à la décision est strictement équivalent à celui de l'exercice~\ref{exo:RD-prodA} car\\
+$\Est{p^A}{y^A}> \quant{\mathcal{N}\left(15\%, \sqrt\frac{15\%\times 85\%}{1000} \right)}{95\%} \Leftrightarrow \Est{\delta_{p^A,15\%}}{y^A} > \frac{\quant{\mathcal{N}\left(15\%, \sqrt\frac{15\%\times 85\%}{n} \right)}{95\%}-15\%}{\sqrt\frac{15\%\times 85\%}{1000} } = \quant{\mathcal{N}\left(0,1 \right)}{95\%}.
+$
+\end{Correction}
+[#tag]enonce[#>]
+\item Peut-on appliquer l'outil d'aide à la décision du produit~A à la problématique du produit~B~? Si oui, appliquez-le à $\alpha=5\%$.
+{#rverb]
+mean(yB)
+(mean(yB)-0.15)/sqrt(0.15*0.85/length(yB))
+[#rverb}
+
+[#tag]reponse[#>]
+\begin{Correction}
+On ne peut pas appliquer l'outil du produit~A au produit~B car celui-ci ne peut pas être considéré comme un produit~A particulier!!
+\end{Correction}
+[#tag]enonce[#>]
+\end{enumerate}
+[#r<]
+detach(industriel)
+detach.data("industriel.RData")
+
+
+[#when]expAEP[#%]
+[#r<]
+require(CqlsEAP)
+pA<-.15
+n<-1000
+qtmp<-qbinom(c(.001,.999),n,pA)
+modtmp<-qtmp[1]:qtmp[2]
+percent<-c(10,14,15,15.1,16,20)
+mu<-c(.1,.14,.15,.151,.16,.2)
+Y1A<-Norm(.1,sqrt(.1*.9/1000))
+Y2A<-Norm(.14,sqrt(.14*.86/1000))
+Y3A<-Norm(.15,sqrt(.15*.85/1000))
+Y4A<-Norm(.151,sqrt(.151*.849/1000))
+Y5A<-Norm(.16,sqrt(.16*.84/1000))
+Y6A<-Norm(.2,sqrt(.2*.8/1000))
+alpha<-c(.5,0.9,0.95, 0.99)
+plim<-QQ(Y3A,alpha)
+Delta<-Norm(0,1)
+N<-2000000
+N1<-c(100000,180000,200000,202000,220000,300000)
+N2<-N3<-20000
+N0<- N-(N1+N2+N3)
+varB<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
+Y1B<-Norm(.1,sqrt(varB[1]/1000))
+Y2B<-Norm(.14,sqrt(varB[2]/1000))
+Y3B<-Norm(.15,sqrt(varB[3]/1000))
+Y4B<-Norm(.151,sqrt(varB[3]/1000))
+Y5B<-Norm(.16,sqrt(varB[5]/1000))
+Y6B<-Norm(.2,sqrt(varB[6]/1000))
+N1<-N2<-0
+N3<-100000
+N0<-N-N3
+varB2<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
+Y3B2<-Norm(.15,sqrt(varB2/1000))
+mulim<-QQ(Y3B,alpha)
+dlim<-QQ(Delta,alpha)
+attach.data("simEch.RData")
+attach.data("simEch2.RData")
+attach.data("simEch3.RData")
+attach.data('industriel.RData');attach(industriel)
+pAEst1<-muEst.sim[,1];pAEst3<-muEst.sim[,2];pAEst6<-muEst.sim[,3]
+pAEst4<-yy0151.sim
+pAEst2<-muEst2.sim[,1];pAEst5<-muEst2.sim[,2]
+muBEst1<-muEst.sim[,4];muBEst3<-muEst.sim[,5];muBEst6<-muEst.sim[,6]
+muBEst2<-muEst2.sim[,3];muBEst5<-muEst2.sim[,4]
+muBEst4<-yyB0151.sim[,1]
+deltaAEst1<-(pAEst1-0.15)/sqrt(0.15*0.85/n)
+deltaAEst2<-(pAEst2-0.15)/sqrt(0.15*0.85/n)
+deltaAEst3<-(pAEst3-0.15)/sqrt(0.15*0.85/n)
+deltaAEst4<-(pAEst4-0.15)/sqrt(0.15*0.85/n)
+deltaAEst5<-(pAEst5-0.15)/sqrt(0.15*0.85/n)
+deltaAEst6<-(pAEst6-0.15)/sqrt(0.15*0.85/n)
+
+deltaBEst1<-muEst.sim[,7]
+deltaBEst3<-muEst.sim[,8]
+deltaBEst6<-muEst.sim[,9]
+deltaBEst2<-muEst2.sim[,5]
+deltaBEst5<-muEst2.sim[,6]
+deltaBEst4<-(yyB0151.sim[,1]-.15)/yyB0151.sim[,2]*sqrt(1000)
+deltaBEstUA1<-(muEst.sim[,1]-.15)/sqrt(muEst.sim[,1]*(1-muEst.sim[,1])/1000)
+deltaBEstUA3<-(muEst.sim[,2]-.15)/sqrt(muEst.sim[,2]*(1-muEst.sim[,2])/1000)
+deltaBEstUA5<-(muEst.sim[,3]-.15)/sqrt(muEst.sim[,3]*(1-muEst.sim[,3])/1000)
+deltaBEstUA2<-(muEst2.sim[,1]-.15)/sqrt(muEst2.sim[,1]*(1-muEst2.sim[,1])/1000)
+deltaBEstUA4<-(muEst2.sim[,2]-.15)/sqrt(muEst2.sim[,2]*(1-muEst2.sim[,2])/1000)
+[#<]
+{#new]tablePA[#of]Tabular[#}
+{#new]tableMuB[#of]Tabular[#}
+{#new]tableDeltaA[#of]Tabular[#}
+{#new]tableDeltaB[#of]Tabular[#}
+
+{#make]tablePA[#mat]
+:row{||<<r: 1:6>>}
+:col{|<<r: rep(1:4,rep(2,4))>>}
+mrow{2}{$p$} & mcol{8}{c|}{$p^+_{lim}$}\\
+ & mcol{2}{c|}{{#>]plim[$:r{round(plim[:{col[j]}],6)*100}\%$][#}} & mcol{2}{c|}{plim!} & mcol{2}{c|}{plim!}  & mcol{2}{c|}{plim!}\\
+{#>]p1[$:r{percent[:{row[i]}]}\%$][#>} & {#>]p2[$:r{mean(pAEst:{row[i]}>plim[:{col[j]}])*100}\%$][#>} &
+{#>]p3[($\simeq:r{round((1-FF(Y:{row[i]}A,plim[:{col[j]}]))*100,2)}\%$)][#>} & p2! & p3! & p2! & p3! & p2! & p3!\\
+row*5
+[#}
+
+{#make]tableDeltaA[#mat]
+:row{||<<r: 1:6>>}
+:col{|<<r: rep(1:4,rep(2,4))>>}
+mrow{2}{$p$} & mcol{8}{c|}{$\delta^+_{lim}$}\\
+ & mcol{2}{c|}{{#>]dlim[$:r{round(dlim[:{col[j]}],6)}$][#}} & mcol{2}{c|}{dlim!} & mcol{2}{c|}{dlim!}  & mcol{2}{c|}{dlim!}\\
+p1! & {#>]d2[$:r{mean(deltaAEst:{row[i]}>dlim[:{col[j]}])*100}\%$][#>} & p3! & d2! & p3! & d2! & p3! & d2! & p3!\\
+row*5
+[#}
+
+{#make]tableMuB[#mat]
+:row{||<<r: 1:6>>}
+:col{|<<r: rep(1:4,rep(2,4))>>}
+mrow{2}{$\mu$} & mcol{8}{c|}{$\mu^+_{lim}$}\\
+ & mcol{2}{c|}{{#>]mulim[$:r{round(mulim[:{col[j]}],6)}$][#}} & mcol{2}{c|}{mulim!} & mcol{2}{c|}{mulim!} & mcol{2}{c|}{mulim!}\\
+{#>]mu1[$:r{mu[:{row[i]}]}$][#>} & {#>]mu2[$:r{mean(muBEst:{row[i]}>mulim[:{col[j]}])*100}\%$][#>} &
+{#>]mu3[($\simeq:r{round((1-FF(Y:{row[i]}B,mulim[:{col[j]}]))*100,2)}\%$)][#>} & mu2! & mu3! & mu2! & mu3! & mu2! & mu3!\\
+row*5
+[#}
+
+{#make]tableDeltaB[#mat]
+:row{||<<r: 1:6>>}
+:col{|<<r: rep(1:4,rep(2,4))>>}
+mrow{2}{$\mu$} & mcol{8}{c|}{$\delta^+_{lim}$}\\
+ & mcol{2}{c|}{{#>]dlim[$:r{round(dlim[:{col[j]}],6)}$][#}} & mcol{2}{c|}{dlim!} & mcol{2}{c|}{dlim!}  & mcol{2}{c|}{dlim!}\\
+mu1! & {#>]d2B[$:r{mean(deltaBEst:{i-2}>dlim[:{col[j]}])*100}\%$][#>} & {#>]d3B[($\simeq [#?]row[i]=="3"[#>][:r{round((1-FF(Delta,dlim[:{col[j]}]))*100,2)}\%][#?]else[#>]\mbox{ ????? }[#?]end[#>]$)][#>} & d2B! & d3B! & d2B! & d3B! & d2B! & d3B!\\
+row*5
+[#}
+[#when]expAEPFin[#r<]
+detach.data("simEch.RData")
+detach.data("simEch2.RData")
+detach.data("simEch3.RData")
+detach(industriel)
+detach.data('industriel.RData')
+[#when]prodIntro[#>]
+\begin{exercice}[Forme des Règles de Décision pour produits~A et B] $ $
+\begin{enumerate}
+\item Exprimer les assertions d'intérêt pour les produits~A et~B correspondant aux lancements des produits sur le marché en fonction des paramètres d'intérêts.
+\item Reécrire ces assertions d'intérêt à partir des paramètres d'écart standardisé fournis dans le formulaire de cours.
+\item Proposer les formes des Règles de décision associées aux expressions précédentes des assertions d'intérêts (via paramètres d'intérêt et d'écart standardisé).   
+\item  Selon ces Règles de Décision, est-il possible pour l'industriel de ne pas se tromper dans sa décision quant au lancement de chaque produit~? 
+[#tag]reponse[#>]
+\ReponseC{Selon cette règle de décison, il est impossible pour l'industriel de ne pas se tromper.}
+[#tag]enonce[#>]
+\item Exprimez les erreurs de décision éventuelles en les illustrant par des exemples de situations réelles envisageables.
+[#tag]reponse[#>]
+\ReponseC{Il est tout à fait possible par exemple que $p^A=10\%$ et d'observer $\Est{p^A}{y^A}=85\%$ ce qui conduirait (si $\mu_{lim}<85\%$) à lancer le produit à tort. De la même manière, il est tout à fait possible par exemple que $p^A=30\%$ et d'observer $\Est{p^A}{y^A}=5\%$ ce qui conduirait à ne pas lancer le produit (également) à tort.}
+[#tag]enonce[#>]
+Il en ressort qu'il y a 2 risques d'erreurs de décision~: 
+\begin{itemize}
+\item Risque d'erreur I (ou première espèce)~: risque de décider à tort l'assertion d'intérêt.
+\item Risque d'erreur II (ou deuxième expèce)~: risque de ne pas décider à tort l'assertion d'intérêt.
+\end{itemize}
+Comment les reformuleriez-vous dans les problématiques de l'industriel~? Lequel parmi ces 2 types d'erreurs est-il plus important de controler~?
+[#tag]enonce[#>]
+\item Un statisticien informe l'industriel que la règle de décision (connue de tous les statisticiens) est de lancer le produit~A si $\Est{p^A}{y^A}>16.8573\%$. L'industriel pensant que son produit est tel que $p^A\geq 20\%$ se dit que cette règle de décision sera donc toujours acceptée. Qu'en pensez-vous~? 
+[#tag]reponse[#>]
+\ReponseC{Il a tort puisque toute règle de décision comporte une erreur de décision (pouvant être faible ou élevée).}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}
+
+[#when]prodAEP[#%]
+[#>]
+\begin{exercice}[Etudes expérimentales pour produits~A et B] $ $
+
+L'expérimentateur désire mener une étude sur les outils d'aide à la décision pour les problématiques des produits~A et B. Il se propose alors de construire 6 urnes $U^A_p$ (avec $p=10\%$, $14\%$, $15\%$, $15.1\%$, $16\%$ et $20\%$) et 6 urnes $U^B_\mu$ (avec $\mu=0.1$, $0.14$, $0.15$, $0.151$, $0.16$ et $0.2$). Pour chacune des 12 urnes il construit $m=10000$ échantillons (notés $\Vect{y_{[k]}}$, $k=1,\cdots,m$) de taille $n=1000$. Voici les caractéristiques de ces urnes~:
+une urne $U^\bullet_\mu$ ($\mu\geq0$ et $\bullet$=$A$ ou $B$) contient N=2000000 boules numérotées de 0 à 3. $N^\bullet_i$ désignant le nombre de boules dont le numéro est $i$ ($i=0,\cdots,3$), les répartitions de ces urnes sont fixées de la manière suivante~:
+\begin{itemize}
+\item $U^A_p$ ($\mu=p\in [0,1]$)~: $N^A_1=N\times p$ et $N^A_2=N^A_3=0$ de sorte qu'il y a une proportion $p$ de boules numérotées 1. La moyenne et la variance des numéros sont respectivement égaux à $\mu=p$ et $\sigma^2=p(1-p)$
+\item $U^B_\mu$ ($\mu\geq0$)~: $N^B_1=N\times \mu -100000$, $N^B_2=N^B_3=20000$ de sorte que la moyenne des numéros est égale à $\mu$. La variance est égale à $\sigma^2=\mu(1-\mu)+\frac{2}{25}$.
+\end{itemize}
+Notons que $N^\bullet_0=N-(N^\bullet_1+N^\bullet_2+N^\bullet_3)$.
+
+\noindent \textbf{Résultats expérimentaux pour le produit~A~:}
+L'expérimentateur décide d'éprouver les Règles de Décision suivantes sur tous les $m=10000$ échantillons des 6 urnes~$U^A_p$~:
+\begin{center}
+Décider de lancer le produit~A si \fbox{$\Est{p^A}{y}>p^+_{lim}$}
+\end{center} 
+avec $p^+_{lim}$ pouvant prendre les 4 valeurs du tableau ci-dessous choisies sous le conseil du mathématicien. Voici les résultats fournis via la quantité $\gamma_m(p)=\overline{\Big(\Est{p^A}{y_{[.]}}>p^+_{lim}\Big)_m}$ correspondant à la proportion d'échantillons parmi les $m=10000$ conduisant au lancement du produit. Les valeurs entre parenthèses dans le tableau, fournies par le mathématicien, correspondent aux différentes valeurs de $\gamma_{+\infty}(p)$ (i.e. $m=+\infty$) qui, via la relation entre l'A.E.P. et l'A.M.P, est égal à $\gamma(p):=\PPP{\Est{p^A}{Y}>p^+_{lim}}$. 
+
+\begin{center}
+{#print]tablePA[#hlines]1-,2-,1-,,*4,1-[#vlines]|c|rl|rl|rl|rl|[#}
+\end{center}
+
+\noindent Le tableau ci-dessous est l'équivalent du précédent pour les Règles de Décision de la forme~:
+\begin{center}
+Décider de lancer le produit~A si \fbox{$\Est{\delta_{p^A,15\%}}{y}>\delta^+_{lim}$}.
+\end{center} 
+Les valeurs (resp. entre parenthèses) du tableaux correspondent à $\gamma^\prime_m(p)=\overline{\Big(\Est{\delta_{p^A,15\%}}{y_{[.]}}>\delta^+_{lim}\Big)_m}$ (resp. à $\gamma^\prime_{+\infty}(p)=\gamma^\prime(p):=\PPP{\Est{\delta_{p^A,15\%}}{Y}>\delta^+_{lim}}$).
+\begin{center}
+{#print]tableDeltaA[#hlines]1-,2-,1-,,*4,1-[#vlines]|c|rl|rl|rl|rl|[#}
+\end{center}
+
+\noindent \textbf{Résultats expérimentaux pour le produit~B~:}
+il expérimente les Règles de Décision suivantes sur tous les $m=10000$ échantillons des 6 urnes~$U^B_\mu$~:
+\begin{center}
+Décider de lancer le produit~B si \fbox{$\Est{\mu^B}{y}>\mu^+_{lim}$}
+\end{center} 
+avec $\mu^+_{lim}$ pouvant prendre les 4 valeurs du tableau ci-dessous fournissant les différentes quantités $\gamma_m(\mu)=\overline{\Big(\Est{\mu^B}{y_{[.]}}>\mu^+_{lim}\Big)_m}$ (et $\gamma_{+\infty}(\mu)=\gamma(\mu):=\overline{\Big(\Est{\mu^B}{Y}>\mu^+_{lim}\Big)_m}$).
+\begin{center}
+{#print]tableMuB[#hlines]1-,2-,1-,,*4,1-[#vlines]|c|rl|rl|rl|rl|[#}
+\end{center}
+
+\noindent Le tableau ci-dessous est l'équivalent du précédent pour les Règles de Décision de la forme~:
+\begin{center}
+Décider de lancer le produit~B si \fbox{$\Est{\delta_{\mu^B,0.15}}{y}>\delta^+_{lim}$}.
+\end{center} 
+Il fournit toutes les quantités $\gamma^\prime_m(\mu)=\overline{\Big(\Est{\delta_{\mu^A,0.15}}{y_{[.]}}>\delta^+_{lim}\Big)_m}$ (ainsi que $\gamma^\prime_{+\infty}(\mu)=\gamma^\prime(\mu):\overline{\Big(\Est{\delta_{\mu^A,0.15}}{Y}>\delta^+_{lim}\Big)_m}$).
+
+\begin{center}
+{#print]tableDeltaB[#hlines]1-,2-,1-,,*4,1-[#vlines]|c|rl|rl|rl|rl|[#}
+\end{center}
+
+\begin{enumerate}
+\item En vous rappelant que pour un paramètre de moyenne $\mu$, la loi de probabilité de son estimateur $\Est{\mu}{Y}$ est $N(\mu,\frac{\sigma}{\sqrt{n}})$, donner les instructions~\texttt{R} qui ont permis au mathématicien de déterminer les valeurs de $\gamma(p)$ et $\gamma(\mu)$ dans les tableaux relatifs aux paramètres d'intérêt $p^A$ et $\mu^B$.
+\item A quoi correspondent les instructions suivantes~:
+{#rverb]
+p<-c(.1,.14,.15,.151,.16,.2)
+100*pnorm(.169,p,sqrt(p*(1-p)/1000))
+mu<-p
+100*pnorm(.169,mu,sqrt((mu*(1-mu)+2/25)/1000))
+[#}
+\item En vous appuyant sur les résultats du formulaire de cours, indiquer les instructions~\texttt{R} permettant de déterminer les valeurs de $\gamma(15\%)$ et $\gamma(0.15)$ pour les tableaux relatifs aux paramètres d'écart standardisé $\delta_{p^A,15\%}$ et $\delta_{\mu^B,0.15}$.
+\item A quoi correspond l'instruction suivante~:
+{#rverb]
+100*pnorm(1.645)
+[#}
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Finalisation des Règles de Décision] $ $
+
+A partir des résultats expérimentaux de l'exercice précédent, on se propose de finaliser les Règles de Décision ($\mu$ pouvant être remplacé par $p$ pour le produit~A). Les quantités $p^+_{lim}$, $\mu^+_{lim}$ et $\delta^+_{lim}$ sont ici appelés \underline{seuils limites}.
+\begin{enumerate}
+\item Evaluer (approximativement en fonction de $\gamma_m(\mu)$) les risques d'erreurs de décision de type~I (notés $\alpha(\mu))$ et de type~II (notés $\beta(\mu)$). Exprimez-les en fonction de $\gamma(\mu)$ ou $\gamma^\prime(\mu)$.
+\item Quelle est la plus grande valeur possible de la somme des deux risques de type~I~et~II~?
+Peut-on proposer une Règle de Décision permettant de controler simultanément tous les risques d'erreurs~I~et~II~? Quel risque sera alors à controler~?
+\item Quelles sont les situations (i.e. valeurs de $\mu$) à envisager pour générer une erreur de décision de type~I~? Elles seront appelées \textbf{Mauvaises situations} en opposition aux \textbf{Bonnes situations} qui correspondent aux valeurs de $\mu$ pour lesquelles l'assertion d'intérêt est vraie.
+\item Pour quelle valeur de $\mu$ le risque de type~I est-il maximal~? 
+Quelle est alors la \textbf{pire des (mauvaises) situations} qui permet de controler simultanément tous les risques de type~I~? Les urnes $U^\bullet_\mu$ correspondant à cette pire des situations sont-elles uniques~? 
+\item Proposer des Règles de Décision associées à un risque maximal de type~I, noté $\alpha$, fixé à (ou n'excédant pas) $5\%$. Même question pour $\alpha=1\%$, $\alpha=10\%$.
+\item Dans la pire des situations, combien en proportion d'estimations (du paramètre d'intérêt ou du paramètre d'écart standardisé selon le cas étudié) sont plus petit que les seuils limites.    
+Comment peut-on alors définir directement ces seuils limites~? En déduire les instructions~\texttt{R} permettant de les obtenir.   
+\item Dans le cas où la pire des situations correspond à plusieurs urnes, est-il possible de finaliser une unique Règle de Décision associée à $\alpha=5\%$ basée sur le paramètre d'intérêt~?Même question pour la Règle de Décision basée sur le paramètre d'écart standardisé. Quelles conclusions en tirez-vous sur les différentes Règles de Décision proposées précédemment~?    
+\end{enumerate}
+
+\end{exercice}
+
+[#when]prodJourJ[#<] Contexte
+{#new]pA[#of]ParamFrame[#in]pA[#,]p[#,]asymp[#,].nomPb[A][#,].yR[yA][#r<]
+attach.data('industriel.RData');attach(industriel)
+yA<-yA
+detach(industriel);detach.data('industriel.RData')
+[#}
+
+
+{#new]pATest[#of]TestParam[#in]pA[#,]:pA[#,].theta0R[0.15][#,].theta0Tex[15\%][#,].side[>][#,].assertion[le produit~A est rentable][#}
+
+{#new]muB[#of]ParamFrame[#in]muB[#,]m[#,]a[#,].nomPb[B][#,].yR[yB][#r<]
+attach.data('industriel.RData');attach(industriel)
+yB<-yB
+detach(industriel);detach.data('industriel.RData')
+[#}
+
+{#new]muBTest[#of]TestParam[#in]muB[#,]:muB[#,].theta0R[0.15][#,].side[>][#,].assertion[le produit~B est rentable][#}
+
+[#>]
+\begin{exercice}[Rédaction standard et abrégée]$ $\\
+L'industriel est disposé à acheter deux échantillons $\Vect{y^A}$ et $\Vect{y^B}$ pour lesquels il obtient \texttt{mean(yA)=:r{pA:mean(yA)}}, \texttt{mean(yB)=:r{muB:mean(yB)}}, \texttt{sd(yB)=:r{muB:sd(yB)}}. Nous proposons les \textbf{rédactions standard} des corrections pour les questions~:
+\begin{center}
+Est-ce que le produit est rentable au risque maximal de type~I fixé à $\alpha=5\%$~?
+\end{center}
+En vous appuyant sur la construction des outils d'aide à la décision proposés dans les exercices précédents, expliquer les différents ingrédients de ces rédactions standard. Notamment, à quoi correspondent $\mathbf{H_1}$, non $\mathbf{H_1}$ et $\mathbf{H_0}$~?
+Ces rédactions représentent-elles de bons résumés des principales informations relatives aux outils d'aide à la décision pour les produits~A et~B~?
+
+\noindent \fbox{Rédaction Standard pour Produit~A}\hrulefill
+{#redaction]pATest[#,]s[#.indic]q[#}
+
+\noindent \fbox{Rédaction Standard pour Produit~B}\hrulefill
+{#redaction]muBTest[#,]s[#.indic]q[#}
+
+\noindent \textbf{Rédactions Abrégées~:} commenter les rédactions abrégées plus axées sur la pratique~:
+
+\noindent \fbox{Rédaction Abrégée pour Produit~A}\hrulefill
+{#redaction]pATest[#,]a[#.indic]q[#}
+
+\noindent \fbox{Rédaction Abrégée pour Produit~B}\hrulefill
+{#redaction]muBTest[#,]a[#.indic]q[#}
+\end{exercice}
+[#case}

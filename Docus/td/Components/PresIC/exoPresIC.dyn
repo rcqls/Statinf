@@ -1,0 +1,23 @@
+[#>]\begin{exercice}
+[#tag]enonce[#>]
+Entre les deux tours d'une élection présidentielle, un candidat, Max, souhaiterait ``rapidement'' avoir un a priori sur la proportion d'intentions de vote en sa faveur. On notera $\POP[Max]=\left( \mathcal{Y}_1^{Max},\ldots, \mathcal{Y}_N^{Max}\right)$ l'ensemble des réponses des $N$ électeurs (où $\mathcal{Y}_i^{Max}$ vaut 1 si l'individu $i$ a l'intention de voter pour Max et 0 sinon).
+
+\begin{enumerate}
+\item Déterminez en fonction de $\POP[Max]$, le nombre puis la proportion d'intentions de vote en faveur de Max, notée respectivement $N^{Max}$ et $p^{Max}$.
+[#tag]reponse[#>]
+\ReponseC{$p^{Max}:= \frac1N \sum_{i=1}^N \mathcal{Y}_i^{Max}$.}
+[#tag]enonce[#>]
+\item $N$ étant très grand, quel serait une solution réalisable permettant d'obtenir un remplaçant (i.e. estimation) de $p^{Max}$. Proposez les notations adéquates.
+[#tag]reponse[#>]
+\ReponseC{Une solution consiste à interroger un nombre $n<<N$ d'individus. Ce jeu de données pourrait être noté $\Vect{y^{Max}}$ et le remplaçant de $p^{Max}$ pourrait alors être calculé par $\Esp{p^{Max}}{y^{Max}}:=\frac1n \sum_{i=1}^n y_i^{Max}$.}
+[#tag]enonce[#>]
+\item Deux personnes se proposent d'interroger chacun $n=1000$ électeurs. On notera $\Vect{y}_{[1]}$ et $\Vect{y}_{[2]}$ ces deux jeux de données recueillis. Les estimations correspondantes sont respectivement de 47\% et 52\%. Comment interpréter la différence des résultats qui, si on leur fait une confiance aveugle, conduit à deux conclusions différentes?
+[#tag]reponse[#>]
+\ReponseC{La différence des résultats peut s'expliquer par le fait qu'un échantillon de taille $n$ ne constitue qu'une sous-information de la population de taille $N$.}
+[#tag]enonce[#>]
+\item Connaissez-vous d'autres applications nécessitant une estimation d'un paramètre inconnu~?
+[#tag]reponse[#>]
+\ReponseC{normes de production, normes écologiques,\ldots}
+[#tag]enonce[#>]
+\end{enumerate}
+\end{exercice}

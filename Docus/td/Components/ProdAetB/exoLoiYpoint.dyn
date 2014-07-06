@@ -1,0 +1,511 @@
+[#r<]
+percentFilter<-function(v,dcm=3) paste(round(v*100,dcm),'\\%',sep='')
+vector2texArray<-function(vec,vec2=NULL,filter=prettyNum,...){
+if(is.null(vec)) return("")
+vec<-filter(vec,...) 
+if(!is.null(vec2)) {
+vec<-paste(vec,'\\simeq',filter(vec2,...))
+}
+vec<-paste('$',vec,'$',sep="") 
+paste(vec,collapse=" & ")
+}
+[#>]
+
+
+[#tag]enonce[#>]
+\begin{exercice}[Loi de probabilité du choix d'une boule dans une urne]
+Soit $Y^\bullet$ ($\bullet=A,B$) la variable aléatoire correspondant au choix au hasard d'une boule parmi $N$ (=2000000) numérotées de 0 à $J^\bullet$ (ici $J^A=1$ et $J^B=3$). Dans la suite, on notera $N_j$ le nombre de boules numérotées $j$.
+
+Un mathématicien sait alors calculer les quantités suivantes~: 
+\begin{eqnarray*}
+P(Y^\bullet=j)&=&\frac{N_j}N , \\ 
+\Esp(Y^\bullet)&=&\mu^\bullet =\frac1N \sum_{j=1}^N \mathcal{Y}_j^\bullet=
+\sum_{j=0}^{J^\bullet} P(Y^\bullet=j) \times j  = 0\times \frac{N_0}N + \cdots + J^\bullet \times \frac{N_{J^\bullet}}N \\
+\Var(Y^\bullet)&=&\sigma_\bullet^2=\frac1N \sum_{j=1}^N \left(\mathcal{Y}_j^\bullet-\mu^\bullet\right)^2=
+\sum_{j=0}^{J^\bullet} \left(j-\mu^\bullet\right)^2 \times P(Y^\bullet=j) \\
+&=& \sum_{j=0}^{J^\bullet} j^2\times P(Y^\bullet=j) -\big(\sum_{j=0}^{J^\bullet} P(Y^\bullet=j) \times j \big)^2=\Esp((Y^\bullet)^2)-\Esp(Y^\bullet)^2\\
+&=& \big(0^2\times \frac{N_0}N + \cdots + (J^\bullet)^2 \times \frac{N_{J^\bullet}}N\big) - \big(0\times \frac{N_0}N + \cdots + J^\bullet \times \frac{N_{J^\bullet}}N\big)^2
+\end{eqnarray*}
+
+\begin{enumerate}
+\item Urnes~A ($J^A=1$): on considère trois urnes différentes (décrites ci-dessous). Un expérimentateur choisit $m=10000$ boules au sein de chacune de ces trois urnes et stockes les informations dans trois vecteurs en \texttt{R}: \texttt{yA01}, \texttt{yA015} et \texttt{yA02}.
+Comparez (en remplissant le tableau ci-dessous) les résultats expérimentaux avec les résultats du mathématicien qui dans ce cas particulier se réduisent à~:
+\begin{eqnarray*}
+P(Y^A=0)&=& 1-p^A, P(Y^A=1)=p^A, \\
+\Esp(Y^A)&=& \mu^A=p^A  \\
+\sqrt{\Var(Y^A)}&=& \sigma_A = \sqrt{p^A(1-p^A)}. 
+\end{eqnarray*}
+
+[#r<]
+p<-c(0.1,0.15,0.2)
+m<-10000
+N<-2000000
+N1<-200000;yA01<-sample(c(rep(0,N-N1),rep(1,N1)),m,repl=T)
+N1<-300000;yA015<-sample(c(rep(0,N-N1),rep(1,N1)),m,repl=T)
+N1<-400000;yA02<-sample(c(rep(0,N-N1),rep(1,N1)),m,repl=T)
+[#>]
+\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~A&  $U_{0.1}^A$ &  $U_{0.15}^A$&  $U_{0.2}^A$\\
+\hline
+Caractéristique & $N_1=200000$ & $N_1=300000$ & $N_1=400000$  \\
+\hline
+$P(Y^A=0)$ & [#tag]reponse[#>]#r{vector2texArray(1-p,filter=percentFilter)}[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Fréquence A.E.P.&&&\\
+$\meanEmp[m]{\Vect{y^A}_{[\cdot]}=0}\simeq \meanEmp[\infty]{\Vect{y^A}_{[\cdot]}=0}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(yA01==0),mean(yA015==0),mean(yA02==0)),1-p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\Esp(Y^A)$ &[#tag]reponse[#>]#r{vector2texArray(p,filter=percentFilter)}[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Moyenne A.E.P. &&&\\
+$\meanEmp[m]{\Vect{y^A}_{[\cdot]}}\simeq \meanEmp[\infty]{\Vect{y^A}_{[\cdot]}}$ &[#tag]reponse[#>]#r{vector2texArray(c(mean(yA01),mean(yA015),mean(yA02)),p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\sigma(Y^A)=\sqrt{\Var(Y^A)}$ &[#tag]reponse[#>]#r{vector2texArray(sqrt(p*(1-p)),filter=percentFilter)}[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Vect{y^A}_{[\cdot]}}\simeq \sdEmp[\infty]{\Vect{y^A}_{[\cdot]}}$ &[#tag]reponse[#>]#r{vector2texArray(c(sd(yA01),sd(yA015),sd(yA02)), sqrt(p*(1-p)),filter=percentFilter)}[#tag]-reponse[#>]&& [#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+p<-c(0.1,0.15,0.2)
+1-p
+sqrt(p*(1-p))
+## out | short=1,...,1
+yA01
+## out | short=1,...,1
+yA015
+## out | short=1,...,1
+yA02
+c(mean(yA01==0),mean(yA015==0),mean(yA02==0))
+c(mean(yA01),mean(yA015),mean(yA02))
+c(sqrt(var(yA01)),sqrt(var(yA015)),sqrt(var(yA02)))
+c(sd(yA01),sd(yA015),sd(yA02))
+[#}
+
+\item Même question relative aux urnes~B ($J^B=3$): l'expérimentateur a cette fois-ci choisi $m=10000$ boules au hasard dans trois urnes notées $U_{0.1}^B$, $U_{0.15}^B$ et $U_{0.2}^B$ (décrites ci-dessous). Les informations sont maintenant stockées dans les vecteurs \texttt{yB01}, \texttt{yB015} et \texttt{yB02}.
+
+[#r<]
+N1<-c(100000,200000,300000)
+N2<-N3<-20000
+N0<- N-(N1+N2+N3)
+N0/N
+N3/N
+(0*N0+1*N1+2*N2+3*N3)/N
+varB<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
+m<-10000
+N<-2000000;N2<-N3<-20000
+N1<-100000;yB01<-sample(c(rep(0,N-(N1+N2+N3)),rep(1,N1),rep(2,N2),rep(3,N3)),m,repl=T)
+N1<-200000;yB015<-sample(c(rep(0,N-(N1+N2+N3)),rep(1,N1),rep(2,N2),rep(3,N3)),m,repl=T)
+N1<-300000;yB02<-sample(c(rep(0,N-(N1+N2+N3)),rep(1,N1),rep(2,N2),rep(3,N3)),m,repl=T)
+N1<-c(100000,200000,300000)
+[#>]
+\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~B& $U_{0.1}^B$ & $U_{0.15}^B$& $U_{0.2}^B$\\
+\hline
+Caractéristique & $N_1=100000$ & $N_1=200000$ & $N_1=300000$  \\
+& $N_2=N_3=20000$ & $N_2=N_3=20000$ & $N_2=N_3=20000$ \\
+\hline
+$P(Y^B=k)$ $k=0,3$&[#tag]reponse[#>]
+#r{vector2texArray(N0/N)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Vect{y^B}_{[\cdot]}=k}\simeq \meanEmp[\infty]{\Vect{y^B}_{[\cdot]}=k}$ $k=0,3$ &[#tag]reponse[#>]
+#r{vector2texArray(c(mean(yB01==0),mean(yB015==0),mean(yB02==0)),N0/N)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\Esp(Y^B)$ &[#tag]reponse[#>]
+#r{vector2texArray((0*N0+1*N1+2*N2+3*N3)/N)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Moyenne A.E.P. &&&\\
+$\meanEmp[m]{\Vect{y^B}_{[\cdot]}}\simeq \meanEmp[\infty]{\Vect{y^B}_{[\cdot]}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(yB01),mean(yB015),mean(yB02)),(0*N0+1*N1+2*N2+3*N3)/N)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+$\sigma(Y^B)=\sqrt{\Var(Y^B)}$ &[#tag]reponse[#>]
+#r{vector2texArray(sqrt(varB))}
+[#tag]-reponse[#>]&&[#tag]enonce[#>] \\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Vect{y^B}_{[\cdot]}}\simeq \sdEmp[\infty]{\Vect{y^B}_{[\cdot]}}$ &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(yB01),sd(yB015),sd(yB02)),sqrt(varB),round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+N1<-c(100000,200000,300000)
+N2<-N3<-20000
+N0<- N-(N1+N2+N3)
+N0/N
+N3/N
+(0*N0+1*N1+2*N2+3*N3)/N
+varB<-((0^2*N0+1^2*N1+2^2*N2+3^2*N3)/N) - ((0*N0+1*N1+2*N2+3*N3)/N)^2
+sqrt(varB)
+## out | short=1,...,1
+yB01
+## out | short=1,...,1
+yB015
+## out | short=1,...,1
+yB02
+c(mean(yB01==0),mean(yB015==0),mean(yB02==0))
+c(mean(yB01==3),mean(yB015==3),mean(yB02==3))
+c(mean(yB01),mean(yB015),mean(yB02))
+c(sd(yB01),sd(yB015),sd(yB02))
+[#}
+\end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}[Loi de la moyenne de $n$ tirages de boules]~
+
+[#r<]
+load('@{curpath(data/simEch.RData)}')
+m<-nrow(muEst.sim)
+[#>]
+On s'intéresse à présent à la moyenne de numéros de $n$ boules choisies au hasard dans une urne $U^\bullet$. Ceci correspond à l'estimateur 
+$\Est{\mu^\bullet}{Y^\bullet}:=\overline{Y^\bullet}=\frac1n \sum_{i=1}^n Y^\bullet_i$ du paramètre $\mu^\bullet$ calculé à partir du vecteur $\Vect{Y^\bullet}=\left( Y_1^\bullet,\ldots,Y_n^\bullet\right)$. Le mathématicien obtient par le calcul les résultats suivants
+$$
+\Est{\mu^\bullet}{Y^\bullet}
+\SuitApprox \mathcal{N} \left( \Esp\left(\Est{\mu^\bullet}{Y^\bullet}\right)  , \sqrt{\Var\left(\Est{\mu^\bullet}{Y^\bullet}\right)}
+\right)=\mathcal{N} \left( \mu^\bullet  ,  \sigma_{\widehat{\mu^\bullet}}
+\right)
+$$
+où $\Esp\left(\Est{\mu^\bullet}{Y^\bullet}\right)=\mu^\bullet$ et $\sqrt{\Var\left(\Est{\mu^\bullet}{Y^\bullet}\right)}=\sigma_{\widehat{\mu^\bullet}} = \frac{\sigma_{\bullet}}{\sqrt{n}}$. 
+
+\begin{enumerate}
+\item Urnes~A: comparez (en remplissant le tableau ci-dessous) les résultats expérimentaux (stockés en \texttt{R} dans les vecteurs \texttt{pAEst01},\texttt{pAEst015} et \texttt{pAEst02}) avec les résultats du mathématicien. 
+
+[#r<]
+n<-1000
+pAEst01<-muEst.sim[perm01,1];pAEst015<-muEst.sim[perm015,2];pAEst02<-muEst.sim[perm02,3]
+[#>]
+\hspace*{-1cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~A&  $U_{0.1}^A$ &  $U_{0.15}^A$&  $U_{0.2}^A$\\
+\hline
+Caractéristique & $N_1=200000$ & $N_1=300000$ & $N_1=400000$  \\
+\hline \hline
+$\Esp\left( \Est{p^A}{Y^A}\right)$ &[#tag]reponse[#>]
+#r{vector2texArray(p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(pAEst01),mean(pAEst015),mean(pAEst02)),p,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$\sigma_{\widehat{p^A}}$ &[#tag]reponse[#>]
+#r{vector2texArray(sqrt(p*(1-p)/n),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{p^A}{y^A_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(pAEst01),sd(pAEst015),sd(pAEst02)),sqrt(p*(1-p)/n),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$P(\Est{p^A}{Y^A}>16.86\%)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(0.1686,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline 
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{p^A}{y^A_{[\cdot]}}>16.86\%}\simeq \meanEmp[\infty]{\Est{p^A}{y^A_{[\cdot]}}>16.86\%}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(pAEst01>0.1686),mean(pAEst015>0.1686),mean(pAEst02>0.1686)),1-pnorm(0.1686,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$\quant{ \Est{p^A}{Y^A}}{95\%}$&[#tag]reponse[#>]
+#r{vector2texArray(qnorm(0.95,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(pAEst01,0.95),quantile(pAEst015,0.95),quantile(pAEst02,0.95)),qnorm(0.95,p,sqrt(p*(1-p)/n)),filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+
+{#rverb]
+n<-1000;p<-c(0.1,0.15,0.2)
+sqrt(p*(1-p)/n)
+## !eval
+1-pnorm(0.1686,p,sqrt(p*(1-p)/n))
+## hide
+round(1-pnorm(0.1686,p,sqrt(p*(1-p)/n)),4)
+qnorm(0.95,p,sqrt(p*(1-p)/n))
+## out | short=1,...,1
+pAEst01
+## out | short=1,...,1
+pAEst015
+## out | short=1,...,1
+pAEst02
+c(mean(pAEst01),mean(pAEst015),mean(pAEst02))
+c(sd(pAEst01),sd(pAEst015),sd(pAEst02))
+c(mean(pAEst01>0.1686),mean(pAEst015>0.1686),mean(pAEst02>0.1686))
+c(quantile(pAEst01,0.95),quantile(pAEst015,0.95),quantile(pAEst02,0.95))
+[#}
+
+\item Même question pour les urnes~B (les résultats sont stockés en \texttt{R} dans les vecteurs \texttt{muBEst01},\texttt{muBEst015} et \texttt{muBEst02})
+
+[#r<]
+muBEst01<-muEst.sim[perm01,4];muBEst015<-muEst.sim[perm015,5];muBEst02<-muEst.sim[perm02,6]
+muB<-c(0.1,0.15,0.2)
+[#>]
+\hspace*{-1.5cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~B&  $U_{0.1}^B$ &  $U_{0.15}^B$&  $U_{0.2}^B$\\
+\hline
+Caractéristique & $N_1=100000$ & $N_1=200000$ & $N_1=300000$  \\
+& $N_2=N_3=20000$& $N_2=N_3=20000$& $N_2=N_3=20000$\\
+\hline \hline 
+$\Esp\left( \Est{\mu^B}{Y^B}\right)$ &[#tag]reponse[#>]
+#r{vector2texArray(muB)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(muBEst01),mean(muBEst015),mean(muBEst02)),muB,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline 
+$\sigma_{\widehat{\mu^B}}$ &[#tag]reponse[#>]
+#r{vector2texArray(sqrt(varB/n),vec2=NULL,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(muBEst01),sd(muBEst015),sd(muBEst02)),sqrt(varB/n),filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline 
+$P(\Est{\mu^B}{Y^B}>0.17)$ &[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(0.17,muB,sqrt(varB/n)),vec2=NULL,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{\mu^B}{y^B_{[\cdot]}}>0.17}\simeq \meanEmp[\infty]{\Est{\mu^B}{y^B_{[\cdot]}}>0.17}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(muBEst01>0.17),mean(muBEst015>0.17),mean(muBEst02>0.17)),1-pnorm(0.17,muB,sqrt(varB/n)),filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+ \hline\hline 
+$\quant{ \Est{\mu^B}{Y^B}}{95\%}$&[#tag]reponse[#>]
+#r{vector2texArray(qnorm(0.95,muB,sqrt(varB/n)),vec2=NULL,filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{\mu^B}{y^B_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{\mu^B}{y^B_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(muBEst01,0.95),quantile(muBEst015,0.95),quantile(muBEst02,0.95)),qnorm(0.95,muB,sqrt(varB/n)),filter=round,4)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+muB<-c(0.1,0.15,0.2)
+sqrt(varB/n)
+## !eval
+1-pnorm(0.17,muB,sqrt(varB/n))
+## hide
+round(1-pnorm(0.17,muB,sqrt(varB/n)),4)
+qnorm(0.95,muB,sqrt(varB/n))
+## out | short=1,...,1
+muBEst01
+## out | short=1,...,1
+muBEst015
+## out | short=1,...,1
+muBEst02
+c(mean(muBEst01),mean(muBEst015),mean(muBEst02))
+c(sd(muBEst01),sd(muBEst015),sd(muBEst02))
+c(mean(muBEst01>0.17),mean(muBEst015>0.17),mean(muBEst02>0.17))
+c(quantile(muBEst01,0.95),quantile(muBEst015,0.95),quantile(muBEst02,0.95))
+[#}
+\end{enumerate}
+
+\end{exercice}
+\begin{exercice}[Loi d'une transformation de la moyenne de $n$ tirages de boules] \label{exo:loiParamEcart}
+
+Le mathématicien obtient par le calcul les résultats suivants:
+$$ \frac{\Est{\mu^\bullet}{Y^\bullet}-\mu^\bullet }{\sigma_{\widehat{\mu^\bullet}}} \SuitApprox \mathcal{N} (0,1) \mbox{ et }\frac{\Est{\mu^\bullet}{Y^\bullet}-\mu^\bullet }{\Est{\sigma_{\widehat{\mu^\bullet}}}{Y^\bullet}} \SuitApprox \mathcal{N} (0,1)
+$$
+où $\Est{\sigma^2_{\widehat{\mu^\bullet}}}{Y^\bullet}=\frac{\Est{\sigma_\bullet^2}{Y^\bullet}} {n}$ et ${\displaystyle \Est{\sigma_{\bullet}^2}{Y^\bullet} = \frac1n \sum_{i=1}^{n} \left(Y^\bullet_i -\overline{Y^\bullet}  \right)^2 }$.
+
+\begin{enumerate}
+\item Urnes~A: comparez (en remplissant le tableau ci-dessous) les résultats expérimentaux (stockés en \texttt{R} dans les vecteurs \texttt{deltaAEst01},\texttt{deltaAEst015} et \texttt{deltaAEst02}) avec les résultats du mathématicien\footnote{certains des résultats (en souligné dans le tableau) du mathématicien sont difficiles à établir. Nous les donnons à titre indicatif afin que vous puissisez les comparer avec leur version expérimentale toujours facilement disponible} suivant: 
+$${\displaystyle \Est{\delta_{p^A,15\%}}{Y^A} =  \frac{\Est{p^A}{Y^A}-15\% }{\sqrt{ \frac{15\% \times 85\%}{n}}}}\SuitApprox 
+\mathcal{N} (0,1)$$ 
+uniquement pour l'urne $U_{0.15}^A$.
+[#r<]
+require(CqlsRandom)
+n<-1000
+loidelta01<-Norm((0.1-0.15)/sqrt(.15*.85/n),sqrt(.1*.9/.15/.85))
+loidelta02<-Norm((0.2-0.15)/sqrt(.15*.85/n),sqrt(.2*.8/.15/.85))
+deltaAEst01<-(pAEst01-0.15)/sqrt(0.15*0.85/n)
+deltaAEst015<-(pAEst015-0.15)/sqrt(0.15*0.85/n)
+deltaAEst02<-(pAEst02-0.15)/sqrt(0.15*0.85/n)
+[#>]
+\hspace*{-1.5cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~A&  $U_{0.1}^A$ &  $U_{0.15}^A$&  $U_{0.2}^A$\\
+\hline \hline
+$\Esp\left( \Est{\delta_{p^A,15\%}}{Y^A}\right)$ & \underline{#R{round(as.numeric(EE(loidelta01)),3)}}&[#tag]reponse[#>]
+0
+[#tag]-reponse[#>][#tag]enonce[#>] & 
+\underline{#R{round(as.numeric(EE(loidelta02)),3)}}\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaAEst01),mean(deltaAEst015),mean(deltaAEst02)),c(as.numeric(EE(loidelta01)),0,as.numeric(EE(loidelta02)) ),round,3 )}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$\sigma_{\widehat{\delta_{p^A,15\%}}}$ &\underline{#R{round(as.numeric(sqrt(VV(loidelta01))),3)}}&
+[#tag]reponse[#>]1[#tag]-reponse[#>][#tag]enonce[#>]
+& \underline{#R{round(as.numeric(sqrt(VV(loidelta02))),3)} }\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(deltaAEst01),sd(deltaAEst015),sd(deltaAEst02)),c(as.numeric(sqrt(VV(loidelta01))),1,as.numeric(sqrt(VV(loidelta02)))),filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline \hline
+$P(\Est{\delta_{p^A,15\%}}{Y^A}>1.6449)$ &\underline{#R{round(as.numeric(1-FF(loidelta01,1.6449))*100,2)}\%}&[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(1.6449),filter=percentFilter)}
+[#tag]-reponse[#>][#tag]enonce[#>]&
+\underline{#R{round(as.numeric(1-FF(loidelta02,1.6449))*100,2)}\%}\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}>1.6449}\simeq \meanEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}>1.6449}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaAEst01>1.6449),mean(deltaAEst015>1.6449),mean(deltaAEst02>1.6449)),c(as.numeric(1-FF(loidelta01,1.6449)),1-pnorm(1.6449) ,as.numeric(1-FF(loidelta02,1.6449))),filter=percentFilter)}
+[#tag]-reponse[#>]&[#tag]enonce[#>]\\
+ \hline \hline
+$\quant{ \Est{\delta_{p^A,15\%}}{Y^A}}{95\%}$&\underline{#R{round(as.numeric(QQ(loidelta01,.95)),3)}}&[#tag]reponse[#>]
+#r{vector2texArray(qnorm(0.95),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>][#tag]enonce[#>]&
+\underline{#R{round(as.numeric(QQ(loidelta02,.95)),3)}}\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(deltaAEst01,0.95),quantile(deltaAEst015,0.95),quantile(deltaAEst02,0.95)),c(as.numeric(QQ(loidelta01,.95)),qnorm(.95),as.numeric(QQ(loidelta02,.95))),filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+
+{#rverb]
+1-pnorm(1.6449,0,1)
+1-pnorm(1.6449)
+qnorm(0.95,0,1)
+qnorm(0.95)
+## out | short=1,...,1
+deltaAEst01
+## out | short=1,...,1
+deltaAEst015
+## out | short=1,...,1
+deltaAEst02
+c(mean(deltaAEst01),mean(deltaAEst015),mean(deltaAEst02))
+c(sd(deltaAEst01),sd(deltaAEst015),sd(deltaAEst02))
+c(mean(deltaAEst01>1.6449),mean(deltaAEst015>1.6449),mean(deltaAEst02>1.6449))
+c(quantile(deltaAEst01,0.95),quantile(deltaAEst015,0.95),quantile(deltaAEst02,0.95))
+[#}
+
+\item Puisque, pour tout $k=1,\ldots,m$, on a $\Est{\delta_{p^A,15\%}}{y_{[k]}^A} = \frac{\Est{p^A}{y_{[k]}^A}-15\%}{\sqrt\frac{15\%\times 85\%}{n}}$, déduire la valeur du quantile $\quantEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}$   en fonction de $\quantEmp[m]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}$.
+
+Même question pour $\quantEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}$ et $\quant{ \Est{\delta_{p^A,15\%}}{Y^A}}{95\%}$ en fonction de respectivement $\quantEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}$ et $\quant{ \Est{p^A}{Y^A}}{95\%}$.
+[#tag]reponse[#>]
+\begin{Correction}
+$$
+\quantEmp[m]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}=\frac{\quantEmp[m]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}-15\%}{\sqrt{15\%\times 85\%/n}}
+$$
+Par ailleurs
+\begin{eqnarray*}
+\quantEmp[\infty]{\Est{\delta_{p^A,15\%}}{y^A_{[\cdot]}}}{95\%}&=&\quant{ \Est{\delta_{p^A,15\%}}{Y^A}}{95\%} \\
+&=&\frac{\quantEmp[\infty]{ \Est{p^A}{y^A_{[\cdot]}}}{95\%}-15\%}{\sqrt{15\%\times 85\%/n}} \\
+&=& \frac{\quant{ \Est{p^A}{Y^A}}{95\%}-15\%}{\sqrt{15\%\times 85\%/n}}
+\end{eqnarray*}
+\end{Correction}
+[#tag]enonce[#>]
+{#rverb]
+(c(quantile(pAEst01,0.95),quantile(pAEst015,0.95),quantile(pAEst02,0.95))-0.15)/
+sqrt(.15*.85/n)
+(qnorm(0.95,.15,sqrt(.15*.85/n))-0.15)/sqrt(.15*.85/n)
+[#}
+
+\item Reprenez la question~1 pour les urnes~B (les résultats sont stockés en \texttt{R} dans les vecteurs \texttt{deltaBEst01},\texttt{deltaBEst015} et \texttt{deltaBEst02}). Le résultat du mathématicien est le suivant~: $${\displaystyle\Est{\delta_{\mu^B,0.15}}{Y} =  \frac{\Est{\mu^B}{Y^B}-0.15 }{
+\Est{\sigma_{\widehat{\mu^B}}}{Y^B}
+} }
+\SuitApprox 
+\mathcal{N} (0,1)
+$$
+uniquement pour les urnes $U_{0.15}^A$ et $U_{0.15}^B$ (parmi les six). 
+
+[#r<]
+deltaBEst01<-muEst.sim[perm01,7]
+deltaBEst015<-muEst.sim[perm015,8]
+deltaBEst02<-muEst.sim[perm02,9]
+[#>]
+\hspace*{-2cm}\begin{tabular}{|c|c|c|c|}
+\hline
+Urnes~B& \hspace*{.5cm} $U_{0.1}^B$  \hspace*{.5cm}&  \hspace*{.5cm} $U_{0.15}^B$ \hspace*{.5cm}& \hspace*{.5cm}  $U_{0.2}^B$ \hspace*{.5cm}\\
+\hline\hline
+$\Esp\left( \Est{\delta_{\mu^B,0.15}}{Y^B}\right)$ &????&[#tag]reponse[#>]
+0
+[#tag]-reponse[#>][#tag]enonce[#>]&????\\
+\hline
+Moyenne A.E.P. &&&\\
+ $\meanEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}\simeq \meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaBEst01),mean(deltaBEst015),mean(deltaBEst02)),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline
+$\sigma_{\widehat{\delta_{\mu^B,0.15}}}$ &????&[#tag]reponse[#>]
+1
+[#tag]-reponse[#>][#tag]enonce[#>]&????\\
+\hline
+Ecart-type A.E.P. &&&\\
+$\sdEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}\simeq\sdEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}$  &[#tag]reponse[#>]
+#r{vector2texArray(c(sd(deltaBEst01),sd(deltaBEst015),sd(deltaBEst02)),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline\hline
+$P(\Est{\delta_{\mu^B,0.15}}{Y^B}>1.6449)$ &????&[#tag]reponse[#>]
+#r{vector2texArray(1-pnorm(1.6449),vec2=NULL,filter=percentFilter)}
+[#tag]-reponse[#>][#tag]enonce[#>]&????\\
+\hline
+Fréquence A.E.P. &&&\\
+$\meanEmp[m]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>1.6449}\simeq \meanEmp[\infty]{\Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}>1.6449}$&[#tag]reponse[#>]
+#r{vector2texArray(c(mean(deltaBEst01>1.6449),mean(deltaBEst015>1.6449),mean(deltaBEst02>1.6449)),vec2=NULL,filter=percentFilter)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+ \hline\hline
+$\quant{ \Est{\delta_{\mu^B,15\%}}{Y^B}}{95\%}$&???&[#tag]reponse[#>]
+#r{round(qnorm(.95),4)}
+[#tag]-reponse[#>][#tag]enonce[#>]&???\\
+\hline
+Quantile A.E.P.&&&\\
+ $\quantEmp[m]{ \Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}{95\%}
+\simeq
+\quantEmp[\infty]{ \Est{\delta_{\mu^B,0.15}}{y^B_{[\cdot]}}}{95\%}
+$&[#tag]reponse[#>]
+#r{vector2texArray(c(quantile(deltaBEst01,0.95),quantile(deltaBEst015,0.95),quantile(deltaBEst02,0.95)),vec2=NULL,filter=round,3)}
+[#tag]-reponse[#>]&&[#tag]enonce[#>]\\
+\hline
+\end{tabular}
+{#rverb]
+## !eval
+1-pnorm(1.6449)
+## hide
+round(1-pnorm(1.6449),5)
+## out | short=1,...,1
+deltaBEst01
+## out | short=1,...,1
+deltaBEst015
+## out | short=1,...,1
+deltaBEst02
+c(mean(deltaBEst01),mean(deltaBEst015),mean(deltaBEst02))
+c(sd(deltaBEst01),sd(deltaBEst015),sd(deltaBEst02))
+c(mean(deltaBEst01>1.6449),mean(deltaBEst015>1.6449),mean(deltaBEst02>1.6449))
+c(quantile(deltaBEst01,0.95),quantile(deltaBEst015,0.95),quantile(deltaBEst02,0.95))
+[#}
+\end{enumerate}
+\end{exercice}

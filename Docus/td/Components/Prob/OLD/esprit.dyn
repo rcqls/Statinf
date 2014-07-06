@@ -1,0 +1,42 @@
+{#require]RCqls/StatInf/TabAEP[#}
+\noindent\textbf{Esprit pour le plan des exos~:}
+\begin{itemize}
+\item avant de passer à des exos de stats où l'expression de la variable aléatoire est généralement plus complexe, proposons des exos où nous introduisons les principales notations de notre cours.
+\item Schéma Formalisation
+\item Une approche AEP vers AMP
+\item Des exos où on travaille la technique \texttt{R} sur les lois de probas
+\end{itemize}
+
+Un expérimentateur lance $m=10000$ fois un dé dont voici les résultats (pas tous!) stockés dans la variable \texttt{yDe}. Il veut savoir si le dé est pipé ou non et pour cela
+{#rverb]
+##hide
+yDe<-sample(1:6,m<-10000,repl=T)
+##out | short=2,...,2
+yDe
+mean(yDe)
+table(yDe)/length(yDe)  # table(x) fournit la répartition en effectifs de x
+mean(yDe<=2)
+var(yDe)
+mean((1:6)^2)-mean(1:6)^2
+quantile(yDe,.5)
+quantile(1:6,.5)
+##hide
+yDe2<-sample(1:6,m<-10000,repl=T)
+##out | short=2,...,2
+yDe2
+mean(yDe+yDe2)
+mean(yDe+yDe2<=2)
+1/36
+var(yDe+yDe2)
+quantile(yDe+yDe2,.5)
+[#}
+
+\textbf{Approche Expérimentale versus Mathématique}
+
+[#<]{#new]unde[#of]InstrProba[#y.R]yDe[#what]mean,var,sd,q0.5,q95%,p[2[#}
+{#new]deuxdes[#of]InstrProba[#y.R]yDe+yDe2[#what]mean,sd,var,q0.5,q95%,p[2[#}
+[#>]{#tableAEP]unde[#}
+
+{#tableAMP]unde[#valR]3.5,var<-mean((1:6)^2)-mean(1:6)^2,sqrt(var),quantile(rep(1:6,rep(10,6)),c(.5,.95)),5/6[#}
+
+{#tableAEP]deuxdes[#}

@@ -1,0 +1,5 @@
+[#=]docs?[enonce]
+[#>]{#case]#{docs}
+[#when]enonce[#>]
+
+[#case}
