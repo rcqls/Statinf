@@ -75,9 +75,9 @@ require(asympTest)
 {#Compose]Election/exo[#}
 [#when]indicProdAB[#>]{#Compose]Components/aide:prodAB[#}
 [#when]ProdAB[#>]
-{#Compose2]Components/ProdAB/info[#}
-{#Compose2]Components/ProdAB/exoProdAetB:presOutils,dataTMP,filter,dataAB,dataAEP,#loi_Y,#loi_est,#loi_deltaEst,rd_pA,rd_muB,rd_delta_muB,rd_delta_pA[#}
-{#Compose]Components/ProdAB/exoProdAetB:prodIntro,expAEP,prodAEP,prodJourJ,expAEPFin[#}
+{#Compose2]Components/ProdAetB/info[#}
+{#Compose2]Components/ProdAetB/exoProdAetB:presOutils,dataTMP,filter,dataAB,dataAEP,#loi_Y,#loi_est,#loi_deltaEst,rd_pA,rd_muB,rd_delta_muB,rd_delta_pA[#}
+{#Compose]Components/ProdAetB/exoProdAetB:prodIntro,expAEP,prodAEP,prodJourJ,expAEPFin[#}
 [#when]indicAEPGraph[#>]{#Compose]Components/aide:AEPGraph[#}
 [#when]AEPGraph[#>]
 {#Compose]Components/Prob/exosProb:graphMoyenneDeuxUnifs,graphMoyenneDeuxDés,graphMoyennes[#}
