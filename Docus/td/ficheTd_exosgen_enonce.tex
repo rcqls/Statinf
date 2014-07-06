@@ -3,7 +3,7 @@
 %Packages
 \usepackage{multirow}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{aeguill}
 \usepackage{amssymb}
@@ -17,8 +17,8 @@
 
 %Preamble
 
-\input /Users/remy/cqls/texinputs/Cours/cqlsInclude
-\input /Users/remy/cqls/texinputs/Cours/testInclude
+\input Cours/cqlsInclude
+\input Cours/testInclude
 
 
 \rightmargin -2cm
@@ -331,10 +331,10 @@ Plaçons-nous une semaine avant le premier tour des élections présidentielles.
 \IndicR
 \begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
 > yI1
-   [1] 0 1 1 0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 1 0 1 0 1 0 0
-  [38] 1 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 1 0 0 1 0 1 0 1 1 0 1 1 1 1 0 0 0 0 0 0 1
+   [1] 0 1 0 0 1 1 1 0 0 1 0 0 0 1 0 1 0 0 0 1 0 0 1 1 0 1 1 1 0 0 1 1 0 1 1 0 1
+  [38] 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 1 0 1 1 0 0 0 1 1 1 0 0 0 0 1 1 0 1 1 1 0
 ...
-[1000] 0
+[1000] 1
 > mean(yI1)
 [1] 0.372
 > # deltaEst.H0 <- (instruction R à fournir dans la rédaction)
@@ -354,10 +354,10 @@ La veille du scrutin, on interroge $n=500$ {\bf nouveaux} individus, les donnée
 \IndicR
 \begin{Verbatim}[frame=leftline,fontfamily=tt,fontshape=n,numbers=left]
 > yI2
-  [1] 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0
- [38] 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
+ [38] 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0
 ...
-[482] 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+[482] 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 0 0
 > mean(yI2)
 [1] 0.11
 > # deltaEst.H0 <- (instruction R à fournir dans la rédaction)
