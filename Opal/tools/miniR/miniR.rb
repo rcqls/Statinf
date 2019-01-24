@@ -738,6 +738,8 @@ class QuizzScore
 		@@quizzs[id]
 	end
 
+		attr_accessor :expr, :val, :rval, :rules, :r_data, :pre_r_code
+
 	def initialize(r_data="",pre_r_code="")
 		@answer=""
 		@r_data,@pre_r_code=r_data,pre_r_code
