@@ -1,0 +1,2 @@
+To build cqls.js: ./opal2js
+To deploy to RodaSrv: ./deploy_rodasrv.sh

@@ -1,0 +1,13 @@
+#!/bin/bash
+OPAL_VERSION="$(ruby -ropal -e "puts Opal::VERSION.strip")"
+if [ "$1" != "" ]; then
+	OPAL_VERSION="$1"
+fi
+
+mkdir -p ${OPAL_VERSION}
+# Merge the two files to build only one
+echo "$(cat proba/cqls.rb)" > ${OPAL_VERSION}/.cqls.rb
+echo "" >> ${OPAL_VERSION}/.cqls.rb
+echo "$(cat hypo/cqls.rb)" >> ${OPAL_VERSION}/.cqls.rb
+
+opal -c ${OPAL_VERSION}/.cqls.rb > ${OPAL_VERSION}/cqls.js
