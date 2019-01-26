@@ -726,16 +726,22 @@ module QuizzTest
 	end
 end
 
-class QuizzScore
+class QuizzScoreMiniR
 	@@quizzs={}
+	@@ids=[]
 
-	def QuizzScore.register(id,rule,r_data="",pre_r_code="")
+	def QuizzScoreMiniR.register(id,rule,r_data="",pre_r_code="")
+		@@ids << id
 		@@quizzs[id]=self.new(r_data,pre_r_code)
 		@@quizzs[id].parse_rule(rule)
 	end
 
-	def QuizzScore.[](id)
+	def QuizzScoreMiniR.[](id)
 		@@quizzs[id]
+	end
+
+	def QuizzScoreMiniR.ls
+		@@ids
 	end
 
 		attr_accessor :expr, :val, :rval, :rules, :r_data, :pre_r_code
@@ -783,7 +789,7 @@ class QuizzScore
 	end
 
 	def eval(expr)
-		@rules.map{|rule| #
+		score=@rules.map{|rule| #
 			case rule
 			when "val"
 				val=get_val(expr)
@@ -797,5 +803,6 @@ class QuizzScore
 				QuizzTest.score_expression_words(expr,@expr,score=[1,0])
 			end
 		}
+		score.map{|e| (e.is_a? Array) ? (e[0].to_s + "/" + e[1].to_s) : e.to_s }.join("+")
 	end
 end
