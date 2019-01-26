@@ -1594,12 +1594,12 @@ module CqlsAEP
 					cqlsAEP.tweens.rect[i].set({visible:false})
 					.wait(#{@time})
 					.to({x:#{@graphExp.to_X(@aep[cur][:xRect][i])},y:#{@graphExp.to_Y(@y[1][i])}})
-					.set({visible:true})
+					.set({visible:true});
 					if(i==0) {
 						cqlsAEP.tweens.rect[i].call(function(tween) {
 							#{@hist[cur].draw(@aep[cur][:nbTot])};
 							#{allowLevelChange(true)};
-						})
+						});
 					}
 
 					cqlsAEP.tweens.pt[i].wait(#{before}+i)
@@ -1613,8 +1613,8 @@ module CqlsAEP
 					.to({y:#{@graphHist.to_Y(@aep[cur][:yRect][i])}+#{@hY[cur]}/2.0},#{fall}-i)
 					.wait(#{after});
 					if(#{@icGood[i]==0}) {
-						cqlsAEP.tweens.pt[i].to({scaleX:1.0,scaleY:1.0})
-						cqlsAEP.tweens.line[i].to({scaleY:1.0})
+						cqlsAEP.tweens.pt[i].to({scaleX:1.0,scaleY:1.0});
+						cqlsAEP.tweens.line[i].to({scaleY:1.0});
 					}
 
 				}
@@ -1623,7 +1623,7 @@ module CqlsAEP
 				//only once
 				cqlsAEP.tweens.pt[0].call(function(tween) {
 						#{hideAll(cur);@hist[cur].add(@x[cur]);@hist[cur].incCptIC(@cptIC);@hist[cur].draw;drawSummary(cur)};
-				})
+				});
 			}
 			@time += before+fall+after
 		end
