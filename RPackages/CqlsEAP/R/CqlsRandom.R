@@ -301,9 +301,9 @@ Summary.dynExpr <- function(e1,...) {
          })
 }
 
-var.default <- var
+var.default <- function(...) stats::var(...)
 var <- function(obj,...) UseMethod("var")
-sd.default <- sd
+sd.default <- function(...) stats::sd(...)
 sd <- function(obj,...) UseMethod("sd")
 mth <- moment <-  function(obj,...) UseMethod("moment")
 
@@ -962,7 +962,7 @@ area.distrib<-function(obj,x,prob,l=100,...) {
 EE.distrib <- function(obj) {
   name <- deparse(substitute(obj))
   distclass <- paste(obj$name,"Dist",sep="")
-  call <- parse(text=paste("EE.",distclass,"(",name,")",sep=""))
+  call <- parse(text=paste("CqlsEAP:::EE.",distclass,"(",name,")",sep=""))
   expr <- paste("EE(",name,")",sep="")
   class(obj) <- c(distclass,class(obj))
   Parameter(EE(obj),"EEParam",call,expr,lsSample(name))
@@ -972,7 +972,7 @@ EE.distrib <- function(obj) {
 VV.distrib <- function(obj,new=TRUE) {
   name <- deparse(substitute(obj))
   distclass <- paste(obj$name,"Dist",sep="")
-  call <- parse(text=paste("VV.",distclass,"(",name,")",sep=""))
+  call <- parse(text=paste("CqlsEAP:::VV.",distclass,"(",name,")",sep=""))
   expr <- paste("VV(",name,")",sep="")
   class(obj) <- c(paste(obj$name,"Dist",sep=""),class(obj))
   Parameter(VV(obj),"VVParam",call,expr,lsSample(name))
