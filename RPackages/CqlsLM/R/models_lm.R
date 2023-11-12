@@ -31,9 +31,10 @@ formula.model_lm <- function(mlm, text = FALSE) {
     yexpr <- mlm$yname
     xexprs <- mlm$xnames
     if(mlm$log) {
-        yexpr <- paste0("log(",yexpr,")")
-        xexprs <- paste0("log(",xexprs,")",collapse="+")
+        yexpr <- paste0("log(", yexpr, ")")
+        xexprs <- paste0("log(", xexprs, ")")
     }
+    xexprs <- paste(xexprs, collapse = "+")
     form <- paste0(yexpr, "~", xexprs)
     if (!text)  form <- formula(form)
     form
