@@ -1,0 +1,7 @@
+Package: CqlsLM
+Version: 0.1.0
+Title: Models lm facilities
+Author: Cqls Team
+Maintainer: Rcqls <remy.drouilhet@upmf-grenoble.fr>
+Description: Facilities for lm models
+License: GPL Version 2 or later.

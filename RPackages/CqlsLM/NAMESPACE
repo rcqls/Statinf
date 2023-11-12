@@ -1,0 +1,16 @@
+#exportPattern("^[[:alpha:]]+")
+
+export(
+    model_lm,
+    model_lm_next, 
+    models_lm,
+    models_lm_next, models_lm_all
+)
+
+#S3method(print,model_lm)
+S3method(summary,model_lm)
+S3method(formula,model_lm)
+
+S3method(print,models_lm)
+S3method(summary,models_lm)
+S3method(formula,models_lm)
