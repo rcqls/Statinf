@@ -9,4 +9,4 @@
 *.Rhistory
 Docus/presentation/img/*
 Docus/td/img/*
-*.RData
+#*.RData
